@@ -1,0 +1,18 @@
+{
+    "titan": {
+        "companyId": 1, 
+        "companyLogo": "http://blog.titan.co.in/wp-content/uploads/2016/07/titan_logo_re.png",
+        
+        "companyTheme": {
+            "primary": "",
+            "secondary":"",
+            "accent": "",
+            "error": "",
+            "info": "",
+            "success": "",
+            "warning": "",
+            "background":"",
+            "textColor": ""
+        }
+    }
+}
