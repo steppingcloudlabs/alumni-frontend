@@ -58,7 +58,6 @@ export default new Vuex.Store({
         headers: {
           'Content-Type':'application/x-www-form-urlencoded',
           'Authorization': 'Bearer '+ data.data.access_token,
-         
         },
       }).then((response) => {
         console.log(response);
