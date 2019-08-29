@@ -57,8 +57,8 @@ export default new Vuex.Store({
         url: 'https://cors-anywhere.herokuapp.com/https://api4.successfactors.com/oauth/validate', // https://cors-anywhere.herokuapp.com/
         headers: {
           'Content-Type':'application/x-www-form-urlencoded',
-          'token_type': 'Bearer',
-          'access_token': data.access_token
+          'Authorization': 'Bearer '+ data.data.access_token,
+         
         },
       }).then((response) => {
         console.log(response);
