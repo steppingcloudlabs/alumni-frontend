@@ -1,13 +1,17 @@
 <template>
-  <HelloWorld />
+<div>
+ <Header/>
+</div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
+import Header from '../components/Header';
+import carousel from '../components/carousel';
 
 export default {
   components: {
-    HelloWorld,
+    Header,
+    carousel,
   },
 };
 </script>

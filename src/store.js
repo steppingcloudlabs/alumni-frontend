@@ -12,6 +12,50 @@ export default new Vuex.Store({
 
   },
   actions: {
+    login: ({state, commit, dispatch}, data) => {
+      new Promise((resolve, reject) => {
+        axios({
+          method:'POST',
+          url:'http://192.168.10.135:4000/user/signin',
+          headers: {
+            'Content-Type':'application/json',
+          },
+          data: {
+            'email': data.email,
+            'password': data.password
+          }
+        }).then((response) => {
+          console.log('heya!')
+          resolve(response)
+        }).catch((error)=> {
+          console.log(error)
+          reject(error)
+        })
+      })
+    },
+    signup: ({state, commit, dispatch}, data) => {
+      new Promise((resolve, reject) => {
+        axios({
+          method:'POST',
+          url:'http://192.168.10.135:4000/user/signup',
+          headers: {
+            'Content-Type':'application/json',
+          },
+          data: {
+            'email': data.email,
+            'password': data.password
+          }
+        }).then((response) => {
+          console.log('heya!')
+          resolve(response)
+        }).catch((error)=> {
+          console.log(error)
+          reject(error)
+        })
+      })
+    },
+
+
     authenticate: ({state, commit, dispatch}, data) => {
       const params = new URLSearchParams();
       params.append('client_id', 'MmJiOGM1ZWU4Zjg2NmY3NDE0MzNiMGFiYWY1OQ');
@@ -31,7 +75,7 @@ export default new Vuex.Store({
       }).catch((error) => {
         console.log(error)
       })
-    },
+    }, 
     getAccessToken: ({state, commit, dispatch}, data) => {
       const params = new URLSearchParams();
       params.append('company_id', 'TATACommTest');

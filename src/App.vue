@@ -1,20 +1,21 @@
 <template>
   <v-app>
-    <Header></Header>
-    <NavigationDrawer></NavigationDrawer>
+   <Home/>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld';
-import NavigationDrawer from './components/NavigationDrawer';
-import Header from './components/Header';
+//import NavigationDrawer from './components/NavigationDrawer';
+import Home from './views/Home';
+
 
 export default {
   name: 'App',
   components: {
-    NavigationDrawer,
-    Header,
+    
+    Home,
   },
   data: () => ({
     //
