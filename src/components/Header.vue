@@ -23,8 +23,11 @@
       <v-list-item-title class="list-item-12"  style="font-size:12px;color:#66FCF1;"  v-if="$route.path == '/home'" @click=navtosignup>Signup</v-list-item-title>
     </v-list-item>
     </v-flex>
+
   </v-layout>
  
+<landingimage  v-if="$route.path == '/home'"></landingimage>
+
 </div>
 </template>
 
@@ -33,8 +36,13 @@
 <script>
 
 import data from "@/assets/data";
+import landingimage from "../components/landingimage";
 
 export default {
+   components: {
+    
+    landingimage,
+  },
   data() {
     return {
       companyData: data

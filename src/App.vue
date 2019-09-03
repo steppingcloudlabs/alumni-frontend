@@ -1,8 +1,13 @@
 <template>
-  <v-app>
-   <Home/>
+
+  <v-app  >
+    
+    <Home/>
     <router-view></router-view>
+   
   </v-app>
+   
+ 
 </template>
 
 <script>
