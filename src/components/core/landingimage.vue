@@ -1,5 +1,5 @@
 <template>
-    <v-parallax src="../assets/back1.jpg">
+    <v-parallax src="@/assets/back1.jpg">
  <v-row
       align="center"
       justify="center"

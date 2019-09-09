@@ -1,5 +1,5 @@
 <template>
-<div id='app'  >
+<div id='core-login'  >
   <v-app id="inspire" style="background:#1A1A1D" class="back" >
    
     <v-content>
@@ -34,7 +34,7 @@
                     name="login"
                     prepend-icon="person"
                     type="text"
-                    v-model="email"
+                    v-model="username"
                   ></v-text-field>
 
                   <v-text-field
@@ -50,7 +50,7 @@
               </v-card-text>
               <v-card-actions> 
                
-               <v-btn  block @click="login1" style="color:#66FCF1">Login</v-btn>
+               <v-btn  block @click="login" style="color:#66FCF1">Login</v-btn>
                 
               </v-card-actions>
               <v-card-text class="text-center" ><router-link to="/forgotpassword" style="color:#66FCF1">Forgot Password</router-link></v-card-text>
@@ -69,27 +69,27 @@
 
 </template>
 <script>
-import backgroundimage from '../assets/back3.jpg'
 
+import md5 from 'crypto-js/md5'
 
 export default {
     data() {
         return {    
             username: null,
             password: null,
-           
-          
         }
     },
+    mounted() {
+      console.log(md5("Rahil").toString())
+    },
     methods: {
-        login1() {
-            
-                    this.$router.push({ path:'/profile' })
-                
+        login1() {  
+          this.$router.push({ path:'/profile' })
         },
         
         login() {
             this.$store.dispatch('login', { 'email': this.username, 'password': this.password }).then((response) => {
+              
                 if (response && response.status && response.status == "Login Successful") {
                     this.$router.push({ path:'/profile' })
                 }
@@ -103,7 +103,7 @@ a {  text-decoration: none;
 color: #66FCF1}
 
 .back {
-  background-image: url("../assets/back3.jpg");
+ 
   background-color: #cccccc;
   height: 500px;
   background-position: center;

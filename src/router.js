@@ -3,8 +3,14 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import signin from './views/Login.vue'
 import signup from './views/signup.vue'
-import NavigationDrawer from '@/components/NavigationDrawer'
+import portal from '@/views/portal.vue'
 import resetpassword from './views/forgot.vue'
+import careers from './components/core/careers.vue'
+import Dashboard from './views/Dashboard.vue'
+import UserProfile from './views/UserProfile.vue'
+import Maps from './views/Maps.vue'
+import notification from './views/Notifications.vue'
+
 
 
 
@@ -41,13 +47,42 @@ export default new Router({
     {
       path: '/profile',
       name: 'profile',
-      component: NavigationDrawer
+      component: portal,
+      children:[
+        {
+          path: 'dashboard',
+          // Relative to /src/views
+          component: Dashboard
+        },
+        {
+          path: 'user-profile',
+          name: 'Profile',
+          component: UserProfile
+        },
+        {
+          path: 'maps',
+          component: Maps
+        },
+        {
+          path: 'careers',
+          name: 'careers',
+          component:careers
+        },
+        {
+          path: 'notification',
+          name: 'notification',
+          component:notification
+        },
+        
+      ]
     },
     {
       path: '/forgotpassword',
       name: 'restpassword',
       component: resetpassword
     },
+   
+   
    
   ]
 })

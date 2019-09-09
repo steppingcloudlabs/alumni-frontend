@@ -49,7 +49,7 @@
                     </v-col>
                   </v-row>
                   <v-text-field
-                    label="Username"
+                    label="Email"
                     name="login"
                     prepend-icon="person"
                     type="text"
@@ -105,13 +105,19 @@ export default {
     },
     methods: {
         signup() {
-           
-            this.$store.dispatch('signup', { 'email':this.email, 'password': this.password }).then((response) => {
-                if (response && response.status && response.status == ' User created') {
-                    this.$router.push({ path:'/signin' })
-                }
-            })
-        }
+          this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
+            if (response) {
+              console.log(response)
+            }
+          })
+        },
+        // signup() {
+        //     this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
+        //       if (response && response.token) {
+        //         this.$router.push({ path:'/signin' })
+        //       }
+        //     })
+        // }
     }
 }
 </script>

@@ -1,19 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import md5 from 'crypto-js/md5'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    customslt:"Tas76OwxwH"
   },
   mutations: {
 
   },
   actions: {
     login: ({state, commit, dispatch}, data) => {
-      new Promise((resolve, reject) => {
+      let pass = md5(data.password).toString()
+      return new Promise((resolve, reject) => {
         axios({
           method:'POST',
           url:'http://192.168.10.135:4000/user/signin',
@@ -22,7 +24,7 @@ export default new Vuex.Store({
           },
           data: {
             'email': data.email,
-            'password': data.password
+            'password': pass
           }
         }).then((response) => {
           console.log('heya!')
@@ -34,7 +36,8 @@ export default new Vuex.Store({
       })
     },
     signup: ({state, commit, dispatch}, data) => {
-      new Promise((resolve, reject) => {
+      let pass = md5(data.password).toString()
+      return new Promise((resolve, reject) => {
         axios({
           method:'POST',
           url:'http://192.168.10.135:4000/user/signup',
@@ -43,10 +46,12 @@ export default new Vuex.Store({
           },
           data: {
             'email': data.email,
-            'password': data.password
+            'password': pass,
+            'companyname':data.companyname,
+            'userid':data.userid
           }
         }).then((response) => {
-          console.log('heya!')
+          console.log(response)
           resolve(response)
         }).catch((error)=> {
           console.log(error)
