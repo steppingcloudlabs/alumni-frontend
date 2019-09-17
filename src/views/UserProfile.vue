@@ -3,28 +3,26 @@
     fill-height
     fluid
   >
+  
     <v-row justify="center">
       <v-col
         cols="12"
         md="8"
       >
-        <material-card
-          color="green"
-          title="Edit Profile"
-          text="Complete your profile"
-        >
+        <v-card
+            color="#385F73"
+            dark
+          >
+           <v-card-text class="white--text">
+              <div class="headline mb-2">My Profile</div>
+             
+            </v-card-text>
+        </v-card>
+       
           <v-form>
             <v-container class="py-0">
               <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Company (disabled)"
-                    disabled
-                  />
-                </v-col>
+                
 
                 <v-col
                   cols="12"
@@ -33,7 +31,7 @@
                   <v-text-field
                     class="purple-input"
                     label="User Name"
-                    v-model="username"
+                    v-model=user.username
                     readonly
                   />
                 </v-col>
@@ -43,18 +41,31 @@
                   md="4"
                 >
                   <v-text-field
+                  v-model=user.email
                     label="Email Address"
                     class="purple-input"
                   />
                 </v-col>
+                 <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                  v-model=user.mobile
+                    label="Contact No"
+                    class="purple-input"
+                  />
+                </v-col>
 
                 <v-col
                   cols="12"
                   md="6"
                 >
                   <v-text-field
+                  v-model=user.firstname
                     label="First Name"
                     class="purple-input"
+                    readonly
                   />
                 </v-col>
 
@@ -63,13 +74,24 @@
                   md="6"
                 >
                   <v-text-field
+                  v-model=user.lastname
                     label="Last Name"
                     class="purple-input"
+                    readonly
                   />
                 </v-col>
-
+                <v-col cols="12"
+                md="4"
+                > <v-text-field
+                  v-model=user.DOB
+                    label="DOB"
+                    class="purple-input"
+                    readonly
+                  />
+                </v-col>
                 <v-col cols="12">
                   <v-text-field
+                  v-model=user.address
                     label="Adress"
                     class="purple-input"
                   />
@@ -80,6 +102,7 @@
                   md="4"
                 >
                   <v-text-field
+                  v-model=user.city
                     label="City"
                     class="purple-input"
                   />
@@ -90,6 +113,7 @@
                   md="4"
                 >
                   <v-text-field
+                  v-model=user.country
                     label="Country"
                     class="purple-input"
                   />
@@ -100,9 +124,10 @@
                   md="4"
                 >
                   <v-text-field
+                     v-model=user.postalcode
                     class="purple-input"
                     label="Postal Code"
-                    type="number"
+                    
                   />
                 </v-col>
 
@@ -110,22 +135,16 @@
                   <v-textarea
                     class="purple-input"
                     label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    v-model=user.me
                   />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                  class="text-right"
-                >
-                  <v-btn color="success">
-                    Update Profile
-                  </v-btn>
-                </v-col>
+               
               </v-row>
             </v-container>
           </v-form>
-        </material-card>
+       
+        
       </v-col>
       <v-col
         cols="12"
@@ -137,30 +156,29 @@
             class="mx-auto d-block elevation-6"
             size="130"
           >
-            <img
-              src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-            >
+             <img 
+             src="@/assets/avatar/download.jpg">
+
           </v-avatar>
           <v-card-text class="text-center">
             <h6 class="overline mb-3">
-              CEO / CO-FOUNDER
+              {{user.position}}
             </h6>
 
             <h4 class="font-weight-light">
-              Alec Thompson
+              {{user.firstname+" "+user.lastname}}
             </h4>
+         
+               <v-btn color="success">Update Picture</v-btn>
+          
+           
 
-            <p class="font-weight-light">
-              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-            </p>
-
-            <v-btn color="success">
-              Follow
-            </v-btn>
+           
           </v-card-text>
         </material-card>
       </v-col>
     </v-row>
+    
   </v-container>
 </template>
 
@@ -168,8 +186,36 @@
   export default {
     data:()=>(
     {
-      username:'xyz',
-    })
-  //
+      user:{
+        username:"test1",
+        firstname:"stepping",
+        lastname:"cloud",
+        address:"mohan estate",
+        city:"delhi",
+        country:"india",
+        postalcode:"202001",
+        me:"qwerrtyuyijgjgjbnjvnccnxxnv",
+        email:"test1@stepping.in",
+        position:"software engg",
+        mobile:"987654322",
+        DOB:"20/12/1996",
+        avatar:'download'
+      }
+    }),
+    beforeMount() {
+      initializeUserData();
+    
+    },
+    watch:{
+     user(){
+       initializeUserData();
+     }
+    },
+    methods:{
+      initializeUserData(){
+        user=this.$store.getters.getUserData();
+      }
+    }
+   //
   }
 </script>

@@ -106,8 +106,10 @@ export default {
     methods: {
         signup() {
           this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
-            if (response) {
+            if (response && response.message && response.message.token && response.status == 200) {
               console.log(response)
+              this.$router.push({ path:'/signin' })
+
             }
           })
         },

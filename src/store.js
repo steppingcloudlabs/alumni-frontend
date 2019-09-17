@@ -7,9 +7,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    customslt:"Tas76OwxwH"
+    customslt:"Tas76OwxwH",
+    userData:{},
+    status:{}
   },
   mutations: {
+    setData: (state, data) => {
+      state.userData = data;
+    },
+    statusData: (state, data) => {
+      state.statusData = data;
+    }
+  },
+  getters: {
+    getUserData: (state) => {
+      return state.userData
+
+    },
+    getstatusData: (state) => {
+      return state.status()
+
+    },
 
   },
   actions: {
@@ -28,9 +46,13 @@ export default new Vuex.Store({
           }
         }).then((response) => {
           console.log('heya!')
-          resolve(response)
+          console.log(response.data)
+          resolve(response.data)
+          commit('setData', response.data.message.data)
+          commit('statusData', response.data)
         }).catch((error)=> {
           console.log(error)
+          
           reject(error)
         })
       })
@@ -52,7 +74,7 @@ export default new Vuex.Store({
           }
         }).then((response) => {
           console.log(response)
-          resolve(response)
+          resolve(response.data)
         }).catch((error)=> {
           console.log(error)
           reject(error)

@@ -1,12 +1,14 @@
 <template>
 <div>
-    <v-parallax  src="@/assets/background1.jpg"></v-parallax>
-
+   <v-img
+        height="500px"
+        src="@/assets/background1.jpg"
+      >   <core-app-bar ></core-app-bar></v-img>
  <v-toolbar
   elevation='0'
   color="#1A1A1D"
     >
-<v-toolbar-title  style="font-family: Raleway;color:#66FCF1">Recommended Careers</v-toolbar-title>
+<v-toolbar-title  style="font-family: Raleway;color:#5097DD">Recommended Careers</v-toolbar-title>
 </v-toolbar>
   
   <v-data-table
@@ -19,9 +21,9 @@
     hide-default-footer
     
     multi-sort
-    class="scroll"
+    
 
-    height="200px"
+    height="auto"
     dark
     style="background:#1A1A1D;border-bottom:none;"
   ></v-data-table>
@@ -30,6 +32,12 @@
 
 <script>
   export default {
+     components: {
+      
+      CoreAppBar: () => import('@/components/core/AppBar'),
+      
+      
+    },
     data () {
       return {
         headers: [
@@ -102,11 +110,6 @@
   }
 </script>
 <style >
-.scroll {
-      overflow-y: auto;
-     background:"#66FCF1";
-    
-    }
 .v-data-table{
  border-top:'none';
 }

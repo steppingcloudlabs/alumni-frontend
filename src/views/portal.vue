@@ -1,8 +1,7 @@
 <template>
-    <v-app>
-      <core-app-bar />  
+    <v-app  >
       <core-drawer ></core-drawer>
-      <core-view />
+      <core-view ></core-view>
     
     </v-app>     
 </template>
@@ -18,5 +17,10 @@
     }
   }
 </script>
+<style >
+.v-content__wrap{
+/* background:#151515 !important */
+}
 
+</style>
 

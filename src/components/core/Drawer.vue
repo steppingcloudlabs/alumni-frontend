@@ -2,7 +2,7 @@
   <v-navigation-drawer
     id="app-drawer"
     v-model="inputValue"
-    :src="image"
+    src="@/assets/back1.jpg"
     app
     color="grey darken-2"
     dark
@@ -20,11 +20,13 @@
 
     <v-list-item two-line>
       <v-list-item-avatar color="white">
-        <v-icon>mdi-profile</v-icon>
+         <img 
+             src="@/assets/avatar/download.jpg">
+>
       </v-list-item-avatar>
 
       <v-list-item-title class="title">
-        Welcome Back!!
+        Welcome {{firstname}}!!
       </v-list-item-title>
     </v-list-item>
 
@@ -65,6 +67,12 @@
     data: () => ({
       image: "",
       inputValue: true,
+      user:{
+       firstname:"hello",
+           },
+        
+      
+      
       links: [
         {
           to: '/profile/dashboard',
@@ -76,13 +84,9 @@
           icon: 'mdi-account',
           text: 'User Profile'
         },
+       
         {
-          to: '/profile/home',
-          icon: 'mdi-clipboard-outline',
-          text: 'Clearance Portal'
-        },
-        {
-          to: '/profile/icon',
+          to: '/profile/document',
           icon: 'mdi-clipboard',
           text: 'Document Portal'
         },
@@ -97,15 +101,37 @@
           text: 'Maps'
         },
         {
-          to: '/profile/notification',
-          icon: 'mdi-bell',
-          text: 'Notifications'
+          to: '/home',
+          icon: 'mdi-logout',
+          text: 'Logout'
         }
-      ]
+      ],
+     
     }),
-
-
+    beforeMount() {
+      this.initializeUsername();
     
+    },
+     watch:{
+     user(){
+       this.initializeUsername();
+     }
+    },
+   
+   
+    methods:{
+      initializeUsername(){
+        
+        this.user.firstname=this.userData.first_name_personal_information;
+        
+      }
+    },
+    computed: {
+      userData() {
+        return this.$store.getters.getUserData;
+      }
+    }
+   
   }
 </script>
 

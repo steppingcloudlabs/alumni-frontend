@@ -50,7 +50,7 @@
               </v-card-text>
               <v-card-actions> 
                
-               <v-btn  block @click="login" style="color:#66FCF1">Login</v-btn>
+               <v-btn  block v-on: @click="login" style="color:#66FCF1">Login</v-btn>
                 
               </v-card-actions>
               <v-card-text class="text-center" ><router-link to="/forgotpassword" style="color:#66FCF1">Forgot Password</router-link></v-card-text>
@@ -65,6 +65,19 @@
       </v-container>
     </v-content>
   </v-app>
+   <v-snackbar
+      v-model="snackbar"
+      :timeout=20000
+    >
+      {{message}}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
 </div>
 
 </template>
@@ -77,24 +90,28 @@ export default {
         return {    
             username: null,
             password: null,
+           snackbar:false,
+           message:"djvjfhvd",
         }
     },
     mounted() {
-      console.log(md5("Rahil").toString())
+      // console.log(md5("Rahil").toString()),
+    
     },
     methods: {
-        login1() {  
-          this.$router.push({ path:'/profile' })
-        },
-        
         login() {
             this.$store.dispatch('login', { 'email': this.username, 'password': this.password }).then((response) => {
-              
-                if (response && response.status && response.status == "Login Successful") {
-                    this.$router.push({ path:'/profile' })
+                if (response && response.status && response.status == 200 && response.message && response.message.Status == "Login Successful") {
+                  this.$router.push({ path:'/profile/user-profile' })
+                }
+                else if (response && response.status && response.status == 200 && response.data && response.data.Status == "User doesn't Exist") {
+                  this.snackbar = true;
                 }
             })
-        }
+        },
+       
+    
+    
     }
 }
 </script>

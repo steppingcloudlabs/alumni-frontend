@@ -1,12 +1,5 @@
 <template>
-  <v-app-bar
-    id="core-app-bar"
-    absolute
-    app
-    color="transparent"
-    flat
-    height="88"
-  >
+<div>
     <v-toolbar-title class="tertiary--text font-weight-light align-self-center">
       <v-btn
         v-if="responsive"
@@ -16,7 +9,7 @@
       >
         <v-icon>mdi-view-list</v-icon>
       </v-btn>
-      {{ title }}
+     
     </v-toolbar-title>
 
     <v-spacer />
@@ -26,13 +19,7 @@
         align="center"
         class="mx-0"
       >
-        <v-text-field
-          class="mr-4 purple-input"
-          color="purple"
-          label="Search..."
-          hide-details
-        />
-
+        <v-spacer></v-spacer>
         <v-btn
           icon
           to="/"
@@ -93,7 +80,7 @@
         </v-btn>
       </v-row>
     </v-toolbar-items>
-  </v-app-bar>
+</div>
 </template>
 
 <script>
@@ -111,7 +98,7 @@
         'Another Notification',
         'Another One'
       ],
-      title: null,
+    
       responsive: false
     }),
 
