@@ -11,7 +11,7 @@
         <v-btn class="button" color="primary" dark @click="dialog = true"><i class="fas fa-plus-circle"></i>Add News</v-btn>
         </v-card-title>
         <v-card
-      v-for="(item,i) in 7"
+      v-for="(item,i) in news"
       :key="i"
     >
     <v-list-item three-line>
@@ -23,8 +23,8 @@
 
       
       <v-list-item-content>
-        <v-list-item-title class="headline mb-2">Headline</v-list-item-title>
-        <v-list-item-subtitle>Body</v-list-item-subtitle>
+        <v-list-item-title class="headline mb-2">{{item.Headline}}</v-list-item-title>
+        <v-list-item-subtitle>{{item.Body}}</v-list-item-subtitle>
       </v-list-item-content>
 
       
@@ -45,7 +45,7 @@
         <v-btn  class="button" color="primary" dark @click="dialog1 = true"><i class="fas fa-plus-circle"></i>Add Events</v-btn>
          </v-card-title>
           <v-card
-      v-for="(item,i) in 7"
+      v-for="(item,i) in news"
       :key="i"
     >
     <v-list-item three-line>
@@ -57,8 +57,8 @@
 
       
       <v-list-item-content>
-        <v-list-item-title class="headline mb-2">Title</v-list-item-title>
-        <v-list-item-subtitle>Event Description Here</v-list-item-subtitle>
+        <v-list-item-title class="headline mb-2">{{item.Headline}}</v-list-item-title>
+        <v-list-item-subtitle>{{item.Body}}</v-list-item-subtitle>
       </v-list-item-content>
 
       
@@ -83,9 +83,14 @@ import AddEventDialog from '@/components/admin/AddEventDialog'
       dialog1: false,
       news:[
         {
-          Headline:"",
-          Body:""
-        }
+          Headline:"After serving for 36 years, Titan MD Bhaskar Bhat",
+          Body:"When he hangs up his boots this month-end, Bhaskar Bhat,"
+        },
+         {
+          Headline:"After serving for 36 years, Titan MD Bhaskar Bhat",
+          Body:"When he hangs up his boots this month-end, Bhaskar Bhat,"
+        },
+
       ]
     }),
     components: {

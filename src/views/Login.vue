@@ -35,6 +35,8 @@
                     prepend-icon="person"
                     type="text"
                     v-model="username"
+                    
+                    
                   ></v-text-field>
 
                   <v-text-field
@@ -49,7 +51,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions> 
-               
+               <div class="error" v-if="!$v.password.minLength">{{onblur()}}</div>
                <v-btn  block v-on: @click="login" style="color:#66FCF1">Login</v-btn>
                 
               </v-card-actions>
@@ -65,42 +67,49 @@
       </v-container>
     </v-content>
   </v-app>
-   <v-snackbar
-      v-model="snackbar"
-      :timeout=20000
-    >
-      {{message}}
-      <v-btn
-        color="blue"
-        text
-        @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
+   
 </div>
 
 </template>
 <script>
 
 import md5 from 'crypto-js/md5'
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+import { constants } from 'crypto';
 
 export default {
     data() {
         return {    
             username: null,
             password: null,
-           snackbar:false,
-           message:"djvjfhvd",
         }
     },
     mounted() {
       // console.log(md5("Rahil").toString()),
-    
+      console.log(this.test)
+      this.test = "My New Data"
+      console.log(this.test)
     },
+     validations: {
+    password: {
+      required,
+      minLength: minLength(6)
+    },   
+  },
+  computed: {
+    test: {
+      get() {
+        return this.$store.getters['userModule/getTest'];
+      },
+      set(data) {
+        this.$store.commit('userModule/setTest', data)
+      }
+    }
+  },
     methods: {
         login() {
-            this.$store.dispatch('login', { 'email': this.username, 'password': this.password }).then((response) => {
+          
+            this.$store.dispatch('userModule/login', { 'email': this.username, 'password': this.password }).then((response) => {
                 if (response && response.status && response.status == 200 && response.message && response.message.Status == "Login Successful") {
                   this.$router.push({ path:'/profile/user-profile' })
                 }
@@ -109,6 +118,10 @@ export default {
                 }
             })
         },
+        onblur(){
+          
+          this.$store.commit('showSnackbar', { color: 'red', duration: 3000, message: "Password must have at least 6 letters.", heading: "Error" })
+        }
        
     
     

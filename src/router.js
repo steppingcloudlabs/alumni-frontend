@@ -15,6 +15,8 @@ import admin from './views/adminportal.vue'
 import newsupload from './components/admin/newsupload.vue'
 import document from './components/admin/UploadDocument.vue'
 import dashboard from './components/admin/Dashboard.vue'
+import FaQ from './components/admin/FaqUpdate.vue'
+import AskHr from './components/core/askHr.vue'
 
 
 
@@ -33,7 +35,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/signin',
+      path: '/login',
       name: 'signin',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -59,6 +61,11 @@ export default new Router({
           path: 'dashboard',
           // Relative to /src/views
           component: Dashboard
+        },
+        {
+          path: 'query',
+          // Relative to /src/views
+          component: AskHr
         },
         {
           path: 'user-profile',
@@ -115,8 +122,8 @@ export default new Router({
           component: newsupload
         },
         {
-          path: 'maps',
-          component: Maps
+          path: 'update',
+          component: FaQ
         },
         {
           path: 'document',

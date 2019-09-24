@@ -37,7 +37,7 @@
  <v-card elevation="0"
 outlined
  hover
- 
+ height="400px"
   >
       <v-card-title >Personal information</v-card-title>
                <v-row>
@@ -102,125 +102,11 @@ outlined
       </v-card>
   </v-col>
 
-
-
-
-      <v-col
-                  cols="12"
-                  md="6">
-                          
- <v-card
- elevation="0"
-outlined
- hover
-  
->
- <v-card-title >Contact Details</v-card-title>
- <v-row>
-    <v-col
-                  cols="12"
-                  md="1"
-                ></v-col>
-      
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                  v-model=user.email
-                    label="Email Address"
-                    class="purple-input"
-                  />
-                </v-col>
-                 <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                  v-model=user.mobile
-                    label="Contact No"
-                    class="purple-input"
-                    type="number"
-                  />
-                </v-col>
-                 <v-col
-                  cols="12"
-                  md="1"
-                ></v-col>
- </v-row>
- </v-card>
-                </v-col>
- 
-  <v-col cols="12"  md="6">
+<v-col cols="12"  md="6">
     <v-card elevation="0"
     outlined
     hover
-  
-   >
-      <v-card-title >Address Details</v-card-title>
-      <v-row>
-              <v-col cols="12"
-                md="1"></v-col>
-                <v-col cols="12"
-                md="10">
-                  <v-text-field
-                  v-model=user.address
-                    label="Address"
-                    class="purple-input"
-                  />
-                </v-col>
-               <v-col cols="12"
-                md="1"></v-col>
-                
-                <v-col cols="12"
-                md="1"></v-col>
-                <v-col
-                  cols="12"
-                  md="5"
-                >
-                  <v-text-field
-                  v-model=user.city
-                    label="City"
-                    class="purple-input"
-                  />
-                </v-col>
-                 <v-col 
-                  cols="12"
-                  md="5"
-                >
-                  <v-text-field
-                     v-model=user.postalcode
-                    class="purple-input"
-                    label="Postal Code"
-                    
-                  />
-                </v-col>
-             <v-col cols="12"
-                md="1"></v-col>
-
-                <v-col cols="12"
-                md="1"></v-col>
-                <v-col
-                  cols="12"
-                  md="5"
-                >
-                  <v-text-field
-                  v-model=user.country
-                    label="Country"
-                    class="purple-input"
-                  />
-                </v-col>
-                <v-col cols="12"
-                md="1"></v-col>
-      </v-row>
-    </v-card>
-  </v-col>
-  
- 
-  <v-col cols="12"  md="6">
-    <v-card elevation="0"
-    outlined
-    hover >
+     height="400px" >
       <v-card-title >Company Details</v-card-title>
       <v-row>
               <v-col cols="12"
@@ -299,29 +185,122 @@ outlined
       </v-row>
     </v-card>
   </v-col>
-
-  <v-col cols="12">
-    <v-card elevation="0"
-    outlined>
-      <v-card-title >About Me</v-card-title>
-      <v-row >
-        <v-col cols="12"
-                 md="1"></v-col>
-                <v-col cols="12"
-                 md="10">
-                  <v-textarea
-                 
+      <v-col
+        cols="12"
+         md="6">
+                          
+ <v-card
+ elevation="0"
+outlined
+ hover
+   height="400px"
+>
+ <v-card-title >Contact Details</v-card-title>
+ <v-row>
+    <v-col
+                  cols="12"
+                  md="1"
+                ></v-col>
+      
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                  v-model=user.email
+                    label="Email Address"
                     class="purple-input"
-                    label="About Me"
-                    v-model=user.me
+                  />
+                </v-col>
+                 <v-col
+                  cols="12"
+                  md="4"
+                >
+                  <v-text-field
+                  v-model=user.mobile
+                    label="Contact No"
+                    class="purple-input"
+                    type="number"
+                  />
+                </v-col>
+                 <v-col
+                  cols="12"
+                  md="1"
+                ></v-col>
+ </v-row>
+ </v-card>
+                </v-col>
+ 
+  <v-col cols="12"  md="6">
+    <v-card elevation="0"
+    outlined
+    hover
+     height="400px"
+  
+   >
+      <v-card-title >Address Details</v-card-title>
+      <v-row>
+              <v-col cols="12"
+                md="1"></v-col>
+                <v-col cols="12"
+                md="10">
+                  <v-text-field
+                  v-model=user.address
+                    label="Address"
+                    class="purple-input"
+                  />
+                </v-col>
+               <v-col cols="12"
+                md="1"></v-col>
+                
+                <v-col cols="12"
+                md="1"></v-col>
+                <v-col
+                  cols="12"
+                  md="5"
+                >
+                  <v-text-field
+                  v-model=user.city
+                    label="City"
+                    class="purple-input"
+                  />
+                </v-col>
+                 <v-col 
+                  cols="12"
+                  md="5"
+                >
+                  <v-text-field
+                     v-model=user.postalcode
+                    class="purple-input"
+                    label="Postal Code"
                     
                   />
                 </v-col>
+             <v-col cols="12"
+                md="1"></v-col>
+
                 <v-col cols="12"
-                 md="1"></v-col>
+                md="1"></v-col>
+                <v-col
+                  cols="12"
+                  md="5"
+                >
+                  <v-text-field
+                  v-model=user.country
+                    label="Country"
+                    class="purple-input"
+                  />
+                </v-col>
+                <v-col cols="12"
+                md="1"></v-col>
       </v-row>
     </v-card>
-    </v-col>
+  </v-col>
+  
+ 
+  
+
+  
                
               </v-row>
             </v-container>

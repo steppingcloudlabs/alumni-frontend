@@ -26,7 +26,7 @@
                 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form >
                   <v-row>
                     <v-col>
                       <v-text-field
@@ -71,7 +71,11 @@
                     prepend-icon="lock"
                     type="password"
                     v-model="Cnfpassword"
+                    
                   ></v-text-field>
+                  <div class="error" v-if="!$v.Cnfpassword.sameAsPassword">
+                     </div>
+                  <div class="error" v-if="!$v.password.minLength">{{onblur()}}</div>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -88,11 +92,14 @@
           </v-col>
         </v-row>
       </v-container>
+     
     </v-content>
   </v-app>
 </template>
 
 <script>
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+
 export default {
     data() {
         return {    
@@ -101,18 +108,31 @@ export default {
             email:null,
             Cnfpassword:null,
             password: null,
+            snackbar:false,
+            snackbar1:true
         }
     },
     methods: {
         signup() {
-          this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
+         
+
+         
+         
+          this.$store.dispatch('userModule/signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
             if (response && response.message && response.message.token && response.status == 200) {
               console.log(response)
               this.$router.push({ path:'/signin' })
 
             }
           })
+        
+          
         },
+         onblur(){
+          
+          this.$store.commit('showSnackbar', { color: 'red', duration: 1000, message: "Password must have at least 6 letters.", heading: "Error" })
+        }
+       
         // signup() {
         //     this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
         //       if (response && response.token) {
@@ -120,7 +140,16 @@ export default {
         //       }
         //     })
         // }
+    },
+    validations: {
+    password: {
+      required,
+      minLength: minLength(6)
+    },
+    Cnfpassword: {
+      sameAsPassword: sameAs('password')
     }
+  }
 }
 </script>
 <style >

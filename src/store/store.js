@@ -2,14 +2,25 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import md5 from 'crypto-js/md5'
+import adminModule from '@/store/modules/admin.module'
+import userModule from '@/store/modules/user.module'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    adminModule,
+    userModule
+  },
   state: {
     customslt:"Tas76OwxwH",
     userData:{},
-    status:{}
+    status:{},
+    showSnackbar: false,
+    snackbarDuration: 3000,
+    snackbarMessage: "Hello",
+    snackbarHeading: "Error",
+    snackbarColor: "Red"
   },
   mutations: {
     setData: (state, data) => {
@@ -17,70 +28,55 @@ export default new Vuex.Store({
     },
     statusData: (state, data) => {
       state.statusData = data;
+    },
+    setShowSnackbar: (state, data) => {
+      state.showSnackbar = data;
+    },
+    setSnackbarDuration: (state, data) => {
+      state.snackbarDuration = data;
+    },
+    setSnackbarMessage: (state, data) => {
+      state.snackbarMessage = data;
+    },
+    setSnackbarHeading: (state, data) => {
+      state.snackbarHeading = data;
+    },
+    setSnackbarColor: (state, data) => {
+      state.snackbarColor = data;
+    },
+    showSnackbar: (state, data) => {
+      state.showSnackbar = true;
+      state.snackbarColor = data.color;
+      state.snackbarDuration = data.duration;
+      state.snackbarHeading = data.heading;
+      state.snackbarMessage = data.message;
     }
   },
   getters: {
-    getUserData: (state) => {
-      return state.userData
-
+    
+    getStatusData: (state) => {
+      return state.status
     },
-    getstatusData: (state) => {
-      return state.status()
-
+    getShowSnackbar: (state) => {
+      return state.showSnackbar
     },
-
+    getSnackbarDuration: (state) => {
+      return state.snackbarDuration
+    },
+    getSnackbarMessage: (state) => {
+      return state.snackbarMessage
+    },
+    getSnackbarHeading: (state) => {
+      return state.snackbarHeading
+    },
+    getSnackbarColor: (state) => {
+      return state.snackbarColor
+    },
+ 
   },
+  
   actions: {
-    login: ({state, commit, dispatch}, data) => {
-      let pass = md5(data.password).toString()
-      return new Promise((resolve, reject) => {
-        axios({
-          method:'POST',
-          url:'http://192.168.10.135:4000/user/signin',
-          headers: {
-            'Content-Type':'application/json',
-          },
-          data: {
-            'email': data.email,
-            'password': pass
-          }
-        }).then((response) => {
-          console.log('heya!')
-          console.log(response.data)
-          resolve(response.data)
-          commit('setData', response.data.message.data)
-          commit('statusData', response.data)
-        }).catch((error)=> {
-          console.log(error)
-          
-          reject(error)
-        })
-      })
-    },
-    signup: ({state, commit, dispatch}, data) => {
-      let pass = md5(data.password).toString()
-      return new Promise((resolve, reject) => {
-        axios({
-          method:'POST',
-          url:'http://192.168.10.135:4000/user/signup',
-          headers: {
-            'Content-Type':'application/json',
-          },
-          data: {
-            'email': data.email,
-            'password': pass,
-            'companyname':data.companyname,
-            'userid':data.userid
-          }
-        }).then((response) => {
-          console.log(response)
-          resolve(response.data)
-        }).catch((error)=> {
-          console.log(error)
-          reject(error)
-        })
-      })
-    },
+   
 
 
     authenticate: ({state, commit, dispatch}, data) => {

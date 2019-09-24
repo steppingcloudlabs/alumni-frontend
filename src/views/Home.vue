@@ -1,6 +1,6 @@
 <template>
 <div>
- <Header v-if="$route.path == '/home'||$route.path == '/signin' ||$route.path == '/signup'"/>
+ <Header v-if="$route.path == '/home'||$route.path == '/login' ||$route.path == '/signup'"/>
  <cards v-if="$route.path == '/home'"></cards>
  <news v-if="$route.path == '/home'"></news>
 </div>

@@ -1,115 +1,100 @@
 <template>
+<v-layout row wrap>
   <v-card
-    :style="styles"
-    v-bind="$attrs"
-    v-on="$listeners"
+      v-for="(item,i) in event"
+      :key="i"
+    color="#5097DD"
+    dark
+    width="450px"
+    class="mr-5"
+  
   >
-    <helper-offset
-      v-if="hasOffset"
-      :inline="inline"
-      :full-width="fullWidth"
-      :offset="offset"
-    >
-      <v-card
-        v-if="!$slots.offset"
-        :color="color"
-        :elevation="elevation"
-        class="v-card--material__header d-flex align-center"
-        dark
-        min-height="80"
+    <v-card-title>
+      <v-icon
+        large
+        left
       >
-        <slot
-          v-if="!title && !text"
-          name="header"
-        />
-        <div
-          v-else
-          class="px-3"
-        >
-          <h4
-            class="title font-weight-light mb-2"
-            v-text="title"
-          />
-          <p
-            class="category font-weight-thin mb-0"
-            v-text="text"
-          />
-        </div>
-      </v-card>
+      mdi-bullhorn
+      </v-icon>
+      <span class="title font-weight-bold">{{item.eventTitle}}</span>
+    </v-card-title>
 
-      <slot
-        v-else
-        name="offset"
-      />
-    </helper-offset>
-
-    <v-card-text>
-      <slot />
+    <v-card-text class="headline font-weight-bold">
+      {{item.eventDescription}}
     </v-card-text>
 
-    <v-divider
-      v-if="$slots.actions"
-      class="mx-3"
-    />
+    <v-card-actions>
+      
 
-    <v-card-actions v-if="$slots.actions">
-      <slot name="actions" />
+        <v-list-item-content>
+          <v-list-item-title>{{item.eventLocation}}</v-list-item-title>
+        </v-list-item-content>
+
+        <v-row
+          align="center"
+          justify="end"
+        >
+          <v-icon class="mr-1">mdi-thumb-up</v-icon>
+          <span class="subheading mr-2">256</span>
+          <span class="mr-1">·</span>
+          <v-icon class="mr-1">mdi-thumb-down</v-icon>
+          <span class="subheading">45</span>
+        </v-row>
+     
     </v-card-actions>
   </v-card>
+</v-layout> 
+
 </template>
 
 <script>
-  export default {
-    name: 'MaterialCard',
-
-    inheritAttrs: false,
-
-    props: {
-      color: {
-        type: String,
-        default: 'secondary'
-      },
-      elevation: {
-        type: [Number, String],
-        default: 10
-      },
-      inline: {
-        type: Boolean,
-        default: false
-      },
-      fullWidth: {
-        type: Boolean,
-        default: false
-      },
-      offset: {
-        type: [Number, String],
-        default: 24
-      },
-      title: {
-        type: String,
-        default: undefined
-      },
-      text: {
-        type: String,
-        default: undefined
-      }
+export default {
+  data(){
+    return{
+          event:[
+    {
+        id: 1,
+        eventTitle: "Hello Boss",
+        eventDescription: "AFGdnbvfbfjnbmkvmvckmdjjf",
+        
+        
+        eventLocation: "New Delhi",
+       
     },
-
-    computed: {
-      hasOffset () {
-        return this.$slots.header ||
-          this.$slots.offset ||
-          this.title ||
-          this.text
-      },
-      styles () {
-        if (!this.hasOffset) return null
-
-        return {
-          marginBottom: `${this.offset}px`,
-          marginTop: `${this.offset * 2}px`
-        }
-      }
-    }
+    {
+        id: 2,
+        eventTitle: "Hello asdf",
+        eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
+        
+        
+        eventLocation: "USA",
+    },
+     {
+        id: 3,
+        eventTitle: "Hello asdf",
+        eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
+        
+        
+        eventLocation: "USA",
+    },
+    {
+        id: 3,
+        eventTitle: "Hello asdf",
+        eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
+        
+        
+        eventLocation: "USA",
+    },
+]
+    
+   
   }
+}
+}
 </script>
+<style >
+.move{
+  overflow-x: auto
+}
+
+</style>

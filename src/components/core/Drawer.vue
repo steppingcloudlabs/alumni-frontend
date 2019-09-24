@@ -100,6 +100,11 @@
           icon: 'mdi-map-marker',
           text: 'Maps'
         },
+         {
+          to: '/profile/query',
+          icon: 'mdi-wechat',
+          text: 'Ask HR'
+        },
         {
           to: '/home',
           icon: 'mdi-logout',

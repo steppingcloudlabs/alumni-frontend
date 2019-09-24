@@ -90,13 +90,9 @@
           icon: 'mdi-clipboard',
           text: 'Upload Documents'
         },
-        {
-          to: '/admin/careers',
-          icon: 'mdi-chart-bubble',
-          text: 'Add Alumni Data'
-        },
+       
          {
-          to: '/admin/careers',
+          to: '/admin/update',
           icon: 'mdi-chart-bubble',
           text: 'FAQ Update'
         },
