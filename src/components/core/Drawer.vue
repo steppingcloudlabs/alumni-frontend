@@ -26,7 +26,7 @@
       </v-list-item-avatar>
 
       <v-list-item-title class="title">
-        Welcome {{firstname}}!!
+        Welcome !!
       </v-list-item-title>
     </v-list-item>
 
@@ -113,23 +113,14 @@
       ],
      
     }),
-    beforeMount() {
-      this.initializeUsername();
-    
-    },
+   
      watch:{
-     user(){
-       this.initializeUsername();
-     }
+     
     },
    
    
     methods:{
-      initializeUsername(){
-        
-        this.user.firstname=this.userData.first_name_personal_information;
-        
-      }
+    
     },
     computed: {
       userData() {
