@@ -7,7 +7,7 @@
     <v-flex xs12>
 <v-data-table
     :headers="headers"
-    :items="jobs"
+    :items="getAlumniList"
     class="elevation-1"
     hide-default-footer
     >
@@ -30,7 +30,6 @@
     </v-flex>
     
 
-    <AddAlumni :dialog="dialog" @closeAlumniDialog="closeAlumniDialog" @saveAlumniData="saveAlumniData"/>
   </v-layout>
     
     </template>
@@ -50,17 +49,31 @@ export default {
     },
     mounted() {
     },
+    computed:{
+         getAlumniList:{
+           get() {
+                return this.$store.getters['adminModule/getAlumniList']
+            },
+            set(data) {
+                this.$store.commit('adminModule/setAlumniList', this.data)
+            }
+         }
+    },
     methods: {
       closeAlumniDialog() {
-        this.dialog = false;
+        this.$store.commit('adminModule/closeAlumniDialog')
       },
       openAddAlumniDialog(){
-        this.dialog=true;
+        let alumniData = {
+            empId: null,
+            firstName: "",
+            lastName: "",
+            paySlipStatus: "",
+            form16Status: ""
+        }
+        this.$store.commit('adminModule/showAlumniDialog', alumniData)
       },
-      saveAlumniData(data){
-        this.jobs.push(data)
-        this.closeAlumniDialog();
-      }
+      
      },
   data(){
 
@@ -71,29 +84,17 @@ export default {
             text: 'EmployeeId',
             align: 'left',
             sortable: false,
-            value: 'empid',
+            value: 'empId',
           },
-          { text: 'FirstName', value: 'FirstName' },
-          { text: 'LastName', value: 'LastName' },
-          { text: 'SalarySlipStatus', value: 'SlipStatus' },
-          { text: 'Form16Status', value: 'Form16Status' },
+          { text: 'FirstName', value: 'firstName' },
+          { text: 'LastName', value: 'lastName' },
+          { text: 'SalarySlipStatus', value: 'paySlipStatus' },
+          { text: 'Form16Status', value: 'form16Status' },
         
           
           
         ],
-        jobs: [
-          {
-            empid: '1234',
-            FirstName: 'new delhi',
-            LastName: 'integration',
-            SlipStatus: 'pending',
-            Form16Status:'pending'
-           
-          },
-          
-         
-         
-        ],
+        
 
         }
     

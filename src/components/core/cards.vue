@@ -1,69 +1,54 @@
 <template>
-
-    
-      <v-row>
-        <v-col>
-          <v-card class="mx-auto" max-width="370" elevation='1'>
-            <v-img
-              class="white--text"
-              height="200px"
-              src="@/assets/back4.jpg"
-            >
-            <v-card-title  class='text-center' style="font-family:Raleway;color:#1A1A1D">Activity1</v-card-title>
-            </v-img>
-            <v-card-text>
-              <span>Number 10</span>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col><v-card class="mx-auto" max-width="370" elevation='1'>
-            <v-img
-              class="white--text"
-              height="200px"
-              src="@/assets/back4.jpg"
-            >
-             <v-card-title  class='text-center' style="font-family:Raleway;color:#1A1A1D">Activity2</v-card-title>
-            </v-img>
-            <v-card-text>
-              <span>Number 10</span>
-             
-            </v-card-text>
-          </v-card>
-          </v-col>
-         
-        <v-col><v-card class="mx-auto" max-width="370" elevation='1'>
-            <v-img
-              class="white--text"
-              height="200px"
-              src="@/assets/back4.jpg"
-            >
-              <v-card-title  class='text-center' style="font-family:Raleway;color:#1A1A1D">Activity3</v-card-title>
-            </v-img>
-            <v-card-text>
-              <span>Number 10</span>
-              
-            </v-card-text>
-          </v-card></v-col>
-      </v-row>
-  
+  <v-row>
+    <v-col v-for="(card, i) in cards" :key="i">
+      <v-card class="mx-auto home-activity-card" max-width="370" elevation='1' min-height="240px" 
+    >
+        <v-img
+        height="240px"
+        :src="card.back"
+        >
+        <br/>
+        <v-card-title class="text"  style=" font-family:Raleway font-size:40px">{{cards[i].title}}</v-card-title>
+        
+        <v-card-text >
+          
+        </v-card-text>
+        </v-img>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      alignmentsAvailable: ["start", "center", "end", "baseline", "stretch"],
-      alignment: "center",
-      dense: false,
-      justifyAvailable: [
-        "start",
-        "center",
-        "end",
-        "space-around",
-        "space-between"
-      ],
-      justify: "center"
+   
+      cards:[
+        {title:'Engagement' ,back:require("@/assets/party.jpg")},
+         {title:'Enrichment',back:require('@/assets/team.jpg')},
+          {title:'Engagement',back:require('@/assets/enrichment.jpg')}
+
+      ]
+    
     };
   }
 };
 </script>
+
+<style >
+
+.home-activity-card .v-responsive__content {
+  background-color:  rgb(0,0,0,0.5);
+   padding-left: 100px;
+  
+  font-weight:900;
+  color:white;
+}
+
+.home-activity-card .v-responsive__content:hover {
+  background-color: rgb(0, 0,0,0.0);
+   font-weight:900;
+  color: black;
+}
+</style>

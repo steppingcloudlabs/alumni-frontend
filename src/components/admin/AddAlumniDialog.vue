@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="showAlumni" max-width="500px">
           <v-card>
             <v-card-title>
               <span class="headline">Add Alumni</span>
@@ -10,19 +10,19 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" >
-                    <v-text-field v-model="jobs[0].empid" label="Employee Id"></v-text-field>
+                    <v-text-field v-model="alumni.empId" label="Employee Id"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="5">
-                    <v-text-field v-model="jobs[0].FirstName" label="First Name"></v-text-field>
+                    <v-text-field v-model="alumni.firstName" label="First Name"></v-text-field>
                   </v-col>
                   <v-col cols="12"  md="5">
-                    <v-text-field v-model="jobs[0].LastName" label="Last Name"></v-text-field>
+                    <v-text-field v-model="alumni.lastName" label="Last Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="jobs[0].SlipStatus" label="SalarySlipStatus"></v-text-field>
+                    <v-text-field v-model="alumni.paySlipStatus" label="SalarySlipStatus"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="jobs[0].Form16Status" label="Form16Status"></v-text-field>
+                    <v-text-field v-model="alumni.form16Status" label="Form16Status"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -53,11 +53,36 @@ export default {
     },
     methods: {
         closeDialog() {
-            this.$emit('closeAlumniDialog');
+          this.$store.commit('adminModule/closeAlumniDialog')
         },
         saveDialog(){
-            this.$emit('saveAlumniData',this.jobs[0])
+          this.$store.commit('adminModule/addNewAlumniToList', JSON.parse(JSON.stringify(this.alumni)))
+           this.$store.commit('adminModule/closeAlumniDialog')
+          
         }
+    },
+    computed:
+    {
+      alumni:{
+        get(){
+            return this.$store.getters['adminModule/getAlumniDialogData']
+        },
+        set(data) 
+            {
+                this.$store.commit('adminModule/setShowAlumniDialogData', data)
+            }
+      },
+      showAlumni:{
+         get(){
+            return this.$store.getters['adminModule/getshowAlumniDialog']
+        },
+        set(data) 
+            {
+                this.$store.commit('adminModule/setShowAlumni', setShowAlumniDialog)
+            }
+      },
+
+
     },
     data () {
       return {
@@ -66,7 +91,7 @@ export default {
             text: 'EmployeeId',
             align: 'left',
             sortable: false,
-            value: 'empid',
+            value: 'empId',
           },
           { text: 'FirstName', value: 'FirstName' },
           { text: 'LastName', value: 'LastName' },
@@ -75,19 +100,11 @@ export default {
          
           
         ],
-        jobs: [
-          {
-            empid: '',
-            FirstName: '',
-            LastName: '',
-            SlipStatus: '',
-            Form16Status:''
-           
-          },
+        
           
          
          
-        ],
+        
       }
       
     },

@@ -3,7 +3,7 @@
    
     <v-img
         height="500px"
-        src="@/assets/background1.jpg"
+        src="@/assets/document_bg.jpg"
       >   <core-app-bar ></core-app-bar></v-img>
     <br/>
     <br/>

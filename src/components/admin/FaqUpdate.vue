@@ -8,10 +8,10 @@
         <v-card-title>
           <p>FAQ</p>
         <v-spacer></v-spacer>
-        <v-btn class="button" color="primary" dark @click="dialog = true"><i class="fas fa-plus-circle"></i>Upload FAQ</v-btn>
+        <v-btn class="button" color="primary" dark @click="openAddFaqDialog"><i class="fas fa-plus-circle"></i>Upload FAQ</v-btn>
         </v-card-title>
         <v-card
-      v-for="(item,i) in 7"
+      v-for="(item,i) in getFaqList"
       :key="i"
     >
     <v-list-item three-line>
@@ -20,7 +20,7 @@
       <v-list-item-content>
           <v-flex xs10>
         <v-list-item-title class="headline mb-2">
-            <p>Question </p>
+            <p>{{item.question}} </p>
         </v-list-item-title>
           </v-flex>
           <v-flex xs2>
@@ -30,7 +30,7 @@
           
            <v-icon @click="dialog=true">edit</v-icon>
           </v-flex>
-        <v-list-item-subtitle>Answer</v-list-item-subtitle>
+        <v-list-item-subtitle>{{item.answer}}</v-list-item-subtitle>
       </v-list-item-content>
 
       
@@ -38,7 +38,7 @@
     </v-card>
         
      </v-card> 
-     <FAQ :dialog='dialog'  @closeFAQDialog='closeFAQDialog'/>
+     
       </v-col>
      </v-row>
   </div>
@@ -51,15 +51,42 @@ export default {
         FAQ,
     },
     methods:{
-        closeFAQDialog(){
-            
-            this.dialog=false
+        closeFaqDialog() {
+        this.$store.commit('adminModule/closeFaqDialog')
+      },
+      showFaqDialog() {
+        let FaqData = {
+         question: '',
+        answer: '' 
         }
+        this.$store.commit('adminModule/showFaqDialog', {})
+      },
+      openAddFaqDialog(){
+        let FaqData = {
+           question:"",
+           answer:""
+        }
+        this.$store.commit('adminModule/showFaqDialog',FaqData)
+      },
+      
+    },
+   
+    computed:{
+      getFaqList:{
+           get() {
+                return this.$store.getters['adminModule/getFaqList']
+            },
+            set(data) {
+                this.$store.commit('adminModule/setFaqList', this.data)
+            }
+         }
+
     },
     data()
     {
         return{
             dialog:false,
+           
         }
     }
 

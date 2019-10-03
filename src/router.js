@@ -18,18 +18,12 @@ import dashboard from './components/admin/Dashboard.vue'
 import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 
-
-
-
-
-
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: Home
@@ -40,7 +34,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component:signin
+      component: signin
       //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {
@@ -49,15 +43,14 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component:signup
+      component: signup
       //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {
       path: '/profile',
       name: 'profile',
       component: portal,
-      children:[
-        {
+      children: [{
           path: 'dashboard',
           // Relative to /src/views
           component: Dashboard
@@ -79,25 +72,25 @@ export default new Router({
         {
           path: 'careers',
           name: 'careers',
-          component:careers
+          component: careers
         },
         {
           path: 'notification',
           name: 'notification',
-          component:notification
+          component: notification
         },
         {
           path: 'dashboard',
           name: 'dashboard',
-          component:Dashboard
+          component: Dashboard
         },
         {
-          path:'document',
-          name:'document',
-          component:Document
+          path: 'document',
+          name: 'document',
+          component: Document
         }
-        
-        
+
+
       ]
     },
     {
@@ -110,8 +103,7 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: admin,
-      children:[
-        {
+      children: [{
           path: 'dashboard',
           // Relative to /src/views
           component: dashboard
@@ -127,30 +119,44 @@ export default new Router({
         },
         {
           path: 'document',
-          
-          component:document
+
+          component: document
         },
         {
           path: 'notification',
-          
-          component:notification
+
+          component: notification
         },
         {
           path: 'dashboard',
-          
-          component:Dashboard
+
+          component: Dashboard
         },
         {
-          path:'document',
-          
-          component:Document
+          path: 'document',
+
+          component: Document
         }
-        
-        
+
+
       ]
     },
-   
-   
-   
+
+
+
   ]
 })
+
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start()
+  }
+  next()
+})
+
+router.afterEach((to, from, next) => {
+  NProgress.done()
+})
+
+export default router

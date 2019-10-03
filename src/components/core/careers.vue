@@ -2,7 +2,7 @@
 <div>
    <v-img
         height="500px"
-        src="@/assets/background1.jpg"
+        src="@/assets/career_bg.jpg"
       >   <core-app-bar ></core-app-bar></v-img>
  <v-toolbar
   elevation='0'

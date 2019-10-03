@@ -2,110 +2,104 @@
   <div>
      <v-row>
           
-      <v-col cols="12" md="5">
+      <v-col cols="12" >
         <v-card outlined
         >
         <v-card-title>
           <p>News</p>
         <v-spacer></v-spacer>
-        <v-btn class="button" color="primary" dark @click="dialog = true"><i class="fas fa-plus-circle"></i>Add News</v-btn>
+        
+        <v-btn class="button" color="primary" dark @click="showNewsDialog"><i class="fas fa-plus-circle"></i>Add News</v-btn>
+       
         </v-card-title>
-        <v-card
-      v-for="(item,i) in news"
-      :key="i"
-    >
-    <v-list-item three-line>
-    <v-list-item-avatar
-        tile
-        size="50"
-        color="grey"
-      ></v-list-item-avatar>
-
-      
-      <v-list-item-content>
-        <v-list-item-title class="headline mb-2">{{item.Headline}}</v-list-item-title>
-        <v-list-item-subtitle>{{item.Body}}</v-list-item-subtitle>
-      </v-list-item-content>
-
-      
-    </v-list-item>
-    </v-card>
+        <News/>
         
      </v-card>   
       </v-col>
 
-       <v-col cols="12" md="1"></v-col>
+     
 
-      <v-col cols="12" md="5">
+      <v-col cols="12" >
          <v-card outlined
         >
         <v-card-title>
           <p>Events</p>
         <v-spacer></v-spacer>
-        <v-btn  class="button" color="primary" dark @click="dialog1 = true"><i class="fas fa-plus-circle"></i>Add Events</v-btn>
+       
+        <v-btn  class="button" color="primary" dark @click="showEventDialog"><i class="fas fa-plus-circle"></i>Add Events</v-btn>
+          
+        
          </v-card-title>
-          <v-card
-      v-for="(item,i) in news"
-      :key="i"
-    >
-    <v-list-item three-line>
-    <v-list-item-avatar
-        tile
-        size="50"
-        color="grey"
-      ></v-list-item-avatar>
-
-      
-      <v-list-item-content>
-        <v-list-item-title class="headline mb-2">{{item.Headline}}</v-list-item-title>
-        <v-list-item-subtitle>{{item.Body}}</v-list-item-subtitle>
-      </v-list-item-content>
-
-      
-    </v-list-item>
-    </v-card>
+         <event/>
         
       </v-card>        
       
       </v-col>
       </v-row>
-      <AddNewsDialog :dialog="dialog" @closeNewsDialog="closeNewsDialog" />
-      <AddEventDialog :dialog="dialog1" @closeEventDialog="closeEventDialog"/>
+      <!-- <AddNewsDialog :dialog="dialog" @closeNewsDialog="closeNewsDialog" /> -->
+      <!-- <AddEventDialog :dialog="dialog1" @closeEventDialog="closeEventDialog" @saveNewsDialog="saveNewsDialog"/> -->
   </div>
 </template>
 
 <script>
 import AddNewsDialog from '@/components/admin/AddNewsDialog'
 import AddEventDialog from '@/components/admin/AddEventDialog'
+import News from '@/components/admin/newsComponent'
+import event from '@/components/admin/eventComponent'
+
   export default {
     data: () => ({
       dialog: false,
       dialog1: false,
-      news:[
-        {
-          Headline:"After serving for 36 years, Titan MD Bhaskar Bhat",
-          Body:"When he hangs up his boots this month-end, Bhaskar Bhat,"
-        },
-         {
-          Headline:"After serving for 36 years, Titan MD Bhaskar Bhat",
-          Body:"When he hangs up his boots this month-end, Bhaskar Bhat,"
-        },
-
-      ]
+     
     }),
     components: {
       AddNewsDialog,
       AddEventDialog,
+      News,
+       event
     },
-    methods: {
+  
+   methods: {
       closeNewsDialog() {
-        this.dialog = false;
+        this.$store.commit('adminModule/closeNewsDialog')
       },
+      showNewsDialog() {
+        let newsData = {
+          headLine: '',
+          body: '' 
+        }
+        this.$store.commit('adminModule/showNewsDialog', {})
+      },
+      openAddNewsDialog(){
+        let NewsData = {
+           headline:"",
+           body:""
+        }
+        this.$store.commit('adminModule/showNewsDialog', NewsData)
+      },
+
+    //  Event Section
       closeEventDialog() {
-        this.dialog1 = false;
+        this.$store.commit('adminModule/closeEventDialog')
       },
-     
-  }
+      showEventDialog() {
+        let eventData = {
+          title: '',
+          description: '' 
+        }
+        this.$store.commit('adminModule/showEventDialog', {})
+      },
+      openAddEventDialog(){
+        let EventData = {
+           title:"",
+           description:""
+        }
+        this.$store.commit('adminModule/showEventDialog',EventData)
+      },
+      
+      
+     },
   }
 </script>
 <style>

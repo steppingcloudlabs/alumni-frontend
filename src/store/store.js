@@ -13,14 +13,18 @@ export default new Vuex.Store({
     userModule
   },
   state: {
-    customslt:"Tas76OwxwH",
-    userData:{},
-    status:{},
+    customslt: "Tas76OwxwH",
+    userData: {},
+    status: {},
     showSnackbar: false,
     snackbarDuration: 3000,
     snackbarMessage: "Hello",
     snackbarHeading: "Error",
-    snackbarColor: "Red"
+    snackbarColor: "Red",
+
+    // ProgressBar
+    showProgressBar: false,
+
   },
   mutations: {
     setData: (state, data) => {
@@ -50,10 +54,25 @@ export default new Vuex.Store({
       state.snackbarDuration = data.duration;
       state.snackbarHeading = data.heading;
       state.snackbarMessage = data.message;
+    },
+    showNetworkError: (state, data) => {
+      state.showSnackbar = true;
+      state.snackbarColor = "rgb(230, 0, 0, .8)";
+      state.snackbarDuration = 3000;
+      state.snackbarHeading = "Network Error";
+      state.snackbarMessage = "OOPS! Something went wrong. Please try again!";
+    },
+
+    // ProgressBar
+    showProgressBar: (state, data) => {
+      state.showProgressBar = true;
+    },
+    closeProgressBar: (state, data) => {
+      state.showProgressBar = false;
     }
   },
   getters: {
-    
+
     getStatusData: (state) => {
       return state.status
     },
@@ -72,14 +91,23 @@ export default new Vuex.Store({
     getSnackbarColor: (state) => {
       return state.snackbarColor
     },
- 
+
+    // progressBar
+    getShowProgressBar: (state) => {
+      return state.showProgressBar
+    }
+
   },
-  
+
   actions: {
-   
 
 
-    authenticate: ({state, commit, dispatch}, data) => {
+
+    authenticate: ({
+      state,
+      commit,
+      dispatch
+    }, data) => {
       const params = new URLSearchParams();
       params.append('client_id', 'MmJiOGM1ZWU4Zjg2NmY3NDE0MzNiMGFiYWY1OQ');
       params.append('user_id', 'adminth');
@@ -89,7 +117,7 @@ export default new Vuex.Store({
         method: 'POST',
         url: 'https://cors-anywhere.herokuapp.com/https://api4.successfactors.com/oauth/idp',
         headers: {
-          'Content-Type':'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         data: params,
       }).then((response) => {
@@ -98,8 +126,12 @@ export default new Vuex.Store({
       }).catch((error) => {
         console.log(error)
       })
-    }, 
-    getAccessToken: ({state, commit, dispatch}, data) => {
+    },
+    getAccessToken: ({
+      state,
+      commit,
+      dispatch
+    }, data) => {
       const params = new URLSearchParams();
       params.append('company_id', 'TATACommTest');
       params.append('client_id', 'MmJiOGM1ZWU4Zjg2NmY3NDE0MzNiMGFiYWY1OQ');
@@ -110,7 +142,7 @@ export default new Vuex.Store({
         method: 'POST',
         url: 'https://cors-anywhere.herokuapp.com/https://api4.successfactors.com/oauth/token', // https://cors-anywhere.herokuapp.com/
         headers: {
-          'Content-Type':'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         data: params,
       }).then((response) => {
@@ -118,13 +150,17 @@ export default new Vuex.Store({
         dispatch('validateAccessToken', response)
       })
     },
-    validateAccessToken: ({state, commit, dispatch}, data) => {
+    validateAccessToken: ({
+      state,
+      commit,
+      dispatch
+    }, data) => {
       axios({
         method: 'GET',
         url: 'https://cors-anywhere.herokuapp.com/https://api4.successfactors.com/oauth/validate', // https://cors-anywhere.herokuapp.com/
         headers: {
-          'Content-Type':'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer '+ data.data.access_token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + data.data.access_token,
         },
       }).then((response) => {
         console.log(response);

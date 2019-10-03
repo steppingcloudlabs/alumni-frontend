@@ -13,8 +13,8 @@
       <v-img
         
         class="white--text"
-        height="200px"
-        src="@/assets/back5.jpg"
+        height="400px"
+        src="@/assets/user-profile-bg.jpg"
       >
         <v-card-title class="align-end fill-height"><v-avatar
             class="profile"
@@ -185,15 +185,16 @@ outlined
       </v-row>
     </v-card>
   </v-col>
+  <v-col cols="12"><v-divider></v-divider></v-col>
       <v-col
         cols="12"
-         md="6">
+        >
                           
  <v-card
  elevation="0"
 outlined
  hover
-   height="400px"
+  
 >
  <v-card-title >Contact Details</v-card-title>
  <v-row>
@@ -220,27 +221,14 @@ outlined
                   v-model=user.mobile
                     label="Contact No"
                     class="purple-input"
-                    type="number"
+                  
                   />
                 </v-col>
                  <v-col
                   cols="12"
                   md="1"
                 ></v-col>
- </v-row>
- </v-card>
-                </v-col>
- 
-  <v-col cols="12"  md="6">
-    <v-card elevation="0"
-    outlined
-    hover
-     height="400px"
-  
-   >
-      <v-card-title >Address Details</v-card-title>
-      <v-row>
-              <v-col cols="12"
+                 <v-col cols="12"
                 md="1"></v-col>
                 <v-col cols="12"
                 md="10">
@@ -293,13 +281,11 @@ outlined
                 </v-col>
                 <v-col cols="12"
                 md="1"></v-col>
-      </v-row>
-    </v-card>
-  </v-col>
-  
+ </v-row>
+ </v-card>
+                </v-col>
  
   
-
   
                
               </v-row>

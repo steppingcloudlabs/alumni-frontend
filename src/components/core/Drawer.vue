@@ -2,7 +2,7 @@
   <v-navigation-drawer
     id="app-drawer"
     v-model="inputValue"
-    src="@/assets/back1.jpg"
+    src="@/assets/pic1.jpg"
     app
     color="grey darken-2"
     dark

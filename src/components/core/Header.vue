@@ -4,7 +4,7 @@
    style="background:#1A1A1D"
   >
     <v-flex xs9  >
-      <img :src="companyData.titan.companyLogo" height="50" />
+     <img src="@/assets/images.png" height="50" />
        </v-flex>
        
        
