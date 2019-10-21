@@ -10,7 +10,7 @@
                 <div class="flex-grow-1"></div>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form ref="signup" v-model="valid" lazy-validation>
                   <!-- <v-col>
                       <v-text-field
                         dark
@@ -30,6 +30,7 @@
                     type="text"
                     v-model="EmployeeId"
                     class="white--text"
+                    :rules="employeeRules"
                   ></v-text-field>
                   <v-text-field
                     dark
@@ -38,6 +39,7 @@
                     prepend-icon="person"
                     type="text"
                     v-model="email"
+                    :rules="emailRules"
                     class="white--text"
                   ></v-text-field>
 
@@ -49,6 +51,7 @@
                     prepend-icon="lock"
                     type="password"
                     v-model="password"
+                    :rules="passwordRules"
                     class="white--text"
                   ></v-text-field>
                   <v-text-field
@@ -60,8 +63,6 @@
                     type="password"
                     v-model="Cnfpassword"
                   ></v-text-field>
-                  <div class="error" v-if="!$v.Cnfpassword.sameAsPassword"></div>
-                  <div class="error" v-if="!$v.password.minLength">{{onblur()}}</div>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -75,8 +76,17 @@
               </v-card-actions>
               <v-row class="text center">
                 <v-card-text style="color:white">
-                  <v-icon style="color:white">person</v-icon>Already have account?
+                  <v-icon style="color:white; margin-right:5px">person</v-icon>Already have account?
                   <router-link to="/login" style="color:#66FCF1">LogIn</router-link>
+                  <v-list-item link>
+                    <v-icon style="color:white; margin-right:5px">mdi-help-circle-outline</v-icon>
+                    <v-flex xs3>
+                      <v-list-item-subtitle style="color:white">Need Help?</v-list-item-subtitle>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-list-item-subtitle style="color:#66FCF1" @click="dialog=true">Contact Us</v-list-item-subtitle>
+                    </v-flex>
+                  </v-list-item>
                 </v-card-text>
               </v-row>
             </v-card>
@@ -84,60 +94,115 @@
         </v-row>
       </v-container>
     </v-content>
+    <Contact :dialog="dialog" @closeAskHrDialog="closeAskHrDialog" />
   </v-app>
 </template>
 
 <script>
-import { required, sameAs, minLength } from "vuelidate/lib/validators";
-
+import Contact from "@/components/core/contactHR";
 export default {
+  components: {
+    Contact
+  },
   data() {
     return {
-      Companyname: null,
-      EmployeeId: null,
-      email: null,
-      Cnfpassword: null,
-      password: null,
+      dialog: false,
+      valid: true,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v =>
+          /.(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(v) ||
+          "Password must contain one uppercase letter, one lowercase letter and one number",
+        v => v.length > 6 || "Password must be grater than 6 characters"
+      ],
+       employeeRules: [
+        v => !!v || "Employee Id is required",
+       
+      ],
+
+      Companyname: "",
+      EmployeeId: "",
+      email: "",
+      Cnfpassword:"",
+      password: "",
       snackbar: false,
       snackbar1: true
     };
   },
+  beforeMount() {
+    this.length = 6;
+  },
   methods: {
-    signup() {
-      this.$store.commit("showProgressBar", {});
-
-      this.$store
-        .dispatch("userModule/signup", {
-          email: this.email,
-          password: this.password,
-          companyname: this.Companyname,
-          userid: this.EmployeeId
-        })
-        .then(response => {
-          if (
-            response &&
-            response.message &&
-            response.message.token &&
-            response.status == 200
-          ) {
-            this.$store.commit("closeProgressBar", {});
-            this.$store.commit("closeProgressBar", {});
-            console.log(response);
-            this.$router.push({ path: "/login" });
-          }
-        })
-        .catch(error => {
-          this.$store.commit("closeProgressBar", {});
-          this.$store.commit("showNetworkError", {});
-        });
+    closeAskHrDialog() {
+      this.dialog = false;
     },
-    onblur() {
-      this.$store.commit("showSnackbar", {
-        color: "red",
-        duration: 1000,
-        message: "Password must have at least 6 letters.",
-        heading: "Error"
-      });
+
+    signup() {
+      if (this.password != this.Cnfpassword) {
+        this.$store.commit("closeProgressBar", {});
+        this.$store.commit("showSnackbar", {
+          color: "red",
+          duration: 1000,
+          message: "Password Doesn't Match",
+          heading: "Error"
+        });
+      } else if (this.$refs.signup.validate()) {
+        this.$store.commit("showProgressBar", {});
+
+        this.$store
+          .dispatch("userModule/signup", {
+            email: this.email,
+            password: this.password,
+            companyname: this.Companyname,
+            userid: this.EmployeeId
+          })
+          .then(response => {
+            if (
+              response &&
+              response.result &&
+              response.result.data &&
+              response.status == 200
+            ) {
+              this.$store.commit("closeProgressBar", {});
+              console.log(response);
+              this.$router.push({ path: "/login" });
+            } else if (
+              response.result == "User is not an Alumni" &&
+              response.status == 400
+            ) {
+              this.$store.commit("closeProgressBar", {});
+              this.$store.commit("showSnackbar", {
+                color: "red",
+                duration: 1000,
+                message: "Employee Id doesnot Exist.",
+                heading: "Error"
+              });
+            } else if (response.error == "email is already in use") {
+              this.$store.commit("closeProgressBar", {});
+              this.$store.commit("showSnackbar", {
+                color: "red",
+                duration: 1000,
+                message: "email is already in use",
+                heading: "Error"
+              });
+            }
+          })
+          .catch(error => {
+            this.$store.commit("closeProgressBar", {});
+            this.$store.commit("showNetworkError", {});
+          });
+      } else {
+        this.$store.commit("showSnackbar", {
+          color: "red",
+          duration: 1000,
+          message: "Correct Errors",
+          heading: "Error"
+        });
+      }
     }
 
     // signup() {
@@ -147,15 +212,6 @@ export default {
     //       }
     //     })
     // }
-  },
-  validations: {
-    password: {
-      required,
-      minLength: minLength(6)
-    },
-    Cnfpassword: {
-      sameAsPassword: sameAs("password")
-    }
   }
 };
 </script>
@@ -170,5 +226,13 @@ a {
 .v-content__wrap {
   background-image: url("../assets/login.jpg");
   background-size: cover;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
 }
 </style>

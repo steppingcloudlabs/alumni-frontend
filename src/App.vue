@@ -10,11 +10,12 @@
 
 <script>
 //import NavigationDrawer from './components/NavigationDrawer';
+import AOS from "aos";
 import Home from "./views/Home";
 import SnackbarComponent from "@/components/material/Snackbar";
 import CommonDialogComponent from "@/components/material/CommonDialogComponent";
 import ProgressbarComponent from "@/components/material/Progress";
-
+AOS.init();
 export default {
   name: "App",
   components: {
@@ -27,7 +28,7 @@ export default {
     return {};
   },
   mounted() {
-    this.$store.dispatch("authenticate");
+    // this.$store.dispatch("authenticate");
   }
 };
 </script>

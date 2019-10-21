@@ -1,46 +1,56 @@
+import axios from "axios";
+
 export default {
     namespaced: true,
     state: {
         alumniDialogData: {
-            empId: null,
-            firstName: "",
-            lastName: "",
-            paySlipStatus: "",
-            form16Status: ""
+            user_id: null,
+            first_name_personal_information: "",
+            last_name_personal_information: "",
+
+
         },
         showAlumniDialog: false,
         alumniList: [{
-            empId: '1234',
-            firstName: 'new delhi',
-            lastName: 'integration',
-            paySlipStatus: 'pending',
-            form16Status: 'pending'
+            user_id: '1234',
+            first_name_personal_information: 'new delhi',
+            last_name_personal_informatione: 'integration',
+            _id: "",
+            relieving_date: "",
+
+            date_of_resignation: "",
+            last_working_day_as_per_notice_period: "",
+
+            middle_name_personal_information: "",
+            nationality_personal_information: "",
+            salutation_personal_information: "",
+            city_addresses: "",
+            phone_number_phone_information: "",
+            manager_job_information: "",
+            designation_job_information: "",
+            __v: 0
+
+
 
         }, ],
         newsDialogData: {
-            headLine: "",
-            body: "",
+            title: "",
+            content: "",
         },
+        showNewsProgress: false,
+        showEventsProgress: false,
         showNewsDialog: false,
-        newsList: [{
-                headLine: 'Where does it come from?',
-                body: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,'
-            },
-            {
-                headLine: 'Where does it come from?',
-                body: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,'
-            },
-        ],
+        newsList: [],
 
         // Events Data
         eventDialogData: {
             title: "",
-            description: "",
+            content: "",
         },
         showEventDialog: false,
         EventList: [{
                 title: 'Where does it come from?',
-                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,'
+                content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,'
             },
 
         ],
@@ -52,24 +62,20 @@ export default {
             }
 
         ],
-        faqDialogData: {
+        FaqDialogData: {
             question: "",
             answer: "",
         },
         showFaqDialog: false,
-
-
+        showDocumentDialog: false,
     },
     mutations: {
         setAlumniList: (state, data) => {
-            state.alumniList.empId = data.empId
-            state.alumniList.firstName = data.firstName
-            state.alumniList.lastName = data.lastName
-            state.alumniList.paySlipStatus = data.paySlipStatus
-            state.alumniList.form16Status = data.form16Status
+            state.alumniList = data
         },
+
         addNewAlumniToList: (state, data) => {
-            state.alumniList.push(data)
+            state.alumniList.unshift(data)
 
         },
         showAlumniDialog: (state, data) => {
@@ -94,14 +100,12 @@ export default {
         // NEWS SECTION
 
         setNewsList: (state, data) => {
-            state.newsList.headLine = data.headLine
-            state.newsList.body = data.body
-
+            state.newsList = data
         },
         addNewsToList: (state, data) => {
-            state.newsList.push(data)
-
+            state.newsList.unshift(data)
         },
+
         showNewsDialog: (state, data) => {
             state.newsDialogData = data
             state.showNewsDialog = true
@@ -113,18 +117,37 @@ export default {
             state.newsDialogData = data
         },
         closeNewsDialog: (state, data) => {
-            state.newsDialogData.headLine = null
-            state.newsDialogData.body = ""
+            state.newsDialogData.title = " "
+            state.newsDialogData.content = " "
+            state.showNewsDialog = false
+        },
+        deleteSelectedNews: (state, data) => {
+            let index = state.newsList.indexOf(data)
+            if (index > -1) {
+                state.newsList.splice(index, 1)
+
+            }
+
+            console.log(state.newsList)
+        },
+        //Document Section
+
+        showDocumentDialog: (state, data) => {
+
+            state.showDocumentDialog = true
+        },
+        closeDocumentDialog: (state, data) => {
+
             state.showNewsDialog = false
         },
 
         // Event Section
         setEventList: (state, data) => {
-            state.EventList.title = data.title
-            state.EventList.description = data.description
+            state.EventList = data
+
         },
         addEventToList: (state, data) => {
-            state.EventList.push(data)
+            state.EventList.unshift(data)
         },
         showEventDialog: (state, data) => {
             state.eventDialogData = data
@@ -138,18 +161,46 @@ export default {
         },
         closeEventDialog: (state, data) => {
             state.eventDialogData.title = null
-            state.eventDialogData.description = ""
+            state.eventDialogData.content = ""
             state.showEventDialog = false
+        },
+        deleteSelectedEvents: (state, data) => {
+            let index = state.EventList.indexOf(data)
+            if (index > -1) {
+                state.EventList.splice(index, 1)
+
+            }
+
+            console.log(state.EventList)
+        },
+
+        deleteSelectedAlumni: (state, data) => {
+            let index = state.alumniList.indexOf(data)
+            if (index > -1) {
+                state.alumniList.splice(index, 1)
+
+            }
+
+            console.log(state.alumniList)
         },
 
         // FAQ Section
+        deleteSelectedFaq: (state, data) => {
+            let index = state.FaqList.indexOf(data)
+            if (index > -1) {
+                state.FaqList.splice(index, 1)
+
+            }
+
+            console.log(state.FaqList)
+        },
+
 
         setFaqList: (state, data) => {
-            state.FaqList.question = data.question
-            state.FaqList.answer = data.answer
+            state.FaqList = data
         },
         addNewFaqToList: (state, data) => {
-            state.FaqList.push(data)
+            state.FaqList.unshift(data)
         },
         showFaqDialog: (state, data) => {
             state.FaqDialogData = data
@@ -166,11 +217,32 @@ export default {
             state.FaqDialogData.answer = ""
             state.showFaqDialog = false
         },
-
-
-
+        setNewsProgress: (state, data) => {
+            state.showNewsProgress = data;
+        },
+        showNewsProgress: (state, data) => {
+            state.showNewsProgress = true;
+        },
+        closeNewsProgress: (state, data) => {
+            state.showNewsProgress = false;
+        },
+        setEventsProgress: (state, data) => {
+            state.showEventsProgress = data;
+        },
+        showEventsProgress: (state, data) => {
+            state.showEventsProgress = true;
+        },
+        closeEventsProgress: (state, data) => {
+            state.showEventsProgress = false;
+        },
     },
     getters: {
+        getNewsProgress: (state, data) => {
+            return state.showNewsProgress
+        },
+        getEventsProgress: (state, data) => {
+            return state.showEventsProgress
+        },
         getAlumniDialogData: (state) => {
             return state.alumniDialogData
         },
@@ -215,6 +287,312 @@ export default {
 
     },
     actions: {
+        addNews: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/updatenews',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getAllNews: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allnews',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    commit('setNewsList', response.data.result)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        deleteNews: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'DELETE',
+                    url: 'http://18.190.14.5:4000/admin/action/deletenews',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        id: data._id
+                    }
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+        addEvents: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                console.log("event data", data)
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/updateevent',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        getAllEvent: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allevent',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    commit('setEventList', response.data.result)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        deleteEvents: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'DELETE',
+                    url: 'http://18.190.14.5:4000/admin/action/deleteevent',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        id: data._id
+                    }
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        deleteAlumni: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'DELETE',
+                    url: 'http://18.190.14.5:4000/admin/action/deletealumni',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        userid: data.user_id
+                    }
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+
+        addAlumni: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/alumni',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getAllAlumni: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allalumni',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        "skip": 0,
+                        "limit": 9
+                    }
+                }).then((response) => {
+                    resolve(response)
+                    commit('setAlumniList', response.data.result)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        getAllFaq: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allfaq',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    commit('setFaqList', response.data.result)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        addFaq: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/updatefaq',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+
+
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        deleteFaq: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'DELETE',
+                    url: 'http://18.190.14.5:4000/admin/action/deletefaq',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        id: data._id
+                    }
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+        uploadDocument: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/awsadmin/documentupload',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
 
     }
 }

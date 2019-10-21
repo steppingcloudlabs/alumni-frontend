@@ -1,33 +1,35 @@
 <template>
   <div>
-    <v-img height="500px" src="@/assets/pic1.jpg">
+    <v-img height="300px" src="@/assets/pic1.jpg">
       <core-app-bar></core-app-bar>
     </v-img>
     <v-row>
       <br />
       <br />
     </v-row>
-
     <v-row>
-      <v-col cols="12" md="6">
-        <v-card color="#5097DD" dark height="150px" width="415px">
-          <v-card-text class="white--text">
-            <div class="headline mb-2">Clearance Status</div>You can download your form 16 here.
-          </v-card-text>
-
-          <v-card-actions>
-            <v-btn color="primary" @click="dialog=true">Check Here</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-card color="#5097DD" dark height="150px" width="415px">
-          <v-card-text class="white--text">
-            <div class="headline mb-2">Other Status</div>hello.
-          </v-card-text>
-        </v-card>
-      </v-col>
+      <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
+        <v-flex xs4>
+          <v-card class="mr-3 ml-3">
+            <v-card-title>FnF Status</v-card-title>
+            <timeline />
+          </v-card>
+        </v-flex>
+        <v-flex xs4>
+          <v-card class="mr-3 ml-3">
+            <v-card-title>Form16 Status</v-card-title>
+            <timeline />
+          </v-card>
+        </v-flex>
+        <v-flex xs4>
+          <v-card class="mr-3 ml-3" style="margin-left:20px">
+            <v-card-title>Pf Clearance Status</v-card-title>
+            <timeline />
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-row>
+
     <v-row>
       <br />
       <br />
@@ -40,7 +42,7 @@
       <br />
       <br />
     </v-row>
-    <news/>
+    <news />
 
     <clearance :dialog="dialog" @closeClearanceDialog="closeClearanceDialog" />
   </div>
@@ -50,20 +52,41 @@
 import clearance from "@/components/core/clearanceDialog.vue";
 import carosel from "@/components/material/carosel.vue";
 import news from "@/components/core/newsComponent.vue";
+import timeline from "@/components/material/Timeline.vue";
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
     clearance,
     carosel,
-    news
+    news,
+    timeline
   },
   data() {
     return {
+      status1: true,
+      status2: false,
       dialog: false,
       notifications: false,
       sound: true,
-      widgets: false
+      widgets: false,
+      power: {
+        value: 80,
+        text: "In process"
+      },
+      progress: 0,
+      interval: {}
     };
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+  mounted() {
+    this.interval = setInterval(() => {
+      if (this.progress === this.power.value) {
+        return (this.progress = 0);
+      }
+      this.progress += 10;
+    }, 1000);
   },
   methods: {
     closeClearanceDialog() {

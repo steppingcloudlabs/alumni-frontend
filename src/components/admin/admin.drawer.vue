@@ -12,22 +12,16 @@
     width="260"
   >
     <template v-slot:img="attrs">
-      <v-img
-        v-bind="attrs"
-        gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
-      />
+      <v-img v-bind="attrs" gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)" />
     </template>
 
     <v-list-item two-line>
       <v-list-item-avatar color="white">
-         <img 
-             src="@/assets/avatar/download.jpg">
->
+        <img src="@/assets/avatar/download.jpg" />
+        >
       </v-list-item-avatar>
 
-      <v-list-item-title class="title">
-        Welcome Admin!!
-      </v-list-item-title>
+      <v-list-item-title class="title">Welcome Admin!!</v-list-item-title>
     </v-list-item>
 
     <v-divider class="mx-3 mb-3" />
@@ -49,86 +43,64 @@
         <v-list-item-title v-text="link.text" />
       </v-list-item>
     </v-list>
-
-   
   </v-navigation-drawer>
 </template>
 
 <script>
 // Utilities
-  
-  export default {
-    props: {
-      opened: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data: () => ({
-      image: "",
-      inputValue: true,
-      user:{
-       firstname:"hello",
-           },
-        
-      
-      
-      links: [
-        {
-          to: '/admin/dashboard',
-          icon: 'mdi-view-dashboard',
-          text: 'Dashboard'
-        },
-        {
-          to: '/admin/newsupload',
-          icon: 'mdi-newspaper',
-          text: 'Update News & events'
-        },
-       
-        {
-          to: '/admin/document',
-          icon: 'mdi-clipboard',
-          text: 'Upload Documents'
-        },
-       
-         {
-          to: '/admin/update',
-          icon: 'mdi-chart-bubble',
-          text: 'FAQ Update'
-        },
-        
-        {
-          to: '/home',
-          icon: 'mdi-logout',
-          text: 'Logout'
-        }
-      ],
-     
-    }),
-    beforeMount() {
-      this.initializeUsername();
-    
-    },
-     watch:{
-     user(){
-       this.initializeUsername();
-     }
-    },
-   
-   
-    methods:{
-      initializeUsername(){
-        
-        this.user.firstname=this.userData.first_name_personal_information;
-        
-      }
-    },
-    computed: {
-      userData() {
-        return this.$store.getters.getUserData;
-      }
+
+export default {
+  props: {
+    opened: {
+      type: Boolean,
+      default: false
     }
-   
+  },
+  data: () => ({
+    image: "",
+    inputValue: true,
+    user: {
+      firstname: "hello"
+    },
+
+    links: [
+      {
+        to: "/admin/dashboard",
+        icon: "mdi-view-dashboard",
+        text: "Dashboard"
+      },
+      {
+        to: "/admin/newsupload",
+        icon: "mdi-newspaper",
+        text: "Update News & events"
+      },
+
+      {
+        to: "/admin/document",
+        icon: "mdi-clipboard",
+        text: "Upload Documents"
+      },
+
+      {
+        to: "/admin/update",
+        icon: "mdi-chart-bubble",
+        text: "FAQ Update"
+      },
+
+      {
+        to: "/home",
+        icon: "mdi-logout",
+        text: "Logout"
+      }
+    ]
+  }),
+
+  methods: {},
+  computed: {
+    userData() {
+      return this.$store.getters.getUserData;
+    }
   }
+};
 </script>
 

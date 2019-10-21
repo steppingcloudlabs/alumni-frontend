@@ -3,56 +3,61 @@
     <v-app id="inspire" class="back">
       <v-content>
         <v-container class="fill-height" fluid>
-          <v-row align="center" justify="center">
-            <v-col cols="12" sm="8" md="4">
-              <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
-                <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
-                  <v-toolbar-title class="text-center" style="color:white">Login</v-toolbar-title>
-                  <div class="flex-grow-1"></div>
-                </v-toolbar>
-                <v-card-text>
-                  <v-form>
-                    <v-text-field
-                      label="Username"
-                      name="login"
-                      prepend-icon="person"
-                      type="text"
-                      v-model="username"
-                      dark
-                    ></v-text-field>
+          
+            <v-row align="center" justify="center">
+              <v-col cols="12" sm="8" md="4">
+                <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
+                  <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
+                    <v-toolbar-title class="text-center" style="color:white">Login</v-toolbar-title>
+                    <div class="flex-grow-1"></div>
+                  </v-toolbar>
+                  <v-card-text>
+                    <v-form  ref="login"
+                  v-model="valid"
+                   lazy-validation>
+                      <v-text-field
+                        label="Email"
+                        name="login"
+                        prepend-icon="person"
+                        type="text"
+                        v-model="username"
+                        dark
+                        :rules="emailRules"
+                      ></v-text-field>
 
-                    <v-text-field
-                      id="password"
-                      label="Password"
-                      name="password"
-                      prepend-icon="lock"
-                      type="password"
-                      v-model="password"
-                      dark
-                    ></v-text-field>
-                  </v-form>
-                </v-card-text>
-                <v-card-actions>
-                  <div class="error" v-if="!$v.password.minLength">{{onblur()}}</div>
-                  <v-btn
-                    block
-                    outlined
-                    v-on:
-                    @click="login"
-                    style="background: rgb(0, 0, 0, 0);color:white"
-                  >Login</v-btn>
-                </v-card-actions>
-                <v-card-text class="text-center">
-                  <router-link to="/forgotpassword" style="color:#66FCF1">Forgot Password</router-link>
-                </v-card-text>
-                <div class="flex-grow-1"></div>
-                <v-card-text style="color:white" class="text-center">
-                  Not Registered?
-                  <router-link to="/signup" style="color:#66FCF1">SignUp</router-link>
-                </v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
+                      <v-text-field
+                        id="password"
+                        label="Password"
+                        name="password"
+                        prepend-icon="lock"
+                        type="password"
+                        v-model="password"
+                        :rules="passwordRules"
+                        dark
+                      ></v-text-field>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn
+                      block
+                      outlined
+                      v-on:
+                      @click="login"
+                      style="background: rgb(0, 0, 0, 0);color:white"
+                    >Login</v-btn>
+                  </v-card-actions>
+                  <v-card-text class="text-center">
+                    <router-link to="/forgotpassword" style="color:#66FCF1">Forgot Password</router-link>
+                  </v-card-text>
+                  <div class="flex-grow-1"></div>
+                  <v-card-text style="color:white" class="text-center">
+                    Not Registered?
+                    <router-link to="/signup" style="color:#66FCF1">SignUp</router-link>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+         
         </v-container>
       </v-content>
     </v-app>
@@ -60,14 +65,22 @@
 </template>
 <script>
 import md5 from "crypto-js/md5";
-import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import { constants } from "crypto";
 
 export default {
   data() {
     return {
+      valid:true,
       username: null,
-      password: null
+      password: null,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+       passwordRules: [
+        v => !!v || "Password is required",
+       
+      ]
     };
   },
   mounted() {
@@ -76,12 +89,7 @@ export default {
     this.test = "My New Data";
     console.log(this.test);
   },
-  validations: {
-    password: {
-      required,
-      minLength: minLength(6)
-    }
-  },
+
   computed: {
     test: {
       get() {
@@ -94,6 +102,9 @@ export default {
   },
   methods: {
     login() {
+      if (this.$refs.login.validate()) {
+      
+       
       this.$store.commit("showProgressBar", {});
       this.$store
         .dispatch("userModule/login", {
@@ -103,37 +114,45 @@ export default {
         .then(response => {
           if (
             response &&
-            response.status &&
             response.status == 200 &&
-            response.message &&
-            response.message.Status == "Login Successful"
+            response.result
+           
           ) {
             this.$router.push({ path: "/profile/user-profile" });
             this.$store.commit("closeProgressBar", {});
-          } else if (
-            response &&
-            response.status &&
-            response.status == 200 &&
-            response.data &&
-            response.data.Status == "User doesn't Exist"
-          ) {
+          } else if (response.result != "Login Successful") {
             this.$store.commit("closeProgressBar", {});
-            this.snackbar = true;
+            this.$store.commit("showSnackbar", {
+              color: "red",
+              duration: 3000,
+              message: response.result,
+              heading: "Error"
+            });
           }
         })
         .catch(error => {
           this.$store.commit("closeProgressBar", {});
           this.$store.commit("showNetworkError");
-          console("");
         });
+      }
+      else{
+        this.$store.commit("showSnackbar", {
+              color: "red",
+              duration: 1000,
+              message: "Correct Errors",
+              heading: "Error"
+            });
+
+      }
+      
     },
     onblur() {
-      this.$store.commit("showSnackbar", {
-        color: "red",
-        duration: 3000,
-        message: "Password must have at least 6 letters.",
-        heading: "Error"
-      });
+      // this.$store.commit("showSnackbar", {
+      //   color: "red",
+      //   duration: 3000,
+      //   message: "Password must have at least 6 letters.",
+      //   heading: "Error"
+      // });
     }
   }
 };
@@ -155,6 +174,7 @@ a {
 .v-content__wrap {
   background-image: url("../assets/login.jpg");
   background-size: cover;
+  min-height: 113vh;
 }
 </style>
 

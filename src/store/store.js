@@ -15,24 +15,43 @@ export default new Vuex.Store({
   state: {
     customslt: "Tas76OwxwH",
     userData: {},
-    status: {},
+    timeline: [{
+        status: 0
+      },
+
+    ],
     showSnackbar: false,
     snackbarDuration: 3000,
     snackbarMessage: "Hello",
     snackbarHeading: "Error",
     snackbarColor: "Red",
-
+    showDeleteDialog: false,
+    deleteDialogCommitCall: "",
+    deleteDialogData: {},
+    deleteActionToDispatch: "",
     // ProgressBar
     showProgressBar: false,
 
   },
   mutations: {
-    setData: (state, data) => {
-      state.userData = data;
+    setShowDeleteDialog: (state, data) => {
+      state.showDeleteDialog = data;
     },
-    statusData: (state, data) => {
-      state.statusData = data;
+    showDeleteDialog: (state, data) => {
+      state.showDeleteDialog = true;
+      state.deleteDialogCommitCall = data.commitToCall;
+      state.deleteDialogData = data.objectToDelete
+      state.deleteActionToDispatch = data.deleteActionToDispatch
+      console.log(data);
     },
+    closeDeleteDialog: (state, data) => {
+      state.showDeleteDialog = false;
+    },
+
+    setTimelineStatus: (status, data) => {
+
+    },
+
     setShowSnackbar: (state, data) => {
       state.showSnackbar = data;
     },
@@ -69,13 +88,23 @@ export default new Vuex.Store({
     },
     closeProgressBar: (state, data) => {
       state.showProgressBar = false;
-    }
+    },
+
   },
   getters: {
-
-    getStatusData: (state) => {
-      return state.status
+    getDeleteActionToDispatch: (state) => {
+      return state.deleteActionToDispatch
     },
+    getDeleteDialogCommitCall: (state) => {
+      return state.deleteDialogCommitCall
+    },
+    getDeleteDialogData: (state) => {
+      return state.deleteDialogData
+    },
+    getShowDeleteDialog: (state) => {
+      return state.showDeleteDialog
+    },
+
     getShowSnackbar: (state) => {
       return state.showSnackbar
     },
@@ -156,7 +185,7 @@ export default new Vuex.Store({
       dispatch
     }, data) => {
       axios({
-        method: 'GET',
+        method: 'POST',
         url: 'https://cors-anywhere.herokuapp.com/https://api4.successfactors.com/oauth/validate', // https://cors-anywhere.herokuapp.com/
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

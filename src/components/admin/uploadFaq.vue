@@ -9,15 +9,15 @@
           <v-container>
             <ManualFaq />
 
-            <v-divider></v-divider>
+           
 
-            <p class="text-center">OR</p>
+            <p bold class="text-center">OR</p>
 
-            <v-divider></v-divider>
+            
 
             <FileFAQ />
           </v-container>
-          <small>*Required Fields are mandatory</small>
+          <small style="margin-left: 52px;">*Required Fields are mandatory</small>
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>

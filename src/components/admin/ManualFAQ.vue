@@ -29,30 +29,59 @@
 export default {
   data() {
     return {
-      faq: {
-        id: "",
-        question: "",
-        answer: ""
-      }
+      //   faq: {
+      //     id: "",
+      //     question: "",
+      //     answer: ""
+      //   }
     };
   },
   computed: {
-    getFaqList: {
+    faq: {
       get() {
-        return this.$store.getters["adminModule/getFaqList"];
+        return this.$store.getters["adminModule/getFaqDialogData"];
       },
       set(data) {
-        this.$store.commit("adminModule/setFaqList", this.data);
+        this.$store.commit("adminModule/setShowFaqDialogData", data);
       }
     }
   },
   methods: {
     saveDialog() {
-      this.$store.commit(
-        "adminModule/addNewFaqToList",
-        JSON.parse(JSON.stringify(this.faq))
-      );
+      let faqData = JSON.parse(JSON.stringify(this.faq));
+      // this.$store.commit("adminModule/showEventsProgress", {});
       this.$store.commit("adminModule/closeFaqDialog");
+      let data = {
+        question: faqData.question,
+        answer: faqData.answer,
+        id: faqData._id ? faqData._id : null
+      };
+      this.$store.dispatch("adminModule/addFaq", data).then(response => {
+        if(data.id==null)
+        {
+        this.$store.commit(
+          "adminModule/addNewFaqToList",
+          JSON.parse(JSON.stringify(faqData))
+        );
+        this.$store.commit("showSnackbar", {
+          message: "Faq Added successfully",
+          color: "success",
+          heading: "Success",
+          duration: 3000
+        });
+        }
+        else{
+          this.$store.dispatch("adminModule/getAllFaq")
+          this.$store.commit("showSnackbar", {
+          message: "Faq updated successfully",
+          color: "success",
+          heading: "Success",
+          duration: 3000
+        });
+
+        }
+        // this.$store.commit("adminModule/closeEventsProgress", {});
+      });
     }
   }
 };

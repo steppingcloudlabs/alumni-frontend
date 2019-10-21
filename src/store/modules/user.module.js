@@ -1,15 +1,26 @@
 import md5 from 'crypto-js/md5'
 import axios from 'axios'
+import {
+    get
+} from 'http';
 export default {
 
     namespaced: true,
     state: {
-        test: "Hello Test"
+        test: "Hello Test",
+        userData: {},
+        status: {},
     },
     mutations: {
         setTest: (state, data) => {
             state.test = data;
-        }
+        },
+        setData: (state, data) => {
+            state.userData = data;
+        },
+        statusData: (state, data) => {
+            state.statusData = data;
+        },
     },
     getters: {
         getTest: (state) => {
@@ -17,6 +28,9 @@ export default {
         },
         getUserData: (state) => {
             return state.userData
+        },
+        getStatusData: (state) => {
+            return state.status
         },
     },
     actions: {
@@ -29,7 +43,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://192.168.10.135:4000/user/signin',
+                    url: 'http://18.190.14.5:4000/user/signin',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -39,10 +53,14 @@ export default {
                     }
                 }).then((response) => {
                     console.log('heya!')
-                    console.log(response.data)
+                    if (response && response.data.status && response.data.status == 200) {
+                        commit('setData', response.data.result)
+                        // commit('statusData', response.data.message.data)
+                    }
+                    // } else {
+                    //     commit('statusData', response.data.status)
+                    // }
                     resolve(response.data)
-                    commit('setData', response.data.message.data)
-                    commit('statusData', response.data)
                 }).catch((error) => {
                     console.log(error)
                     reject(error)
@@ -58,14 +76,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://192.168.10.135:4000/user/signup',
+                    url: 'http://18.190.14.5:4000/user/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     data: {
                         'email': data.email,
                         'password': pass,
-                        'companyname': data.companyname,
+                        'companyname': "tata",
                         'userid': data.userid
                     }
                 }).then((response) => {
@@ -77,6 +95,49 @@ export default {
                 })
             })
         },
+        downloadDocument: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/awsadmin/documentdownlaod',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    window.open(response.data.result, '_blank')
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getStatus:({
+            state,
+            commit
+        },data)=>{
+            return new Promise((resolve,reject)=>{
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/personaluser/user/status',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                   
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        }
 
     }
 }

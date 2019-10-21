@@ -22,7 +22,8 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          to="/"
+          to="/profile/dashboard"
+          v-if="$route.path != '/profile/dashboard'"
         >
           <v-icon color="tertiary">
             mdi-view-dashboard
