@@ -1,199 +1,69 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <div>
-      <v-card style="background:transparent" class="mx-auto" width="max-width" height="auto">
-        <!-- <v-img class="white--text" height="200px" src="@/assets/user-profile-bg.jpg">  -->
-        <v-card-title style="color:white">
-          <v-avatar class="profile" color="grey" size="164" tile>
-            <v-img src="@/assets/avatar/download.jpg"></v-img>
-          </v-avatar>
-
-          <p style="margin-bottom:unset">{{user.firstname +' '+user.lastname}}</p>
-        </v-card-title>
-        <!-- </v-img>  -->
-
-        <v-card-text>
-          <v-form>
-            <v-container class="py-0">
-              <v-row>
-                <v-col cols="12" md="6" class="align-self-start">
-                  <v-card elevation="0" outlined hover height="400px">
-                    <v-card-title style="font-size:large">Personal information</v-card-title>
-                    <v-row>
-                      <!-- <v-col cols="12" md="6">
-                        <p style="font-size:15px;">
-                          First Name:
-                          <span style="font-size:20px;">{{user.firstname}}</span>
-                        </p>
-                      </v-col>
-                      <v-col cols="12" md="6">
-                        
-                        <span>Last Name: {{user.lastname}}</span>
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <span>Date Of Birth: {{user.DOB}}</span>
-                      </v-col>
-                      <v-col cols="12" md="6">
-                        <span>Nationality: {{user.nationality}}</span>
-                      </v-col> -->
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          v-model="user.firstname"
-                          label="First Name"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          v-model="user.lastname"
-                          label="Last Name"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field v-model="user.DOB" label="DOB" class="purple-input" readonly />
-                      </v-col>
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          v-model="user.nationality"
-                          label="Nationality"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-                    </v-row>
-                  </v-card>
-                </v-col>
-
-                <v-col cols="12" md="6">
-                  <v-card elevation="0" outlined hover height="400px">
-                    <v-card-title style="font-size:large">Company Details</v-card-title>
-                    <v-row>
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="10">
-                        <v-text-field
-                          v-model="user.position"
-                          label="Position"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="5">
-                        <v-text-field
-                          v-model="user.employeeId"
-                          label="EmployeeId"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-
-                      <v-col cols="12" md="5">
-                        <v-text-field
-                          v-model="user.managerid"
-                          label="ManagerId"
-                          class="purple-input"
-                          readonly
-                        />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="5">
-                        <v-text-field
-                          v-model="user.lastworking"
-                          label="Last Working"
-                          prepend-icon="event"
-                          readonly
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="5">
-                        <v-text-field
-                          v-model="user.relieving"
-                          label="Reliving Date"
-                          prepend-icon="event"
-                          readonly
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="12" md="1"></v-col>
-                    </v-row>
-                  </v-card>
-                </v-col>
-                <v-col cols="12">
-                  <v-divider></v-divider>
-                </v-col>
-                <v-col cols="12">
-                  <v-card elevation="0" outlined hover>
-                    <v-card-title style="font-size:large">Contact Details</v-card-title>
-                    <v-row>
-                      <v-col cols="12" md="1"></v-col>
-
-                      <v-col cols="12" md="6">
-                        <v-text-field
-                          v-model="user.email"
-                          label="Email Address"
-                          class="purple-input"
-                        />
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          v-model="user.mobile"
-                          label="Contact No"
-                          class="purple-input"
-                        />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="10">
-                        <v-text-field v-model="user.address" label="Address" class="purple-input" />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="5">
-                        <v-text-field v-model="user.city" label="City" class="purple-input" />
-                      </v-col>
-                      <v-col cols="12" md="5">
-                        <v-text-field
-                          v-model="user.postalcode"
-                          class="purple-input"
-                          label="Postal Code"
-                        />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-
-                      <v-col cols="12" md="1"></v-col>
-                      <v-col cols="12" md="5">
-                        <v-text-field v-model="user.country" label="Country" class="purple-input" />
-                      </v-col>
-                      <v-col cols="12" md="1"></v-col>
-                    </v-row>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </div>
-  </v-container>
+  <v-card height="100%">
+    <v-layout>
+      <v-flex xs3>
+        <div>
+          <v-list-item-avatar
+            tile
+            size="180"
+            
+            style="
+                 margin-left: 60px;"
+          ><v-img src="@/assets/avatar/download.jpg"></v-img></v-list-item-avatar>
+           <v-divider></v-divider>
+          <v-flex xs5>
+          <v-card-title class="subtitle-2">Company</v-card-title>
+          </v-flex>
+          <v-card-text class="title">Designation</v-card-text>
+          <v-card-text class="body-2" >From date to Date</v-card-text>
+          <v-card-text class="body-2"  style="margin-top:2px !important;">Manager ID</v-card-text>
+          <v-card-text class="body-2"  style="margin-top:2px !important;">Releiving Date</v-card-text>
+        </div>
+      </v-flex>
+      <v-flex xs9>
+        <div>
+          <v-list-item-content style="margin-top: 60px;
+    margin-left: 40px;">
+            <v-list-item-title class="headline mb-1">
+             {{user.firstname}}+ {{user.lastname}}
+              <v-icon class="ml-2" small>mdi-map-marker</v-icon>City
+            </v-list-item-title>
+            <v-list-item-subtitle class="mt-3" style="margin-left: 4px;margin-top: 10px !important;">{{user.employeeId}}</v-list-item-subtitle>
+            <v-layout >
+            <v-flex xs2  style="margin-top: 10px;">
+            <v-chip style="margin-left: 4px;" color="green" v-for="(item, i) in skills" :key="i">{{item.skill}}</v-chip>
+            </v-flex>
+            </v-layout>
+             
+          </v-list-item-content>
+          <v-divider></v-divider>
+           <v-card-title class="subtitle-2">Contact Information <v-spacer></v-spacer> <v-btn color="green">Update Contact</v-btn></v-card-title>
+           <v-card-text class="body-2"  style="margin-top:2px !important;">Phone No:   </v-card-text>
+          <v-card-text class="body-2"  style="margin-top:2px !important;">Email:</v-card-text>
+          <v-card-text class="body-2"  style="margin-top:2px !important;">Address:</v-card-text>
+        <v-divider></v-divider>
+         <v-card-title class="subtitle-2">Basic Information</v-card-title>
+           <v-card-text class="body-2"  style="margin-top:2px !important;">BirthDate:   </v-card-text>
+          <v-card-text class="body-2"  style="margin-top:2px !important;">Nationality:</v-card-text>
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-card>
 </template>
-
 
 <script>
 export default {
-  data: () => ({
-    user: {
+  data() {
+    return {
+      skills: [
+        {
+          skill: "hello"
+        },
+        {
+          skill: "testing"
+        }
+      ],
+      user:{
       username: "",
       firstname: "",
       lastname: "",
@@ -212,12 +82,10 @@ export default {
       relieving: "",
       lastworking: "",
       nationality: ""
-    },
-
-    menu1: "false",
-    menu2: "false"
-  }),
-  beforeMount() {
+      }
+    }
+  },
+ beforeMount() {
     this.initializeUserData();
   },
   watch: {
@@ -262,17 +130,7 @@ export default {
     userData() {
       return this.$store.getters["userModule/getUserData"];
     }
+  
   }
-  //
 };
 </script>
-<style>
-.purple-input.label {
-  font-family: "Raleway";
-  color: white !important;
-}
-.fill-height {
-  font-size: small;
-}
-</style>
-  

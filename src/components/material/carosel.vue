@@ -1,6 +1,8 @@
 <template>
   <v-carousel  class=" mr-5" cycle height="300px" hide-delimiter-background show-arrows-on-hover hide-delimiters>
+    <div v-if="!this.empty">
     <v-carousel-item v-for="(item, i) in getEventList" :key="i">
+      
       <v-card :color="colors[i]" height="100%">
         <v-card-title>
           <v-icon large left>mdi-bullhorn</v-icon>
@@ -11,6 +13,7 @@
         <v-card-text class="headline font-weight-light">{{item.content}}</v-card-text>
         <br />
         <br />
+       
         <v-card-actions>
           <v-list-item-content>
             <v-list-item-title>
@@ -30,6 +33,25 @@
         </v-card-actions>
       </v-card>
     </v-carousel-item>
+    </div>
+    <div v-else>
+       <v-carousel-item>
+      <v-sheet
+        color="grey"
+        height="100%"
+        
+      >
+        <v-row
+          class="fill-height"
+          align="center"
+          justify="center"
+        >
+          <div class="subtitle-1" style="    margin-right: 200px;">No Events Available <v-img  width="100"
+      height="100" src="@/assets/waiting.gif"></v-img></div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+    </div>
   </v-carousel>
 </template>
 
@@ -54,11 +76,19 @@ export default {
     }
   },
    beforeMount() {
-    this.$store.dispatch("adminModule/getAllEvent");
+    this.$store.dispatch("adminModule/getAllEvent").then(response => {
+     
+      if (response.data.result.length > 0) {
+        this.empty = false;
+      } else {
+        this.empty = true;
+      }
+      });
   },
 
   data() {
     return {
+      empty:false,
       colors: [
         "indigo",
         "pink darken-2",
@@ -119,3 +149,10 @@ export default {
   }
 };
 </script>
+<style >
+div.item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+}
+</style>

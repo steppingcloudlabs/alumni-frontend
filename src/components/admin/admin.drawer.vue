@@ -87,6 +87,13 @@ export default {
         text: "FAQ Update"
       },
 
+       {
+        to: "/admin/setting",
+        icon: "mdi-settings",
+        text: "Company Settings"
+      },
+
+
       {
         to: "/home",
         icon: "mdi-logout",
@@ -96,11 +103,7 @@ export default {
   }),
 
   methods: {},
-  computed: {
-    userData() {
-      return this.$store.getters.getUserData;
-    }
-  }
+  
 };
 </script>
 

@@ -5,13 +5,15 @@
         <v-toolbar color="#5097DD" class="white--text">
           <v-toolbar-title class="headline mb-2">News</v-toolbar-title>
         </v-toolbar>
+        <div v-if="!this.empty">
         <v-layout row wrap mt-4 v-for="(item,i) in count " :key="i">
-          <v-flex xs4>
+          <v-flex xs3>
             <v-avatar tile size="200">
-              <v-img src="@/assets/news.jpg"></v-img>
+              <v-img v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>
+              <v-img v-else src="@/assets/news.png"></v-img>
             </v-avatar>
           </v-flex>
-          <v-flex xs8>
+          <v-flex xs9>
             <v-card-title class="pt-0">{{getNewsList[i].title}}</v-card-title>
             <v-card-text style="font-size:15px">{{getNewsList[i].content}}</v-card-text>
           </v-flex>
@@ -20,8 +22,17 @@
             <v-divider></v-divider>
           </v-flex>
         </v-layout>
+        </div>
+        <div v-else style="margin-bottom: 30px;
+    margin-left: 350px;
+    margin-right: 100px; margin-top: 50px;">
+      <span class="subtitle-1 mr-5 ml-5">No News to Show <v-img  width="100"
+      height="100" src="@/assets/waiting.gif"></v-img></span>
+    </div>
+        
       </v-col>
     </v-row>
+    <div v-if="!empty">
     <v-layout row wrap class="pb-5 pt-5">
       <v-flex xs12 class="mr-5 text-right">
         <v-btn
@@ -38,6 +49,7 @@
         >Close All</v-btn>
       </v-flex>
     </v-layout>
+    </div>
   </v-card>
 </template>
 
@@ -58,19 +70,30 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("adminModule/getAllNews").then(response => {
-      this.count = 5;
+        if (response.data.result.length > 0) {
+        this.count = 5;
+        this.empty = false;
+      } else {
+        this.count = 0;
+        this.empty = true;
+      }
     });
   },
   watch: {
     newsListLength() {
-      if (this.count != 5) {
-        this.count = this.getNewsList.length;
+      if (this.newsListLength == 0) {
+        this.count = 0;
+        this.empty = true;
+      } else {
+        this.count = 5;
+        this.empty = false;
       }
     }
   },
   data() {
     return {
-      count: 0
+      count: 0,
+      empty:false
     };
   }
 };

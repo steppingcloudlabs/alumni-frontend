@@ -10,21 +10,42 @@
     <v-row>
       <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
         <v-flex xs4>
-          <v-card class="mr-3 ml-3">
+          <v-card class="mr-3 ml-3" height="100%">
             <v-card-title>FnF Status</v-card-title>
-            <timeline />
+            <v-card-text>
+              <timeline
+                :status="FnfStatus"
+                :code="96"
+                :userid="this.userData "
+                :showLoader="progress"
+              />
+            </v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs4>
-          <v-card class="mr-3 ml-3">
+          <v-card class="mr-3 ml-3" height="100%">
             <v-card-title>Form16 Status</v-card-title>
-            <timeline />
+            <v-card-text>
+              <timeline
+                :status="FormStatus"
+                :code="95"
+                :userid="this.userData "
+                :showLoader="progress"
+              />
+            </v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs4>
-          <v-card class="mr-3 ml-3" style="margin-left:20px">
+          <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
             <v-card-title>Pf Clearance Status</v-card-title>
-            <timeline />
+            <v-card-text>
+              <timeline
+                :status="PfStatus"
+                :code="95"
+                :userid="this.userData "
+                :showLoader="progress"
+              />
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -63,34 +84,55 @@ export default {
   },
   data() {
     return {
-      status1: true,
+      status: "Not Available",
       status2: false,
       dialog: false,
       notifications: false,
       sound: true,
       widgets: false,
-      power: {
-        value: 80,
-        text: "In process"
-      },
-      progress: 0,
-      interval: {}
+      progress: true
     };
   },
-  beforeDestroy() {
-    clearInterval(this.interval);
-  },
   mounted() {
-    this.interval = setInterval(() => {
-      if (this.progress === this.power.value) {
-        return (this.progress = 0);
-      }
-      this.progress += 10;
-    }, 1000);
+    this.getStatus();
   },
+
+  computed: {
+    userData() {
+      return this.$store.getters["userModule/getUserData"]
+        ? this.$store.getters["userModule/getUserData"].user_id
+        : null;
+    },
+    FnfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].fnfStatus
+        : null;
+    },
+    FormStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].form16Status
+        : null;
+    },
+    PfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+        : null;
+    }
+  },
+
   methods: {
     closeClearanceDialog() {
       this.dialog = false;
+    },
+    getStatus() {
+      let data = {
+        userid: this.userData
+      };
+      debugger;
+      this.$store.dispatch("userModule/getStatus", data).then(response => {
+        debugger;
+        this.progress = false;
+      });
     }
   }
 };

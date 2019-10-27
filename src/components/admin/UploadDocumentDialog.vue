@@ -124,7 +124,7 @@ export default {
     },
 
     saveDialogForm() {
-      this.$emit("closeDocumentDialog");
+      // this.$emit("closeDocumentDialog");
       let data = {
         
         form16: this.form16Base64,
@@ -135,8 +135,9 @@ export default {
       let form16 = {
         userid: data.userid,
         stream: data.form16,
-        code: 95
+        type: 95
       };
+      console.log(form16)
 
       this.$store
         .dispatch("adminModule/uploadDocument", form16)

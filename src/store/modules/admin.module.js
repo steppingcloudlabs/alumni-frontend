@@ -11,28 +11,7 @@ export default {
 
         },
         showAlumniDialog: false,
-        alumniList: [{
-            user_id: '1234',
-            first_name_personal_information: 'new delhi',
-            last_name_personal_informatione: 'integration',
-            _id: "",
-            relieving_date: "",
-
-            date_of_resignation: "",
-            last_working_day_as_per_notice_period: "",
-
-            middle_name_personal_information: "",
-            nationality_personal_information: "",
-            salutation_personal_information: "",
-            city_addresses: "",
-            phone_number_phone_information: "",
-            manager_job_information: "",
-            designation_job_information: "",
-            __v: 0
-
-
-
-        }, ],
+        alumniList: [],
         newsDialogData: {
             title: "",
             content: "",
@@ -48,10 +27,7 @@ export default {
             content: "",
         },
         showEventDialog: false,
-        EventList: [{
-                title: 'Where does it come from?',
-                content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,'
-            },
+        EventList: [
 
         ],
         //   FAQ Data
@@ -127,7 +103,6 @@ export default {
                 state.newsList.splice(index, 1)
 
             }
-
             console.log(state.newsList)
         },
         //Document Section
@@ -144,11 +119,14 @@ export default {
         // Event Section
         setEventList: (state, data) => {
             state.EventList = data
+            console.log(EventList)
 
         },
         addEventToList: (state, data) => {
             state.EventList.unshift(data)
         },
+
+
         showEventDialog: (state, data) => {
             state.eventDialogData = data
             state.showEventDialog = true
@@ -170,7 +148,6 @@ export default {
                 state.EventList.splice(index, 1)
 
             }
-
             console.log(state.EventList)
         },
 
@@ -319,7 +296,10 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data: {
+                        "skip": 0,
+                        "limit": 3
+                    }
                 }).then((response) => {
                     resolve(response)
                     commit('setNewsList', response.data.result)
@@ -333,7 +313,8 @@ export default {
 
         deleteNews: ({
             state,
-            commit
+            commit,
+            dispatch
         }, data) => {
             return new Promise((resolve, reject) => {
                 axios({
@@ -347,7 +328,7 @@ export default {
                     }
                 }).then((response) => {
                     resolve(response)
-
+                    dispatch("getAllNews")
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -391,7 +372,10 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data: {
+                        "skip": 0,
+                        "limit": 3
+                    }
                 }).then((response) => {
                     resolve(response)
                     commit('setEventList', response.data.result)
@@ -404,7 +388,8 @@ export default {
         },
         deleteEvents: ({
             state,
-            commit
+            commit,
+            dispatch
         }, data) => {
             return new Promise((resolve, reject) => {
                 axios({
@@ -418,6 +403,7 @@ export default {
                     }
                 }).then((response) => {
                     resolve(response)
+                    dispatch("getAllEvent")
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -428,7 +414,8 @@ export default {
 
         deleteAlumni: ({
             state,
-            commit
+            commit,
+            dispatch
         }, data) => {
             return new Promise((resolve, reject) => {
                 axios({
@@ -442,6 +429,7 @@ export default {
                     }
                 }).then((response) => {
                     resolve(response)
+                    dispatch("getAllAlumni")
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -484,10 +472,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    params: {
-                        "skip": 0,
-                        "limit": 9
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     commit('setAlumniList', response.data.result)
@@ -510,7 +495,10 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data: {
+                        "skip": 1,
+                        "limit": 3
+                    }
                 }).then((response) => {
                     resolve(response)
                     commit('setFaqList', response.data.result)
@@ -536,6 +524,7 @@ export default {
 
 
                 }).then((response) => {
+
                     resolve(response)
                     console.log(response)
                 }).catch((error) => {
@@ -547,7 +536,8 @@ export default {
 
         deleteFaq: ({
             state,
-            commit
+            commit,
+            dispatch
         }, data) => {
             return new Promise((resolve, reject) => {
                 axios({
@@ -561,6 +551,7 @@ export default {
                     }
                 }).then((response) => {
                     resolve(response)
+                    dispatch("getAllFaq")
 
                     console.log(response)
                 }).catch((error) => {

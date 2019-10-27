@@ -22,7 +22,12 @@
                     <v-text-field v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-file-input accept="image/*" prepend-icon="mdi-camera" label="Upload Image"></v-file-input>
+                    <v-file-input
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
+                      label="Upload Image"
+                      @change="getBase64Image"
+                    ></v-file-input>
                   </v-col>
                 </v-row>
               </v-form>
@@ -47,7 +52,8 @@ export default {
   data() {
     return {
       titleRules: [v => !!v || "Title is required"],
-      bodyRules: [v => !!v || "Body is required"]
+      bodyRules: [v => !!v || "Body is required"],
+      imageBase64: ""
     };
   },
   computed: {
@@ -75,6 +81,20 @@ export default {
     }
   },
   methods: {
+    getBase64Image(file) {
+      console.log(file);
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        this.imageBase64 = str;
+      };
+      reader.onerror = function(error) {
+        console.log("Error: ", error);
+      };
+    },
+
     closeDialog() {
       this.$store.commit("adminModule/closeNewsDialog");
     },
@@ -83,48 +103,40 @@ export default {
       this.$store.commit("adminModule/showNewsProgress", {});
 
       this.$store.commit("adminModule/closeNewsDialog");
-      let currDate = moment().format("L");
+      let currDate = parseInt(moment().format("x"));
       let data = {
         title: newData.title,
         content: newData.content,
         tag: newData.title,
         date: currDate,
         author: null,
-        id: newData._id ? newData._id : null
+        id: newData._id ? newData._id : null,
+        photo: this.imageBase64
       };
       this.$store.dispatch("adminModule/addNews", data).then(response => {
-        if(data.id==null)
-        {
-          this.$store.commit(
-          "adminModule/addNewsToList",
-          JSON.parse(JSON.stringify(newData))
-        );
-        this.$store.commit("showSnackbar", {
-          message: "News Added successfully",
-          color: "success",
-          heading: "Success",
-          duration: 3000
-        }).catch(error => {
-          
-          this.$store.commit("showNetworkError");
-        });
-        }
-        else
-        {
-        //   this.$store.commit(
-        //   "adminModule/updateNewsToList",
-        //   JSON.parse(JSON.stringify(newData))
-        // );
-        this.$store.commit("showSnackbar", {
-          message: "News updated successfully",
-          color: "success",
-          heading: "Success",
-          duration: 3000
-        });
-        this.$store.dispatch("adminModule/getAllNews")
+        if (data.id == null) {
+          this.$store.commit("adminModule/addNewsToList", response.data.result);
 
+          this.$store.commit("showSnackbar", {
+            message: "News Added successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+        } else {
+          //   this.$store.commit(
+          //   "adminModule/updateNewsToList",
+          //   JSON.parse(JSON.stringify(newData))
+          // );
+          this.$store.commit("showSnackbar", {
+            message: "News updated successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+          this.$store.dispatch("adminModule/getAllNews");
         }
-        
+
         this.$store.commit("adminModule/closeNewsProgress", {});
       });
     }

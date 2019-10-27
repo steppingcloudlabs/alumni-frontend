@@ -74,6 +74,10 @@ export default new Vuex.Store({
       state.snackbarHeading = data.heading;
       state.snackbarMessage = data.message;
     },
+    closeSnackbar: (state) => {
+      state.showSnackbar = false;
+     
+    },
     showNetworkError: (state, data) => {
       state.showSnackbar = true;
       state.snackbarColor = "rgb(230, 0, 0, .8)";

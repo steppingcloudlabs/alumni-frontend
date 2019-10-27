@@ -9,7 +9,7 @@ export default {
     state: {
         test: "Hello Test",
         userData: {},
-        status: {},
+        statusData: {},
     },
     mutations: {
         setTest: (state, data) => {
@@ -18,8 +18,8 @@ export default {
         setData: (state, data) => {
             state.userData = data;
         },
-        statusData: (state, data) => {
-            state.statusData = data;
+        setStatusData: (state, data) => {
+            state.statusData = data[0];
         },
     },
     getters: {
@@ -30,7 +30,7 @@ export default {
             return state.userData
         },
         getStatusData: (state) => {
-            return state.status
+            return state.statusData
         },
     },
     actions: {
@@ -117,11 +117,11 @@ export default {
 
             })
         },
-        getStatus:({
+        getStatus: ({
             state,
             commit
-        },data)=>{
-            return new Promise((resolve,reject)=>{
+        }, data) => {
+            return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
                     url: 'http://18.190.14.5:4000/personaluser/user/status',
@@ -130,8 +130,8 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    commit('setStatusData', response.data.result)
                     resolve(response)
-                   
                     console.log(response)
                 }).catch((error) => {
                     reject(error)

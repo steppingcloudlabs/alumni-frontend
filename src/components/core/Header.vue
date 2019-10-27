@@ -9,7 +9,7 @@
         <v-list-item link>
           <v-list-item-title
             class="list-item-12"
-            style="font-size:12px;color:#66FCF1;"
+            style="font-size:12px;color:#DE7D14;"
             @click="navtoHome"
           >Home</v-list-item-title>
         </v-list-item>
@@ -19,7 +19,7 @@
         <v-list-item link>
           <v-list-item-title
             class="list-item-12"
-            style="font-size:12px;color:#66FCF1;"
+            style="font-size:12px;color:#DE7D14;"
             @click="navtologin"
           >Login</v-list-item-title>
         </v-list-item>
@@ -29,7 +29,7 @@
         <v-list-item link>
           <v-list-item-title
             class="list-item-12"
-            style="font-size:12px;color:#66FCF1;"
+            style="font-size:12px;color:#DE7D14;"
             @click="navtosignup"
           >Signup</v-list-item-title>
         </v-list-item>

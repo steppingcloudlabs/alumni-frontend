@@ -23,7 +23,12 @@
                 <v-text-field label="Location" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-file-input accept="image/*" prepend-icon="mdi-camera" label="Upload Image"></v-file-input>
+                <v-file-input
+                  accept="image/*"
+                  prepend-icon="mdi-camera"
+                  label="Upload Image"
+                  @change="getBase64Image"
+                ></v-file-input>
               </v-col>
             </v-row>
           </v-container>
@@ -40,6 +45,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     event: {
@@ -66,6 +72,19 @@ export default {
     };
   },
   methods: {
+    getBase64Image(file) {
+      console.log(file);
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        this.imageBase64 = str;
+      };
+      reader.onerror = function(error) {
+        console.log("Error: ", error);
+      };
+    },
     closeDialog() {
       this.$store.commit("adminModule/closeEventDialog");
     },
@@ -73,39 +92,35 @@ export default {
       let eventData = JSON.parse(JSON.stringify(this.event));
       this.$store.commit("adminModule/showEventsProgress", {});
       this.$store.commit("adminModule/closeEventDialog");
+      let currDate = parseInt(moment().format("x"));
       let data = {
         title: eventData.title,
         content: eventData.content,
         tag: eventData.title,
-         id: eventData._id ? eventData._id : null
+        id: eventData._id ? eventData._id : null,
+        photo: this.imageBase64,
+        date: currDate
       };
       this.$store.dispatch("adminModule/addEvents", data).then(response => {
-         if(data.id==null)
-        {
-        this.$store.commit(
-          "adminModule/addEventToList",
-          JSON.parse(JSON.stringify(eventData))
-        );
-        this.$store.commit("showSnackbar", {
-          message: "Event added successfully",
-          color: "success",
-          heading: "Success",
-          duration: 3000
-        }).catch(error => {
-          
-          this.$store.commit("showNetworkError");
-        });
-        }
-        else{
-           this.$store.dispatch("adminModule/getAllEvent")
-           this.$store.commit("showSnackbar", {
-          message: "Event updated successfully",
-          color: "success",
-          heading: "Success",
-          duration: 3000
-        });
-        
-
+        if (data.id == null) {
+          this.$store.commit(
+            "adminModule/addEventToList",
+            JSON.parse(JSON.stringify(response.data.result))
+          );
+          this.$store.commit("showSnackbar", {
+            message: "Event added successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+        } else {
+          this.$store.dispatch("adminModule/getAllEvent");
+          this.$store.commit("showSnackbar", {
+            message: "Event updated successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
         }
         this.$store.commit("adminModule/closeEventsProgress", {});
       });

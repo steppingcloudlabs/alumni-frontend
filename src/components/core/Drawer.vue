@@ -26,7 +26,7 @@
       </v-list-item-avatar>
 
       <v-list-item-title class="title">
-        Welcome !!
+        Welcome {{userData}}!!
       </v-list-item-title>
     </v-list-item>
 
@@ -122,11 +122,14 @@
     methods:{
     
     },
-    computed: {
-      userData() {
-        return this.$store.getters.getUserData;
-      }
+    
+   computed: {
+    userData() {
+      return this.$store.getters["userModule/getUserData"]
+        ? this.$store.getters["userModule/getUserData"].first_name_personal_information
+        : null;
     }
+      }
    
   }
 </script>

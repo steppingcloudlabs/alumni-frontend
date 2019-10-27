@@ -46,6 +46,8 @@ export default {
       this.$store.commit("closeDeleteDialog");
     },
     saveDialog() {
+      this.$store.commit("closeDeleteDialog");
+       this.$store.commit("showProgressBar", {});
       this.$store
         .dispatch(
           "adminModule/" + this.deleteActionToDispatch,
@@ -57,14 +59,18 @@ export default {
               "adminModule/" + this.deleteDialogCommitCall,
               this.objectToDelete
             );
+            
+            
             this.$store.commit("showSnackbar", {
               color: "success",
               duration: 3000,
               message: "Successfully Deleted",
               heading: "Success"
             });
+
           }
-          this.$store.commit("closeDeleteDialog");
+          this.$store.commit("closeProgressBar", {});
+          
         })
         .catch(error => {
           this.$store.commit("closeProgressBar", {});

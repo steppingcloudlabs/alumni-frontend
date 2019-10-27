@@ -8,14 +8,35 @@
         class="elevation-1"
         disable-pagination
         hide-default-footer
+        :loading="loader"
       >
         <template v-slot:top>
           <v-toolbar>
             <v-toolbar-title>Recent Resigned Employee</v-toolbar-title>
-
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              @click="openAddAlumniDialog"
+              style="margin-left: 20px; margin-top: 14px;"
+            >New Alumni</v-btn>
             <v-divider class="mx-4" inset vertical></v-divider>
             <div class="flex-grow-1"></div>
-            <v-btn color="primary" dark class="mb-2" @click="openAddAlumniDialog">New Alumni</v-btn>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+              @keyup.enter.native="findData(search)"
+            ></v-text-field>
+            <!-- <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              style="margin-left: 20px; margin-top: 14px;"
+              @click="findData(search)"
+            >Search</v-btn> -->
           </v-toolbar>
         </template>
         <template v-slot:item.action="{ item }">
@@ -52,7 +73,13 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllAlumni");
+    this.loader=true
+    this.$store.dispatch("adminModule/getAllAlumni", {
+      skip: 0,
+      limit: 9
+    }).then(response => {
+       this.loader=false
+    });
   },
   methods: {
     closeAlumniDialog() {
@@ -74,10 +101,23 @@ export default {
         form16Status: ""
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
+    },
+    findData(data) {
+      this.loader=true
+      let body = {
+        skip: 0,
+        limit: 2,
+        keyword: data
+      };
+      this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
+       this.loader=false
+    });
     }
   },
   data() {
     return {
+      loader:false,
+      search: "",
       dialog: false,
       headers: [
         {

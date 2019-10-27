@@ -11,7 +11,7 @@
         <span class="title" style="float: left">{{snackbarHeading}}</span>
         <span style="float: right">
           <v-btn color="Red" text @click="snackbar = false">
-            <v-icon>mdi-close</v-icon>
+            <v-icon @click="close">mdi-close</v-icon>
           </v-btn>
         </span>
       </v-flex>
@@ -70,6 +70,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods:{
+    close(){
+      this.$store.commit("closeSnackbar");
+    }
   }
 };
 </script>
