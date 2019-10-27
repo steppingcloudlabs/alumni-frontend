@@ -18,11 +18,19 @@
       />
     </template>
 
-    <v-list-item two-line>
-      <v-list-item-avatar color="white">
+<v-list-item two-line>
+         <img width="150px" class="mx-auto"  src="@/assets/logo.png">
+    </v-list-item>
+        <v-divider class="mx-1 mb-1" />
+
+    <v-list nav>
+      <!-- Bug in Vuetify for first child of v-list not receiving proper border-radius -->
+      <div />
+          <v-list-item two-line>
+      <v-list-item-avatar>
          <img 
              src="@/assets/avatar/download.jpg">
->
+
       </v-list-item-avatar>
 
       <v-list-item-title class="title">
@@ -30,12 +38,7 @@
       </v-list-item-title>
     </v-list-item>
 
-    <v-divider class="mx-3 mb-3" />
-
-    <v-list nav>
-      <!-- Bug in Vuetify for first child of v-list not receiving proper border-radius -->
-      <div />
-
+    <v-divider class="mx-1 mb-1" />
       <v-list-item
         v-for="(link, i) in links"
         :key="i"

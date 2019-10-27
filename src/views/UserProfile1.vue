@@ -77,7 +77,7 @@
           <v-card-title class="subtitle-2">
             Contact Information
             <v-spacer></v-spacer>
-            <v-btn color="green" @click="openContactDialog">Update Contact</v-btn>
+            <v-btn color="primary" @click="openContactDialog">Update Contact</v-btn>
           </v-card-title>
           <v-layout>
             <v-flex xs2>
