@@ -10,6 +10,12 @@ export default {
         test: "Hello Test",
         userData: {},
         statusData: {},
+        showContactDialog: false,
+        contactData:{
+            phone:"",
+            email:"",
+            address:""
+        }
     },
     mutations: {
         setTest: (state, data) => {
@@ -21,8 +27,22 @@ export default {
         setStatusData: (state, data) => {
             state.statusData = data[0];
         },
+        showContactDialog: (state, data) => {
+            state.contactData=data
+            state.showContactDialog = true
+        },
+        setShowContactDialog: (state, data) => {
+            state.showContactDialog = data
+        },
+        closeContactDialog: (state, data) => {
+            state.showContactDialog = false
+        },
+
     },
     getters: {
+        getshowContactDialog: (state) => {
+            return state.showContactDialog
+        },
         getTest: (state) => {
             return state.test;
         },
