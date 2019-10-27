@@ -125,6 +125,7 @@
         </div>
       </v-flex>
     </v-layout>
+    <updateContact></updateContact>
   </v-card>
 </template>
 

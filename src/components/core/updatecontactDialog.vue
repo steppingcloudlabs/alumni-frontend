@@ -48,22 +48,18 @@ return{
 }
     },
   computed: {
-
     showContact: {
       get() {
         return this.$store.getters["userModule/getshowContactDialog"];
       },
       set(data) {
-        this.$store.commit(
-          "adminModule/setShowContactDialog",
-          data
-        );
+        this.$store.commit("userModule/setShowContactDialog", data);
       }
     }
   },
   methods: {
     closeDialog() {
-      this.$store.commit("adminModule/closeContactDialog");
+      this.$store.commit("userModule/closeContactDialog");
     }
   }
 };
