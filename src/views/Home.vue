@@ -2,7 +2,7 @@
   <div>
     <Header v-if="$route.path == '/home'||$route.path == '/login' ||$route.path == '/signup'" />
   
-      <cards v-if="$route.path == '/home'"></cards>
+    <cards v-if="$route.path == '/home'"></cards>
  
     <Ceo v-if="$route.path == '/home'"></Ceo>
   </div>

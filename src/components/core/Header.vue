@@ -1,11 +1,20 @@
 <template>
   <div>
-    <v-layout row wrap px-5 py-2  ml-0 class="elevation-9" style="background:#1A1A1D">
-      <v-flex xs8>
-        <img src="@/assets/logo.png" height="50" />
+    <v-layout row wrap px-5 py-0 ml-0 align-center class="elevation-9" style="background:#1A1A1D">
+      <v-flex xs5>
+        <img src="@/assets/logo.png" height="50" class="my-2"/>
       </v-flex>
-   
-      <v-flex xs1>
+      <v-flex xs7 class="text-right">
+        <div class="menu-wrapper">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a class="active" href="#home">Home</a></li>
+          </ul>
+        </div>
+      </v-flex>
+      <!-- <v-flex xs1>
         <v-list-item link>
           <v-list-item-title
             class="list-item-12"
@@ -14,7 +23,6 @@
           >Home</v-list-item-title>
         </v-list-item>
       </v-flex>
-
       <v-flex xs1 v-if="$route.path == '/home'">
         <v-list-item link>
           <v-list-item-title
@@ -33,7 +41,7 @@
             @click="navtosignup"
           >Signup</v-list-item-title>
         </v-list-item>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
 
     <landingimage v-if="$route.path == '/home'"></landingimage>
@@ -91,6 +99,10 @@ export default {
 </script>
 
 <style>
+.menu-wrapper {
+  height: 100%;;
+
+}
 .vertical-align-content {
   position: relative;
   top: 50%;
@@ -100,5 +112,44 @@ export default {
 .list-item-12 {
   font-family: "Raleway";
   color: beige;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: right;
+  /* border-right:1px solid #bbb; */
+
+}
+/* 
+li:first-child {
+  border-right: none;
+} */
+
+li a {
+  display: block;
+  color: white !important;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 20px;
+  font-family: 'Raleway';
+  font-weight: 400;
+}
+li a:hover {
+  background-color:  rgb(241,135,16);
+  color: white !important;
+  /* font-weight: 600; */
+}
+.active {
+  /* background-color:  rgb(241,135,16); */
+  color: rgb(241,135,16) !important;
+  font-weight: 600;
 }
 </style>

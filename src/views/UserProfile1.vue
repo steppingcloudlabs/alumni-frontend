@@ -82,7 +82,7 @@
                 class="body-2 py-1"
                 style="margin-top:2px !important;"
               >{{user.employeeId}}</v-card-text>
-            </v-flex>
+            </v-flex> 
           </v-layout>
           <v-layout>
             <v-flex xs4>
