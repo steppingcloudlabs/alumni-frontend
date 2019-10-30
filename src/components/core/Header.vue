@@ -7,10 +7,10 @@
       <v-flex xs7 class="text-right">
         <div class="menu-wrapper">
           <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a class="active" href="#home">Home</a></li>
+            <li><a :class="$route.path == '/about' ? 'active' : ''">About</a></li>
+            <li><a :class="$route.path == '/signup' ? 'active' : ''" v-if="$route.path == '/home'" @click="navtosignup">Signin</a></li>
+            <li><a :class="$route.path == '/login' ? 'active' : ''" v-if="$route.path == '/home'" @click="navtologin">Login</a></li>
+            <li><a :class="$route.path == '/home' ? 'active' : ''" @click="navtoHome">Home</a></li>
           </ul>
         </div>
       </v-flex>
