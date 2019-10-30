@@ -141,6 +141,7 @@ li a {
   margin-right: 20px;
   font-family: 'Raleway';
   font-weight: 400;
+  transition: 300ms ease-in;
 }
 li a:hover {
   background-color:  rgb(241,135,16);
