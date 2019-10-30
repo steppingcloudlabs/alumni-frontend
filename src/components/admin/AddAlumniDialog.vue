@@ -33,6 +33,12 @@
               <v-col cols="12" md="6">
                 <v-text-field v-model="alumni.email" label="Email"></v-text-field>
               </v-col>  
+              <v-col cols="12" md="6">
+                <v-text-field v-model="alumni.resignation" label="Resignation Date"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="alumni.relieving" label="Relieving Date"></v-text-field>
+              </v-col>  
               <v-col cols="12">
                 <v-text-field v-model="alumni.address" label="Address"></v-text-field>
               </v-col>
@@ -80,7 +86,8 @@ export default {
         manager_job_information: alumniData.managerId,
         designation_job_information: alumniData.designation,
         first_name_personal_information: alumniData.firstName,
-        last_name_personal_information: alumniData.lastName
+        last_name_personal_information: alumniData.lastName,
+        date_of_resignation:alumniData.resignation
       };
       let data1={
         user_id: alumniData.empId,

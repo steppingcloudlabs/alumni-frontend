@@ -1,8 +1,8 @@
 <template>
-  <v-card height="100%">
+  <v-card height="100%" class="pb-5">
     <v-layout>
       <v-flex xs4>
-        <div>
+        <div class="py-1">
           <v-list-item-avatar
             tile
             size="180"
@@ -12,114 +12,151 @@
             <v-img src="@/assets/avatar/download.jpg"></v-img>
           </v-list-item-avatar>
           <v-divider></v-divider>
+          <v-card-title class="subtitle-2 py-1" style="font-weight: bold;">Basic Information</v-card-title>
+          <v-layout>
+            <v-flex xs5>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Date Of Birth:</v-card-text>
+            </v-flex>
+            <v-flex xs7>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.DOB}}</v-card-text>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs3>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Gender:</v-card-text>
+            </v-flex>
+            <v-flex xs8>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.gender}}</v-card-text>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Nationality:</v-card-text>
+            </v-flex>
+            <v-flex xs8>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important;"
+              >{{user.nationality}}</v-card-text>
+            </v-flex>
+          </v-layout>
+          <v-divider></v-divider>
+          <v-card-title class="subtitle-2" style="font-weight: bold;">
+            <!-- Skills -->
+            <v-text-field
+              v-model="skill"
+              label="Skills"
+              class="elevation-0"
+              single-line
+              hide-details
+              append-icon="add"
+              @click:append="addSkill"
+              @keyup.enter.native="addSkill()"
+            ></v-text-field>
+            <!-- <v-btn small color="primary">Add Skills</v-btn> -->
+          </v-card-title>
+          <v-card-text v-for="(item, i) in skills" :key="i" class="body-2 py-1 pb-2">
+            <span>{{item}}</span>
+            <span style="float: right">
+              <v-icon small @click="deleteSkill(i)">mdi-close-circle-outline</v-icon>
+            </span>
+          </v-card-text>
+        </div>
+      </v-flex>
+      <v-flex xs8 pl-5 mt-5>
+        <div style="padding-bottom: 50px !important;">
+          <v-list-item-title class="headline mb-1 ml-4">
+            {{user.firstname}} {{user.lastname}}
+            <v-icon class="ml-2 mr-2" small>mdi-map-marker</v-icon>
+            <span style="font-size:15px">{{user.nationality}}</span>
+          </v-list-item-title>
           <v-flex xs7>
-            <v-card-title class="subtitle-2">Company Information</v-card-title>
+            <v-card-title class="subtitle-2 py-1" style="font-weight: bold;">Company Information</v-card-title>
           </v-flex>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Designation:</v-card-text>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">EmployeeId:</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.position}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs5>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Resignation Date:</v-card-text>
-            </v-flex>
-            <v-flex xs7>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.lastworking}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs5>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Relieving Date:</v-card-text>
-            </v-flex>
-            <v-flex xs7>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.relieving}}</v-card-text>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important;"
+              >{{user.employeeId}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Manager:</v-card-text>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important;"
+              >Previous Designation:</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.managerid}}</v-card-text>
-            </v-flex>
-          </v-layout>
-        </div>
-      </v-flex>
-      <v-flex xs8>
-        <div>
-          <v-list-item-content style="margin-top: 60px;
-    margin-left: 40px;">
-            <v-list-item-title class="headline mb-1">
-              {{user.firstname}} {{user.lastname}}
-              <v-icon class="ml-2" small>mdi-map-marker</v-icon>
-              {{user.city}}
-            </v-list-item-title>
-            <v-list-item-subtitle
-              class="mt-3"
-              style="margin-left: 4px;margin-top: 10px !important;"
-            >{{user.employeeId}}</v-list-item-subtitle>
-            <v-layout>
-              <v-flex xs4 style="margin-top: 10px;">
-                <v-chip
-                  style="margin-left: 2px;"
-                  color="green"
-                  v-for="(item, i) in skills"
-                  :key="i"
-                >{{item.skill}}</v-chip>
-              </v-flex>
-            </v-layout>
-          </v-list-item-content>
-          <v-divider></v-divider>
-          <v-card-title class="subtitle-2">
-            Contact Information
-            <v-spacer></v-spacer>
-            <v-btn color="primary" @click="openContactDialog">Update Contact</v-btn>
-          </v-card-title>
-          <v-layout>
-            <v-flex xs2>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Phone No:</v-card-text>
-            </v-flex>
-            <v-flex xs10>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.mobile}}</v-card-text>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.position}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
-            <v-flex xs2>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Email:</v-card-text>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Resignation Date:</v-card-text>
             </v-flex>
-            <v-flex xs10>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.email}}</v-card-text>
+            <v-flex xs8>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important;"
+              >{{user.resignation}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
-            <v-flex xs2>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Address:</v-card-text>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Relieving Date:</v-card-text>
             </v-flex>
-            <v-flex xs10>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.city}}</v-card-text>
+            <v-flex xs8>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.relieving}}</v-card-text>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Manager:</v-card-text>
+            </v-flex>
+            <v-flex xs8>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.managerid}}</v-card-text>
             </v-flex>
           </v-layout>
 
           <v-divider></v-divider>
-          <v-card-title class="subtitle-2">Basic Information</v-card-title>
+          <v-card-title class="subtitle-2" style="font-weight: bold;">
+            Contact Information
+            <v-spacer></v-spacer>
+            <v-btn small color="primary" @click="openContactDialog">Update Contact</v-btn>
+          </v-card-title>
           <v-layout>
-            <v-flex xs2>
-              <v-card-text class="body-2" style="margin-top:2px !important;">BirthDate:</v-card-text>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Phone No:</v-card-text>
             </v-flex>
-            <v-flex xs10>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.DOB}}</v-card-text>
+            <v-flex xs8>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important; color: darkblue;"
+              >{{user.mobile}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
-            <v-flex xs2>
-              <v-card-text class="body-2" style="margin-top:2px !important;">Nationality:</v-card-text>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Email:</v-card-text>
             </v-flex>
-            <v-flex xs10>
-              <v-card-text class="body-2" style="margin-top:2px !important;">{{user.nationality}}</v-card-text>
+            <v-flex xs8>
+              <v-card-text
+                class="body-2 py-1"
+                style="margin-top:2px !important;color: darkblue;"
+              >{{user.email}}</v-card-text>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs4>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Address:</v-card-text>
+            </v-flex>
+            <v-flex xs6>
+              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">{{user.city}}</v-card-text>
             </v-flex>
           </v-layout>
         </div>
@@ -137,14 +174,8 @@ export default {
   },
   data() {
     return {
-      skills: [
-        {
-          skill: "hello"
-        },
-        {
-          skill: "testing"
-        }
-      ],
+      skill: "",
+      skills: ["hello", "testing"],
       user: {
         username: "",
         firstname: "",
@@ -171,11 +202,43 @@ export default {
     this.initializeUserData();
   },
   watch: {
-    user() {
+    userData() {
       this.initializeUserData();
     }
   },
   methods: {
+    deleteSkill(data) {
+      this.skills.splice(data, 1);
+    },
+    addSkill() {
+      let skillExists = this.skills.filter(item => {
+        if (item.toLowerCase() == this.skill.toLowerCase()) {
+          return true;
+        }
+        return false;
+      });
+      if (skillExists.length < 1) {
+        let data = {
+          user_id: this.user.employeeId,
+          skill: this.skill
+        };
+
+        console.log(data);
+        this.$store.dispatch("userModule/updateData", data).then(response => {
+          if (response.data.status == 200) {
+            this.skills.push(this.skill);
+            this.$store.commit("showSnackbar", {
+              message: "COntact Updated successfully",
+              color: "success",
+              heading: "Success",
+              duration: 3000
+            });
+          }
+
+          this.skill = "";
+        });
+      }
+    },
     initializeUserData() {
       this.user.position = this.userData.designation_job_information;
       this.user.employeeId = this.userData.user_id;
@@ -199,6 +262,13 @@ export default {
         new Date(
           this.userData.last_working_day_as_per_notice_period
         ).getFullYear();
+
+      this.user.resignation =
+        new Date(this.userData.date_of_resignation).getDate() +
+        "/" +
+        new Date(this.userData.date_of_resignation).getMonth() +
+        "/" +
+        new Date(this.userData.date_of_resignation).getFullYear();
 
       this.user.firstname = this.userData.first_name_personal_information;
       this.user.lastname = this.userData.last_name_personal_information;
@@ -226,3 +296,13 @@ export default {
   }
 };
 </script>
+<style>
+.subtitle-2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+.body-2 {
+  font-family: "Lato", sans-serif;
+  font-size: larger;
+}
+</style>

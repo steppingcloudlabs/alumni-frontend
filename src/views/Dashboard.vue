@@ -11,7 +11,7 @@
       <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
         <v-flex xs4>
           <v-card class="mr-3 ml-3" height="100%">
-            <v-card-title>FnF Status</v-card-title>
+            <v-card-title style="font-family:Raleway;">FnF Status</v-card-title>
             <v-card-text>
               <timeline
                 :status="FnfStatus"
@@ -24,7 +24,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card class="mr-3 ml-3" height="100%">
-            <v-card-title>Form16 Status</v-card-title>
+            <v-card-title  style="font-family:Raleway;">Form16 Status</v-card-title>
             <v-card-text>
               <timeline
                 :status="FormStatus"
@@ -37,7 +37,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
-            <v-card-title>Pf Clearance Status</v-card-title>
+            <v-card-title  style="font-family:Raleway;">Pf Clearance Status</v-card-title>
             <v-card-text>
               <timeline
                 :status="PfStatus"
@@ -71,6 +71,7 @@
 
 <script>
 import clearance from "@/components/core/clearanceDialog.vue";
+import events from "@/components/core/events.vue";
 import carosel from "@/components/material/carosel.vue";
 import news from "@/components/core/newsComponent.vue";
 import timeline from "@/components/material/Timeline.vue";
@@ -80,7 +81,8 @@ export default {
     clearance,
     carosel,
     news,
-    timeline
+    timeline,
+    events
   },
   data() {
     return {

@@ -1,16 +1,16 @@
 <template>
   <v-carousel  class=" mr-5" cycle height="300px" hide-delimiter-background show-arrows-on-hover hide-delimiters>
     <div v-if="!this.empty">
-    <v-carousel-item v-for="(item, i) in getEventList" :key="i">
+    <v-carousel-item v-for="(item, i) in getEventList" :key="i" src="@/assets/dash1.jpg">
       
       <v-card :color="colors[i]" height="100%">
         <v-card-title>
           <v-icon large left>mdi-bullhorn</v-icon>
-          <span class="title font-weight-bold">{{item.title}}</span>
+          <span class="title font-weight-bold"  style="font-family:Raleway;">{{item.title}}</span>
         </v-card-title>
         <br />
         <br />
-        <v-card-text class="headline font-weight-light">{{item.content}}</v-card-text>
+        <v-card-text class="headline font-weight-light" style="font-family:Raleway;">{{item.content}}</v-card-text>
         <br />
         <br />
        

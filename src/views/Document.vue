@@ -26,7 +26,9 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn text @click="download(96)">Download Now</v-btn>
+            <v-btn text @click="download(96)">PaySlip1</v-btn>
+            <v-btn text @click="download(97)">PaySlip2</v-btn>
+            <v-btn text @click="download(98)">PaySlip3</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

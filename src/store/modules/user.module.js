@@ -11,11 +11,7 @@ export default {
         userData: {},
         statusData: {},
         showContactDialog: false,
-        contactData:{
-            phone:"",
-            email:"",
-            address:""
-        }
+        contactData: {}
     },
     mutations: {
         setTest: (state, data) => {
@@ -28,20 +24,34 @@ export default {
             state.statusData = data[0];
         },
         showContactDialog: (state, data) => {
-            state.contactData=data
             state.showContactDialog = true
+            state.contactData = data
         },
         setShowContactDialog: (state, data) => {
-            state.showContactDialog = data
+            state.showContactDialog = true
+            state.contactData = data
+
+        },
+        setShowContactDialogData: (state, data) => {
+            state.contactData = data
         },
         closeContactDialog: (state, data) => {
             state.showContactDialog = false
+        },
+        setUpdateContactData: (state, data) => {
+            state.userData.phone_number_phone_information = data.phone_number_phone_information
+            state.userData.personal_email_id = data.personal_email_id
+            state.userData.city_addresses = data.city_addresses
+            state.userData = JSON.parse(JSON.stringify(state.userData))
         },
 
     },
     getters: {
         getshowContactDialog: (state) => {
             return state.showContactDialog
+        },
+        getContactDialogData: (state) => {
+            return state.contactData
         },
         getTest: (state) => {
             return state.test;
@@ -137,6 +147,31 @@ export default {
 
             })
         },
+        updateData: ({
+            state,
+            commit
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/updatealumni',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+
         getStatus: ({
             state,
             commit

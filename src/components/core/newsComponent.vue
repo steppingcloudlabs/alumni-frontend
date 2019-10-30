@@ -3,7 +3,7 @@
     <v-row class="ma-0">
       <v-col cols="12" class="pa-0">
         <v-toolbar color="#5097DD" class="white--text">
-          <v-toolbar-title class="headline mb-2">News</v-toolbar-title>
+          <v-toolbar-title class="headline mb-2" style="font-family:Raleway;">News</v-toolbar-title>
         </v-toolbar>
         <div v-if="!this.empty">
         <v-layout row wrap mt-4 v-for="(item,i) in count " :key="i">
@@ -24,10 +24,11 @@
         </v-layout>
         </div>
         <div v-else style="margin-bottom: 30px;
-    margin-left: 350px;
+    margin-left: 450px;
     margin-right: 100px; margin-top: 50px;">
-      <span class="subtitle-1 mr-5 ml-5">No News to Show <v-img  width="100"
-      height="100" src="@/assets/waiting.gif"></v-img></span>
+      <span class="subtitle-1 mr-5 ml-0">No News to Show</span> 
+      <v-img  width="100"
+      height="100" src="@/assets/waiting.gif"></v-img>
     </div>
         
       </v-col>

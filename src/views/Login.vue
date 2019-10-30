@@ -30,7 +30,9 @@
                         label="Password"
                         name="password"
                         prepend-icon="lock"
-                        type="password"
+                         :type="show1 ? 'text' : 'password'"
+                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                     @click:append="show1 = !show1"
                         v-model="password"
                         :rules="passwordRules"
                         dark
@@ -70,6 +72,7 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
+      show1:false,
       valid:true,
       username: null,
       password: null,

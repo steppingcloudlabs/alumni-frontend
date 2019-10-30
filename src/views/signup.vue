@@ -49,10 +49,13 @@
                     label="Password"
                     name="password"
                     prepend-icon="lock"
-                    type="password"
+        
                     v-model="password"
                     :rules="passwordRules"
                     class="white--text"
+                    :type="show1 ? 'text' : 'password'"
+                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                     @click:append="show1 = !show1"
                   ></v-text-field>
                   <v-text-field
                     dark
@@ -106,6 +109,7 @@ export default {
   },
   data() {
     return {
+      show1:false,
       dialog: false,
       valid: true,
       emailRules: [
@@ -119,15 +123,12 @@ export default {
           "Password must contain one uppercase letter, one lowercase letter and one number",
         v => v.length > 6 || "Password must be grater than 6 characters"
       ],
-       employeeRules: [
-        v => !!v || "Employee Id is required",
-       
-      ],
+      employeeRules: [v => !!v || "Employee Id is required"],
 
       Companyname: "",
       EmployeeId: "",
       email: "",
-      Cnfpassword:"",
+      Cnfpassword: "",
       password: "",
       snackbar: false,
       snackbar1: true
@@ -215,7 +216,7 @@ export default {
   }
 };
 </script>
-<style  >
+<style scoped  >
 a {
   text-decoration: none;
 }
