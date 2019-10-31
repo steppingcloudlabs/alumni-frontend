@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-layout row wrap px-5 py-0 ml-0 align-center class="elevation-9" style="background:#1A1A1D">
+  <div style="margin-top: 70px">
+    <v-layout row wrap px-5 py-0 ml-0 align-center class="header-wrapper" style="background:#1A1A1D">
       <v-flex xs5>
         <img src="@/assets/logo.png" height="50" class="my-2"/>
       </v-flex>
@@ -14,37 +14,8 @@
           </ul>
         </div>
       </v-flex>
-      <!-- <v-flex xs1>
-        <v-list-item link>
-          <v-list-item-title
-            class="list-item-12"
-            style="font-size:12px;color:#DE7D14;"
-            @click="navtoHome"
-          >Home</v-list-item-title>
-        </v-list-item>
-      </v-flex>
-      <v-flex xs1 v-if="$route.path == '/home'">
-        <v-list-item link>
-          <v-list-item-title
-            class="list-item-12"
-            style="font-size:12px;color:#DE7D14;"
-            @click="navtologin"
-          >Login</v-list-item-title>
-        </v-list-item>
-      </v-flex>
-
-      <v-flex xs1 v-if="$route.path == '/home'">
-        <v-list-item link>
-          <v-list-item-title
-            class="list-item-12"
-            style="font-size:12px;color:#DE7D14;"
-            @click="navtosignup"
-          >Signup</v-list-item-title>
-        </v-list-item>
-      </v-flex> -->
     </v-layout>
 
-    <landingimage v-if="$route.path == '/home'"></landingimage>
   </div>
 </template>
 
@@ -99,6 +70,12 @@ export default {
 </script>
 
 <style>
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1009;
+}
 .menu-wrapper {
   height: 100%;;
 
