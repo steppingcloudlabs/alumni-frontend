@@ -1,17 +1,13 @@
 <template>
-  <v-row>
-
-    <v-col v-for="(card, i) in cards" :key="i" data-aos="zoom-in" data-aos-duration="1000">
-      <v-card class="mx-auto home-activity-card" max-width="370" elevation="1" min-height="240px">
-        <v-img height="240px" :src="card.back">
-          <br />
-          <v-card-title class="text" style=" font-family:Raleway font-size:40px">{{cards[i].title}}</v-card-title>
-
-          <v-card-text></v-card-text>
-        </v-img>
+  <v-layout row wrap>
+    <v-flex xs4 class="pa-5" v-for="(card, i) in cards" :key="i" data-aos="zoom-in" data-aos-duration="500">
+      <v-card class="home-activity-card" elevation="1" min-height="240px">
+        <v-img height="240px" :src="card.back"></v-img>
+        <p class="title text-center py-5" style="color: rgb(241,135,16)">{{cards[i].title}}</p>
+          <!-- <v-card-text></v-card-text> -->
       </v-card>
-    </v-col>
-  </v-row>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

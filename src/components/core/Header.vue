@@ -116,7 +116,7 @@ li a {
   text-decoration: none;
   border-radius: 5px;
   margin-right: 20px;
-  font-family: 'Raleway';
+  font-family: 'Lato';
   font-weight: 400;
   transition: 300ms ease-in;
 }

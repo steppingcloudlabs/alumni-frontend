@@ -64,6 +64,8 @@ export default {
   position: relative;
   top: 40%;
   font-size: 35px;
-  font-style: italic;
+  /* font-style: italic; */
+  font-family: 'Lato';
+  letter-spacing: 1px;
 }
 </style>
