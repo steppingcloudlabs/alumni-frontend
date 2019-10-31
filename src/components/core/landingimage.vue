@@ -62,7 +62,7 @@ export default {
   text-align: center;
   color: rgb(241,135,16);
   position: relative;
-  top: 40%;
+  top: 35%;
   font-size: 35px;
   /* font-style: italic; */
   font-family: 'Lato';

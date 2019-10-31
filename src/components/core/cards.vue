@@ -95,7 +95,7 @@ export default {
   width: 100%;
   height: 240px;
   max-height: 240px;
-  background-color: rgb(241,135,16);
+  background: linear-gradient(to right, rgba(241,135,16, 1));
   color: white;
   transform: rotateY(180deg);
   border-radius: 10px;

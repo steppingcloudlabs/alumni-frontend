@@ -1,19 +1,23 @@
 <template>
   <v-card height="100%" class="pb-5">
     <v-layout>
-      <v-flex xs4>
+      <v-flex xs4 class="align-center">
         <div class="py-1">
+          <div class="text-center">
           <v-list-item-avatar
             tile
-            size="180"
-            style="margin-top: 60px;
-                 margin-left: 60px;"
+            size="100"
+            class="mx-5"
           >
-            <v-img src="@/assets/avatar/download.jpg"></v-img>
+            <v-img src="@/assets/avatar/download.jpg" style="border-radius: 50%;"></v-img> 
           </v-list-item-avatar>
+            <p class="title">{{user.firstname}} {{user.lastname}}</p>
+  
+          </div>
+          
           <v-divider></v-divider>
-          <v-card-title class="subtitle-2 py-1" style="font-weight: bold;">Basic Information</v-card-title>
-          <v-layout>
+          <v-card-title class="subtitle-2 pt-5" style="font-weight: bold;">Basic Information</v-card-title>
+          <v-layout row wrap class="ma-0">
             <v-flex xs5>
               <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Date Of Birth:</v-card-text>
             </v-flex>
@@ -65,11 +69,11 @@
       </v-flex>
       <v-flex xs8 pl-5 mt-5>
         <div style="padding-bottom: 50px !important;">
-          <v-list-item-title class="headline mb-1 ml-4">
+          <!-- <v-list-item-title class="headline mb-1 ml-4">
             {{user.firstname}} {{user.lastname}}
             <v-icon class="ml-2 mr-2" small>mdi-map-marker</v-icon>
             <span style="font-size:15px">{{user.nationality}}</span>
-          </v-list-item-title>
+          </v-list-item-title> -->
           <v-flex xs7>
             <v-card-title class="subtitle-2 py-1" style="font-weight: bold;">Company Information</v-card-title>
           </v-flex>
