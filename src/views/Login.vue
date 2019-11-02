@@ -3,7 +3,6 @@
     <v-app id="inspire" class="back">
       <v-content>
         <v-container class="fill-height" fluid>
-          
             <v-row align="center" justify="center">
               <v-col cols="12" sm="8" md="4">
                 <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
@@ -174,10 +173,6 @@ a {
   background-size: cover;
   position: relative;
 }
-.v-content__wrap {
-  background-image: url("../assets/login.jpg");
-  background-size: cover;
-  min-height: 113vh;
-}
+
 </style>
 

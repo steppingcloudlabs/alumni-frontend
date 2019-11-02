@@ -2,9 +2,8 @@
   <v-navigation-drawer
     id="app-drawer"
     v-model="inputValue"
-    src="@/assets/pic1.jpg"
     app
-    color="grey darken-2"
+    color="rgb(35,43,43)"
     dark
     floating
     mobile-break-point="991"
@@ -16,7 +15,7 @@
     </template>
 
     <v-list-item two-line>
-      <img width="150px" class="mx-auto" src="@/assets/logo.png" />
+      <img width="150px" class="mx-auto" src="@/assets/logo.png" /> 
     </v-list-item>
     <v-divider class="mx-1 mb-1" />
 

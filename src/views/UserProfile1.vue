@@ -1,6 +1,6 @@
 <template>
-  <v-card height="100%" class="pb-5">
-    <v-layout>
+  <v-card height="100%" class="pb-5 user-profile-card">
+    <v-layout style="padding: 20px;">
       <v-flex xs4 class="align-center">
         <div class="py-1">
           <div class="text-center">
@@ -19,27 +19,27 @@
           <p class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">Basic Information</p>
           <v-layout row wrap class="ma-0">
             <v-flex xs5>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
             </v-flex>
             <v-flex xs7>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.DOB}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.DOB}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs3>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Gender</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.gender}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.gender}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout class="mb-4">
             <v-flex xs4>
-              <v-card-text class="body-2 py-1 " style="margin-top:2px !important;">Nationality</v-card-text>
+              <v-card-text class="body-1 py-1 " style="margin-top:2px !important;">Nationality</v-card-text>
             </v-flex>
             <v-flex xs8>
               <v-card-text
-                class="body-2 py-1 font-weight-bold"
+                class="body-1 py-1 font-weight-bold"
                 style="margin-top:2px !important; color: #181818	"
               >{{user.nationality}}</v-card-text>
             </v-flex>
@@ -59,7 +59,7 @@
             ></v-text-field>
             <!-- <v-btn small color="primary">Add Skills</v-btn> -->
           </v-card-title>
-          <v-card-text v-for="(item, i) in skills" :key="i" class="body-2 py-1 pb-2">
+          <v-card-text v-for="(item, i) in skills" :key="i" class="body-1 py-1 pb-2">
             <span style="color: #181818	">{{item}}</span>
             <span style="float: right">
               <v-icon small @click="deleteSkill(i)">mdi-close-circle-outline</v-icon>
@@ -74,11 +74,11 @@
           </v-flex>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
             </v-flex>
             <v-flex xs8>
               <v-card-text
-                class="body-2 py-1 font-weight-bold"
+                class="body-1 py-1 font-weight-bold"
                 style="margin-top:2px !important; color: #181818	"
               >{{user.employeeId}}</v-card-text>
             </v-flex> 
@@ -86,39 +86,39 @@
           <v-layout>
             <v-flex xs4>
               <v-card-text
-                class="body-2 py-1 "
+                class="body-1 py-1 "
                 style="margin-top:2px !important;"
               >Previous Designation</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.position}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.position}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
             </v-flex>
             <v-flex xs8>
               <v-card-text
-                class="body-2 py-1 font-weight-bold"
+                class="body-1 py-1 font-weight-bold"
                 style="margin-top:2px !important; color: #181818	"
               >{{user.resignation}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.relieving}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.relieving}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout class="mb-4">
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Manager</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
             </v-flex>
             <v-flex xs8>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.managerid}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.managerid}}</v-card-text>
             </v-flex>
           </v-layout>
 
@@ -130,32 +130,32 @@
           </v-card-title>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
             </v-flex>
             <v-flex xs8>
               <v-card-text
-                class="body-2 py-1 font-weight-bold"
+                class="body-1 py-1 font-weight-bold"
                 style="margin-top:2px !important; color: #181818	"
               >{{user.mobile}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Email</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
             </v-flex>
             <v-flex xs8>
               <v-card-text
-                class="body-2 py-1 font-weight-bold"
+                class="body-1 py-1 font-weight-bold"
                 style="margin-top:2px !important;"
               >{{user.email}}</v-card-text>
             </v-flex>
           </v-layout>
           <v-layout>
             <v-flex xs4>
-              <v-card-text class="body-2 py-1" style="margin-top:2px !important;">Address</v-card-text>
+              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
             </v-flex>
             <v-flex xs6>
-              <v-card-text class="body-2 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.city}}</v-card-text>
+              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.city}}</v-card-text>
             </v-flex>
           </v-layout>
         </div>
@@ -302,7 +302,7 @@ export default {
   font-family: "Raleway", sans-serif;
   font-weight: bold;
 }
-.body-2 {
+.body-1 {
   font-family: "Calibri", sans-serif;
   font-size: larger;
 }

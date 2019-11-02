@@ -1,5 +1,5 @@
 <template>
-  <v-content class="grey lighten-3">
+  <v-content class="main-user-container">
     <div id="core-view">
       <v-fade-transition mode="out-in">
         <router-view />
@@ -19,3 +19,14 @@
     }
   }
 </script>
+<style>
+.main-user-container {
+  margin: 65px 20px !important; 
+}
+.main-user-container .v-content__wrap #core-view {
+  height: 100%;
+}
+.main-user-container .v-content__wrap #core-view .user-profile-card {
+  border-radius: 50px;
+}
+</style>
