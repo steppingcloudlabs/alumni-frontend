@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <div id="core-login">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -49,13 +49,12 @@
                     label="Password"
                     name="password"
                     prepend-icon="lock"
-        
                     v-model="password"
                     :rules="passwordRules"
                     class="white--text"
                     :type="show1 ? 'text' : 'password'"
                     :append-icon="show1 ? 'visibility' : 'visibility_off'"
-                     @click:append="show1 = !show1"
+                    @click:append="show1 = !show1"
                   ></v-text-field>
                   <v-text-field
                     dark
@@ -98,7 +97,7 @@
       </v-container>
     </v-content>
     <Contact :dialog="dialog" @closeAskHrDialog="closeAskHrDialog" />
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -109,7 +108,7 @@ export default {
   },
   data() {
     return {
-      show1:false,
+      show1: false,
       dialog: false,
       valid: true,
       emailRules: [
@@ -235,5 +234,12 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: white !important;
+}
+#core-login {
+  background-image: url("../assets/login.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }
 </style>

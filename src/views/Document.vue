@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-img height="250px" src="@/assets/document_bg.jpg">
-      <core-app-bar></core-app-bar>
+      <!-- <core-app-bar></core-app-bar> -->
     </v-img>
     <br />
     <br />

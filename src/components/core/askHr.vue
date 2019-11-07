@@ -56,7 +56,11 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllFaq");
+     this.$store.commit("showProgressBar", {});
+    this.$store.dispatch("adminModule/getAllFaq").then(response=>{
+     this.$store.commit("closeProgressBar", {});
+    });
+     
   },
 
   computed: {

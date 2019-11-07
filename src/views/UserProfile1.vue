@@ -1,179 +1,359 @@
 <template>
-  <v-card height="100%" class="pb-5 user-profile-card">
-    <v-layout style="padding: 20px;">
-      <v-flex xs4 class="align-center">
-        <div class="py-1">
-          <div class="text-center">
-          <v-list-item-avatar
-            tile
-            size="100"
-            class="mx-5"
-          >
-            <v-img src="@/assets/avatar/download.jpg" style="border-radius: 50%;"></v-img> 
-          </v-list-item-avatar>
-            <p class="title" style="color: rgb(25,118,210)">{{user.firstname}} {{user.lastname}}</p>
-  
-          </div>
-          
-          <v-divider></v-divider>
-          <p class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">Basic Information</p>
-          <v-layout row wrap class="ma-0">
-            <v-flex xs5>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
-            </v-flex>
-            <v-flex xs7>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.DOB}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs3>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.gender}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout class="mb-4">
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1 " style="margin-top:2px !important;">Nationality</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text
-                class="body-1 py-1 font-weight-bold"
-                style="margin-top:2px !important; color: #181818	"
-              >{{user.nationality}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-divider></v-divider>
-          <v-card-title class="subtitle-2 pt-0" style="font-weight: bold;">
-            <!-- Skills -->
-            <v-text-field
-              v-model="skill"
-              label="Skills"
-              class="elevation-0"
-              single-line
-              hide-details
-              append-icon="add"
-              @click:append="addSkill"
-              @keyup.enter.native="addSkill()"
-            ></v-text-field>
-            <!-- <v-btn small color="primary">Add Skills</v-btn> -->
-          </v-card-title>
-          <v-card-text v-for="(item, i) in skills" :key="i" class="body-1 py-1 pb-2">
-            <span style="color: #181818	">{{item}}</span>
-            <span style="float: right">
-              <v-icon small @click="deleteSkill(i)">mdi-close-circle-outline</v-icon>
-            </span>
-          </v-card-text>
-        </div>
-      </v-flex>
-      <v-flex xs8 pl-5 mt-2>
-        <div style="padding-bottom: 50px !important;">
-          <v-flex xs7>
-            <v-card-title class="subtitle-2 py-1 user-profile-heading" style="font-weight: bold;">Company Information</v-card-title>
+  <div>
+    <v-img
+      src="@/assets/buildings.gif"
+      width="100%"
+      height="250px"
+      style="margin-left: auto;
+    margin-right: auto;"
+    ></v-img>
+    <v-card
+      width="85%"
+      style="margin-left: auto;
+    margin-right: auto; margin-top:-81px"
+      elevation-24
+      class="cards"
+    >
+      <!-- <v-list-item-avatar tile> -->
+      <div>
+        <p class="text-center">
+          <img
+            class="img"
+            src="@/assets/avatar/download.jpg"
+            style="margin-top: -60px; border-radius: 50%; border: 3px solid white; width: 200px;"
+          />
+        </p>
+      </div>
+      <!-- </v-list-item-avatar> -->
+      <div style="text-align:center">
+        <v-card-text class="headline py-1" style="line-height:1px;margin-left:0px !important;">
+          <p
+            style="color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
+          >{{user.firstname}} {{user.lastname}}</p>
+        </v-card-text>
+        <v-card-text
+          class="subtitle"
+          style="margin-left: 0px!important;line-height: 2px !important;"
+        >
+          <p
+            class="caption"
+            style="line-height: 2px !important;font-family:'Raleway',sans-serif"
+          >Ex-{{user.designation}}</p>
+          <p>
+            <v-icon class="mr-2" color="blue">mdi-twitter</v-icon>
+            <v-icon color="blue">mdi-linkedin</v-icon>
+          </p>
+          <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
+        </v-card-text>
+        <v-card-text class="py-5">
+          <p>
+            <v-btn
+              class="button"
+              x-large
+              fab
+              :style="!office ? 'background: lightgrey' : 'background: white;'"
+              style="margin-right:10px; color: white"
+              @click="resetoffice"
+            >
+              <v-icon class="hello mr-5 ml-5" color="blue">mdi-account</v-icon>
+            </v-btn>
+            <v-btn
+              class="button"
+              :style="office ? 'background: lightgrey' : 'background: white;'"
+              x-large
+              fab
+              style="margin-left:10px; color: white"
+              @click="setoffice"
+            >
+              <v-icon class="hello mr-5 ml-5" color="blue">mdi-domain</v-icon>
+            </v-btn>
+          </p>
+        </v-card-text>
+      </div>
+    </v-card>
+
+    <!-- Skill Card -->
+
+    <v-card
+      v-if="!office"
+      width="85%"
+      min-height="150px"
+      class="mt-3 px-3"
+      style="margin-left: auto; margin-right: auto; padding: 20px;"
+    >
+      <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
+        Skills
+        <v-spacer></v-spacer>
+        <v-btn v-if="showskill" text @click="showskillinput">Add a new skill</v-btn>
+        <v-text-field
+          v-if="!showskill"
+          v-model="skill"
+          label=" Add Skill"
+          style=" margin-top:-15px;"
+          single-line
+          hide-details
+          @keyup.enter.native="addSkill()"
+          @keydown.esc="showskill=true"
+        ></v-text-field>
+      </v-card-title>
+
+      <v-chip
+        color="primary"
+        v-for="(item, i) in skills"
+        :key="i"
+        class="body-1 mr-2 ml-2 mt-2"
+        style="margin-top:10px"
+        close
+        @click:close="deleteSkill(i)"
+      >{{item}}</v-chip>
+    </v-card>
+
+    <!-- Basic Information -->
+    <v-card
+      v-if="!office"
+      width="85%"
+      min-height="150px"
+      class="mt-3"
+      style="margin-left: auto;
+    margin-right: auto; padding: 20px;"
+    >
+      <p
+        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
+        style="font-weight: bold;"
+      >Basic Information</p>
+      <v-layout row wrap class="ma-0">
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.DOB}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.gender}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout class="mb-4">
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Nationality</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.nationality}}</v-card-text>
+        </v-flex>
+      </v-layout>
+    </v-card>
+
+    <!-- Company Specific Card -->
+
+    <v-card
+      v-if="office"
+      width="85%"
+      min-height="150px"
+      class="mt-3"
+      style="margin-left: auto;
+    margin-right: auto; padding: 20px;"
+    >
+      <v-card-title
+        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
+        style="font-weight: bold;"
+      >Company Information</v-card-title>
+
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.employeeId}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Previous Designation</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.designation}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.resignation}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.relieving}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout class="mb-4">
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.managerid}}</v-card-text>
+        </v-flex>
+      </v-layout>
+    </v-card>
+
+    <!-- Company Status Card -->
+    <v-card
+      v-if="office"
+      width="85%"
+      min-height="150px"
+      class="mt-3"
+      style="margin-left: auto;
+    margin-right: auto; padding: 20px;"
+    >
+      <v-card-title
+        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
+        style="font-weight: bold;"
+      >Company Status</v-card-title>
+      <v-row>
+        <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
+          <v-flex xs4>
+            <v-card class="mr-3 ml-3" height="100%">
+              <v-card-title style="font-family:Raleway; font-size:15px">FnF Status</v-card-title>
+              <v-card-text>
+                <timeline
+                  :status="FnfStatus"
+                  :code="96"
+                  :userid="this.user.employeeId"
+                  :showLoader="progress"
+                />
+              </v-card-text>
+            </v-card>
           </v-flex>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text
-                class="body-1 py-1 font-weight-bold"
-                style="margin-top:2px !important; color: #181818	"
-              >{{user.employeeId}}</v-card-text>
-            </v-flex> 
-          </v-layout>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text
-                class="body-1 py-1 "
-                style="margin-top:2px !important;"
-              >Previous Designation</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.position}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text
-                class="body-1 py-1 font-weight-bold"
-                style="margin-top:2px !important; color: #181818	"
-              >{{user.resignation}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.relieving}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout class="mb-4">
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.managerid}}</v-card-text>
-            </v-flex>
-          </v-layout>
+          <v-flex xs4>
+            <v-card class="mr-3 ml-3" height="100%">
+              <v-card-title style="font-family:Raleway; font-size:15px">Form16 Status</v-card-title>
+              <v-card-text>
+                <timeline
+                  :status="FormStatus"
+                  :code="95"
+                  :userid="this.user.employeeId "
+                  :showLoader="progress"
+                />
+              </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs4>
+            <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
+              <v-card-title style="font-family:Raleway;font-size:15px">Pf Clearance Status</v-card-title>
+              <v-card-text>
+                <timeline
+                  :status="PfStatus"
+                  :code="95"
+                  :userid="this.user.employeeId "
+                  :showLoader="progress"
+                />
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-row>
+    </v-card>
 
-          <v-divider></v-divider>
-          <v-card-title class="subtitle-2 user-profile-heading" style="font-weight: bold;">
-            Contact Information
-            <v-spacer></v-spacer>
-            <v-btn small color="primary" @click="openContactDialog">Update Contact</v-btn>
-          </v-card-title>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text
-                class="body-1 py-1 font-weight-bold"
-                style="margin-top:2px !important; color: #181818	"
-              >{{user.mobile}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
-            </v-flex>
-            <v-flex xs8>
-              <v-card-text
-                class="body-1 py-1 font-weight-bold"
-                style="margin-top:2px !important;"
-              >{{user.email}}</v-card-text>
-            </v-flex>
-          </v-layout>
-          <v-layout>
-            <v-flex xs4>
-              <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
-            </v-flex>
-            <v-flex xs6>
-              <v-card-text class="body-1 py-1 font-weight-bold" style="margin-top:2px !important; color: #181818	">{{user.city}}</v-card-text>
-            </v-flex>
-          </v-layout>
-        </div>
-      </v-flex>
-    </v-layout>
+    <!-- Contact Card -->
+    <v-card
+      v-if="!office"
+      width="85%"
+      min-height="150px"
+      class="mt-3"
+      style="margin-left: auto;
+    margin-right: auto; padding: 20px;"
+    >
+      <v-card-title class="subtitle-2 user-profile-heading" style="font-weight: bold;">
+        Contact Information
+        <v-spacer></v-spacer>
+        <v-btn text @click="openContactDialog">Update Contact</v-btn>
+      </v-card-title>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818	"
+          >{{user.mobile}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important;"
+          >{{user.email}}</v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex xs5>
+          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-text
+            class="body-1 py-1 font-weight-bold"
+            style="margin-top:2px !important; color: #181818"
+          >{{user.city}}</v-card-text>
+        </v-flex>
+      </v-layout>
+    </v-card>
     <updateContact></updateContact>
-  </v-card>
+  </div>
 </template>
-
 <script>
+import timeline from "@/components/material/Timeline.vue";
 import updateContact from "@/components/core/updatecontactDialog.vue";
-import moment from 'moment'
+import moment from "moment";
 export default {
   components: {
+    timeline,
     updateContact
   },
   data() {
     return {
+      showskill: true,
+      office: true,
+      read: false,
+      status: "Not Available",
+      status2: false,
+      dialog: false,
       skill: "",
       skills: ["hello", "testing"],
       user: {
@@ -195,7 +375,8 @@ export default {
         relieving: "",
         lastworking: "",
         nationality: ""
-      }
+      },
+      progress: true
     };
   },
   beforeMount() {
@@ -206,44 +387,73 @@ export default {
       this.initializeUserData();
     }
   },
+  mounted() {
+    this.getStatus();
+  },
+  computed: {
+    userData() {
+      return this.$store.getters["userModule/getUserData"];
+    },
+    FnfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].fnfStatus
+        : null;
+    },
+    FormStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].form16Status
+        : null;
+    },
+    PfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+        : null;
+    }
+  },
+
   methods: {
     deleteSkill(data) {
       this.skills.splice(data, 1);
     },
     addSkill() {
-      let skillExists = this.skills.filter(item => {
-        if (item.toLowerCase() == this.skill.toLowerCase()) {
-          return true;
-        }
-        return false;
-      });
-      if (skillExists.length < 1) {
-        let data = {
-          user_id: this.user.employeeId,
-          skill: this.skill
-        };
-
-        console.log(data);
-        this.$store.dispatch("userModule/updateData", data).then(response => {
-          if (response.data.status == 200) {
-            this.skills.push(this.skill);
-            this.$store.commit("showSnackbar", {
-              message: "COntact Updated successfully",
-              color: "success",
-              heading: "Success",
-              duration: 3000
-            });
+      this.showskill = true;
+      if (!this.skill.trim()) {
+        this.showskill = true;
+      } else {
+        let skillExists = this.skills.filter(item => {
+          if (item.toLowerCase() == this.skill.toLowerCase()) {
+            return true;
           }
-
-          this.skill = "";
+          return false;
         });
+        if (skillExists.length < 1) {
+          let data = {
+            user_id: this.user.employeeId,
+            skill: this.skill
+          };
+
+          console.log(data);
+          this.$store.dispatch("userModule/updateData", data).then(response => {
+            if (response.data.status == 200) {
+              this.skills.push(this.skill);
+              this.$store.commit("showSnackbar", {
+                message: "Skill added successfully",
+                color: "success",
+                heading: "Success",
+                duration: 3000
+              });
+            }
+
+            this.skill = "";
+          });
+        }
       }
     },
     initializeUserData() {
       this.user.position = this.userData.designation_job_information;
       this.user.employeeId = this.userData.user_id;
       this.user.managerid = this.userData.manager_job_information;
-      console.log(moment(this.userData.relieving_date))
+      console.log(moment(this.userData.relieving_date));
       this.user.relieving =
         new Date(this.userData.relieving_date).getDate() +
         "/" +
@@ -277,6 +487,7 @@ export default {
       this.user.city = this.userData.city_addresses;
       this.user.email = this.userData.personal_email_id;
       this.user.mobile = this.userData.phone_number_phone_information;
+      this.office = true;
     },
     closeContactDialog() {
       this.$store.commit("userModule/closeContactDialog");
@@ -288,27 +499,74 @@ export default {
         address: this.user.city
       };
       this.$store.commit("userModule/showContactDialog", contactData);
-    }
-  },
-  computed: {
-    userData() {
-      return this.$store.getters["userModule/getUserData"];
+    },
+
+    showskillinput() {
+      this.showskill = false;
+    },
+    getStatus() {
+      let data = {
+        userid: this.user.employeeId
+      };
+      this.$store.dispatch("userModule/getStatus", data).then(response => {
+        this.progress = false;
+      });
+    },
+    setoffice() {
+      this.office = true;
+    },
+    resetoffice() {
+      this.office = false;
     }
   }
 };
 </script>
-<style>
-.subtitle-2 {
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
+
+
+
+<style scoped>
+.button:active {
+  color: rgb(241, 135, 16) !important;
 }
-.body-1 {
-  font-family: "Calibri", sans-serif;
-  font-size: larger;
+
+.img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
 }
-.user-profile-heading {
-  text-transform: uppercase;
-  color: #B0B0B0;
-  letter-spacing: 1px;
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 </style>

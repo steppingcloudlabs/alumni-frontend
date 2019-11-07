@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-img height="300px" src="@/assets/pic1.jpg">
-      <core-app-bar></core-app-bar>
+      <!-- <core-app-bar></core-app-bar> -->
     </v-img>
     <v-row>
       <br />
       <br />
     </v-row>
     <v-row>
-      <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
+      <!-- <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
         <v-flex xs4>
           <v-card class="mr-3 ml-3" height="100%">
             <v-card-title style="font-family:Raleway;">FnF Status</v-card-title>
@@ -24,7 +24,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card class="mr-3 ml-3" height="100%">
-            <v-card-title  style="font-family:Raleway;">Form16 Status</v-card-title>
+            <v-card-title style="font-family:Raleway;">Form16 Status</v-card-title>
             <v-card-text>
               <timeline
                 :status="FormStatus"
@@ -37,7 +37,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
-            <v-card-title  style="font-family:Raleway;">Pf Clearance Status</v-card-title>
+            <v-card-title style="font-family:Raleway;">Pf Clearance Status</v-card-title>
             <v-card-text>
               <timeline
                 :status="PfStatus"
@@ -48,7 +48,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-      </v-layout>
+      </v-layout>-->
     </v-row>
 
     <v-row>
@@ -57,7 +57,7 @@
     </v-row>
 
     <v-row>
-      <carosel />
+      <events :dialog="read" @readMore="readMore" />
     </v-row>
     <v-row>
       <br />
@@ -86,6 +86,7 @@ export default {
   },
   data() {
     return {
+      read: false,
       status: "Not Available",
       status2: false,
       dialog: false,
@@ -123,6 +124,9 @@ export default {
   },
 
   methods: {
+    readMore() {
+      this.read = true;
+    },
     closeClearanceDialog() {
       this.dialog = false;
     },

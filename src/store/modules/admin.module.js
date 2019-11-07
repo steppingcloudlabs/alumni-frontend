@@ -32,12 +32,7 @@ export default {
         ],
         //   FAQ Data
 
-        FaqList: [{
-                question: "Hello",
-                answer: "world"
-            }
-
-        ],
+        FaqList: [],
         FaqDialogData: {
             question: "",
             answer: "",
@@ -374,7 +369,7 @@ export default {
                     },
                     data: {
                         "skip": 0,
-                        "limit": 3
+                        "limit": 4
                     }
                 }).then((response) => {
                     resolve(response)
