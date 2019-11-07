@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "upload": "aws s3 sync E:\\alumni-frontend\\dist\\ s3://sc-alumni"
   },
   "dependencies": {
     "aos": "^2.3.4",
