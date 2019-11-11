@@ -67,7 +67,7 @@
               <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
                 Skills
                 <v-spacer></v-spacer>
-                <v-btn v-if="showskill" text @click="showskillinput">Add a new skill</v-btn>
+                <v-btn v-if="showskill" color="primary" @click="showskillinput">Add a new skill</v-btn>
                 <v-text-field
                   v-if="!showskill"
                   v-model="skill"
@@ -207,7 +207,7 @@
             <v-card-title class="subtitle-1 user-profile-heading pb-1" style="font-weight: bold;">
               Contact Information
               <v-spacer></v-spacer>
-              <v-btn text @click="openContactDialog">Update Contact</v-btn>
+              <v-btn color="primary" @click="openContactDialog">Update Contact</v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-layout>
