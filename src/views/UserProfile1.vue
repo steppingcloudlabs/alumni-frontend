@@ -1,248 +1,261 @@
 <template>
-  <div>
-    <v-img
-      src="@/assets/buildings.gif"
-      width="100%"
-      height="250px"
-      style="margin-left: auto;
-    margin-right: auto;"
-    ></v-img>
-    <v-card
-      width="85%"
-      style="margin-left: auto;
-    margin-right: auto; margin-top:-81px"
-      elevation-24
-      class="cards"
-    >
-      <!-- <v-list-item-avatar tile> -->
-      <div>
-        <p class="text-center">
-          <img
-            class="img"
-            src="@/assets/avatar/download.jpg"
-            style="margin-top: -60px; border-radius: 50%; border: 3px solid white; width: 200px;"
-          />
-        </p>
-      </div>
-      <!-- </v-list-item-avatar> -->
-      <div style="text-align:center">
-        <v-card-text class="headline py-1" style="line-height:1px;margin-left:0px !important;">
-          <p
-            style="color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
-          >{{user.firstname}} {{user.lastname}}</p>
-        </v-card-text>
-        <v-card-text
-          class="subtitle"
-          style="margin-left: 0px!important;line-height: 2px !important;"
-        >
-          <p
-            class="caption"
-            style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-          >Ex-{{user.designation}}</p>
-          <p>
-            <v-icon class="mr-2" color="blue">mdi-twitter</v-icon>
-            <v-icon color="blue">mdi-linkedin</v-icon>
-          </p>
-          <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
-        </v-card-text>
-        <v-card-text class="py-5">
-          <p>
-            <v-btn
-              class="button"
-              x-large
-              fab
-              :style="!office ? 'background: lightgrey' : 'background: white;'"
-              style="margin-right:10px; color: white"
-              @click="resetoffice"
-            >
-              <v-icon class="hello mr-5 ml-5" color="blue">mdi-account</v-icon>
-            </v-btn>
-            <v-btn
-              class="button"
-              :style="office ? 'background: lightgrey' : 'background: white;'"
-              x-large
-              fab
-              style="margin-left:10px; color: white"
-              @click="setoffice"
-            >
-              <v-icon class="hello mr-5 ml-5" color="blue">mdi-domain</v-icon>
-            </v-btn>
-          </p>
-        </v-card-text>
-      </div>
-    </v-card>
-
-    <!-- Skill Card -->
-
-    <v-card
-      v-if="!office"
-      width="85%"
-      min-height="150px"
-      class="mt-3 px-3"
-      style="margin-left: auto; margin-right: auto; padding: 20px;"
-    >
-      <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
-        Skills
-        <v-spacer></v-spacer>
-        <v-btn v-if="showskill" text @click="showskillinput">Add a new skill</v-btn>
-        <v-text-field
-          v-if="!showskill"
-          v-model="skill"
-          label=" Add Skill"
-          style=" margin-top:-15px;"
-          single-line
-          hide-details
-          @keyup.enter.native="addSkill()"
-          @keydown.esc="showskill=true"
-        ></v-text-field>
-      </v-card-title>
-
-      <v-chip
-        color="primary"
-        v-for="(item, i) in skills"
-        :key="i"
-        class="body-1 mr-2 ml-2 mt-2"
-        style="margin-top:10px"
-        close
-        @click:close="deleteSkill(i)"
-      >{{item}}</v-chip>
-    </v-card>
-
-    <!-- Basic Information -->
-    <v-card
-      v-if="!office"
-      width="85%"
-      min-height="150px"
-      class="mt-3"
-      style="margin-left: auto;
-    margin-right: auto; padding: 20px;"
-    >
-      <p
-        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
-        style="font-weight: bold;"
-      >Basic Information</p>
-      <v-layout row wrap class="ma-0">
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.DOB}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.gender}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout class="mb-4">
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Nationality</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.nationality}}</v-card-text>
-        </v-flex>
-      </v-layout>
-    </v-card>
-
-    <!-- Company Specific Card -->
-
-    <v-card
-      v-if="office"
-      width="85%"
-      min-height="150px"
-      class="mt-3"
-      style="margin-left: auto;
-    margin-right: auto; padding: 20px;"
-    >
-      <v-card-title
-        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
-        style="font-weight: bold;"
-      >Company Information</v-card-title>
-
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.employeeId}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Previous Designation</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.designation}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.resignation}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.relieving}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout class="mb-4">
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.managerid}}</v-card-text>
-        </v-flex>
-      </v-layout>
-    </v-card>
-
-    <!-- Company Status Card -->
-    <v-card
-      v-if="office"
-      width="85%"
-      min-height="150px"
-      class="mt-3"
-      style="margin-left: auto;
-    margin-right: auto; padding: 20px;"
-    >
-      <v-card-title
-        class="subtitle-2 pt-5 mb-1 pl-4 user-profile-heading"
-        style="font-weight: bold;"
-      >Company Status</v-card-title>
-      <v-row>
-        <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-card class="pt-5">
+        <v-layout row wrap ma-0>
+          <v-flex xs6>
+            <div>
+              <p class="text-center">
+                <img
+                  class="img"
+                  src="@/assets/avatar/download.jpg"
+                  style="border-radius: 50%; border: 3px solid white; width: 200px;"
+                />
+              </p>
+            </div>
+            <div style="text-align:center">
+              <v-card-text
+                class="headline py-1"
+                style="line-height:1px;margin-left:0px !important;"
+              >
+                <p
+                  style="color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
+                >{{user.firstname}} {{user.lastname}}</p>
+              </v-card-text>
+              <v-card-text
+                class="subtitle"
+                style="margin-left: 0px!important;line-height: 2px !important;"
+              >
+                <p
+                  class="caption"
+                  style="line-height: 2px !important;font-family:'Raleway',sans-serif"
+                >Ex-{{user.designation}}</p>
+                <p>
+                  <v-icon class="mr-2" color="blue">mdi-twitter</v-icon>
+                  <v-icon color="blue">mdi-linkedin</v-icon>
+                </p>
+                <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
+              </v-card-text>
+              <!-- <v-card-text class="py-5">
+                <p>
+                  <v-btn
+                    class="button"
+                    x-large
+                    fab
+                    :style="!office ? 'background: lightgrey' : 'background: white;'"
+                    style="margin-right:10px; color: white"
+                    @click="resetoffice"
+                  >
+                    <v-icon class="hello mr-5 ml-5" color="blue">mdi-account</v-icon>
+                  </v-btn>
+                  <v-btn
+                    class="button"
+                    :style="office ? 'background: lightgrey' : 'background: white;'"
+                    x-large
+                    fab
+                    style="margin-left:10px; color: white"
+                    @click="setoffice"
+                  >
+                    <v-icon class="hello mr-5 ml-5" color="blue">mdi-domain</v-icon>
+                  </v-btn>
+                </p>
+              </v-card-text>-->
+            </div>
+          </v-flex>
+          <v-flex xs6>
+            <div>
+              <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
+                Skills
+                <v-spacer></v-spacer>
+                <v-btn v-if="showskill" text @click="showskillinput">Add a new skill</v-btn>
+                <v-text-field
+                  v-if="!showskill"
+                  v-model="skill"
+                  label=" Add Skill"
+                  style=" margin-top:-15px;"
+                  append-icon="add"
+                  single-line
+                  hide-details
+                  @keyup.enter.native="addSkill()"
+                  @keydown.esc="showskill=true"
+                  @click:append="addSkill()"
+                ></v-text-field>
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-chip
+                color="primary"
+                v-for="(item, i) in skills"
+                :key="i"
+                class="body-1 mr-2 ml-2 mt-4"
+                style="margin-top:10px"
+                close
+                @click:close="deleteSkill(i)"
+              >{{item}}</v-chip>
+            </div>
+            <div class="mt-2">
+              <p
+                class="subtitle-1 pt-5 mb-1 pl-4 user-profile-heading"
+                style="font-weight: bold;"
+              >Basic Information</p>
+              <v-divider></v-divider>
+              <v-layout row wrap class="ma-0">
+                <v-flex xs5>
+                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
+                </v-flex>
+                <v-flex xs7>
+                  <v-card-text
+                    class="body-1 py-1 font-weight-bold"
+                    style="margin-top:2px !important; color: #181818	"
+                  >{{user.DOB}}</v-card-text>
+                </v-flex>
+              </v-layout>
+              <v-layout>
+                <v-flex xs5>
+                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
+                </v-flex>
+                <v-flex xs7>
+                  <v-card-text
+                    class="body-1 py-1 font-weight-bold"
+                    style="margin-top:2px !important; color: #181818	"
+                  >{{user.gender}}</v-card-text>
+                </v-flex>
+              </v-layout>
+              <v-layout class="mb-4">
+                <v-flex xs5>
+                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Nationality</v-card-text>
+                </v-flex>
+                <v-flex xs7>
+                  <v-card-text
+                    class="body-1 py-1 font-weight-bold"
+                    style="margin-top:2px !important; color: #181818	"
+                  >{{user.nationality}}</v-card-text>
+                </v-flex>
+              </v-layout>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-flex>
+    <v-flex xs12>
+      <v-card class="mt-2">
+        <v-layout row wrap>
+          <v-flex xs6 pr-5>
+            <v-card-title
+              class="subtitle-1 font-weight-bold pt-5 pl-4 user-profile-heading"
+            >Company Information</v-card-title>
+            <v-divider></v-divider>
+            <v-layout pt-2>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.employeeId}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top:2px !important;"
+                >Previous Designation</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.designation}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.resignation}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.relieving}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout class="mb-4">
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.managerid}}</v-card-text>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs6>
+            <v-card-title class="subtitle-1 user-profile-heading pb-1" style="font-weight: bold;">
+              Contact Information
+              <v-spacer></v-spacer>
+              <v-btn text @click="openContactDialog">Update Contact</v-btn>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818	"
+                >{{user.mobile}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important;"
+                >{{user.email}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <v-layout>
+              <v-flex xs5>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
+              </v-flex>
+              <v-flex xs7>
+                <v-card-text
+                  class="body-1 py-1 font-weight-bold"
+                  style="margin-top:2px !important; color: #181818"
+                >{{user.city}}</v-card-text>
+              </v-flex>
+            </v-layout>
+            <updateContact></updateContact>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-flex>
+    <v-flex xs12>
+      <v-card class="mt-2 pb-5">
+        <v-card-title
+          class="subtitle-1 pt-5 mb-1 user-profile-heading"
+          style="font-weight: bold;"
+        >Company Status</v-card-title>
+        <v-divider></v-divider>
+        <v-layout row wrap mt-4 ml-0>
           <v-flex xs4>
             <v-card class="mr-3 ml-3" height="100%">
               <v-card-title style="font-family:Raleway; font-size:15px">FnF Status</v-card-title>
@@ -276,66 +289,16 @@
                 <timeline
                   :status="PfStatus"
                   :code="95"
-                  :userid="this.user.employeeId "
+                  :userid="this.user.employeeId"
                   :showLoader="progress"
                 />
               </v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
-      </v-row>
-    </v-card>
-
-    <!-- Contact Card -->
-    <v-card
-      v-if="!office"
-      width="85%"
-      min-height="150px"
-      class="mt-3"
-      style="margin-left: auto;
-    margin-right: auto; padding: 20px;"
-    >
-      <v-card-title class="subtitle-2 user-profile-heading" style="font-weight: bold;">
-        Contact Information
-        <v-spacer></v-spacer>
-        <v-btn text @click="openContactDialog">Update Contact</v-btn>
-      </v-card-title>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818	"
-          >{{user.mobile}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important;"
-          >{{user.email}}</v-card-text>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs5>
-          <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
-        </v-flex>
-        <v-flex xs7>
-          <v-card-text
-            class="body-1 py-1 font-weight-bold"
-            style="margin-top:2px !important; color: #181818"
-          >{{user.city}}</v-card-text>
-        </v-flex>
-      </v-layout>
-    </v-card>
-    <updateContact></updateContact>
-  </div>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
 import timeline from "@/components/material/Timeline.vue";
