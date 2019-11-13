@@ -67,7 +67,12 @@
               <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
                 Skills
                 <v-spacer></v-spacer>
-                <v-btn v-if="showskill" color="primary" @click="showskillinput">Add a new skill</v-btn>
+                <v-btn
+                  v-if="showskill"
+                  class="text-capitalize"
+                  color="primary"
+                  @click="showskillinput"
+                >Add New Skill</v-btn>
                 <v-text-field
                   v-if="!showskill"
                   v-model="skill"
@@ -141,7 +146,7 @@
         <v-layout row wrap>
           <v-flex xs6 pr-5>
             <v-card-title
-              class="subtitle-1 font-weight-bold pt-5 pl-4 user-profile-heading"
+              class="subtitle-1 font-weight-bold pt-5 pl-4 pb-3 user-profile-heading"
             >Company Information</v-card-title>
             <v-divider></v-divider>
             <v-layout pt-2>
@@ -204,10 +209,14 @@
             </v-layout>
           </v-flex>
           <v-flex xs6>
-            <v-card-title class="subtitle-1 user-profile-heading pb-1" style="font-weight: bold;">
+            <v-card-title class="subtitle-1 user-profile-heading" style="font-weight: bold;">
               Contact Information
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="openContactDialog">Update Contact</v-btn>
+              <v-btn
+                color="primary"
+                class="text-capitalize"
+                @click="openContactDialog"
+              >Update Contact</v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-layout>
@@ -258,7 +267,10 @@
         <v-layout row wrap mt-4 ml-0>
           <v-flex xs4>
             <v-card class="mr-3 ml-3" height="100%">
-              <v-card-title style="font-family:Raleway; font-size:15px">FnF Status</v-card-title>
+              <v-card-title
+                class="font-weight-medium"
+                style="font-family:Raleway; font-size:15px;"
+              >FnF Status</v-card-title>
               <v-card-text>
                 <timeline
                   :status="FnfStatus"
@@ -271,7 +283,10 @@
           </v-flex>
           <v-flex xs4>
             <v-card class="mr-3 ml-3" height="100%">
-              <v-card-title style="font-family:Raleway; font-size:15px">Form16 Status</v-card-title>
+              <v-card-title
+                class="font-weight-medium"
+                style="font-family:Raleway; font-size:15px"
+              >Form16 Status</v-card-title>
               <v-card-text>
                 <timeline
                   :status="FormStatus"
@@ -284,7 +299,10 @@
           </v-flex>
           <v-flex xs4>
             <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
-              <v-card-title style="font-family:Raleway;font-size:15px">Pf Clearance Status</v-card-title>
+              <v-card-title
+                class="font-weight-medium"
+                style="font-family:Raleway;font-size:15px"
+              >Pf Clearance Status</v-card-title>
               <v-card-text>
                 <timeline
                   :status="PfStatus"
