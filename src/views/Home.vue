@@ -1,11 +1,13 @@
 <template>
   <div>
-    <Header v-if="$route.path == '/home'||$route.path == '/login' ||$route.path == '/signup'" />
+    <Header
+      v-if="$route.path == '/home'||$route.path == '/login' || $route.path == '/signup' || $route.path == '/forgotpassword'"
+    />
 
     <landingimage v-if="$route.path == '/home'"></landingimage>
-    
+
     <cards v-if="$route.path == '/home'"></cards>
- 
+
     <Ceo v-if="$route.path == '/home'"></Ceo>
   </div>
 </template>

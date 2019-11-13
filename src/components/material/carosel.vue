@@ -1,33 +1,38 @@
 <template>
   <v-carousel
     class="mr-5"
-
-    height="300px"
+    min-height="300px"
     hide-delimiter-background
     show-arrows-on-hover
     hide-delimiters
   >
     <div v-if="!this.empty">
-      <v-carousel-item v-for="(item, i) in getNewsList" :key="i" src="@/assets/back1.jpg" style=" background-color: rgb(0, 0, 0, 0.5);">
+      <v-carousel-item
+        v-for="(item, i) in getNewsList"
+        :key="i"
+        :src="getNewsList[i].photo"
+        style="background-color:rgb(0,0,0,0.5)"
+      >
         <v-card color="transparent" height="100%">
           <v-card-title>
             <v-icon large left>mdi-bullhorn</v-icon>
             <span class="title font-weight-bold" style="font-family:Raleway;">{{item.title}}</span>
           </v-card-title>
           <v-card-text>{{item.date}}</v-card-text>
-          <v-card-text
-            class="headline font-weight-light"
-            style="font-family:Raleway;"
-          ><p >{{item.content.substring(0,len)}}
-            <span id="dots" v-if="!showMore">...</span>
-          </p>
-           <button v-if="!showMore && item.content.length>90" @click="myFunction(i)" id="myBtn">Read more</button>
-           <button v-if="showMore" @click="myFunction(i)" id="myBtn">Read less</button>
+          <v-card-text class="headline font-weight-light" style="font-family:Raleway;">
+            <p>
+              {{item.content.substring(0,len)}}
+              <span id="dots" v-if="!showMore">...</span>
+            </p>
+            <button
+              v-if="!showMore && item.content.length>len"
+              @click="myFunction(i)"
+              id="myBtn"
+            >Read more</button>
+            <button v-if="showMore" @click="myFunction(i)" id="myBtn">Read less</button>
           </v-card-text>
           <br />
           <br />
-
-         
         </v-card>
       </v-carousel-item>
     </div>
@@ -68,37 +73,33 @@ export default {
     }
   },
   beforeMount() {
-     this.$store.commit("showProgressBar", {});
+    this.$store.commit("showProgressBar", {});
     this.$store.dispatch("adminModule/getAllNews").then(response => {
-      this.len=90
+      this.len = 390;
       if (response.data.result.length > 0) {
         this.empty = false;
       } else {
         this.empty = true;
       }
     });
-     this.$store.commit("closeProgressBar", {});
+    this.$store.commit("closeProgressBar", {});
   },
-  methods:{
-   myFunction(data) {
-     if(!this.showMore)
-     {
-      this.showMore=true
-      this.len=this.getNewsList[data].content.length
-     }
-     else{
-       this.showMore=false
-        this.len=90
-     }
-     
-}
-
+  methods: {
+    myFunction(data) {
+      if (!this.showMore) {
+        this.showMore = true;
+        this.len = this.getNewsList[data].content.length;
+      } else {
+        this.showMore = false;
+        this.len = 390;
+      }
+    }
   },
 
   data() {
     return {
-      len:90,
-      showMore:false,
+      len: 390,
+      showMore: false,
       empty: false,
       colors: [
         "indigo",
@@ -161,7 +162,9 @@ export default {
 };
 </script>
 <style >
-#more {display: none;}
+#more {
+  display: none;
+}
 div.item {
   vertical-align: top;
   display: inline-block;

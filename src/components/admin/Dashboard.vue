@@ -36,12 +36,12 @@
               class="mb-2"
               style="margin-left: 20px; margin-top: 14px;"
               @click="findData(search)"
-            >Search</v-btn> -->
+            >Search</v-btn>-->
           </v-toolbar>
         </template>
         <template v-slot:item.action="{ item }">
-          <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon>
-          <v-icon small class="mr-2"  @click="editAlumniDialog(item)">edit</v-icon>
+          <!-- <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon> -->
+          <v-icon small class="mr-2" @click="editAlumniDialog(item)">edit</v-icon>
           <v-icon small class="mr-2" @click="showDeleteDialog(item)">delete</v-icon>
         </template>
       </v-data-table>
@@ -54,8 +54,8 @@
 
 <script>
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
-import profile from "@/components/core/clearanceDialog.vue"
-import { stringify } from 'querystring';
+import profile from "@/components/core/clearanceDialog.vue";
+import { stringify } from "querystring";
 export default {
   components: {
     AddAlumni,
@@ -78,13 +78,15 @@ export default {
     }
   },
   beforeMount() {
-    this.loader=true
-    this.$store.dispatch("adminModule/getAllAlumni", {
-      skip: 0,
-      limit: 9
-    }).then(response => {
-       this.loader=false
-    });
+    this.loader = true;
+    this.$store
+      .dispatch("adminModule/getAllAlumni", {
+        skip: 0,
+        limit: 9
+      })
+      .then(response => {
+        this.loader = false;
+      });
   },
   methods: {
     closeAlumniDialog() {
@@ -107,35 +109,38 @@ export default {
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
     },
-     viewAlumniDialog(data) {
-      console.log(data)
-      this.dialog=true
+    viewAlumniDialog(data) {
+      console.log(data);
+      this.dialog = true;
       // this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
     },
-    closeClearanceDialog(){
-      this.dialog=false
+    closeClearanceDialog() {
+      this.dialog = false;
     },
 
     editAlumniDialog(data) {
-      console.log(data)
-     
-      this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
+      console.log(data);
+
+      this.$store.commit(
+        "adminModule/showAlumniDialog",
+        JSON.parse(JSON.stringify(data))
+      );
     },
     findData(data) {
-      this.loader=true
+      this.loader = true;
       let body = {
         skip: 0,
         limit: 2,
         keyword: data
       };
       this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
-       this.loader=false
-    });
+        this.loader = false;
+      });
     }
   },
   data() {
     return {
-      loader:false,
+      loader: false,
       search: "",
       dialog: false,
       headers: [

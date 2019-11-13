@@ -438,8 +438,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     data: {
-                        "skip": 0,
-                        "limit": 4
+                        
                     }
                 }).then((response) => {
                     resolve(response)

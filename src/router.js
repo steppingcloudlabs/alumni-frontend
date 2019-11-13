@@ -46,6 +46,11 @@ const router = new Router({
       //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {
+      path: '/forgotpassword',
+      name: 'resetpassword',
+      component: resetpassword
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: portal,
@@ -92,12 +97,6 @@ const router = new Router({
 
       ]
     },
-    {
-      path: '/forgotpassword',
-      name: 'restpassword',
-      component: resetpassword
-    },
-
     {
       path: '/admin',
       name: 'admin',

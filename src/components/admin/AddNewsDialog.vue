@@ -109,8 +109,8 @@ export default {
         content: newData.content,
         tag: newData.title,
         date: currDate,
-        author: null,
-        id: newData._id ? newData._id : null,
+        author: undefined,
+        id: newData._id ? newData._id : undefined,
         photo: this.imageBase64
       };
       this.$store.dispatch("adminModule/addNews", data).then(response => {
