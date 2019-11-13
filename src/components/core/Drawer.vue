@@ -73,13 +73,13 @@ export default {
       {
         to: "/profile/user-profile",
         icon: "mdi-account",
-        text: "User Profile"
+        text: "My Profile"
       },
 
       {
         to: "/profile/document",
         icon: "mdi-clipboard",
-        text: "Document Portal"
+        text: "My Documents"
       },
       {
         to: "/profile/careers",

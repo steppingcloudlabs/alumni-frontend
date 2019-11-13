@@ -1,8 +1,9 @@
 <template>
   <div>
-    <v-img height="300px" src="@/assets/pic1.jpg">
-      <!-- <core-app-bar></core-app-bar> -->
-    </v-img>
+    <!-- <v-img height="300px" src="@/assets/pic1.jpg"> -->
+    <!-- <core-app-bar></core-app-bar> -->
+    <!-- </v-img> -->
+    <carosel />
     <v-row>
       <br />
       <br />
@@ -63,7 +64,6 @@
       <br />
       <br />
     </v-row>
-    <news />
 
     <clearance :dialog="dialog" @closeClearanceDialog="closeClearanceDialog" />
   </div>

@@ -38,10 +38,12 @@
                 >{{item.content}}</v-card-text>-->
                 <p class="text-center">
                   <v-btn
+                   
                     style="color: rgb(241, 135, 16); font-weight: 200;"
                     @click="setSelectedEvent(item)"
                     outlined
                   >Read More</v-btn>
+                  
                 </p>
               </v-card>
             </v-flex>
@@ -50,11 +52,26 @@
       </v-slide-group>
       <v-divider vertical></v-divider>
     </div>
-    <v-layout row wrap class="ma-0">
+    <v-layout row wrap class="ma-0" v-if="showMore">
       <v-flex xs12>
-        <v-card class="mr-4">
-          <v-card-title>{{ selectedEvent.title }}</v-card-title>
-          <v-card-text>{{ selectedEvent.content }}</v-card-text>
+        <v-card  class="mr-4">
+         <v-img
+              src="@/assets/back2.jpg"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200px"
+              
+            >
+          <v-card-title>{{ selectedEvent.title }}
+            <v-spacer></v-spacer>
+            <v-icon color="white" @click="showMore=false">mdi-close</v-icon>
+          </v-card-title>
+           <v-card-text  style="color:white;font-size:10px" class="pb-0">{{selectedEvent.date}}</v-card-text>
+            <v-card-text style="color:white">
+          <div>{{ selectedEvent.content }}</div>
+          </v-card-text>
+         </v-img>
+         
         </v-card>
       </v-flex>
     </v-layout>
@@ -84,6 +101,7 @@ export default {
   methods: {
     setSelectedEvent(item) {
       this.selectedEvent = item;
+      this.showMore=true
     }
   },
   beforeMount() {
@@ -98,6 +116,7 @@ export default {
 
   data() {
     return {
+      showMore:false,
       empty: false,
       selectedEvent: {},
       colors: [

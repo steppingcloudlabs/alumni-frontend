@@ -40,11 +40,13 @@
           </v-toolbar>
         </template>
         <template v-slot:item.action="{ item }">
-          <v-icon small class="mr-2">edit</v-icon>
+          <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon>
+          <v-icon small class="mr-2"  @click="editAlumniDialog(item)">edit</v-icon>
           <v-icon small class="mr-2" @click="showDeleteDialog(item)">delete</v-icon>
         </template>
       </v-data-table>
     </v-flex>
+    <profile :dialog="dialog" @closeClearanceDialog="closeClearanceDialog"></profile>
   </v-layout>
 </template>
     
@@ -52,9 +54,12 @@
 
 <script>
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
+import profile from "@/components/core/clearanceDialog.vue"
+import { stringify } from 'querystring';
 export default {
   components: {
-    AddAlumni
+    AddAlumni,
+    profile
   },
   watch: {
     dialog() {
@@ -94,13 +99,27 @@ export default {
     },
     openAddAlumniDialog() {
       let alumniData = {
-        empId: null,
-        firstName: "",
-        lastName: "",
+        user_id: null,
+        first_name_personal_information: "",
+        last_name_personal_information: "",
         paySlipStatus: "",
         form16Status: ""
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
+    },
+     viewAlumniDialog(data) {
+      console.log(data)
+      this.dialog=true
+      // this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
+    },
+    closeClearanceDialog(){
+      this.dialog=false
+    },
+
+    editAlumniDialog(data) {
+      console.log(data)
+     
+      this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
     },
     findData(data) {
       this.loader=true

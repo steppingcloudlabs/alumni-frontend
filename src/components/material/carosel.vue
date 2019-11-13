@@ -1,56 +1,48 @@
 <template>
-  <v-carousel  class=" mr-5" cycle height="300px" hide-delimiter-background show-arrows-on-hover hide-delimiters>
+  <v-carousel
+    class="mr-5"
+
+    height="300px"
+    hide-delimiter-background
+    show-arrows-on-hover
+    hide-delimiters
+  >
     <div v-if="!this.empty">
-    <v-carousel-item v-for="(item, i) in getEventList" :key="i" src="@/assets/dash1.jpg">
-      
-      <v-card :color="colors[i]" height="100%">
-        <v-card-title>
-          <v-icon large left>mdi-bullhorn</v-icon>
-          <span class="title font-weight-bold"  style="font-family:Raleway;">{{item.title}}</span>
-        </v-card-title>
-        <br />
-        <br />
-        <v-card-text class="headline font-weight-light" style="font-family:Raleway;">{{item.content}}</v-card-text>
-        <br />
-        <br />
-       
-        <v-card-actions>
-          <v-list-item-content>
-            <v-list-item-title>
-              <v-btn
-              class="mb-5"
-              bottom
-              absolute
-              icon
-              >
-              <v-icon bottom class="mr-1">mdi-map-marker</v-icon>
-              </v-btn>
-              {{item.eventLocation}}
-            </v-list-item-title>
-          
+      <v-carousel-item v-for="(item, i) in getNewsList" :key="i" src="@/assets/back1.jpg" style=" background-color: rgb(0, 0, 0, 0.5);">
+        <v-card color="transparent" height="100%">
+          <v-card-title>
+            <v-icon large left>mdi-bullhorn</v-icon>
+            <span class="title font-weight-bold" style="font-family:Raleway;">{{item.title}}</span>
+          </v-card-title>
+          <v-card-text>{{item.date}}</v-card-text>
+          <v-card-text
+            class="headline font-weight-light"
+            style="font-family:Raleway;"
+          ><p >{{item.content.substring(0,len)}}
+            <span id="dots" v-if="!showMore">...</span>
+          </p>
+           <button v-if="!showMore && item.content.length>90" @click="myFunction(i)" id="myBtn">Read more</button>
+           <button v-if="showMore" @click="myFunction(i)" id="myBtn">Read less</button>
+          </v-card-text>
+          <br />
+          <br />
+
          
-          </v-list-item-content>
-        </v-card-actions>
-      </v-card>
-    </v-carousel-item>
+        </v-card>
+      </v-carousel-item>
     </div>
     <div v-else>
-       <v-carousel-item>
-      <v-sheet
-        color="grey"
-        height="100%"
-        
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="subtitle-1" style="    margin-right: 200px;">No Events Available <v-img  width="100"
-      height="100" src="@/assets/waiting.gif"></v-img></div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
+      <v-carousel-item>
+        <v-sheet color="grey" height="100%">
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="subtitle-1" style="margin-right: auto;
+    margin-left: auto;">
+              No News Available
+              <v-img width="100" height="100" src="@/assets/waiting.gif"></v-img>
+            </div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
     </div>
   </v-carousel>
 </template>
@@ -58,37 +50,56 @@
 <script>
 export default {
   computed: {
-    getEventList: {
+    getNewsList: {
       get() {
-        return this.$store.getters["adminModule/getEventList"];
+        return this.$store.getters["adminModule/getNewsList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setEventList", this.data);
+        this.$store.commit("adminModule/setNewsList", this.data);
       }
     },
-    showEvent: {
+    showNews: {
       get() {
-        return this.$store.getters["adminModule/getshowEventDialog"];
+        return this.$store.getters["adminModule/getshowNewsDialog"];
       },
       set(data) {
-        this.$store.commit("adminModule/setShowEvent", data);
+        this.$store.commit("adminModule/setShowNews", data);
       }
     }
   },
-   beforeMount() {
-    this.$store.dispatch("adminModule/getAllEvent").then(response => {
-     
+  beforeMount() {
+     this.$store.commit("showProgressBar", {});
+    this.$store.dispatch("adminModule/getAllNews").then(response => {
+      this.len=90
       if (response.data.result.length > 0) {
         this.empty = false;
       } else {
         this.empty = true;
       }
-      });
+    });
+     this.$store.commit("closeProgressBar", {});
+  },
+  methods:{
+   myFunction(data) {
+     if(!this.showMore)
+     {
+      this.showMore=true
+      this.len=this.getNewsList[data].content.length
+     }
+     else{
+       this.showMore=false
+        this.len=90
+     }
+     
+}
+
   },
 
   data() {
     return {
-      empty:false,
+      len:90,
+      showMore:false,
+      empty: false,
       colors: [
         "indigo",
         "pink darken-2",
@@ -98,14 +109,14 @@ export default {
         "pink darken-2",
         "red lighten-1",
         "deep-purple accent-4",
-         "indigo",
+        "indigo",
         "pink darken-2",
         "red lighten-1",
         "deep-purple accent-4",
         "indigo",
         "pink darken-2",
         "red lighten-1",
-        "deep-purple accent-4",
+        "deep-purple accent-4"
       ],
 
       event: [
@@ -119,7 +130,7 @@ export default {
         },
         {
           id: 2,
-          eventTitle: "Annual Sports Event",
+          eventTitle: "Annual Sports News",
           eventDescription:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           eventLocation: "USA"
@@ -150,6 +161,7 @@ export default {
 };
 </script>
 <style >
+#more {display: none;}
 div.item {
   vertical-align: top;
   display: inline-block;

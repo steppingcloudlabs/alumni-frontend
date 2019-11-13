@@ -17,7 +17,7 @@ import document from './components/admin/UploadDocument.vue'
 import dashboard from './components/admin/Dashboard.vue'
 import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
-
+import companySetting from './components/admin/companySetting.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -135,7 +135,13 @@ const router = new Router({
           path: 'document',
 
           component: Document
+        },
+        {
+          path: 'settings',
+
+          component: companySetting
         }
+
 
 
       ]

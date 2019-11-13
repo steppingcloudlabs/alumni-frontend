@@ -1,5 +1,6 @@
+
 <template>
-  <div>
+  <!-- <div>
     <div class="mapouter">
       <div class="gmap_canvas">
         <iframe
@@ -14,20 +15,21 @@
         />
       </div>
     </div>
+  </div>-->
+  <div id="app">
+    <google-map />
   </div>
 </template>
 
-<style>
-.mapouter {
-  text-align:right;
-  height:100%;
-  width:100%;
-  position: absolute;
-}
-.gmap_canvas {
-  overflow:hidden;
-  background:none!important;
-  height:100%;
-  width:100%;
-}
-</style>
+<script>
+import GoogleMap from "@/components/core/googlemaps";
+
+export default {
+  components: {
+    GoogleMap
+  }
+};
+</script>
+
+
+

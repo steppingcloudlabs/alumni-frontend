@@ -3,12 +3,29 @@ import axios from "axios";
 export default {
     namespaced: true,
     state: {
+
+        showEmailDialog: false,
+        emailDialogData: {},
+        level:"",
+        level1Email: [{
+
+            },
+            {
+                levelOrder: 2,
+                email: "Abid@steppingcloud",
+                name: "daraksha"
+            },
+            {
+                levelOrder: 3,
+                email: "darak@steppingcloud",
+                name: "daraksha"
+            }
+        ],
+        level2Email: {},
+        level3Email: {},
+
         alumniDialogData: {
-            user_id: null,
-            first_name_personal_information: "",
-            last_name_personal_information: "",
-
-
+        
         },
         showAlumniDialog: false,
         alumniList: [],
@@ -41,6 +58,46 @@ export default {
         showDocumentDialog: false,
     },
     mutations: {
+        setShowEmailDialog: (state, data) => {
+            state.showEmailDialog = data
+        },
+        setEmailDialogData: (state, data) => {
+            state.emailDialogData = data
+        },
+        showEmailDialog: (state, data) => {
+            state.showEmailDialog = true
+            state.emailDialogData = data
+            
+        },
+        showEmailDialog1: (state, data) => {
+            state.showEmailDialog = true
+            state.level = data
+            
+        },
+        closeEmailDialog: (state, data) => {
+            state.showEmailDialog = false
+        },
+
+        setEmailList: (state, data) => {
+            state.level1Email = data
+        },
+        addNewEmailToList: (state, data) => {
+            state.level1Email[state.level-1] = JSON.parse(JSON.stringify(data))
+            state.level1Email[state.level-1].levelOrder = state.level
+            state.level1Email = JSON.parse(JSON.stringify(state.level1Email))
+            console.log(state.level1Email)
+
+        },
+        deleteSelectedEmail: (state, data) => {
+            let index = state.level1Email.indexOf(data)
+            if (index > -1) {
+                state.level1Email.splice(index, 1)
+
+            }
+            console.log(state.level1Email)
+        },
+
+
         setAlumniList: (state, data) => {
             state.alumniList = data
         },
@@ -209,6 +266,14 @@ export default {
         },
     },
     getters: {
+        getshowEmailDialog: (state) => {
+            return state.showEmailDialog
+        },
+
+        getEmailDialogData: (state) => {
+            return state.emailDialogData
+        },
+
         getNewsProgress: (state, data) => {
             return state.showNewsProgress
         },
@@ -233,6 +298,11 @@ export default {
         },
         getNewsList: (state) => {
             return state.newsList
+        },
+
+        getEmailList: (state, data) => {
+
+            return state.level1Email
         },
 
         // Event Section

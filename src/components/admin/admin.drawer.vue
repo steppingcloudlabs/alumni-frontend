@@ -88,7 +88,7 @@ export default {
       },
 
        {
-        to: "/admin/setting",
+        to: "/admin/settings",
         icon: "mdi-settings",
         text: "Company Settings"
       },
