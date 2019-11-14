@@ -1,15 +1,13 @@
 <template>
   <div style="width:100%">
     <v-layout>
-      <v-flex xs4></v-flex>
-      <v-flex xs4>
+      <v-flex xs12>
         <v-card-title style="color:white; text-align:center">Upcoming Events</v-card-title>
       </v-flex>
-      <v-flex xs4></v-flex>
     </v-layout>
     <v-divider class="mr-5 my-5" style="background:rgb(241, 135, 16);"></v-divider>
     <div class="events-group-container">
-      <v-sheet class="mx-auto" elevation="8" max-width="900">
+      <v-sheet class="mx-auto" elevation="8" max-width="900" v-if="!empty">
         <v-slide-group show-arrows>
           <v-slide-item
             v-for="(item, i) in getEventList"
@@ -112,6 +110,7 @@ export default {
       showMore: false,
       empty: false,
       selectedEvent: {},
+      showEvents: false,
       colors: [
         "indigo",
         "pink darken-2",
@@ -162,9 +161,9 @@ div.item {
   text-align: center;
 }
 .events-group-container .v-sheet .v-slide-group__prev {
-  display: inline !important;
+  display: flex !important;
 }
 .events-group-container .v-sheet .v-slide-group__next {
-  display: inline !important;
+  display: flex !important;
 }
 </style>
