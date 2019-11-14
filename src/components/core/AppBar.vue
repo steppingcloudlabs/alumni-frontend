@@ -10,7 +10,20 @@
 
     <v-toolbar-items>
       <v-row align="center" class="mx-0">
+        <v-text-field
+          class="mb-2"
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          dark
+          single-line
+          filled
+          rounded
+          dense
+          hide-details
+        ></v-text-field>
         <v-spacer></v-spacer>
+
         <v-btn icon to="/profile/dashboard" v-if="$route.path != '/profile/dashboard'">
           <v-icon color="white">mdi-view-dashboard</v-icon>
         </v-btn>
@@ -52,6 +65,7 @@ import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
+    search: "",
     notifications: [
       "Mike, John responded to your email",
       "You have 5 new tasks",

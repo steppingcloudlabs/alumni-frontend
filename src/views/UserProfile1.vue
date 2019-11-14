@@ -29,7 +29,7 @@
                 <p
                   class="caption"
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >Ex-{{user.designation}}</p>
+                >Worked As-{{user.designation}}</p>
                 <p>
                   <v-icon class="mr-2" color="blue">mdi-twitter</v-icon>
                   <v-icon color="blue">mdi-linkedin</v-icon>
@@ -220,35 +220,41 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-layout>
-              <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Phone No</v-card-text>
+              <v-flex xs1>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                  <v-icon class="mt-1" color="blue">mdi-cellphone</v-icon>
+                </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
+                  style="margin-top:8px !important; color: #181818	"
                 >{{user.mobile}}</v-card-text>
               </v-flex>
             </v-layout>
             <v-layout>
-              <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Email</v-card-text>
+              <v-flex xs1>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                  <v-icon color="blue">mdi-email</v-icon>
+                </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important;"
+                  style="margin-top:8px !important;"
                 >{{user.email}}</v-card-text>
               </v-flex>
             </v-layout>
             <v-layout>
-              <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Address</v-card-text>
+              <v-flex xs1>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                  <v-icon color="blue">mdi-home</v-icon>
+                </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818"
+                  style="margin-top:5px !important; color: #181818"
                 >{{user.city}}</v-card-text>
               </v-flex>
             </v-layout>

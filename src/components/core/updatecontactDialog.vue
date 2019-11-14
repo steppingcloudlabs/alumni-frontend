@@ -11,13 +11,23 @@
             <v-form ref="contact" lazy-validation>
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.phone" label="Phone No" :rules="phoneRules"></v-text-field>
+                  <v-text-field
+                    v-model="contact.phone"
+                    label="Phone No"
+                    :rules="phoneRules"
+                    prepend-icon="mdi-cellphone"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.email" label="Email" :rules="emailRules"></v-text-field>
+                  <v-text-field
+                    v-model="contact.email"
+                    label="Email"
+                    :rules="emailRules"
+                    prepend-icon="mdi-email"
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.address" label="Address"></v-text-field>
+                  <v-text-field v-model="contact.address" label="Address" prepend-icon="mdi-home"></v-text-field>
                 </v-col>
               </v-row>
             </v-form>

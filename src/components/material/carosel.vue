@@ -1,7 +1,7 @@
 <template>
   <v-carousel
-    class="mr-5"
-    min-height="300px"
+    class="mr-5 news-carousel-wrapper"
+    height="300px"
     hide-delimiter-background
     show-arrows-on-hover
     hide-delimiters
@@ -11,18 +11,20 @@
         v-for="(item, i) in getNewsList"
         :key="i"
         :src="getNewsList[i].photo"
-        style="background-color:rgb(0,0,0,0.5)"
+        style="background-color:rgba(0,0,0,0.5)"
       >
         <v-card color="transparent" height="100%">
           <v-card-title>
-            <v-icon large left>mdi-bullhorn</v-icon>
-            <span class="title font-weight-bold" style="font-family:Raleway;">{{item.title}}</span>
+            <span class="headline font-weight-bold" style="font-family:Raleway;">{{item.title}}</span>
           </v-card-title>
           <v-card-text>{{item.date}}</v-card-text>
           <v-card-text class="headline font-weight-light" style="font-family:Raleway;">
             <p>
               {{item.content.substring(0,len)}}
-              <span id="dots" v-if="!showMore">...</span>
+              <span
+                id="dots"
+                v-if="!showMore && item.content.length>len"
+              >...</span>
             </p>
             <button
               v-if="!showMore && item.content.length>len"
@@ -169,5 +171,8 @@ div.item {
   vertical-align: top;
   display: inline-block;
   text-align: center;
+}
+.news-carousel-wrapper .v-responsive__content {
+  background: rgb(0, 0, 0, 0.5);
 }
 </style>

@@ -5,7 +5,69 @@
     </v-img>
     <br />
     <br />
-    <v-row>
+    <v-layout row wrap mt-4 ml-5 mr-5>
+      <v-flex xs6>
+        <v-card class="mr-3 ml-3" height="100%">
+          <v-card-title
+            class="font-weight-medium"
+            style="font-family:Raleway; font-size:15px;"
+          >FnF Status</v-card-title>
+          <v-card-text>
+            <timeline
+              :status="FnfStatus"
+              :code="95"
+              :userid="this.userData"
+              :showLoader="progress"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs6>
+        <v-card class="mr-3 ml-3" height="100%">
+          <v-card-title
+            class="font-weight-medium"
+            style="font-family:Raleway; font-size:15px"
+          >Form16 Status</v-card-title>
+          <v-card-text>
+            <timeline
+              :status="FormStatus"
+              :code="95"
+              :userid="this.userData "
+              :showLoader="progress"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs6>
+        <v-card class="mr-3 ml-3 mt-3" style="margin-left:20px" height="100%">
+          <v-card-title
+            class="font-weight-medium"
+            style="font-family:Raleway;font-size:15px"
+          >Pf Clearance Status</v-card-title>
+          <v-card-text>
+            <timeline :status="PfStatus" :code="95" :userid="this.userData" :showLoader="progress" />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs6>
+        <v-card class="mr-3 ml-3 mt-3" style="margin-left:20px" height="100%">
+          <v-card-title
+            class="font-weight-medium"
+            style="font-family:Raleway;font-size:15px"
+          >Salary Slip Status</v-card-title>
+          <v-card-text>
+            <timeline
+              :status="SalaryStatus"
+              :code="96"
+              :userid="this.userData"
+              :showLoader="progress"
+            />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+
+    <!-- <v-row>
       <v-flex xs1></v-flex>
       <v-flex xs4>
         <v-card color="#5097DD" dark>
@@ -33,17 +95,20 @@
         </v-card>
       </v-flex>
       <v-flex xs1></v-flex>
-    </v-row>
+    </v-row>-->
   </v-container>
 </template>
 
 <script>
+import timeline from "@/components/material/Timeline.vue";
 export default {
   components: {
-    CoreAppBar: () => import("@/components/core/AppBar")
+    CoreAppBar: () => import("@/components/core/AppBar"),
+    timeline
   },
   data() {
     return {
+      progress: true
       // user: {
       //   userid: ""
       // }
@@ -87,11 +152,46 @@ export default {
     //   this.user.userid = this.userData.user_id;
     // }
   },
+  mounted() {
+    this.getStatus();
+  },
+
   computed: {
     userData() {
       return this.$store.getters["userModule/getUserData"]
         ? this.$store.getters["userModule/getUserData"].user_id
         : null;
+    },
+    FnfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].fnfStatus
+        : null;
+    },
+    FormStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].form16Status
+        : null;
+    },
+    PfStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+        : null;
+    },
+    SalaryStatus() {
+      return this.$store.getters["userModule/getStatusData"]
+        ? this.$store.getters["userModule/getStatusData"].salarycurrent
+        : null;
+    }
+  },
+
+  methods: {
+    getStatus() {
+      let data = {
+        userid: this.userData
+      };
+      this.$store.dispatch("userModule/getStatus", data).then(response => {
+        this.progress = false;
+      });
     }
   }
   // watch: {

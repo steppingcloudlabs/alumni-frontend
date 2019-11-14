@@ -4,15 +4,28 @@
       <div v-if="this.status=='Available'">
         <v-alert type="success" dense text>Ready To download</v-alert>
         <p class="text-right">
-          <span @click="download">
+          <span v-if="code!=96" @click="download({userid,code})">
             <a style="color:green">Download</a>
+          </span>
+        </p>
+        <p class="text-center">
+          <span class="ml-4 mr-4" v-if="code==96" @click="download({userid,code})">
+            <a style="color:green">Payslip1</a>
+          </span>
+          <span class="ml-4 mr-4" v-if="code==96" @click="download({userid,code:97})">
+            <a style="color:green">PaySlip2</a>
+          </span>
+          <span class="ml-4 mr-4" v-if="code==96" @click="download({userid,code:98})">
+            <a style="color:green">PaySlip3</a>
           </span>
         </p>
       </div>
       <v-alert type="warning" dense text v-else>Pending From Company</v-alert>
     </div>
     <div v-else>
-      <v-progress-circular :size="30" :width="4" indeterminate color="green"></v-progress-circular>
+      <p class="text-center">
+        <v-progress-circular :size="30" :width="4" indeterminate color="green"></v-progress-circular>
+      </p>
     </div>
   </div>
 </template>
@@ -43,16 +56,16 @@ export default {
     return {};
   },
   methods: {
-    download() {
-      let body = {
-        userid: this.userid,
-        // code:data,
-        filename: this.code
-      };
-      console.log(body);
+    download(data) {
+      // let body = {
+      //   userid: this.userid,
+      //   // code:data,
+      //   filename: this.code
+      // };
+      // console.log(body);
 
       this.$store
-        .dispatch("userModule/downloadDocument", body)
+        .dispatch("userModule/downloadDocument", data)
         .then(response => {
           if (response.data.status == 200) {
             this.$store.commit("showSnackbar", {
