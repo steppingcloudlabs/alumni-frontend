@@ -22,13 +22,31 @@
                     <v-text-field v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="picker" label="Date" required>
-                      <v-icon @click="showCalender=true">mdi-calender</v-icon>
-                    </v-text-field>
+                    <v-menu
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="date"
+                          label="Date"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="date"
+                        @input="menu2 = false"
+                        :max="new Date().toISOString().substr(0, 10)"
+                      ></v-date-picker>
+                    </v-menu>
                   </v-col>
-                  <v-row justify="center" v-if="showCalender">
-                    <v-date-picker v-model="picker"></v-date-picker>
-                  </v-row>
+
                   <v-col cols="12">
                     <v-file-input
                       accept="image/*"
@@ -59,13 +77,15 @@ import moment from "moment";
 export default {
   data() {
     return {
+      date: new Date().toISOString().substr(0, 10),
       titleRules: [v => !!v || "Title is required"],
       bodyRules: [v => !!v || "Body is required"],
       imageBase64: "",
       showCalender: false,
-      picker: new Date().toISOString().substr(0, 10)
+      menu2: false
     };
   },
+  mounted() {},
   computed: {
     news: {
       get() {
@@ -113,7 +133,7 @@ export default {
       this.$store.commit("adminModule/showNewsProgress", {});
 
       this.$store.commit("adminModule/closeNewsDialog");
-      let currDate = parseInt(moment().format("x"));
+      let currDate = parseInt(moment(this.Date).format("x"));
       console.log(currDate);
       let data = {
         title: newData.title,

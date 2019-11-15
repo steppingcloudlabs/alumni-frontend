@@ -1,21 +1,45 @@
 <template>
   <div style="margin-top: 70px">
-    <v-layout row wrap px-5 py-0 ml-0 align-center class="header-wrapper" style="background:#1A1A1D">
+    <v-layout
+      row
+      wrap
+      px-5
+      py-0
+      ml-0
+      align-center
+      class="header-wrapper"
+      style="background:#1A1A1D"
+    >
       <v-flex xs5>
-        <img src="@/assets/logo.png" height="50" class="my-2"/>
+        <img src="@/assets/logo.png" height="50" class="my-2" />
       </v-flex>
       <v-flex xs7 class="text-right">
         <div class="menu-wrapper">
           <ul>
-            <li><a :class="$route.path == '/about' ? 'active' : ''">About</a></li>
-            <li><a :class="$route.path == '/signup' ? 'active' : ''" v-if="$route.path == '/home'" @click="navtosignup">Signin</a></li>
-            <li><a :class="$route.path == '/login' ? 'active' : ''" v-if="$route.path == '/home'" @click="navtologin">Login</a></li>
-            <li><a :class="$route.path == '/home' ? 'active' : ''" @click="navtoHome">Home</a></li>
+            <li>
+              <a :class="$route.path == '/about' ? 'active' : ''">About</a>
+            </li>
+            <li>
+              <a
+                :class="$route.path == '/signup' ? 'active' : ''"
+                v-if="$route.path == '/home'"
+                @click="navtosignup"
+              >Signin</a>
+            </li>
+            <li>
+              <a
+                :class="$route.path == '/login' ? 'active' : ''"
+                v-if="$route.path == '/home'"
+                @click="navtologin"
+              >Login</a>
+            </li>
+            <li>
+              <a :class="$route.path == '/home' ? 'active' : ''" @click="navtoHome">Home</a>
+            </li>
           </ul>
         </div>
       </v-flex>
     </v-layout>
-
   </div>
 </template>
 
@@ -77,8 +101,7 @@ export default {
   z-index: 1009;
 }
 .menu-wrapper {
-  height: 100%;;
-
+  height: 100%;
 }
 .vertical-align-content {
   position: relative;
@@ -98,10 +121,9 @@ ul {
   overflow: hidden;
 }
 
-li {
+.header-wrapper li {
   float: right;
   /* border-right:1px solid #bbb; */
-
 }
 /* 
 li:first-child {
@@ -116,18 +138,18 @@ li a {
   text-decoration: none;
   border-radius: 5px;
   margin-right: 20px;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-weight: 400;
   transition: 300ms ease-in;
 }
 li a:hover {
-  background-color:  rgb(241,135,16);
+  background-color: rgb(241, 135, 16);
   color: white !important;
   /* font-weight: 600; */
 }
 .active {
   /* background-color:  rgb(241,135,16); */
-  color: rgb(241,135,16) !important;
+  color: rgb(241, 135, 16) !important;
   font-weight: 600;
 }
 </style>

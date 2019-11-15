@@ -9,12 +9,45 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col cols="12">
                 <v-text-field v-model="alumni.user_id" label="Employee Id"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.salutation_personal_information" label="Salutation"></v-text-field>
+                <v-menu
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="date"
+                      label="Date of Birth"
+                      prepend-icon="event"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date"
+                    @input="menu2 = false"
+                    :max="new Date().toISOString().substr(0, 10)"
+                  ></v-date-picker>
+                </v-menu>
               </v-col>
+              <v-col cols="12" md="6">
+                <v-overflow-btn
+                  class="my-2"
+                  v-model="gender"
+                  :items="genders"
+                  label="Gender"
+                  target="#dropdown-example"
+                ></v-overflow-btn>
+              </v-col>
+              <!-- <v-col cols="12" md="6">
+                <v-text-field v-model="alumni.salutation_personal_information" label="Salutation"></v-text-field>
+              </v-col>-->
               <v-col cols="12" md="6">
                 <v-text-field v-model="alumni.first_name_personal_information" label="First Name"></v-text-field>
               </v-col>
@@ -34,10 +67,56 @@
                 <v-text-field v-model="alumni.email" label="Email"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.date_of_resignation" label="Resignation Date"></v-text-field>
+                <v-menu
+                  v-model="menu_resignation"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="date_of_resignation"
+                      label="Resignation Date"
+                      prepend-icon="event"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date_of_resignation"
+                    @input="menu_resignation=false"
+                    :max="new Date().toISOString().substr(0, 10)"
+                  ></v-date-picker>
+                </v-menu>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.relieving" label="Relieving Date"></v-text-field>
+                <v-menu
+                  v-model="menu_relieving"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="relieving"
+                      label="Relieving Date"
+                      prepend-icon="event"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    class="picker"
+                    v-model="relieving"
+                    
+                    @input="menu_relieving=false"
+                    :max="new Date().toISOString().substr(0, 10)"
+                  ></v-date-picker>
+                </v-menu>
               </v-col>
               <v-col cols="12">
                 <v-text-field v-model="alumni.city_addresses" label="Address"></v-text-field>
@@ -71,17 +150,22 @@ export default {
   },
   methods: {
     closeDialog() {
+      console.log(this.gender);
       this.$store.commit("adminModule/closeAlumniDialog");
     },
     saveDialog() {
       let alumniData = JSON.parse(JSON.stringify(this.alumni));
       this.$store.commit("adminModule/closeAlumniDialog");
+      if (this.gender == "Female") {
+        this.salutation_personal_information = "Ms";
+      } else {
+        this.salutation_personal_information = "Mr";
+      }
       let data = {
         user_id: alumniData.user_id,
 
         nationality_personal_information: "IND",
-        salutation_personal_information:
-          alumniData.salutation_personal_information,
+        salutation_personal_information: salutation_personal_information,
         city_addresses: alumniData.city_addresses,
         phone_number_phone_information:
           alumniData.phone_number_phone_information,
@@ -91,9 +175,11 @@ export default {
           alumniData.first_name_personal_information,
         last_name_personal_information:
           alumniData.last_name_personal_information,
-        date_of_resignation: alumniData.resignation,
+        date_of_resignation: this.date_of_resignation,
         email: alumniData.email,
-        data_of_relieving: alumniData.relieving
+        data_of_relieving: this.relieving,
+        date_of_birth: this.date,
+        gender: this.gender
       };
       let data1 = {
         user_id: alumniData.user_id,
@@ -147,6 +233,15 @@ export default {
   },
   data() {
     return {
+      salutation_personal_information: "",
+      menu_resignation: false,
+      menu_relieving: false,
+      gender: "",
+      genders: ["Male", "Female", "Other"],
+      date: new Date().toISOString().substr(0, 10),
+      date_of_resignation: new Date().toISOString().substr(0, 10),
+      relieving: new Date().toISOString().substr(0, 10),
+      menu2: false,
       headers: [
         {
           text: "EmployeeId",
@@ -163,3 +258,9 @@ export default {
   }
 };
 </script>
+
+<style >
+.v-date-picker-years.li {
+  float: none !important;
+}
+</style>

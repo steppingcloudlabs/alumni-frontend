@@ -20,7 +20,32 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Location" required></v-text-field>
+                <v-text-field v-model="event.location" label="Location" required></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-menu
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="date"
+                      label="Date"
+                      prepend-icon="event"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date"
+                    @input="menu2 = false"
+                    :min="new Date().toISOString().substr(0, 10)"
+                  ></v-date-picker>
+                </v-menu>
               </v-col>
               <v-col cols="12">
                 <v-file-input
@@ -45,7 +70,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 export default {
   computed: {
     event: {
@@ -68,7 +93,10 @@ export default {
   data() {
     return {
       titleRules: [v => !!v || "Title is required"],
-      bodyRules: [v => !!v || "Body is required"]
+      bodyRules: [v => !!v || "Body is required"],
+
+      date: new Date().toISOString().substr(0, 10),
+      menu2: false
     };
   },
   methods: {
@@ -85,6 +113,7 @@ export default {
         console.log("Error: ", error);
       };
     },
+
     closeDialog() {
       this.$store.commit("adminModule/closeEventDialog");
     },
@@ -92,7 +121,7 @@ export default {
       let eventData = JSON.parse(JSON.stringify(this.event));
       this.$store.commit("adminModule/showEventsProgress", {});
       this.$store.commit("adminModule/closeEventDialog");
-      let currDate = parseInt(moment().format("x"));
+      let currDate = parseInt(moment(this.Date).format("x"));
       let data = {
         title: eventData.title,
         content: eventData.content,

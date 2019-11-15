@@ -106,21 +106,21 @@ export default {
         ? this.$store.getters["userModule/getUserData"].user_id
         : null;
     },
-    FnfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].fnfStatus
-        : null;
-    },
-    FormStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].form16Status
-        : null;
-    },
-    PfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
-        : null;
-    }
+    // FnfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].fnfStatus
+    //     : null;
+    // },
+    // FormStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].form16Status
+    //     : null;
+    // },
+    // PfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+    //     : null;
+    // }
   },
 
   methods: {
