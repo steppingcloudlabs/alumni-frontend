@@ -107,7 +107,7 @@ export default {
           })
           .then(response => {
             if (response && response.status == 200 && response.result) {
-              this.$router.push({ path: "/profile/user-profile" });
+              this.$router.push({ path: "/profile/dashboard" });
               this.$store.commit("closeProgressBar", {});
             } else if (response.result != "Login Successful") {
               this.$store.commit("closeProgressBar", {});
