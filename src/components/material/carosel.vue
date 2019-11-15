@@ -1,10 +1,11 @@
 <template>
   <v-carousel
     class="mr-5 news-carousel-wrapper"
-    height="300px"
+    :height="heightCarousel"
     hide-delimiter-background
     show-arrows-on-hover
     hide-delimiters
+    @change="resetHeight()"
   >
     <div v-if="!this.empty">
       <v-carousel-item
@@ -13,12 +14,18 @@
         :src="getNewsList[i].photo"
         style="background-color:rgba(0,0,0,0.5)"
       >
-        <v-card color="transparent" height="100%">
+        <v-card class="px-5 py-5" color="transparent" height="100%">
           <v-card-title>
-            <span class="headline font-weight-bold" style="font-family:Raleway;">{{item.title}}</span>
+            <span
+              class="headline font-weight-bold"
+              style="font-family:Raleway;font-size:30px"
+            >{{item.title}}</span>
           </v-card-title>
           <v-card-text>{{item.date}}</v-card-text>
-          <v-card-text class="headline font-weight-light" style="font-family:Raleway;">
+          <v-card-text
+            class="title font-weight-light"
+            style="font-family:Raleway !important;text-align:justify;color:white"
+          >
             <p>
               {{item.content.substring(0,len)}}
               <span
@@ -55,6 +62,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   computed: {
     getNewsList: {
@@ -78,6 +86,7 @@ export default {
     this.$store.commit("showProgressBar", {});
     this.$store.dispatch("adminModule/getAllNews").then(response => {
       this.len = 390;
+      this.heightCarousel = 350;
       if (response.data.result.length > 0) {
         this.empty = false;
       } else {
@@ -91,15 +100,23 @@ export default {
       if (!this.showMore) {
         this.showMore = true;
         this.len = this.getNewsList[data].content.length;
+        this.heightCarousel = 50 + this.len / 2;
       } else {
         this.showMore = false;
         this.len = 390;
+        this.heightCarousel = 350;
       }
+    },
+    resetHeight() {
+      this.heightCarousel = 350;
+      this.showMore = false;
+      this.len = 390;
     }
   },
 
   data() {
     return {
+      heightCarousel: 350,
       len: 390,
       showMore: false,
       empty: false,

@@ -3,7 +3,7 @@
     <v-dialog v-model="showContact" width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline">Upadte Contact</span>
+          <span class="headline text-center">Update Contact</span>
         </v-card-title>
 
         <v-card-text>
@@ -26,8 +26,12 @@
                     prepend-icon="mdi-email"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.address" label="Address" prepend-icon="mdi-home"></v-text-field>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="contact.address"
+                    label=" Current Address"
+                    prepend-icon="mdi-home"
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-form>

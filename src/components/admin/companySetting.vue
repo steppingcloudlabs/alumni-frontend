@@ -8,11 +8,11 @@
       style="margin-left: auto; margin-right: auto; padding: 20px;"
     >
       <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
-        Level 1
+        Spoc
         <v-spacer></v-spacer>
         <v-btn v-if="!getEmailList[0].levelOrder" text @click="showEmailDialog(1)">Add a new Email</v-btn>
       </v-card-title>
-      <v-layout v-if="getEmailList[0].levelOrder"  >
+      <v-layout v-if="getEmailList[0].levelOrder">
         <v-flex xs5>
           <v-card-text
             color="primary"
@@ -32,7 +32,7 @@
       </v-layout>
 
       <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
-        Level 2
+        Esclation Level 1
         <v-spacer></v-spacer>
         <v-btn text v-if="!getEmailList[1].levelOrder" @click="showEmailDialog(2)">Add a new Email</v-btn>
       </v-card-title>
@@ -55,7 +55,7 @@
         </v-card-actions>
       </v-layout>
       <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
-        Level 3
+        Escalation Level 1
         <v-spacer></v-spacer>
         <v-btn text v-if="!getEmailList[2].levelOrder" @click="showEmailDialog(3)">Add a new Email</v-btn>
       </v-card-title>
