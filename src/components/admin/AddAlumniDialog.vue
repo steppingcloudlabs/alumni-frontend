@@ -78,21 +78,29 @@ export default {
       this.$store.commit("adminModule/closeAlumniDialog");
       let data = {
         user_id: alumniData.user_id,
-        date_of_resignation: "2019-08-27T00:00:00Z",
+
         nationality_personal_information: "IND",
-        salutation_personal_information: alumniData.salutation_personal_information,
+        salutation_personal_information:
+          alumniData.salutation_personal_information,
         city_addresses: alumniData.city_addresses,
-        phone_number_phone_information: alumniData.phone_number_phone_information,
+        phone_number_phone_information:
+          alumniData.phone_number_phone_information,
         manager_job_information: alumniData.manager_job_information,
         designation_job_information: alumniData.designation_job_information,
-        first_name_personal_information: alumniData.first_name_personal_information,
-        last_name_personal_information: alumniData.last_name_personal_information,
-        date_of_resignation: alumniData.date_of_resignation
+        first_name_personal_information:
+          alumniData.first_name_personal_information,
+        last_name_personal_information:
+          alumniData.last_name_personal_information,
+        date_of_resignation: alumniData.resignation,
+        email: alumniData.email,
+        data_of_relieving: alumniData.relieving
       };
       let data1 = {
         user_id: alumniData.user_id,
-        first_name_personal_information: alumniData.first_name_personal_information,
-        last_name_personal_information: alumniData.last_name_personal_information
+        first_name_personal_information:
+          alumniData.first_name_personal_information,
+        last_name_personal_information:
+          alumniData.last_name_personal_information
       };
       console.log(data);
       this.$store.dispatch("adminModule/addAlumni", data).then(response => {
