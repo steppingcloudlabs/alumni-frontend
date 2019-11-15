@@ -22,6 +22,14 @@
                     <v-text-field v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
                   </v-col>
                   <v-col cols="12">
+                    <v-text-field v-model="picker" label="Date" required>
+                      <v-icon @click="showCalender=true">mdi-calender</v-icon>
+                    </v-text-field>
+                  </v-col>
+                  <v-row justify="center" v-if="showCalender">
+                    <v-date-picker v-model="picker"></v-date-picker>
+                  </v-row>
+                  <v-col cols="12">
                     <v-file-input
                       accept="image/*"
                       prepend-icon="mdi-camera"
@@ -53,7 +61,9 @@ export default {
     return {
       titleRules: [v => !!v || "Title is required"],
       bodyRules: [v => !!v || "Body is required"],
-      imageBase64: ""
+      imageBase64: "",
+      showCalender: false,
+      picker: new Date().toISOString().substr(0, 10)
     };
   },
   computed: {
@@ -104,6 +114,7 @@ export default {
 
       this.$store.commit("adminModule/closeNewsDialog");
       let currDate = parseInt(moment().format("x"));
+      console.log(currDate);
       let data = {
         title: newData.title,
         content: newData.content,
