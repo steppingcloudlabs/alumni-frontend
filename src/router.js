@@ -153,10 +153,16 @@ const router = new Router({
 
 
 router.beforeResolve((to, from, next) => {
-  if (to.name) {
-    NProgress.start()
+  // if (to.name) {
+  //   NProgress.start()
+  // }
+  if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/profile') > -1) {
+    next({
+      path: '/home'
+    })
+    return
   }
-  next()
+  next();
 })
 
 router.afterEach((to, from, next) => {

@@ -70,7 +70,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllNews").then(response => {
+    this.$store.dispatch("adminModule/getAllNews", {}).then(response => {
         if (response.data.result.length > 0) {
         this.count = 5;
         this.empty = false;

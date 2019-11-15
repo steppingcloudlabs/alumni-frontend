@@ -164,7 +164,6 @@ export default {
             if (
               response &&
               response.result &&
-              response.result.data &&
               response.status == 200
             ) {
               this.$store.commit("closeProgressBar", {});

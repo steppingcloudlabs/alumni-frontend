@@ -145,7 +145,7 @@ export default {
             heading: "Success",
             duration: 3000
           });
-          this.$store.dispatch("adminModule/getAllNews");
+          this.$store.dispatch("adminModule/getAllNews", {});
         }
 
         this.$store.commit("adminModule/closeNewsProgress", {});

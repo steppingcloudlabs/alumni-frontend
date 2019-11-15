@@ -69,7 +69,7 @@ export default {
   },
   beforeMount() {
     this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllNews").then(response => {
+    this.$store.dispatch("adminModule/getAllNews", {}).then(response => {
       this.$store.commit("closeProgressBar", {});
       if (response.data.result.length > 0) {
         this.count = 1;

@@ -1,8 +1,9 @@
 import md5 from 'crypto-js/md5'
 import axios from 'axios'
 import {
-    get
-} from 'http';
+    addTokenToPayload
+} from '@/utils/utils'
+
 export default {
 
     namespaced: true,
@@ -85,6 +86,7 @@ export default {
                     console.log('heya!')
                     if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result)
+                        sessionStorage.setItem("AccessToken", response.data.token)
                         // commit('statusData', response.data.message.data)
                     }
                     // } else {
@@ -129,6 +131,7 @@ export default {
             state,
             commit
         }, data) => {
+            addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -151,6 +154,7 @@ export default {
             state,
             commit
         }, data) => {
+            // addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -169,13 +173,11 @@ export default {
 
             })
         },
-
-
-
         getStatus: ({
             state,
             commit
         }, data) => {
+            addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',

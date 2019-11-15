@@ -134,9 +134,7 @@ export default {
       let data = {
         userid: this.userData
       };
-      debugger;
       this.$store.dispatch("userModule/getStatus", data).then(response => {
-        debugger;
         this.progress = false;
       });
     }

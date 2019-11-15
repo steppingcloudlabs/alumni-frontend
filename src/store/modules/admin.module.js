@@ -1,4 +1,7 @@
 import axios from "axios";
+import {
+    addTokenToPayload
+} from '@/utils/utils'
 
 export default {
     namespaced: true,
@@ -6,7 +9,7 @@ export default {
 
         showEmailDialog: false,
         emailDialogData: {},
-        level:"",
+        level: "",
         level1Email: [{
 
             },
@@ -25,7 +28,7 @@ export default {
         level3Email: {},
 
         alumniDialogData: {
-        
+
         },
         showAlumniDialog: false,
         alumniList: [],
@@ -67,12 +70,12 @@ export default {
         showEmailDialog: (state, data) => {
             state.showEmailDialog = true
             state.emailDialogData = data
-            
+
         },
         showEmailDialog1: (state, data) => {
             state.showEmailDialog = true
             state.level = data
-            
+
         },
         closeEmailDialog: (state, data) => {
             state.showEmailDialog = false
@@ -82,8 +85,8 @@ export default {
             state.level1Email = data
         },
         addNewEmailToList: (state, data) => {
-            state.level1Email[state.level-1] = JSON.parse(JSON.stringify(data))
-            state.level1Email[state.level-1].levelOrder = state.level
+            state.level1Email[state.level - 1] = JSON.parse(JSON.stringify(data))
+            state.level1Email[state.level - 1].levelOrder = state.level
             state.level1Email = JSON.parse(JSON.stringify(state.level1Email))
             console.log(state.level1Email)
 
@@ -354,6 +357,9 @@ export default {
             state,
             commit
         }, data) => {
+            addTokenToPayload(data)
+            data['skip'] = 0;
+            data['limit'] = 3;
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -361,10 +367,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: {
-                        "skip": 0,
-                        "limit": 3
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     commit('setNewsList', response.data.result)
@@ -381,6 +384,8 @@ export default {
             commit,
             dispatch
         }, data) => {
+            // addTokenToPayload(data)
+            data['id'] = data._id
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -388,9 +393,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: {
-                        id: data._id
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     dispatch("getAllNews")
@@ -430,6 +433,7 @@ export default {
             state,
             commit
         }, data) => {
+            addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -437,9 +441,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: {
-                        
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     commit('setEventList', response.data.result)
@@ -455,6 +457,8 @@ export default {
             commit,
             dispatch
         }, data) => {
+            // addTokenToPayload(data)
+            data['id'] = data._id
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -462,9 +466,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: {
-                        id: data._id
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     dispatch("getAllEvent")
@@ -552,6 +554,7 @@ export default {
             state,
             commit
         }, data) => {
+            addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -559,10 +562,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: {
-                        "skip": 1,
-                        "limit": 3
-                    }
+                    data: data
                 }).then((response) => {
                     resolve(response)
                     commit('setFaqList', response.data.result)
@@ -624,8 +624,6 @@ export default {
 
             })
         },
-
-
         uploadDocument: ({
             state,
             commit

@@ -114,7 +114,7 @@ export default {
             duration: 3000
           });
         } else {
-          this.$store.dispatch("adminModule/getAllEvent");
+          this.$store.dispatch("adminModule/getAllEvent", {});
           this.$store.commit("showSnackbar", {
             message: "Event updated successfully",
             color: "success",

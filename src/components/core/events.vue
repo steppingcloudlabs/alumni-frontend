@@ -95,7 +95,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllEvent").then(response => {
+    this.$store.dispatch("adminModule/getAllEvent", {}).then(response => {
       if (response.data.result.length > 0) {
         this.empty = false;
       } else {
