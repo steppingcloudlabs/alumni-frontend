@@ -131,7 +131,10 @@ export default {
             state,
             commit
         }, data) => {
+           
             addTokenToPayload(data)
+           
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -154,7 +157,7 @@ export default {
             state,
             commit
         }, data) => {
-            // addTokenToPayload(data)
+            addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -173,11 +176,37 @@ export default {
 
             })
         },
+        forgotPassword: ({
+            state,
+            commit
+        }, data) => {
+            // addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/user/forgetpassword',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        
         getStatus: ({
             state,
             commit
         }, data) => {
             addTokenToPayload(data)
+            console.log(data)
+          
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -185,7 +214,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data:data
                 }).then((response) => {
                     commit('setStatusData', response.data.result)
                     resolve(response)
@@ -194,7 +223,31 @@ export default {
                     reject(error)
                 })
             })
+        },
+        contactHr: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/ask-hr',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
         }
+        
 
     }
 }

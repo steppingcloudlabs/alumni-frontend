@@ -80,9 +80,10 @@ export default {
   beforeMount() {
     this.loader = true;
     this.$store
-      .dispatch("adminModule/getAllAlumni", {
+      .dispatch("adminModule/getAllAlumni", {payload:{
         skip: 0,
         limit: 9
+      }
       })
       .then(response => {
         this.loader = false;
@@ -129,9 +130,12 @@ export default {
     findData(data) {
       this.loader = true;
       let body = {
+        payload:{
         skip: 0,
         limit: 2,
         keyword: data
+        }
+       
       };
       this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
         this.loader = false;

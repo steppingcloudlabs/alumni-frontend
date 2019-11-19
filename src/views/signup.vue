@@ -120,7 +120,7 @@ export default {
         v =>
           /.(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(v) ||
           "Password must contain one uppercase letter, one lowercase letter and one number",
-        v => v.length > 6 || "Password must be grater than 6 characters"
+        v => v.length > 6 || "Password must be greater than 6 characters"
       ],
       employeeRules: [v => !!v || "Employee Id is required"],
 

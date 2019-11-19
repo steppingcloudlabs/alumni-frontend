@@ -148,6 +148,13 @@ a {
   text-decoration: none;
   color: #66fcf1;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+}
 /* 
 .back {
   background-color: transparent;

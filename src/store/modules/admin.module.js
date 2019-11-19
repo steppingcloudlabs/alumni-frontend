@@ -336,6 +336,9 @@ export default {
             state,
             commit
         }, data) => {
+
+            addTokenToPayload(data)
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -358,8 +361,8 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-            data['skip'] = 0;
-            data['limit'] = 3;
+
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -384,8 +387,13 @@ export default {
             commit,
             dispatch
         }, data) => {
+            let payload = {
+                id: data._id
+            }
+            addTokenToPayload(data)
+            let token = data['token']
             // addTokenToPayload(data)
-            data['id'] = data._id
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -393,10 +401,13 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data: {
+                        payload,
+                        token
+                    }
                 }).then((response) => {
                     resolve(response)
-                    dispatch("getAllNews")
+                    dispatch("getAllNews",{payload:{}})
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -410,6 +421,9 @@ export default {
             state,
             commit
         }, data) => {
+
+            addTokenToPayload(data)
+
             return new Promise((resolve, reject) => {
                 console.log("event data", data)
                 axios({
@@ -434,6 +448,8 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
+
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -457,8 +473,13 @@ export default {
             commit,
             dispatch
         }, data) => {
+            let payload = {
+                id: data._id
+            }
+            addTokenToPayload(data)
+            let token = data['token']
             // addTokenToPayload(data)
-            data['id'] = data._id
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -466,10 +487,13 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data: {
+                        payload,
+                        token
+                    }
                 }).then((response) => {
                     resolve(response)
-                    dispatch("getAllEvent")
+                    dispatch("getAllEvent",{payload:{}})
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -483,6 +507,7 @@ export default {
             commit,
             dispatch
         }, data) => {
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -495,7 +520,7 @@ export default {
                     }
                 }).then((response) => {
                     resolve(response)
-                    dispatch("getAllAlumni")
+                    dispatch("getAllAlumni",{payload:{}})
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -510,6 +535,9 @@ export default {
             state,
             commit
         }, data) => {
+
+            addTokenToPayload(data)
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -531,6 +559,9 @@ export default {
             state,
             commit
         }, data) => {
+           
+            addTokenToPayload(data)
+           
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -554,7 +585,11 @@ export default {
             state,
             commit
         }, data) => {
+
             addTokenToPayload(data)
+
+
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -577,6 +612,9 @@ export default {
             state,
             commit
         }, data) => {
+
+            addTokenToPayload(data)
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -603,6 +641,11 @@ export default {
             commit,
             dispatch
         }, data) => {
+            let payload = {
+                id: data._id
+            }
+            addTokenToPayload(data)
+            let token = data['token']
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -611,11 +654,12 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     data: {
-                        id: data._id
+                        payload,
+                        token
                     }
                 }).then((response) => {
                     resolve(response)
-                    dispatch("getAllFaq")
+                    dispatch("getAllFaq",{payload:{}})
 
                     console.log(response)
                 }).catch((error) => {
@@ -628,6 +672,9 @@ export default {
             state,
             commit
         }, data) => {
+
+            addTokenToPayload(data)
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',

@@ -123,12 +123,14 @@ export default {
       this.$store.commit("adminModule/closeEventDialog");
       let currDate = parseInt(moment(this.Date).format("x"));
       let data = {
+        payload:{
         title: eventData.title,
         content: eventData.content,
         tag: eventData.title,
         id: eventData._id ? eventData._id : null,
         photo: this.imageBase64,
         date: currDate
+        }
       };
       this.$store.dispatch("adminModule/addEvents", data).then(response => {
         if (data.id == null) {
@@ -143,7 +145,7 @@ export default {
             duration: 3000
           });
         } else {
-          this.$store.dispatch("adminModule/getAllEvent", {});
+          this.$store.dispatch("adminModule/getAllEvent", {payload:{}});
           this.$store.commit("showSnackbar", {
             message: "Event updated successfully",
             color: "success",

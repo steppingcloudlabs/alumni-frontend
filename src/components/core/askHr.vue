@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar >
+    <v-toolbar>
       <v-toolbar-title class="ml-5">FAQs</v-toolbar-title>
 
       <div class="flex-grow-1"></div>
@@ -14,11 +14,11 @@
           <v-expansion-panel-header
             v-if="questionPresent(item.question)"
             style="font-weight:bold"
-          > Question:{{item.question}}{{questionMark}}</v-expansion-panel-header>
-          <v-expansion-panel-header v-else style="font-weight:bold"> Question.{{item.question}}</v-expansion-panel-header>
+          >Question:{{item.question}}{{questionMark}}</v-expansion-panel-header>
+          <v-expansion-panel-header v-else style="font-weight:bold">Question.{{item.question}}</v-expansion-panel-header>
 
           <v-expansion-panel-content style="font-size:15px">
-            <span style="font-weight:bold">Answer: </span>
+            <span style="font-weight:bold">Answer:</span>
             {{item.answer}}
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -33,7 +33,7 @@
       </v-btn>
     </v-row>
 
-    <Contact :dialog="dialog" @closeAskHrDialog="closeAskHrDialog" />
+    <Contact :dialog="dialog" :Showemail="emailDailog" @closeAskHrDialog="closeAskHrDialog" />
   </div>
 </template>
 
@@ -56,11 +56,10 @@ export default {
     }
   },
   beforeMount() {
-     this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllFaq").then(response=>{
-     this.$store.commit("closeProgressBar", {});
+    this.$store.commit("showProgressBar", {});
+    this.$store.dispatch("adminModule/getAllFaq", {payload:{}}).then(response => {
+      this.$store.commit("closeProgressBar", {});
     });
-     
   },
 
   computed: {
@@ -76,21 +75,21 @@ export default {
 
   data() {
     return {
+      emailDailog:false,
       dialog: false,
       questionMark: "?",
-      space:"  "
+      space: "  "
     };
   }
 };
 </script>
 <style scoped >
 .v-sheet.v-sheet--tile.theme--light.v-toolbar {
-  background: rgb(68, 70,71,.7) !important;
-  
+  background: rgb(68, 70, 71, 0.7) !important;
 }
 .v-toolbar__title {
   color: white !important;
   font-weight: bolder !important;
-  font-size:x-large !important;
+  font-size: x-large !important;
 }
 </style>

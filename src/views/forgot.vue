@@ -1,22 +1,23 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="core-login">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12" color="#282828" dark>
               <v-toolbar>
-                <v-toolbar-title class="text-center" style="color:#66FCF1">Forgot Password</v-toolbar-title>
+                <v-toolbar-title class="text-center" style="color:white">Forgot Password</v-toolbar-title>
                 <div class="flex-grow-1"></div>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form ref="forgot">
                   <v-text-field
                     label="Email"
                     name="login"
                     prepend-icon="person"
                     type="text"
                     v-model="email"
+                     :rules="emailRules"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -24,13 +25,13 @@
                 <v-row>
                   <v-flex xs2></v-flex>
                   <v-flex xs6>
-                    <v-btn block center style="color:#66FCF1">Reset Password</v-btn>
+                    <v-btn block center style="color:white">Reset Password</v-btn>
                   </v-flex>
                   <v-flex xs4>
                     <v-card-text class="text-center">
                       Or
-                      <router-link to="/signin" style="color:#66FCF1">
-                        <v-icon style="color:#66FCF1">person</v-icon>Login
+                      <router-link to="/login" style="color:#66FCF1">
+                        <v-icon style="color:white">person</v-icon>Login
                       </router-link>
                     </v-card-text>
                   </v-flex>
@@ -47,24 +48,58 @@
 export default {
   data() {
     return {
-      username: null,
-      password: null
+      email: null,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+     
     };
   },
   methods: {
-    login() {
-      this.$store
-        .dispatch("login", { email: this.username, password: this.password })
-        .then(response => {
-          if (
-            response &&
-            response.status &&
-            response.status == "Login Successful"
-          ) {
-            this.$router.push({ path: "/profile" });
+    
+    resetPassword(){
+       if (this.$refs.forgot.validate()) {
+        this.$store.commit("showProgressBar", {});
+        let data={
+          payload:{
+            email:this.email
           }
+        }
+        this.$store
+          .dispatch("userModule/forgot",data)
+          .then(response => {
+           console.log("inside response")
+          })
+          .catch(error => {
+            this.$store.commit("closeProgressBar", {});
+            this.$store.commit("showNetworkError");
+          });
+      } else {
+        this.$store.commit("showSnackbar", {
+          color: "red",
+          duration: 1000,
+          message: "Correct Errors",
+          heading: "Error"
         });
-    }
+      }
+
+    },
+
+
+    // login() {
+    //   this.$store
+    //     .dispatch("login", { email: this.username, password: this.password })
+    //     .then(response => {
+    //       if (
+    //         response &&
+    //         response.status &&
+    //         response.status == "Login Successful"
+    //       ) {
+    //         this.$router.push({ path: "/profile" });
+    //       }
+    //     });
+    // }
   }
 };
 </script>

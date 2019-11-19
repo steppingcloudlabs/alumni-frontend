@@ -52,9 +52,12 @@ export default {
       // this.$store.commit("adminModule/showEventsProgress", {});
       this.$store.commit("adminModule/closeFaqDialog");
       let data = {
-        question: faqData.question,
+        payload:{
+question: faqData.question,
         answer: faqData.answer,
         id: faqData._id ? faqData._id : null
+        }
+        
       };
       this.$store.dispatch("adminModule/addFaq", data).then(response => {
         if(data.id==null)
@@ -71,7 +74,7 @@ export default {
         });
         }
         else{
-          this.$store.dispatch("adminModule/getAllFaq")
+          this.$store.dispatch("adminModule/getAllFaq",{payload:{}})
           this.$store.commit("showSnackbar", {
           message: "Faq updated successfully",
           color: "success",

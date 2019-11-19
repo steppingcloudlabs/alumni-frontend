@@ -126,6 +126,8 @@ export default {
     },
 
     closeDialog() {
+      let currDate = parseInt(moment(this.Date).format("x"));
+      console.log(currDate);
       this.$store.commit("adminModule/closeNewsDialog");
     },
     saveDialog() {
@@ -136,6 +138,7 @@ export default {
       let currDate = parseInt(moment(this.Date).format("x"));
       console.log(currDate);
       let data = {
+        payload:{
         title: newData.title,
         content: newData.content,
         tag: newData.title,
@@ -143,6 +146,7 @@ export default {
         author: undefined,
         id: newData._id ? newData._id : undefined,
         photo: this.imageBase64
+        }
       };
       this.$store.dispatch("adminModule/addNews", data).then(response => {
         if (data.id == null) {
@@ -165,7 +169,7 @@ export default {
             heading: "Success",
             duration: 3000
           });
-          this.$store.dispatch("adminModule/getAllNews", {});
+          this.$store.dispatch("adminModule/getAllNews", {payload:{}});
         }
 
         this.$store.commit("adminModule/closeNewsProgress", {});

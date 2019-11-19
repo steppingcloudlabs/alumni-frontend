@@ -6,6 +6,7 @@ import signup from './views/signup.vue'
 import portal from '@/views/portal.vue'
 import resetpassword from './views/forgot.vue'
 import careers from './components/core/careers.vue'
+import changepassword from './components/core/changePassword.vue'
 import Dashboard from './views/Dashboard.vue'
 import UserProfile from './views/UserProfile1.vue'
 import Maps from './views/Maps.vue'
@@ -54,7 +55,13 @@ const router = new Router({
       path: '/profile',
       name: 'profile',
       component: portal,
-      children: [{
+      children: [
+        {
+          path: 'changepassword',
+          // Relative to /src/views
+          component: changepassword
+        },
+        {
           path: 'dashboard',
           // Relative to /src/views
           component: Dashboard

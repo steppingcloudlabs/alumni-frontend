@@ -31,7 +31,6 @@
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
                 >Worked As-{{user.designation}}</p>
                 <p>
-                  <v-icon class="mr-2" color="blue">mdi-twitter</v-icon>
                   <v-icon color="blue">mdi-linkedin</v-icon>
                 </p>
                 <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
@@ -89,7 +88,7 @@
               <v-divider></v-divider>
               <v-chip
                 color="primary"
-                v-for="(item, i) in skills"
+                v-for="(item, i) in userSkills"
                 :key="i"
                 class="body-1 mr-2 ml-2 mt-4"
                 style="margin-top:10px"
@@ -363,7 +362,8 @@ export default {
         lastworking: "",
         nationality: ""
       },
-      progress: true
+      progress: true,
+      userSkills: []
     };
   },
   beforeMount() {
@@ -378,6 +378,9 @@ export default {
     this.getStatus();
   },
   computed: {
+    // userSkills() {
+    //   return this.user.skills;
+    // },
     userData() {
       return this.$store.getters["userModule/getUserData"];
     },
@@ -400,8 +403,34 @@ export default {
 
   methods: {
     deleteSkill(data) {
-      this.skills.splice(data, 1);
+      let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
+      let vm = this;
+      tempSkill.splice(data, 1);
+      let index = data;
+      // this.user.skills.splice(data, 1);
+      let datam = {
+        payload: {
+          user_id: this.user.employeeId,
+          skill: tempSkill
+        }
+      };
+      console.log(data);
+      this.$store.dispatch("userModule/updateData", datam).then(response => {
+        if (response.data.status == 200) {
+          // this.user.skills.splice(index, 1);
+          this.$store.commit("showSnackbar", {
+            message: "Skill deleted successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+          this.userSkills = tempSkill;
+        }
+
+        this.skill = "";
+      });
     },
+
     addSkill() {
       this.showskill = true;
       if (!this.skill.trim()) {
@@ -414,15 +443,18 @@ export default {
           return false;
         });
         if (skillExists.length < 1) {
+          let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
+          tempSkill.push(this.skill);
           let data = {
-            user_id: this.user.employeeId,
-            skill: this.skill
+            payload: {
+              user_id: this.user.employeeId,
+              skill: tempSkill
+            }
           };
-
           console.log(data);
           this.$store.dispatch("userModule/updateData", data).then(response => {
             if (response.data.status == 200) {
-              this.skills.push(this.skill);
+              this.userSkills.push(this.skill);
               this.$store.commit("showSnackbar", {
                 message: "Skill added successfully",
                 color: "success",
@@ -474,7 +506,7 @@ export default {
       this.user.city = this.userData.city_addresses;
       this.user.email = this.userData.personal_email_id;
       this.user.mobile = this.userData.phone_number_phone_information;
-      this.office = true;
+      this.userSkills = this.userData.skill;
     },
     closeContactDialog() {
       this.$store.commit("userModule/closeContactDialog");
@@ -493,7 +525,9 @@ export default {
     },
     getStatus() {
       let data = {
-        userid: this.user.employeeId
+        payload: {
+          userid: this.user.employeeId
+        }
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {
         this.progress = false;

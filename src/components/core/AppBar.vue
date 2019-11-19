@@ -50,10 +50,30 @@
             </v-list>
           </v-card>
         </v-menu>
-
-        <v-btn to="/profile/user-profile" icon>
+         
+        <v-menu offset-y>
+      <template v-slot:activator="{ on,attrs }">
+        <v-btn
+          icon v-bind="attrs" v-on="on"
+        >
           <v-icon color="white">mdi-account</v-icon>
         </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+           :to="item.to"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
+
+        <!-- <v-btn to="/profile/user-profile" icon>
+          <v-icon color="white">mdi-account</v-icon>
+        </v-btn> -->
       </v-row>
     </v-toolbar-items>
   </div>
@@ -65,6 +85,9 @@ import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
+     items: [
+        { title: 'Change Password',to:'/profile/changepassword' },
+        {title:'View Profile',to:'/profile/user-profile'}],
     search: "",
     notifications: [
       "Mike, John responded to your email",

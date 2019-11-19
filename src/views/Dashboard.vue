@@ -132,7 +132,8 @@ export default {
     },
     getStatus() {
       let data = {
-        userid: this.userData
+        payload:{userid: this.userData}
+        
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {
         this.progress = false;

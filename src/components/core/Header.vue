@@ -24,7 +24,7 @@
                 :class="$route.path == '/signup' ? 'active' : ''"
                 v-if="$route.path == '/home'"
                 @click="navtosignup"
-              >Signin</a>
+              >SignUp</a>
             </li>
             <li>
               <a

@@ -162,6 +162,7 @@ export default {
         this.salutation_personal_information = "Mr";
       }
       let data = {
+        payload:{
         user_id: alumniData.user_id,
 
         nationality_personal_information: "IND",
@@ -180,6 +181,7 @@ export default {
         data_of_relieving: this.relieving,
         date_of_birth: this.date,
         gender: this.gender
+        }
       };
       let data1 = {
         user_id: alumniData.user_id,
@@ -195,7 +197,7 @@ export default {
             "adminModule/addNewAlumniToList",
             JSON.parse(JSON.stringify(data))
           );
-          this.$store.dispatch("adminModule/getAllAlumni");
+          this.$store.dispatch("adminModule/getAllAlumni",{payload:{}});
           this.$store.commit("showSnackbar", {
             message: "Alumni Added successfully",
             color: "success",

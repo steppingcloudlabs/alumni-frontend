@@ -92,9 +92,12 @@ export default {
         userid: this.empId
       };
       let salary = {
-        userid: data.userid,
+        payload:{
+         userid: data.userid,
         stream: data.salarySlip,
         type: 96
+        }
+       
       };
 
       this.$store
@@ -133,9 +136,12 @@ export default {
       console.log(data);
 
       let form16 = {
-        userid: data.userid,
+        payload:{
+       userid: data.userid,
         stream: data.form16,
         type: 95
+        }
+      
       };
       console.log(form16)
 

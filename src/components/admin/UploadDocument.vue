@@ -50,8 +50,11 @@ export default {
     this.loader = true;
     this.$store
       .dispatch("adminModule/getAllAlumni", {
-        skip: 0,
+        payload:{
+           skip: 0,
         limit: 9
+        }
+      
       })
       .then(response => {
         this.loader = false;
@@ -79,9 +82,12 @@ export default {
     findData(data) {
       this.loader = true;
       let body = {
-        skip: 0,
+        payload:{
+         skip: 0,
         limit: 9,
         keyword: data
+        }
+      
       };
       this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
         this.loader = false;

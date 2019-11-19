@@ -50,7 +50,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllAlumni");
+    this.$store.dispatch("adminModule/getAllAlumni",{payload:{}});
   }
 };
 </script>

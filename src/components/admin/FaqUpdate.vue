@@ -59,6 +59,7 @@ export default {
       this.$store.commit("adminModule/showFaqDialog", FaqData);
     },
     showDeleteDialog(data) {
+      
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: "deleteSelectedFaq",
@@ -73,7 +74,7 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllFaq").then(response => {});
+    this.$store.dispatch("adminModule/getAllFaq",{payload:{}}).then(response => {});
   },
 
   computed: {

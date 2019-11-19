@@ -120,9 +120,12 @@ export default {
   methods: {
     download(data) {
       let body = {
+        payload:{
         userid: this.userData,
         // code:data,
         filename: data
+        }
+       
       };
       console.log(body);
 
@@ -187,7 +190,9 @@ export default {
   methods: {
     getStatus() {
       let data = {
-        userid: this.userData
+        payload:{
+         userid: this.user.employeeId
+        }
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {
         this.progress = false;
