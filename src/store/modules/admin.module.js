@@ -1,6 +1,8 @@
 import axios from "axios";
 import {
-    addTokenToPayload
+    addTokenToPayload,
+    deleteExpiredToken,
+    navigateToHome
 } from '@/utils/utils'
 
 export default {
@@ -372,8 +374,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    commit('setNewsList', response.data.result)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('setNewsList', response.data.result)
+                    }
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -459,8 +469,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    commit('setEventList', response.data.result)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('setEventList', response.data.result)
+                    }
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -599,8 +617,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    commit('setFaqList', response.data.result)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('setFaqList', response.data.result)
+                    }
                     console.log(response)
                 }).catch((error) => {
                     reject(error)

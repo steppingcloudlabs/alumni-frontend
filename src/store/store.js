@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import md5 from 'crypto-js/md5'
 import adminModule from '@/store/modules/admin.module'
 import userModule from '@/store/modules/user.module'
 
@@ -76,7 +75,7 @@ export default new Vuex.Store({
     },
     closeSnackbar: (state) => {
       state.showSnackbar = false;
-     
+
     },
     showNetworkError: (state, data) => {
       state.showSnackbar = true;
@@ -85,7 +84,13 @@ export default new Vuex.Store({
       state.snackbarHeading = "Network Error";
       state.snackbarMessage = "OOPS! Something went wrong. Please try again!";
     },
-
+    showSessionExpiredError: () => {
+      state.showSnackbar = true;
+      state.snackbarColor = "rgb(230, 0, 0, .8)";
+      state.snackbarDuration = 3000;
+      state.snackbarHeading = "Session Error";
+      state.snackbarMessage = "Session Expired! Please login again.";
+    },
     // ProgressBar
     showProgressBar: (state, data) => {
       state.showProgressBar = true;
@@ -133,9 +138,6 @@ export default new Vuex.Store({
   },
 
   actions: {
-
-
-
     authenticate: ({
       state,
       commit,

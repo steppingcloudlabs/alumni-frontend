@@ -1,7 +1,9 @@
 import md5 from 'crypto-js/md5'
 import axios from 'axios'
 import {
-    addTokenToPayload
+    addTokenToPayload,
+    deleteExpiredToken,
+    navigateToHome
 } from '@/utils/utils'
 
 export default {
@@ -129,7 +131,8 @@ export default {
         },
         downloadDocument: ({
             state,
-            commit
+            commit,
+            dispatch
         }, data) => {
            
             addTokenToPayload(data)
@@ -144,6 +147,13 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    }
                     resolve(response)
                     window.open(response.data.result, '_blank')
                     console.log(response)
@@ -155,7 +165,7 @@ export default {
         },
         updateData: ({
             state,
-            commit
+            commit,
         }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
@@ -168,7 +178,6 @@ export default {
                     data: data
                 }).then((response) => {
                     resolve(response)
-
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -202,7 +211,7 @@ export default {
         
         getStatus: ({
             state,
-            commit
+            commit,
         }, data) => {
             addTokenToPayload(data)
             console.log(data)
@@ -216,6 +225,13 @@ export default {
                     },
                     data:data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    }
                     commit('setStatusData', response.data.result)
                     resolve(response)
                     console.log(response)
