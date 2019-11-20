@@ -134,10 +134,7 @@ export default {
             commit,
             dispatch
         }, data) => {
-           
             addTokenToPayload(data)
-           
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -177,8 +174,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -208,14 +213,14 @@ export default {
 
             })
         },
-        
+
         getStatus: ({
             state,
             commit,
         }, data) => {
             addTokenToPayload(data)
             console.log(data)
-          
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -223,7 +228,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data:data
+                    data: data
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -254,16 +259,21 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
 
             })
         }
-        
-
     }
 }

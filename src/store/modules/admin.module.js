@@ -14,17 +14,17 @@ export default {
         level: "",
         level1Email: [{
 
-            },
-            {
-                levelOrder: 2,
-                email: "Abid@steppingcloud",
-                name: "daraksha"
-            },
-            {
-                levelOrder: 3,
-                email: "darak@steppingcloud",
-                name: "daraksha"
-            }
+        },
+        {
+            levelOrder: 2,
+            email: "Abid@steppingcloud",
+            name: "daraksha"
+        },
+        {
+            levelOrder: 3,
+            email: "darak@steppingcloud",
+            name: "daraksha"
+        }
         ],
         level2Email: {},
         level3Email: {},
@@ -338,9 +338,7 @@ export default {
             state,
             commit
         }, data) => {
-
             addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -350,8 +348,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -363,8 +369,6 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -402,8 +406,6 @@ export default {
             }
             addTokenToPayload(data)
             let token = data['token']
-            // addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -416,9 +418,17 @@ export default {
                         token
                     }
                 }).then((response) => {
-                    resolve(response)
-                    dispatch("getAllNews",{payload:{}})
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        dispatch("getAllNews", { payload: {} })
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -431,9 +441,7 @@ export default {
             state,
             commit
         }, data) => {
-
             addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 console.log("event data", data)
                 axios({
@@ -444,8 +452,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -496,8 +512,6 @@ export default {
             }
             addTokenToPayload(data)
             let token = data['token']
-            // addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -510,16 +524,23 @@ export default {
                         token
                     }
                 }).then((response) => {
-                    resolve(response)
-                    dispatch("getAllEvent",{payload:{}})
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        dispatch("getAllEvent", { payload: {} })
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
 
             })
         },
-
         deleteAlumni: ({
             state,
             commit,
@@ -537,18 +558,23 @@ export default {
                         userid: data.user_id
                     }
                 }).then((response) => {
-                    resolve(response)
-                    dispatch("getAllAlumni",{payload:{}})
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        dispatch("getAllAlumni", { payload: {} })
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
 
             })
         },
-
-
-
         addAlumni: ({
             state,
             commit
@@ -565,8 +591,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -577,9 +611,7 @@ export default {
             state,
             commit
         }, data) => {
-           
             addTokenToPayload(data)
-           
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -589,9 +621,17 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    commit('setAlumniList', response.data.result)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('setAlumniList', response.data.result)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -603,11 +643,7 @@ export default {
             state,
             commit
         }, data) => {
-
             addTokenToPayload(data)
-
-
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -638,9 +674,7 @@ export default {
             state,
             commit
         }, data) => {
-
             addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -652,16 +686,22 @@ export default {
 
 
                 }).then((response) => {
-
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
 
             })
         },
-
         deleteFaq: ({
             state,
             commit,
@@ -684,10 +724,17 @@ export default {
                         token
                     }
                 }).then((response) => {
-                    resolve(response)
-                    dispatch("getAllFaq",{payload:{}})
-
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        dispatch("getAllFaq", { payload: {} })
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -698,9 +745,7 @@ export default {
             state,
             commit
         }, data) => {
-
             addTokenToPayload(data)
-
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -710,8 +755,16 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    resolve(response)
-                    console.log(response)
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
