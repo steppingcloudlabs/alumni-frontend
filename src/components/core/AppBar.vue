@@ -9,8 +9,13 @@
     <v-spacer />
 
     <v-toolbar-items>
+      <v-layout row wrap align-center>
+        <v-flex xs12>
+          <SearchAlumni />
+        </v-flex>
+      </v-layout>
       <v-row align="center" class="mx-0">
-        <v-text-field
+        <!-- <v-text-field
           class="mb-2"
           v-model="search"
           append-icon="search"
@@ -21,7 +26,7 @@
           rounded
           dense
           hide-details
-        ></v-text-field>
+        ></v-text-field>-->
         <v-spacer></v-spacer>
 
         <v-btn icon to="/profile/dashboard" v-if="$route.path != '/profile/dashboard'">
@@ -50,30 +55,23 @@
             </v-list>
           </v-card>
         </v-menu>
-         
-        <v-menu offset-y>
-      <template v-slot:activator="{ on,attrs }">
-        <v-btn
-          icon v-bind="attrs" v-on="on"
-        >
-          <v-icon color="white">mdi-account</v-icon>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-           :to="item.to"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
 
+        <v-menu offset-y>
+          <template v-slot:activator="{ on,attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon color="white">mdi-account</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
         <!-- <v-btn to="/profile/user-profile" icon>
           <v-icon color="white">mdi-account</v-icon>
-        </v-btn> -->
+        </v-btn>-->
       </v-row>
     </v-toolbar-items>
   </div>
@@ -82,12 +80,14 @@
 <script>
 // Utilities
 import { mapMutations } from "vuex";
+import SearchAlumni from "@/views/SearchAlumni";
 
 export default {
   data: () => ({
-     items: [
-        { title: 'Change Password',to:'/profile/changepassword' },
-        {title:'View Profile',to:'/profile/user-profile'}],
+    items: [
+      { title: "Change Password", to: "/profile/changepassword" },
+      { title: "View Profile", to: "/profile/user-profile" }
+    ],
     search: "",
     notifications: [
       "Mike, John responded to your email",
@@ -99,7 +99,9 @@ export default {
 
     responsive: false
   }),
-
+  components: {
+    SearchAlumni
+  },
   watch: {
     $route(val) {
       this.title = val.name;

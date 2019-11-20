@@ -15,8 +15,8 @@ export default new Vuex.Store({
     customslt: "Tas76OwxwH",
     userData: {},
     timeline: [{
-        status: 0
-      },
+      status: 0
+    },
 
     ],
     showSnackbar: false,
@@ -84,7 +84,7 @@ export default new Vuex.Store({
       state.snackbarHeading = "Network Error";
       state.snackbarMessage = "OOPS! Something went wrong. Please try again!";
     },
-    showSessionExpiredError: () => {
+    showSessionExpiredError: (state) => {
       state.showSnackbar = true;
       state.snackbarColor = "rgb(230, 0, 0, .8)";
       state.snackbarDuration = 3000;
