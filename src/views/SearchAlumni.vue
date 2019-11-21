@@ -8,6 +8,7 @@
         :loading="isLoading"
         rounded
         dark
+        filled
         color="blue-grey lighten-2"
         label="Select Alumni"
         item-text="first_name_personal_information"
