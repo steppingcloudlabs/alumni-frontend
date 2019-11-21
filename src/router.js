@@ -55,8 +55,7 @@ const router = new Router({
       path: '/profile',
       name: 'profile',
       component: portal,
-      children: [
-        {
+      children: [{
           path: 'changepassword',
           // Relative to /src/views
           component: changepassword
@@ -164,6 +163,12 @@ router.beforeResolve((to, from, next) => {
   //   NProgress.start()
   // }
   if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/profile') > -1) {
+    next({
+      path: '/home'
+    })
+    return
+  }
+  if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/admin') > -1) {
     next({
       path: '/home'
     })

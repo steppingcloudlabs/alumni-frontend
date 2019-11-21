@@ -42,13 +42,19 @@
 
         <v-list-item-title v-text="link.text" />
       </v-list-item>
+      <v-list-item @click="logout">
+        <v-list-item-action>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-action>
+        <v-list-item-title>Logout</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 // Utilities
-
+import { addTokenToPayload, deleteExpiredToken } from "@/utils/utils";
 export default {
   props: {
     opened: {
@@ -87,23 +93,29 @@ export default {
         text: "FAQ Update"
       },
 
-       {
+      {
         to: "/admin/settings",
         icon: "mdi-settings",
         text: "Company Settings"
-      },
-
-
-      {
-        to: "/home",
-        icon: "mdi-logout",
-        text: "Logout"
       }
+
+      // {
+      //   to: "/home",
+      //   icon: "mdi-logout",
+      //   text: "Logout"
+      // }
     ]
   }),
 
-  methods: {},
-  
+  methods: {
+    logout() {
+      deleteExpiredToken();
+      // this.$store.commit("userModule/setData", {});
+      this.$router.push({ path: "/home" });
+
+      console.log("session deleted");
+    }
+  }
 };
 </script>
 

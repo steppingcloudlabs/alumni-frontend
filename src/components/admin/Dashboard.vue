@@ -45,6 +45,9 @@
           <v-icon small class="mr-2" @click="showDeleteDialog(item)">delete</v-icon>
         </template>
       </v-data-table>
+      <p class="text-center text-white">
+        <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore">Load More</v-btn>
+      </p>
     </v-flex>
     <profile :dialog="dialog" @closeClearanceDialog="closeClearanceDialog"></profile>
   </v-layout>
@@ -78,18 +81,42 @@ export default {
     }
   },
   beforeMount() {
+    this.limit = 2;
     this.loader = true;
     this.$store
-      .dispatch("adminModule/getAllAlumni", {payload:{
-        skip: 0,
-        limit: 9
-      }
+      .dispatch("adminModule/getAllAlumni", {
+        payload: {
+          skip: 0,
+          limit: this.limit
+        }
       })
       .then(response => {
         this.loader = false;
       });
   },
   methods: {
+    getMore() {
+      this.limit = this.limit + 4;
+      this.loader = true;
+      this.showMore = false;
+      let actionToCall = "getAllAlumni";
+      this.$store
+        .dispatch("adminModule/getMoreData", {
+          actionToCall: actionToCall,
+          limit: this.limit
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+          this.loader = false;
+        });
+    },
     closeAlumniDialog() {
       this.$store.commit("adminModule/closeAlumniDialog");
     },
@@ -130,12 +157,11 @@ export default {
     findData(data) {
       this.loader = true;
       let body = {
-        payload:{
-        skip: 0,
-        limit: 2,
-        keyword: data
+        payload: {
+          skip: 0,
+          limit: 2,
+          keyword: data
         }
-       
       };
       this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
         this.loader = false;
@@ -144,6 +170,8 @@ export default {
   },
   data() {
     return {
+      showMore: true,
+      limit: 9,
       loader: false,
       search: "",
       dialog: false,

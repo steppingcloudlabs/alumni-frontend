@@ -89,6 +89,7 @@ export default {
                     if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result)
                         sessionStorage.setItem("AccessToken", response.data.token)
+                        sessionStorage.setItem("UserId", response.data.result.user_id)
                         // commit('statusData', response.data.message.data)
                     }
                     // } else {
@@ -182,6 +183,32 @@ export default {
                         })
                     } else {
                         resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getAlumniById: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data.status && response.data.status == 200) {
+                        commit('setData', response.data.result)
+                        resolve(response.data)
+
                         console.log(response)
                     }
                 }).catch((error) => {

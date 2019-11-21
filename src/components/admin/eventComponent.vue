@@ -29,18 +29,8 @@
       </v-layout>
       <v-layout row wrap class="pb-5 pt-5">
         <v-flex xs12 class="mr-5 text-right">
-          <v-btn
-            color="primary"
-            dark
-            v-if="count == 1 && count!=eventListLength"
-            @click="count=eventListLength"
-          >View All</v-btn>
-          <v-btn
-            color="primary"
-            dark
-            v-if="count != 1 && count==eventListLength"
-            @click="count=1"
-          >Close All</v-btn>
+          <v-btn color="primary" dark v-if="showMore" @click="getMore(4)">View All</v-btn>
+          <v-btn color="primary" dark v-if="!showMore" @click="getMore(-limit+1)">Close All</v-btn>
         </v-flex>
       </v-layout>
     </div>
@@ -88,11 +78,34 @@ export default {
   },
   data() {
     return {
+      limit: 1,
+      showMore: true,
       count: 0,
       empty: false
     };
   },
   methods: {
+    getMore(data) {
+      this.limit = this.limit + data;
+
+      this.showMore = false;
+      let actionToCall = "getAllEvent";
+      this.$store
+        .dispatch("adminModule/getMoreData", {
+          actionToCall: actionToCall,
+          limit: this.limit
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+        });
+    },
     showEventDialog(index) {
       this.$store.commit(
         "adminModule/showEventDialog",
@@ -108,17 +121,22 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllEvent", {payload:{}}).then(response => {
-      this.$store.commit("closeProgressBar", {});
-      if (response.data.result.length > 0) {
-        this.count = 1;
-        this.empty = false;
-      } else {
-        this.count = 0;
-        this.empty = true;
-      }
-    });
+    this.limit = 1;
+    (this.showMore = true), this.$store.commit("showProgressBar", {});
+    this.$store
+      .dispatch("adminModule/getAllEvent", {
+        payload: { skip: 0, limit: this.limit }
+      })
+      .then(response => {
+        this.$store.commit("closeProgressBar", {});
+        if (response.data.result.length > 0) {
+          this.count = 1;
+          this.empty = false;
+        } else {
+          this.count = 0;
+          this.empty = true;
+        }
+      });
   }
 };
 </script>

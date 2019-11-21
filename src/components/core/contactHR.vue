@@ -7,18 +7,36 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-form ref="contact"  lazy-validation>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field v-if="Showemail" v-model="email" :rules="emailRules" prepend-icon="mdi-email" label="Email*" ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field v-model="ask.subject" :rules="subjectRules" prepend-icon="mdi-message" label="Subject*" required></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field  v-model="ask.body" prepend-icon="mdi-comment-text" label="Body" ></v-text-field>
-              </v-col>
-            </v-row>
+            <v-form ref="contact" lazy-validation>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-if="Showemail"
+                    v-model="email"
+                    :rules="emailRules"
+                    prepend-icon="mdi-email"
+                    label="Email*"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="ask.subject"
+                    maxlength="50"
+                    :rules="subjectRules"
+                    prepend-icon="mdi-message"
+                    label="Subject*"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    v-model="ask.body"
+                    maxlength="200"
+                    prepend-icon="mdi-comment-text"
+                    label="Body"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
             </v-form>
           </v-container>
           <small>*indicates required field</small>
@@ -34,20 +52,17 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      ask:{ subject:"",
-      body:""},
-     email:"",
+      ask: { subject: "", body: "" },
+      email: "",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
-       subjectRules: [
-        v => !!v || "Subject is required",
-        
-      ]
+      subjectRules: [v => !!v || "Subject is required"]
     };
   },
   props: {
@@ -55,45 +70,38 @@ export default {
       type: Boolean,
       default: false
     },
-    Showemail:{
-      type:Boolean,
-      default:true
+    Showemail: {
+      type: Boolean,
+      default: true
     }
   },
-  
+
   methods: {
     closeDialog() {
       this.$emit("closeAskHrDialog");
     },
-    sendDialog(){
+    sendDialog() {
       let newData = JSON.parse(JSON.stringify(this.ask));
-       this.$emit("closeAskHrDialog");
+      this.$emit("closeAskHrDialog");
 
-     
-     
       let data = {
-        payload:{
-        subject: newData.subject,
-        body: newData.body,
-        
+        payload: {
+          subject: newData.subject,
+          body: newData.body
+          // date: parseInt(moment().format("x"))
         }
       };
       this.$store.dispatch("userModule/contactHr", data).then(response => {
-          if(response.data.status==200)
-          {
-            this.$store.commit("showSnackbar", {
+        if (response.data.status == 200) {
+          this.$store.commit("showSnackbar", {
             message: "We will come back to you shortly",
             color: "success",
             heading: "Success",
             duration: 3000
           });
-       
-          }
-        
-       
+        }
       });
     }
-    
   }
 };
 </script>

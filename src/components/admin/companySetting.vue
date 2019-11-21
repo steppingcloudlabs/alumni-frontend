@@ -7,31 +7,38 @@
       class="mt-3 px-3"
       style="margin-left: auto; margin-right: auto; padding: 20px;"
     >
-      <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
-        Spoc
-        <v-spacer></v-spacer>
-        <v-btn v-if="!getEmailList[0].levelOrder" text @click="showEmailDialog(1)">Add a new Email</v-btn>
-      </v-card-title>
-      <v-layout v-if="getEmailList[0].levelOrder">
-        <v-flex xs5>
-          <v-card-text
-            color="primary"
-            class="body-1 mr-2 ml-2 mt-2"
-            style="margin-top:10px"
-          >{{getEmailList[0].email}}</v-card-text>
-        </v-flex>
-        <v-card-actions>
-          <v-flex xs5></v-flex>
-          <v-flex xs6>
-            <v-icon @click="showDeleteDialog(getEmailList[0])">mdi-delete</v-icon>
+      <v-layout v-for="(item, i) in items" :key="i">
+        <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
+          {{item.title}}
+          <v-spacer></v-spacer>
+          <v-btn
+            class="ml-5"
+            v-if="!getEmailList[i].levelOrder"
+            text
+            @click="showEmailDialog(i+1)"
+          >Add a new Email</v-btn>
+        </v-card-title>
+        <v-layout v-if="getEmailList[i].levelOrder">
+          <v-flex xs5>
+            <v-card-text
+              color="primary"
+              class="body-1 mr-2 ml-2 mt-2"
+              style="margin-top:10px"
+            >{{getEmailList[i].email}}</v-card-text>
           </v-flex>
-          <v-flex xs1>
-            <v-icon @click="showEmailDialog1(0)">edit</v-icon>
-          </v-flex>
-        </v-card-actions>
+          <v-card-actions>
+            <v-flex xs5></v-flex>
+            <v-flex xs6>
+              <v-icon @click="showDeleteDialog(getEmailList[i])">mdi-delete</v-icon>
+            </v-flex>
+            <v-flex xs1>
+              <v-icon @click="showEmailDialog1(i)">edit</v-icon>
+            </v-flex>
+          </v-card-actions>
+        </v-layout>
       </v-layout>
 
-      <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
+      <!-- <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
         Esclation Level 1
         <v-spacer></v-spacer>
         <v-btn text v-if="!getEmailList[1].levelOrder" @click="showEmailDialog(2)">Add a new Email</v-btn>
@@ -76,17 +83,26 @@
             <v-icon @click="showEmailDialog1(2)">edit</v-icon>
           </v-flex>
         </v-card-actions>
-      </v-layout>
+      </v-layout>-->
     </v-card>
+    <query></query>
   </div>
 </template>
 
 <script>
+import query from "@/components/admin/queryManagement.vue";
 export default {
+  components: {
+    query
+  },
   data() {
     return {
       showskill: true,
-
+      items: [
+        { title: "spoc", index: 0 },
+        { title: "Escalation Level 1", index: 1 },
+        { title: "Escalation Level 2", index: 2 }
+      ],
       skill: "",
       level1: ["xyz@gmail.com", "testing@gmail.com"],
       level2: ["xyz@gmail.com", "testing@gmail.com"],

@@ -22,11 +22,25 @@
 </template>
 
 <script>
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import GoogleMap from "@/components/core/googlemaps";
 
 export default {
   components: {
     GoogleMap
+  },
+  methods: {
+    getAlumniData() {
+      let data = {
+        payload: {
+          userid: getAlumniId()
+        }
+      };
+      this.$store.dispatch("userModule/getAlumniById", data);
+    }
+  },
+  beforeMount() {
+    this.getAlumniData();
   }
 };
 </script>

@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import timeline from "@/components/material/Timeline.vue";
 export default {
   components: {
@@ -120,12 +121,11 @@ export default {
   methods: {
     download(data) {
       let body = {
-        payload:{
-        userid: this.userData,
-        // code:data,
-        filename: data
+        payload: {
+          userid: this.userData,
+          // code:data,
+          filename: data
         }
-       
       };
       console.log(body);
 
@@ -155,7 +155,8 @@ export default {
     //   this.user.userid = this.userData.user_id;
     // }
   },
-  mounted() {
+  beforeMount() {
+    this.getAlumniData();
     this.getStatus();
   },
 
@@ -188,10 +189,18 @@ export default {
   },
 
   methods: {
+     getAlumniData() {
+      let data = {
+        payload: {
+          userid: getAlumniId()
+        }
+      };
+      this.$store.dispatch("userModule/getAlumniById", data);
+    },
     getStatus() {
       let data = {
-        payload:{
-         userid: this.user.employeeId
+        payload: {
+          userid: this.userData
         }
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {

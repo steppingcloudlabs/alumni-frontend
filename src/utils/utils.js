@@ -13,8 +13,13 @@ let navigateToHome = () => {
     })
 }
 
+let getAlumniId = () => {
+    return sessionStorage.getItem('UserId')
+}
+
 export {
     addTokenToPayload,
     deleteExpiredToken,
-    navigateToHome
+    navigateToHome,
+    getAlumniId
 }

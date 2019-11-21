@@ -8,6 +8,7 @@
       <Faq></Faq>
       <DeleteDialog></DeleteDialog>
       <EmailDialog></EmailDialog>
+      <QueryDialog></QueryDialog>
     </v-flex>
   </v-layout>
 </template>
@@ -20,6 +21,7 @@ import UploadDocument from "@/components/admin/UploadDocumentDialog";
 import Faq from "@/components/admin/uploadFaq";
 import DeleteDialog from "@/components/material/DeleteDialog";
 import EmailDialog from "@/components/material/AddEmail";
+import QueryDialog from "@/components/admin/queryDialog";
 
 export default {
   components: {
@@ -29,7 +31,8 @@ export default {
     UploadDocument,
     Faq,
     DeleteDialog,
-    EmailDialog
+    EmailDialog,
+    QueryDialog
   }
 };
 </script>

@@ -72,7 +72,20 @@
                   color="primary"
                   @click="showskillinput"
                 >Add New Skill</v-btn>
-                <v-text-field
+                <v-combobox
+                  v-if="!showskill"
+                  v-model="select"
+                  :items="skills"
+                  append-icon="add"
+                  style=" margin-top:-15px;"
+                  @keyup.enter.native="addSkill()"
+                  @keydown.esc="showskill=true"
+                  @click:append="addSkill()"
+                  label="Add Skill"
+                  hide-details
+                  
+                ></v-combobox>
+                <!-- <v-text-field
                   v-if="!showskill"
                   v-model="skill"
                   label=" Add Skill"
@@ -83,7 +96,7 @@
                   @keyup.enter.native="addSkill()"
                   @keydown.esc="showskill=true"
                   @click:append="addSkill()"
-                ></v-text-field>
+                ></v-text-field>-->
               </v-card-title>
               <v-divider></v-divider>
               <v-chip
@@ -150,7 +163,7 @@
             <v-divider></v-divider>
             <v-layout pt-2>
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">EmployeeId</v-card-text>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Employee Id</v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
@@ -161,10 +174,7 @@
             </v-layout>
             <v-layout>
               <v-flex xs5>
-                <v-card-text
-                  class="body-1 py-1"
-                  style="margin-top:2px !important;"
-                >Previous Designation</v-card-text>
+                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Last Designation</v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
@@ -327,6 +337,8 @@
 import timeline from "@/components/material/Timeline.vue";
 import updateContact from "@/components/core/updatecontactDialog.vue";
 import moment from "moment";
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
+
 export default {
   components: {
     timeline,
@@ -341,7 +353,7 @@ export default {
       status2: false,
       dialog: false,
       skill: "",
-      skills: ["hello", "testing"],
+      skills: ["hello", "testing", "python", "ruby"],
       user: {
         username: "",
         firstname: "",
@@ -367,6 +379,7 @@ export default {
     };
   },
   beforeMount() {
+    this.getAlumniData();
     this.initializeUserData();
   },
   watch: {
@@ -507,6 +520,14 @@ export default {
       this.user.email = this.userData.personal_email_id;
       this.user.mobile = this.userData.phone_number_phone_information;
       this.userSkills = this.userData.skill;
+    },
+    getAlumniData() {
+      let data = {
+        payload: {
+          userid: getAlumniId()
+        }
+      };
+      this.$store.dispatch("userModule/getAlumniById", data);
     },
     closeContactDialog() {
       this.$store.commit("userModule/closeContactDialog");

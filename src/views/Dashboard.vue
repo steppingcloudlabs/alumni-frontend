@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import clearance from "@/components/core/clearanceDialog.vue";
 import events from "@/components/core/events.vue";
 import carosel from "@/components/material/carosel.vue";
@@ -96,7 +97,8 @@ export default {
       progress: true
     };
   },
-  mounted() {
+  beforeMount() {
+    this.getAlumniData();
     this.getStatus();
   },
 
@@ -126,6 +128,17 @@ export default {
   methods: {
     readMore() {
       this.read = true;
+    },
+    getAlumniData() {
+      let data = {
+        payload: {
+          userid: getAlumniId()
+        }
+      };
+      this.$store.dispatch("userModule/getAlumniById", data);
+    },
+    closeContactDialog() {
+      this.$store.commit("userModule/closeContactDialog");
     },
     closeClearanceDialog() {
       this.dialog = false;

@@ -39,7 +39,8 @@ export default new Vuex.Store({
     showDeleteDialog: (state, data) => {
       state.showDeleteDialog = true;
       state.deleteDialogCommitCall = data.commitToCall;
-      state.deleteDialogData = data.objectToDelete
+      state.deleteDialogData =
+       data.objectToDelete
       state.deleteActionToDispatch = data.deleteActionToDispatch
       console.log(data);
     },

@@ -29,9 +29,15 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="contact.address"
-                    label=" Current Address"
+                    label="Flat No/Landmark"
                     prepend-icon="mdi-home"
                   ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="6">
+                  <v-text-field label=" City" prepend-icon="mdi-city"></v-text-field>
+                </v-col>
+                <v-col cols="12" md="6">
+                  <v-text-field label="State"></v-text-field>
                 </v-col>
               </v-row>
             </v-form>

@@ -15,7 +15,7 @@
     </template>
 
     <v-list-item two-line>
-      <img width="150px" class="mx-auto" src="@/assets/logo.png" /> 
+      <img width="150px" class="mx-auto" src="@/assets/logo.png" />
     </v-list-item>
     <v-divider class="mx-1 mb-1" />
 
@@ -27,7 +27,9 @@
           <img src="@/assets/avatar/download.jpg" />
         </v-list-item-avatar>
 
-        <v-list-item-title style="white-space:inherit;font-family: 'Raleway', sans-serif; font-weight: bold;" >Welcome {{userData}}!!</v-list-item-title>
+        <v-list-item-title
+          style="white-space:inherit;font-family: 'Raleway', sans-serif; font-weight: bold;"
+        >Welcome {{userData}}!!</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mx-1 mb-1" />
@@ -41,7 +43,13 @@
           <v-icon>{{ link.icon }}</v-icon>
         </v-list-item-action>
 
-        <v-list-item-title  v-text="link.text" />
+        <v-list-item-title v-text="link.text" />
+      </v-list-item>
+      <v-list-item @click="logout">
+        <v-list-item-action>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-action>
+        <v-list-item-title>Logout</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -49,6 +57,7 @@
 
 <script>
 // Utilities
+import { addTokenToPayload, deleteExpiredToken } from "@/utils/utils";
 
 export default {
   props: {
@@ -95,18 +104,27 @@ export default {
         to: "/profile/query",
         icon: "mdi-wechat",
         text: "Ask HR"
-      },
-      {
-        to: "/home",
-        icon: "mdi-logout",
-        text: "Logout"
       }
+      // {
+      //   to: "/home",
+      //   icon: "mdi-logout",
+      //   text: "Logout",
+      //   click: "logout"
+      // }
     ]
   }),
 
   watch: {},
 
-  methods: {},
+  methods: {
+    logout() {
+      deleteExpiredToken();
+      this.$store.commit("userModule/setData", {});
+      this.$router.push({ path: "/home" });
+
+      console.log("session deleted");
+    }
+  },
 
   computed: {
     userData() {

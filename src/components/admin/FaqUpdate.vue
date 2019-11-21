@@ -32,6 +32,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <p class="text-center text-white">
+      <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore(4)">Load More</v-btn>
+    </p>
   </div>
 </template>
 <script>
@@ -41,6 +44,27 @@ export default {
     FAQ
   },
   methods: {
+    getMore(data) {
+      this.limit = this.limit + data;
+
+      this.showMore = false;
+      let actionToCall = "getAllFaq";
+      this.$store
+        .dispatch("adminModule/getMoreData", {
+          actionToCall: actionToCall,
+          limit: this.limit
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+        });
+    },
     closeFaqDialog() {
       this.$store.commit("adminModule/closeFaqDialog");
     },
@@ -59,7 +83,6 @@ export default {
       this.$store.commit("adminModule/showFaqDialog", FaqData);
     },
     showDeleteDialog(data) {
-      
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: "deleteSelectedFaq",
@@ -74,7 +97,13 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllFaq",{payload:{}}).then(response => {});
+    this.limit = 1;
+    this.showMore = true;
+    this.$store
+      .dispatch("adminModule/getAllFaq", {
+        payload: { skip: 0, limit: this.limit }
+      })
+      .then(response => {});
   },
 
   computed: {
@@ -89,7 +118,9 @@ export default {
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      limit: 2,
+      showMore: true
     };
   }
 };

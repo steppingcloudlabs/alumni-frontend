@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!empty">
-      <v-layout row wrap mt-4 v-for="(item,i) in count" :key="i">
+      <v-layout row wrap mt-4 v-for="(item,i) in getNewsList" :key="i">
         <v-flex xs4>
           <v-avatar tile size="200">
             <v-img v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>
@@ -29,18 +29,8 @@
       </v-layout>
       <v-layout row wrap class="pb-5 pt-5">
         <v-flex xs12 class="mr-5 text-right">
-          <v-btn
-            color="primary"
-            dark
-            v-if="count == 1 && count != newsListLength"
-            @click="count=newsListLength"
-          >View All</v-btn>
-          <v-btn
-            color="primary"
-            dark
-            v-if="count != 1 && count == newsListLength"
-            @click="count=1"
-          >Close All</v-btn>
+          <v-btn color="primary" dark v-if="showMore" @click="getMore(4)">View All</v-btn>
+          <v-btn color="primary" dark v-if="!showMore" @click="getMore(-limit + 1)">Close All</v-btn>
         </v-flex>
       </v-layout>
     </div>
@@ -68,17 +58,23 @@ export default {
     }
   },
   beforeMount() {
+    this.showMore = true;
+    this.limit = 1;
     this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllNews", {payload:{}}).then(response => {
-      this.$store.commit("closeProgressBar", {});
-      if (response.data.result.length > 0) {
-        this.count = 1;
-        this.empty = false;
-      } else {
-        this.count = 0;
-        this.empty = true;
-      }
-    });
+    this.$store
+      .dispatch("adminModule/getAllNews", {
+        payload: { skip: 0, limit: this.limit }
+      })
+      .then(response => {
+        this.$store.commit("closeProgressBar", {});
+        if (response.data.result.length > 0) {
+          this.count = 1;
+          this.empty = false;
+        } else {
+          this.count = 0;
+          this.empty = true;
+        }
+      });
   },
   watch: {
     newsListLength() {
@@ -94,6 +90,8 @@ export default {
 
   data() {
     return {
+      showMore: true,
+      limit: 1,
       dialog: false,
       count: 0,
       showAll: false,
@@ -101,6 +99,28 @@ export default {
     };
   },
   methods: {
+   
+    getMore(data) {
+      this.limit = this.limit + data;
+
+      this.showMore = false;
+      let actionToCall = "getAllNews";
+      this.$store
+        .dispatch("adminModule/getMoreData", {
+          actionToCall: actionToCall,
+          limit: this.limit
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+        });
+    },
     showNewsDialog(index) {
       this.$store.commit(
         "adminModule/showNewsDialog",

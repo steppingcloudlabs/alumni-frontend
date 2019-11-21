@@ -38,12 +38,21 @@
 </template>
 
 <script>
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import Contact from "./contactHR";
 export default {
   components: {
     Contact
   },
   methods: {
+     getAlumniData() {
+      let data = {
+        payload: {
+          userid: getAlumniId()
+        }
+      };
+      this.$store.dispatch("userModule/getAlumniById", data);
+    },
     closeAskHrDialog() {
       this.dialog = false;
     },
@@ -56,7 +65,9 @@ export default {
     }
   },
   beforeMount() {
-    this.$store.commit("showProgressBar", {});
+    
+    this.$store.commit("showProgressBar", {})
+    this.getAlumniData(),
     this.$store.dispatch("adminModule/getAllFaq", {payload:{}}).then(response => {
       this.$store.commit("closeProgressBar", {});
     });

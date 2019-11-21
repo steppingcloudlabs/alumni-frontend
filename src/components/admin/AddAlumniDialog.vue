@@ -112,14 +112,19 @@
                   <v-date-picker
                     class="picker"
                     v-model="relieving"
-                    
                     @input="menu_relieving=false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
                 </v-menu>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="alumni.city_addresses" label="Address"></v-text-field>
+                <v-text-field v-model="alumni.city_addresses" label="Flat No/LandMark"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label=" City" prepend-icon="mdi-city"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field label="State"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -136,6 +141,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: {
     dialog: {
@@ -162,25 +168,27 @@ export default {
         this.salutation_personal_information = "Mr";
       }
       let data = {
-        payload:{
-        user_id: alumniData.user_id,
+        payload: {
+          user_id: alumniData.user_id,
 
-        nationality_personal_information: "IND",
-        salutation_personal_information: salutation_personal_information,
-        city_addresses: alumniData.city_addresses,
-        phone_number_phone_information:
-          alumniData.phone_number_phone_information,
-        manager_job_information: alumniData.manager_job_information,
-        designation_job_information: alumniData.designation_job_information,
-        first_name_personal_information:
-          alumniData.first_name_personal_information,
-        last_name_personal_information:
-          alumniData.last_name_personal_information,
-        date_of_resignation: this.date_of_resignation,
-        email: alumniData.email,
-        data_of_relieving: this.relieving,
-        date_of_birth: this.date,
-        gender: this.gender
+          nationality_personal_information: "IND",
+          salutation_personal_information: salutation_personal_information,
+          city_addresses: alumniData.city_addresses,
+          phone_number_phone_information:
+            alumniData.phone_number_phone_information,
+          manager_job_information: alumniData.manager_job_information,
+          designation_job_information: alumniData.designation_job_information,
+          first_name_personal_information:
+            alumniData.first_name_personal_information,
+          last_name_personal_information:
+            alumniData.last_name_personal_information,
+          date_of_resignation: parseInt(
+            moment(this.date_of_resignation).format("x")
+          ),
+          email: alumniData.email,
+          data_of_relieving: parseInt(moment(this.relieving).format("x")),
+          date_of_birth: parseInt(moment(this.date).format("x")),
+          gender: this.gender
         }
       };
       let data1 = {
@@ -197,7 +205,7 @@ export default {
             "adminModule/addNewAlumniToList",
             JSON.parse(JSON.stringify(data))
           );
-          this.$store.dispatch("adminModule/getAllAlumni",{payload:{}});
+          this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
           this.$store.commit("showSnackbar", {
             message: "Alumni Added successfully",
             color: "success",

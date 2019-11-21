@@ -8,7 +8,8 @@ import {
 export default {
     namespaced: true,
     state: {
-
+        showQueryDialog: false,
+        queryDialogData: {},
         showEmailDialog: false,
         emailDialogData: {},
         level: "",
@@ -63,6 +64,22 @@ export default {
         showDocumentDialog: false,
     },
     mutations: {
+
+        setShowQueryDialog: (state, data) => {
+            state.showQueryDialog = data
+        },
+        setShowQueryDialogData: (state, data) => {
+            state.queryDialogData = data
+        },
+        showQueryDialog: (state, data) => {
+            state.showQueryDialog = true
+            state.queryDialogData = data
+        },
+
+        closeQueryDialog: (state, data) => {
+            state.showQueryDialog = false
+        },
+
         setShowEmailDialog: (state, data) => {
             state.showEmailDialog = data
         },
@@ -269,8 +286,18 @@ export default {
         closeEventsProgress: (state, data) => {
             state.showEventsProgress = false;
         },
+
+
+
+
     },
     getters: {
+        getShowQueryDialog: (state) => {
+            return state.showQueryDialog
+        },
+        getQueryDialogData: (state) => {
+            return state.queryDialogData
+        },
         getshowEmailDialog: (state) => {
             return state.showEmailDialog
         },
@@ -546,7 +573,11 @@ export default {
             commit,
             dispatch
         }, data) => {
-
+            let payload = {
+                userid: data.user_id
+            }
+            addTokenToPayload(data)
+            let token = data['token']
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
@@ -555,7 +586,8 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     data: {
-                        userid: data.user_id
+                        payload,
+                        token
                     }
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
@@ -771,6 +803,27 @@ export default {
 
             })
         },
+        getMoreData: ({
+            state,
+            commit,
+            dispatch
+        }, data) => {
+            return new Promise((resolve, reject) => {
+                dispatch(data.actionToCall, {
+                    payload: {
+                        skip: 0,
+                        limit: data.limit
+                    }
+                }).then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
 
 
     }
