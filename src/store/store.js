@@ -40,7 +40,7 @@ export default new Vuex.Store({
       state.showDeleteDialog = true;
       state.deleteDialogCommitCall = data.commitToCall;
       state.deleteDialogData =
-       data.objectToDelete
+        data.objectToDelete
       state.deleteActionToDispatch = data.deleteActionToDispatch
       console.log(data);
     },
@@ -91,6 +91,7 @@ export default new Vuex.Store({
       state.snackbarDuration = 3000;
       state.snackbarHeading = "Session Error";
       state.snackbarMessage = "Session Expired! Please login again.";
+      state.showProgressBar = false;
     },
     // ProgressBar
     showProgressBar: (state, data) => {
