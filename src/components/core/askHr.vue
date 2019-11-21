@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="ma-0">
     <v-flex xs12>
-      <UserQueryList />
+      <QueryWindowWrapper />
     </v-flex>
     <v-flex xs12>
       <UserFAQList></UserFAQList>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import UserQueryList from "@/components/core/UserQueryList";
+import QueryWindowWrapper from "@/components/core/QueryWindowWrapper";
 import UserFAQList from "@/components/core/UserFAQList";
 export default {
   components: {
-    UserQueryList,
+    QueryWindowWrapper,
     UserFAQList
   }
 };

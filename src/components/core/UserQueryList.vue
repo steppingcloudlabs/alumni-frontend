@@ -1,17 +1,18 @@
 <template>
-  <v-layout row wrap class="mb-4">
+  <v-layout row wrap>
     <v-flex xs12>
       <v-card class="mx-auto">
         <v-toolbar>
           <v-toolbar-title class="ml-5">User Queries</v-toolbar-title>
         </v-toolbar>
-        <!-- <v-card-title></v-card-title> -->
         <v-list shaped>
           <v-list-item-group v-model="selectedQuery" color="primary">
-            <v-list-item two-line v-for="(item, i) in queryList" :key="i">
-              <!-- <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>-->
+            <v-list-item
+              two-line
+              v-for="(item, i) in queryList"
+              :key="i"
+              @click="queryItemClicked(item)"
+            >
               <v-list-item-content>
                 <v-list-item-title v-text="item.querySubject"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.queryDescription"></v-list-item-subtitle>
@@ -52,6 +53,11 @@ export default {
       ],
       selectedQuery: {}
     };
+  },
+  methods: {
+    queryItemClicked(item) {
+      this.$emit("queryItemClicked", item);
+    }
   }
 };
 </script>
