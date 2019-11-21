@@ -6,7 +6,6 @@
         :items="alumniList"
         :search-input.sync="searchAlumni"
         :loading="isLoading"
-        filled
         rounded
         dark
         color="blue-grey lighten-2"
@@ -48,9 +47,11 @@ export default {
   },
   watch: {
     searchAlumni(val) {
-      //   if (!val.trim()) {
-      //     this.alumniList = [];
-      //   }
+      if (!val && !val.trim()) {
+        this.alumniList = [];
+        this.selectedAlumni = "";
+        return;
+      }
       if (this.isLoading) {
         return;
       }
