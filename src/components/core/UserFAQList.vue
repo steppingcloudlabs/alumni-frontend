@@ -1,35 +1,36 @@
 <template>
-  <v-layout row wrap class="ma-0">
+  <v-layout row wrap>
     <v-flex xs12>
-      <v-toolbar class="mb-5">
-        <v-toolbar-title class="ml-5">FAQs</v-toolbar-title>
-        <div class="flex-grow-1"></div>
-      </v-toolbar>
-      <v-row justify="center">
-        <v-expansion-panels popout class="mr-5">
-            
-          <v-expansion-panel v-for="(item,i) in getFaqList" :key="i">
-            <v-expansion-panel-header
-              v-if="questionPresent(item.question)"
-              style="font-weight:bold"
-            >Question:{{item.question}}{{questionMark}}</v-expansion-panel-header>
-            <v-expansion-panel-header v-else style="font-weight:bold">Question.{{item.question}}</v-expansion-panel-header>
+      <v-card class="mx-auto">
+        <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">FAQs</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+        <v-row justify="center">
+          <v-expansion-panels class="mr-5 elevation-0" accordion>
+            <v-expansion-panel v-for="(item,i) in getFaqList" :key="i">
+              <v-expansion-panel-header
+                class="subtitle-1 font-weight-meduim"
+                v-if="questionPresent(item.question)"
+              >{{item.question}}{{questionMark}}</v-expansion-panel-header>
+              <v-expansion-panel-header class="subtitle-1" v-else>{{item.question}}</v-expansion-panel-header>
 
-            <v-expansion-panel-content style="font-size:15px">
-              <span style="font-weight:bold">Answer:</span>
-              {{item.answer}}
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-row>
-      <br />
-      <br />
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn @click="dialog=true" large absolute dark fab float right color="blue">
-          <v-icon>mdi-wechat</v-icon>
-        </v-btn>
-      </v-row>
+              <v-expansion-panel-content class="subtitle-1 p2-4">
+                <span style="font-weight:bold">Answer:</span>
+                {{item.answer}}
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
+        <br />
+        <br />
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-btn @click="dialog=true" large absolute dark fab float right color="blue">
+            <v-icon>mdi-wechat</v-icon>
+          </v-btn>
+        </v-row>
+      </v-card>
     </v-flex>
     <v-flex xs12>
       <Contact :dialog="dialog" :Showemail="emailDailog" @closeAskHrDialog="closeAskHrDialog" />
