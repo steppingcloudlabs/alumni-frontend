@@ -15,8 +15,8 @@ export default new Vuex.Store({
     customslt: "Tas76OwxwH",
     userData: {},
     timeline: [{
-      status: 0
-    },
+        status: 0
+      },
 
     ],
     showSnackbar: false,
