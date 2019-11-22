@@ -11,10 +11,10 @@
           </v-toolbar-title>
         </v-toolbar>
         <v-timeline dense class="pr-5">
-          <v-timeline-item v-for="n in 4" :key="n" large>
+          <v-timeline-item v-for="n in 4" :key="n" large fill-dot>
             <template v-slot:icon>
               <v-avatar>
-                <img src="http://i.pravatar.cc/64" />
+                <span class="white--text title">JB</span>
               </v-avatar>
             </template>
             <v-card class="elevation-2">

@@ -15,17 +15,17 @@ export default {
         level: "",
         level1Email: [{
 
-        },
-        {
-            levelOrder: 2,
-            email: "Abid@steppingcloud",
-            name: "daraksha"
-        },
-        {
-            levelOrder: 3,
-            email: "darak@steppingcloud",
-            name: "daraksha"
-        }
+            },
+            {
+                levelOrder: 2,
+                email: "Abid@steppingcloud",
+                name: "daraksha"
+            },
+            {
+                levelOrder: 3,
+                email: "darak@steppingcloud",
+                name: "daraksha"
+            }
         ],
         level2Email: {},
         level3Email: {},
@@ -453,7 +453,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllNews", { payload: {} })
+                        dispatch("getAllNews", {
+                            payload: {}
+                        })
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -559,7 +561,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllEvent", { payload: {} })
+                        dispatch("getAllEvent", {
+                            payload: {}
+                        })
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -598,7 +602,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllAlumni", { payload: {} })
+                        dispatch("getAllAlumni", {
+                            payload: {}
+                        })
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -764,7 +770,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllFaq", { payload: {} })
+                        dispatch("getAllFaq", {
+                            payload: {}
+                        })
                         console.log(response)
                     }
                 }).catch((error) => {
