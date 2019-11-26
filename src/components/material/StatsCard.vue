@@ -1,130 +1,36 @@
 <template>
-  <material-card
-    class="v-card--material-stats"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
-    <v-card
-      slot="offset"
-      :class="`elevation-${elevation}`"
-      :color="color"
-      class="pa-4"
-      dark
+  <v-card class="mt-4 mx-auto" max-width="400">
+    <v-sheet
+      class="v-sheet--offset mx-auto"
+      color="cyan"
+      elevation="12"
+      max-width="calc(100% - 10px)"
+    
     >
-      <v-icon size="40">
-        {{ icon }}
-      </v-icon>
-    </v-card>
+      <v-sparkline :labels="labels" :value="value" show-labels color="white" line-width="2" padding="16"></v-sparkline>
+    </v-sheet>
 
-    <div class="text-right">
-      <p
-        class="body-2 grey--text font-weight-light mb-0"
-        v-text="title"
-      />
-      <h3 class="headline font-weight-light text--primary">
-        {{ value }} <small>{{ smallValue }}</small>
-      </h3>
-    </div>
-
-    <v-divider />
-
-    <template slot="actions">
-      <v-icon
-        :color="subIconColor"
-        size="20"
-        class="mx-2"
-      >
-        {{ subIcon }}
-      </v-icon>
-
-      <span
-        :class="subTextColor"
-        class="caption font-weight-light"
-        v-text="subText"
-      />
-    </template>
-  </material-card>
+    <v-card-text class="pt-0">
+      <div class="title font-weight-light mb-2">User Registrations</div>
+      <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
+      <v-divider class="my-2"></v-divider>
+      <v-icon class="mr-2" small>mdi-clock</v-icon>
+      <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
+    </v-card-text>
+  </v-card>
 </template>
-
 <script>
-  import Card from './Card'
-
-  export default {
-    name: 'MaterialStatsCard',
-
-    inheritAttrs: false,
-
-    props: {
-      ...Card.props,
-      icon: {
-        type: String,
-        required: true
-      },
-      subIcon: {
-        type: String,
-        default: undefined
-      },
-      subIconColor: {
-        type: String,
-        default: undefined
-      },
-      subTextColor: {
-        type: String,
-        default: undefined
-      },
-      subText: {
-        type: String,
-        default: undefined
-      },
-      title: {
-        type: String,
-        default: undefined
-      },
-      value: {
-        type: String,
-        default: undefined
-      },
-      smallValue: {
-        type: String,
-        default: undefined
-      }
-    }
-  }
+export default {
+  data: () => ({
+    labels: ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"],
+    value: [200, 675, 410, 390, 310, 460, 1250]
+  })
+};
 </script>
-
-<style lang="scss">
-.v-card--material-stats {
-  display: flex;
-  flex-wrap: wrap;
+<style>
+.v-sheet--offset {
+  top: -24px;
   position: relative;
-
-  .v-offset {
-    display: inline-block;
-    flex: 0 1;
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: auto;
-    margin-bottom: 0 !important;
-    max-width: auto;
-    padding: 0 16px 0;
-  }
-
-  .v-card {
-    border-radius: 4px;
-    flex: 0 1 auto;
-  }
-
-  .v-card__text {
-    display: inline-block;
-    flex: 1 0 calc(100% - 120px);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-  }
-
-  .v-card__actions {
-    flex: 1 0 100%;
-  }
+ 
 }
 </style>

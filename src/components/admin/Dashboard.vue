@@ -1,6 +1,15 @@
 <template>
   <v-layout row wrap style="margin-left:unset">
-    <v-img height="500px" src="@/assets/back5.jpg"></v-img>
+    <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
+    <v-flex xs4 class="mt-3 mb-3">
+      <statCards></statCards>
+    </v-flex>
+    <v-flex xs4 class="mt-3 mb-3">
+      <statCards></statCards>
+    </v-flex>
+    <v-flex xs4 class="mt-3 mb-3">
+      <statCards></statCards>
+    </v-flex>
     <v-flex xs12>
       <v-data-table
         :headers="headers"
@@ -56,11 +65,13 @@
     
 
 <script>
+import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
 import profile from "@/components/core/clearanceDialog.vue";
 import { stringify } from "querystring";
 export default {
   components: {
+    statCards,
     AddAlumni,
     profile
   },
@@ -82,6 +93,7 @@ export default {
   },
   beforeMount() {
     this.limit = 2;
+    this.skip = 0;
     this.loader = true;
     this.$store
       .dispatch("adminModule/getAllAlumni", {
@@ -96,14 +108,16 @@ export default {
   },
   methods: {
     getMore() {
-      this.limit = this.limit + 4;
+      this.limit = this.limit;
+      this.skip = this.skip + 2;
       this.loader = true;
       this.showMore = false;
       let actionToCall = "getAllAlumni";
       this.$store
         .dispatch("adminModule/getMoreData", {
           actionToCall: actionToCall,
-          limit: this.limit
+          limit: this.limit,
+          skip: this.skip
         })
         .then(response => {
           if (
@@ -170,6 +184,7 @@ export default {
   },
   data() {
     return {
+      skip: 0,
       showMore: true,
       limit: 9,
       loader: false,

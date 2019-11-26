@@ -124,6 +124,10 @@ export default {
             state.alumniList = data
         },
 
+        appendAlumniList: (state, data) => {
+            state.alumniList = state.alumniList.concat(data)
+        },
+
         addNewAlumniToList: (state, data) => {
             state.alumniList.unshift(data)
 
@@ -151,6 +155,9 @@ export default {
 
         setNewsList: (state, data) => {
             state.newsList = data
+        },
+        appendNewsList: (state, data) => {
+            state.newsList = state.newsList.concat(data)
         },
         addNewsToList: (state, data) => {
             state.newsList.unshift(data)
@@ -396,6 +403,7 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
+            let callcommit=data.commitToCall
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -413,7 +421,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        commit('setNewsList', response.data.result)
+                        
+                        commit("appendNewsList", response.data.result)
+                        // commit('setNewsList', response.data.result)
                     }
                     console.log(response)
                 }).catch((error) => {
@@ -667,7 +677,8 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        commit('setAlumniList', response.data.result)
+                        commit('appendAlumniList', response.data.result)
+                        // commit('setAlumniList', response.data.result)
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -819,8 +830,9 @@ export default {
             return new Promise((resolve, reject) => {
                 dispatch(data.actionToCall, {
                     payload: {
-                        skip: 0,
-                        limit: data.limit
+                        skip: data.skip,
+                        limit: data.limit,
+                        commitToCall:data.commitToCall
                     }
                 }).then((response) => {
                     resolve(response)
