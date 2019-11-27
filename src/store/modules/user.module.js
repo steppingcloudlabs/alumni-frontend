@@ -97,8 +97,9 @@ export default {
                     if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result)
                         sessionStorage.setItem("AccessToken", response.data.token)
+                    }
+                    if (response && response.data.status && response.data.result) {
                         sessionStorage.setItem("UserId", response.data.result.user_id)
-                        // commit('statusData', response.data.message.data)
                     }
                     // } else {
                     //     commit('statusData', response.data.status)

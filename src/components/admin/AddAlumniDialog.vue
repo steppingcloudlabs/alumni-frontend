@@ -118,13 +118,13 @@
                 </v-menu>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="alumni.city_addresses" label="Flat No/LandMark"></v-text-field>
+                <v-text-field v-model="alumni.address1" label="Flat No/LandMark"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field label=" City" prepend-icon="mdi-city"></v-text-field>
+                <v-text-field v-model="alumni.city_addresses" label=" City" prepend-icon="mdi-city"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field label="State"></v-text-field>
+                <v-text-field v-model="alumni.state" label="State"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -172,8 +172,10 @@ export default {
           user_id: alumniData.user_id,
 
           nationality_personal_information: "IND",
-          salutation_personal_information: salutation_personal_information,
+          salutation_personal_information: this.salutation_personal_information,
           city_addresses: alumniData.city_addresses,
+          address:alumniData.address1,
+          state:alumniData.state,
           phone_number_phone_information:
             alumniData.phone_number_phone_information,
           manager_job_information: alumniData.manager_job_information,

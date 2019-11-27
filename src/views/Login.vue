@@ -106,7 +106,19 @@ export default {
             password: this.password
           })
           .then(response => {
-            if (response && response.status == 200 && response.result) {
+            if (
+              response &&
+              response.status == 200 &&
+              response.usertype == "admin"
+            ) {
+              this.$router.push({ path: "/admin/dashboard" });
+              this.$store.commit("closeProgressBar", {});
+            } else if (
+              response &&
+              response.status == 200 &&
+              response.result &&
+              response.usertype == "user"
+            ) {
               this.$router.push({ path: "/profile/dashboard" });
               this.$store.commit("closeProgressBar", {});
             } else if (response.result != "Login Successful") {
