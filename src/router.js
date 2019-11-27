@@ -7,6 +7,7 @@ import portal from '@/views/portal.vue'
 import resetpassword from './views/forgot.vue'
 import careers from './components/core/careers.vue'
 import changepassword from './components/core/changePassword.vue'
+import updatepassword from './components/core/updatePassword.vue'
 import Dashboard from './views/Dashboard.vue'
 import UserProfile from './views/UserProfile1.vue'
 import Maps from './views/Maps.vue'
@@ -19,6 +20,7 @@ import dashboard from './components/admin/Dashboard.vue'
 import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 import companySetting from './components/admin/companySetting.vue'
+import searchProfile from './components/core/OpenProfile.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -52,13 +54,18 @@ const router = new Router({
       component: resetpassword
     },
     {
+      path: '/resetpassword',
+      name: 'changepassword',
+      component: changepassword
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: portal,
       children: [{
           path: 'changepassword',
           // Relative to /src/views
-          component: changepassword
+          component: updatepassword
         },
         {
           path: 'dashboard',
@@ -71,10 +78,16 @@ const router = new Router({
           component: AskHr
         },
         {
+          path: 'search',
+          // Relative to /src/views
+          component: searchProfile
+        },
+        {
           path: 'user-profile',
           name: 'Profile',
           component: UserProfile
         },
+        
         {
           path: 'maps',
           component: Maps

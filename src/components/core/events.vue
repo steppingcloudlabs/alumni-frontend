@@ -1,11 +1,8 @@
 <template>
   <div style="width:100%">
-    <v-layout>
-      <v-flex xs12>
         <v-card-title style="color:white; text-align:center">Upcoming Events</v-card-title>
-      </v-flex>
-    </v-layout>
-    <v-divider class="mr-5 my-5" style="background:rgb(241, 135, 16);"></v-divider>
+        <v-divider class="mr-5 my-5" style="background:rgb(241, 135, 16);"></v-divider>
+    
     <div class="events-group-container">
       <v-sheet class="mx-auto" elevation="8" max-width="900" v-if="!empty">
         <v-slide-group show-arrows>

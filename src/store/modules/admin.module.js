@@ -203,6 +203,9 @@ export default {
             console.log(EventList)
 
         },
+        appendEventList: (state, data) => {
+            state.EventList = state.EventList.concat(data)
+        },
         addEventToList: (state, data) => {
             state.EventList.unshift(data)
         },
@@ -403,7 +406,7 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-            let callcommit=data.commitToCall
+
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -421,8 +424,10 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        
-                        commit("appendNewsList", response.data.result)
+
+                        commit("setNewsList", response.data.result)
+
+
                         // commit('setNewsList', response.data.result)
                     }
                     console.log(response)
@@ -432,6 +437,44 @@ export default {
 
             })
         },
+
+        getMoreNews: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            let test = data.skip
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allnews',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('appendNewsList', response.data.result)
+
+
+
+                        // commit('setNewsList', response.data.result)
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
 
         deleteNews: ({
             state,
@@ -533,6 +576,39 @@ export default {
                     } else {
                         resolve(response)
                         commit('setEventList', response.data.result)
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getMoreEvent: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+
+
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allevent',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        commit('appendEventList', response.data.result)
                     }
                     console.log(response)
                 }).catch((error) => {
@@ -832,7 +908,7 @@ export default {
                     payload: {
                         skip: data.skip,
                         limit: data.limit,
-                        commitToCall:data.commitToCall
+                        commitToCall: data.commitToCall
                     }
                 }).then((response) => {
                     resolve(response)

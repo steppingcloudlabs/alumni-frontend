@@ -17,7 +17,7 @@
                     prepend-icon="person"
                     type="text"
                     v-model="email"
-                     :rules="emailRules"
+                    :rules="emailRules"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -25,7 +25,7 @@
                 <v-row>
                   <v-flex xs2></v-flex>
                   <v-flex xs6>
-                    <v-btn block center style="color:white">Reset Password</v-btn>
+                    <v-btn block center style="color:white" @click="resetPassword">Reset Password</v-btn>
                   </v-flex>
                   <v-flex xs4>
                     <v-card-text class="text-center">
@@ -52,40 +52,54 @@ export default {
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
-      ],
-     
+      ]
     };
   },
   methods: {
-    
-    resetPassword(){
-       if (this.$refs.forgot.validate()) {
+    resetPassword() {
+      if (this.$refs.forgot.validate()) {
         this.$store.commit("showProgressBar", {});
-        let data={
-          payload:{
-            email:this.email
+        let data = {
+          payload: {
+            email: this.email,
+            url: "sc-alumni.s3.ap-south-1.amazonaws.com"
           }
-        }
+        };
         this.$store
-          .dispatch("userModule/forgot",data)
+          .dispatch("userModule/forgotPassword", data)
           .then(response => {
-           console.log("inside response")
+            if (
+              response.data.status == 200 &&
+              response.data.result == "Reset Token sent to your email"
+            ) {
+              this.$store.commit("closeProgressBar", {});
+              this.$store.commit("showSnackbar", {
+                color: "green",
+                duration: 1000,
+                message: "Reset link send to your registered Email",
+                heading: "Success"
+              });
+              this.$router.push({ path: "/resetpassword" });
+            } else if (
+              response.data.status == 400 &&
+              response.data.result == "user not found"
+            ) {
+              this.$store.commit("closeProgressBar", {});
+              this.$store.commit("showSnackbar", {
+                color: "error",
+                duration: 1000,
+                message: "Invalid Email ID.Try again",
+                heading: "Error"
+              });
+              this.email = null;
+            }
           })
           .catch(error => {
             this.$store.commit("closeProgressBar", {});
             this.$store.commit("showNetworkError");
           });
-      } else {
-        this.$store.commit("showSnackbar", {
-          color: "red",
-          duration: 1000,
-          message: "Correct Errors",
-          heading: "Error"
-        });
       }
-
-    },
-
+    }
 
     // login() {
     //   this.$store

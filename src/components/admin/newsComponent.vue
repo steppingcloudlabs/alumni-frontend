@@ -29,8 +29,8 @@
       </v-layout>
       <v-layout row wrap class="pb-5 pt-5">
         <v-flex xs12 class="mr-5 text-right">
-          <v-btn color="primary" dark v-if="showMore" @click="getMore(4)">View All</v-btn>
-          <v-btn color="primary" dark v-if="!showMore" @click="getMore(-limit + 1)">Close All</v-btn>
+          <v-btn color="primary" dark v-if="showMore" @click="getMore()">View All</v-btn>
+          <v-btn color="primary" dark v-if="!showMore" @click="getLess()">Close All</v-btn>
         </v-flex>
       </v-layout>
     </div>
@@ -60,7 +60,7 @@ export default {
   beforeMount() {
     this.showMore = true;
     this.limit = 1;
-    this.$store.commit("showProgressBar", {});
+    (this.skip = 0), this.$store.commit("showProgressBar", {});
     this.$store
       .dispatch("adminModule/getAllNews", {
         payload: { skip: 0, limit: this.limit }
@@ -92,6 +92,7 @@ export default {
     return {
       showMore: true,
       limit: 1,
+      skip: 0,
       dialog: false,
       count: 0,
       showAll: false,
@@ -99,16 +100,33 @@ export default {
     };
   },
   methods: {
-   
-    getMore(data) {
-      this.limit = this.limit + data;
-
+    getLess() {
+      this.$store
+        .dispatch("adminModule/getAllNews", {
+          payload: { limit: 1, skip: 0 }
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+        });
+      this.showMore = true;
+    },
+    getMore() {
+      this.limit = this.limit;
+      this.skip = this.skip + this.limit;
       this.showMore = false;
       let actionToCall = "getAllNews";
       this.$store
-        .dispatch("adminModule/getMoreData", {
-          actionToCall: actionToCall,
-          limit: this.limit
+        .dispatch("adminModule/getMoreNews", {
+          payload:{ limit: this.limit,
+          skip: this.skip}
+
         })
         .then(response => {
           if (

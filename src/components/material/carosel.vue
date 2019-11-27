@@ -84,8 +84,10 @@ export default {
   },
   beforeMount() {
     this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllNews", {payload:{}}).then(response => {
+    this.$store.dispatch("adminModule/getAllNews", {payload:{skip:0,limit:1}}).then(response => {
       this.len = 390;
+      this.limit=1,
+      this.skip=0,
       this.heightCarousel = 350;
       if (response.data.result.length > 0) {
         this.empty = false;
@@ -116,6 +118,8 @@ export default {
 
   data() {
     return {
+      limit:1,
+      skip:0,
       heightCarousel: 350,
       len: 390,
       showMore: false,

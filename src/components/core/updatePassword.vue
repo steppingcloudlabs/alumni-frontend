@@ -2,7 +2,7 @@
   <div id="core-login">
     <v-layout row wrap>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" sm="8" md="5">
           <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
             <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
               <v-toolbar-title class="text-center" style="color:white">Change Password</v-toolbar-title>
@@ -10,6 +10,18 @@
             </v-toolbar>
             <v-card-text>
               <v-form ref="passwordChange" v-model="valid" lazy-validation>
+                <v-text-field
+                  id=" old password"
+                  label="old Password"
+                  name=" oldpassword"
+                  prepend-icon="lock"
+                  :type="show2 ? 'text' : 'password'"
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                  @click:append="show2 = !show2"
+                  v-model="oldpassword"
+                 
+                  dark
+                ></v-text-field>
                 <v-text-field
                   id="password"
                   label="New Password"
@@ -33,13 +45,14 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
+                <p class="text-center">
               <v-btn
-                block
                 outlined
                 v-on:
                 style="background: rgb(0, 0, 0, 0);color:white"
               >Change password</v-btn>
-              <!-- <v-btn block outlined v-on: style="background: rgb(0, 0, 0, 0);color:white">Cancel</v-btn> -->
+             <v-btn  outlined v-on: style="background: rgb(0, 0, 0, 0);color:white">Cancel</v-btn> 
+                </p>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -55,10 +68,12 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
+        show2:false,
       show1: false,
       valid: true,
       cnfpassword: null,
       password: null,
+      oldpassword:null,
 
       passwordRules: [
         v => !!v || "Password is required",

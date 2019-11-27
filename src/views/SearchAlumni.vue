@@ -10,9 +10,10 @@
         dark
         filled
         color="blue-grey lighten-2"
-        label="Select Alumni"
+        label="Search Alumni"
         item-text="first_name_personal_information"
         item-value="first_name_personal_information"
+        @change="openSearch()"
       >
         <template v-slot:item="data">
           <template>
@@ -46,7 +47,16 @@ export default {
       searchAlumni: null
     };
   },
+  methods:{
+   openSearch()
+    {
+      this.$store.commit("userModule/setSearchData",this.alumniList[0]);
+      this.$router.push({ path: "/profile/search" });
+
+    },
+  },
   watch: {
+   
     searchAlumni(val) {
       if (!val && !val.trim()) {
         this.alumniList = [];
@@ -66,10 +76,13 @@ export default {
         .dispatch("adminModule/getAllAlumni", data)
         .then(response => {
           this.alumniList = response.data.result;
+          
+           
           console.log(this.alumniList);
         })
         .finally(() => (this.isLoading = false));
-    }
+    },
+    
   }
 };
 </script>

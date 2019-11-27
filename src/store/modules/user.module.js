@@ -12,6 +12,7 @@ export default {
     state: {
         test: "Hello Test",
         userData: {},
+        searchUser: {},
         statusData: {},
         showContactDialog: false,
         contactData: {}
@@ -22,6 +23,10 @@ export default {
         },
         setData: (state, data) => {
             state.userData = data;
+        },
+        setSearchData: (state, data) => {
+            state.searchUser = data;
+            console.log(state.searchUser)
         },
         setStatusData: (state, data) => {
             state.statusData = data[0];
@@ -61,6 +66,9 @@ export default {
         },
         getUserData: (state) => {
             return state.userData
+        },
+        getSearchUserData: (state) => {
+            return state.searchUser
         },
         getStatusData: (state) => {
             return state.statusData

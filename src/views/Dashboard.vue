@@ -5,8 +5,7 @@
     <!-- </v-img> -->
     <carosel />
     <v-row>
-      <br />
-      <br />
+    
     </v-row>
     <v-row>
       <!-- <v-layout row wrap style="margin-left: 1px !important; margin-right: 25px !important;">
@@ -51,19 +50,55 @@
         </v-flex>
       </v-layout>-->
     </v-row>
-
-    <v-row>
-      <br />
-      <br />
-    </v-row>
-
     <v-row>
       <events :dialog="read" @readMore="readMore" />
     </v-row>
-    <v-row>
-      <br />
-      <br />
-    </v-row>
+      <v-card-title style="color:white">Recommended Career</v-card-title>
+    <v-divider style="background:rgb(241, 135, 16);"></v-divider>
+  <div>
+    <v-layout row wrap style="margin-left:unset;"
+    >
+      <v-flex xs6 class="pl-3 pt-3"  v-for="(item, i) in jobs"
+        :key="i" >
+         
+        <v-card 
+        >
+          <v-card-title>{{jobs[i].name}}</v-card-title>
+              <v-card-text>
+               
+               <span v-for="(skill,j) in jobs[i].compentency" :key="j">{{jobs[i].compentency[j]}},&nbsp;</span>
+               </v-card-text>
+   
+              <v-layout row wrap style="margin-left:unset;">
+                <v-flex xs4>
+                  <v-card-text>
+                    <v-icon color="blue">mdi-map-marker</v-icon>
+                    {{jobs[i].location}}
+                  </v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-card-text>
+                    <v-icon color="blue">mdi-calendar</v-icon>
+                    {{jobs[i].date}}
+                  </v-card-text>
+                </v-flex>
+                 <v-flex xs2>
+                  <v-card-actions>
+                   <v-btn color="primary" outlined>Apply</v-btn>
+                  </v-card-actions>
+                </v-flex>
+                 <!-- <v-flex xs2>
+                  <v-card-actions>
+                   <v-btn color="primary">Refer</v-btn>
+                  </v-card-actions>
+                </v-flex> -->
+              </v-layout>
+        </v-card>
+        
+      </v-flex>
+    </v-layout>
+  
+  </div>
 
     <clearance :dialog="dialog" @closeClearanceDialog="closeClearanceDialog" />
   </div>
@@ -94,7 +129,36 @@ export default {
       notifications: false,
       sound: true,
       widgets: false,
-      progress: true
+      progress: true,
+      jobs: [
+        {
+          name: "Associate Consultant",
+          location: "new delhi",
+          department: "integration",
+          date: "24-12-2018",
+          compentency:['C','C++','javaScript']
+        },
+        {
+          name: "Developer",
+          location: "new delhi",
+          department: "integration",
+          date: "24-12-2018",
+          compentency:['C','C++','javaScript']
+        },
+        {
+          name: " Deputy Manager",
+          location: "new delhi",
+          department: "integration",
+          date: "24-12-2018",
+          compentency:['C','C++','javaScript']
+        },
+        {
+          name: "IT Consultant",
+          location: "new delhi",
+          department: "integration",
+          date: "24-12-2018",
+          compentency:['C','C++','javaScript']
+        },]
     };
   },
   beforeMount() {
