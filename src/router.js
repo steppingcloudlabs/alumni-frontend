@@ -177,7 +177,7 @@ router.beforeResolve((to, from, next) => {
   // }
   if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/profile') > -1) {
     next({
-      path: '/home'
+      // path: '/home'
     })
     return
   }

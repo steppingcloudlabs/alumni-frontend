@@ -170,7 +170,7 @@ export default {
               console.log(response);
               this.$router.push({ path: "/login" });
             } else if (
-              response.result == "User is not an Alumni" &&
+              response.result == "User is not an Alumni" ||response.result == "UserId already Exists" &&
               response.status == 400
             ) {
               this.$store.commit("closeProgressBar", {});
