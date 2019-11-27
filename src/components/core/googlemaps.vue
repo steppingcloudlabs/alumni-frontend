@@ -21,6 +21,7 @@
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
+        
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
@@ -51,16 +52,20 @@ export default {
       this.currentPlace = place;
     },
     addMarker() {
-      if (this.currentPlace) {
+      for( let i=0;i<this.places.length;i++)
+      {
+         if (this.places[i]) {
         const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
+          lat: this.places[i].geometry.location.lat(),
+          lng: this.places[i].geometry.location.lng()
         };
         this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
+        // this.places.push(this.currentPlace);
         this.center = marker;
         this.currentPlace = null;
       }
+      }
+     
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
