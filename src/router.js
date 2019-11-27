@@ -87,7 +87,7 @@ const router = new Router({
           name: 'Profile',
           component: UserProfile
         },
-        
+
         {
           path: 'maps',
           component: Maps
@@ -177,7 +177,7 @@ router.beforeResolve((to, from, next) => {
   // }
   if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/profile') > -1) {
     next({
-      // path: '/home'
+      path: '/home'
     })
     return
   }
