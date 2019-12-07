@@ -80,8 +80,9 @@ export default {
     };
   },
   mounted() {
-    // console.log(md5("Rahil").toString()),
-    console.log(this.test);
+    console.log(md5("user").toString()),
+    console.log(md5("admin").toString()),
+    // console.log(this.test);
     this.test = "My New Data";
     console.log(this.test);
   },

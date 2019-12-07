@@ -47,16 +47,15 @@ export default {
       searchAlumni: null
     };
   },
-  methods:{
-   openSearch()
-    {
-      this.$store.commit("userModule/setSearchData",this.alumniList[0]);
-      this.$router.push({ path: "/profile/search" });
-
-    },
+  methods: {
+    openSearch() {
+      this.$store.commit("userModule/setSearchData", this.alumniList[0]);
+      this.$router.push({
+        path: "/profile/search/" + this.alumniList[0].user_id
+      });
+    }
   },
   watch: {
-   
     searchAlumni(val) {
       if (!val && !val.trim()) {
         this.alumniList = [];
@@ -76,13 +75,11 @@ export default {
         .dispatch("adminModule/getAllAlumni", data)
         .then(response => {
           this.alumniList = response.data.result;
-          
-           
+
           console.log(this.alumniList);
         })
         .finally(() => (this.isLoading = false));
-    },
-    
+    }
   }
 };
 </script>

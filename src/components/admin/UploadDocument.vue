@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-img height="500px" src="@/assets/back5.jpg"></v-img>
+    <v-img height="200px" src="@/assets/back5.jpg"></v-img>
     <v-data-table
       :headers="headers"
       :items="getAlumniList"
@@ -15,7 +15,7 @@
     >
       <template v-slot:top>
         <v-toolbar elevation="0" color="#1A1A1D">
-          <v-toolbar-title style="font-family: Raleway;color:#5097DD">Pending Data</v-toolbar-title>
+          <v-toolbar-title style="font-family: Raleway;color:#5097DD">Upload Pending Documents</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"

@@ -753,6 +753,38 @@ export default {
                         })
                     } else {
                         resolve(response)
+                        // commit('appendAlumniList', response.data.result)
+                        commit('setAlumniList', response.data.result)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        getMoreAlumni: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/allalumni',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
                         commit('appendAlumniList', response.data.result)
                         // commit('setAlumniList', response.data.result)
                         console.log(response)

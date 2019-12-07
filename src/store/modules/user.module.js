@@ -12,14 +12,33 @@ export default {
     state: {
         test: "Hello Test",
         userData: {},
-        searchUser: {},
+        searchUser: undefined,
         statusData: {},
         showContactDialog: false,
-        contactData: {}
+        contactData: {},
+        jobs: [],
+        viewJobDialog:false,
+        viewJobData:{},
     },
     mutations: {
         setTest: (state, data) => {
             state.test = data;
+        },
+        setViewJob: (state, data) => {
+            state.viewJobDialog = data;
+        },
+        setViewJobData: (state, data) => {
+            state.viewJobData = data;
+        },
+        showViewJob:(state,data)=>{
+           state.viewJobDialog=true,
+           state.viewJobData=data
+        },
+        closeViewJob:(state,data)=>{
+            state.viewJobDialog=false
+         },
+        setJobs: (state, data) => {
+            state.jobs = data;
         },
         setData: (state, data) => {
             state.userData = data;
@@ -64,6 +83,16 @@ export default {
         getTest: (state) => {
             return state.test;
         },
+        getViewJob: (state) => {
+            return state.viewJobDialog;
+        },
+        getViewJobData:(state)=>
+        {
+          return state.viewJobData
+        },
+        getJobs: (state) => {
+            return state.jobs;
+        },
         getUserData: (state) => {
             return state.userData
         },
@@ -97,9 +126,13 @@ export default {
                     if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result)
                         sessionStorage.setItem("AccessToken", response.data.token)
+                        var type = md5(response.data.usertype).toString()
+                        sessionStorage.setItem("Type", type)
                     }
                     if (response && response.data.status && response.data.result) {
                         sessionStorage.setItem("UserId", response.data.result.user_id)
+                        var type = md5(response.data.usertype).toString()
+                        sessionStorage.setItem("Type", type)
                     }
                     // } else {
                     //     commit('statusData', response.data.status)
@@ -216,6 +249,7 @@ export default {
                 }).then((response) => {
                     if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result)
+                        // commit('setSearchData', response.data.result)
                         resolve(response.data)
 
                         console.log(response)
@@ -226,6 +260,37 @@ export default {
 
             })
         },
+
+        getSearchAlumniById: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                        commit('setSearchData', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+
         forgotPassword: ({
             state,
             commit
@@ -281,19 +346,23 @@ export default {
                 })
             })
         },
-        contactHr: ({
+        getJob: ({
             state,
             commit
         }, data) => {
+            var data1
             addTokenToPayload(data)
+            console.log(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/ask-hr',
+                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs?country='+data.location+'&'+'skill='+data.skill,
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data: data
+                    data:{
+                        token:data['token']
+                    } 
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -302,6 +371,7 @@ export default {
                             root: true
                         })
                     } else {
+                        commit('setJobs', response.data.result)
                         resolve(response)
                         console.log(response)
                     }
@@ -310,6 +380,7 @@ export default {
                 })
 
             })
-        }
+        },
+
     }
 }

@@ -157,6 +157,8 @@ export default {
   methods: {
     closeDialog() {
       console.log(this.gender);
+      console.log(parseInt(moment(this.date).format("x")));
+      
       this.$store.commit("adminModule/closeAlumniDialog");
     },
     saveDialog() {
@@ -169,6 +171,7 @@ export default {
       }
       let data = {
         payload: {
+          type:'admin',
           user_id: alumniData.user_id,
 
           nationality_personal_information: "IND",
@@ -190,9 +193,12 @@ export default {
           email: alumniData.email,
           data_of_relieving: parseInt(moment(this.relieving).format("x")),
           date_of_birth: parseInt(moment(this.date).format("x")),
-          gender: this.gender
+          gender: this.gender,
         }
+       
       };
+      console.log(data.payload. date_of_birth)
+      console.log(this.date)
       let data1 = {
         user_id: alumniData.user_id,
         first_name_personal_information:

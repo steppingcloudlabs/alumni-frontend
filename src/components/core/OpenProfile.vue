@@ -230,7 +230,28 @@ export default {
     };
   },
   beforeMount() {
-    this.initializeUserData();
+    console.log(this.$route.params.userId);
+    if (!this.userData) {
+      let data = {
+        payload: {
+          userid: this.$route.params.userId
+        }
+      };
+      this.$store.dispatch("userModule/getSearchAlumniById", data).then(response => {
+        this.initializeUserData();
+      });
+    } else if (this.userData.user_id != this.$route.params.userId) {
+      let data = {
+        payload: {
+          userid: this.$route.params.userId
+        }
+      };
+      this.$store.dispatch("userModule/getSearchAlumniById", data).then(response => {
+        this.initializeUserData();
+      });
+    } else {
+      this.initializeUserData();
+    }
   },
   watch: {
     userData() {
@@ -246,39 +267,44 @@ export default {
       return this.$store.getters["userModule/getSearchUserData"];
     }
   },
-
   methods: {
     initializeUserData() {
       this.user.position = this.userData.designation_job_information;
       this.user.employeeId = this.userData.user_id;
       this.user.managerid = this.userData.manager_job_information;
       console.log(moment(this.userData.relieving_date));
-      this.user.relieving =
-        new Date(this.userData.relieving_date).getDate() +
-        "/" +
-        new Date(this.userData.relieving_date).getMonth() +
-        "/" +
-        new Date(this.userData.relieving_date).getFullYear();
+      this.user.relieving =moment
+        .unix(this.userData.relieving_date / 1000)
+        .format("LL");
+        // new Date(this.userData.relieving_date).getDate() +
+        // "/" +
+        // new Date(this.userData.relieving_date).getMonth() +
+        // "/" +
+        // new Date(this.userData.relieving_date).getFullYear();
 
-      this.user.lastworking =
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getDate() +
-        "/" +
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getMonth() +
-        "/" +
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getFullYear();
+      this.user.lastworking =moment
+        .unix(this.userData.last_working_day_as_per_notice_period / 1000)
+        .format("LL");
+        // new Date(
+        //   this.userData.last_working_day_as_per_notice_period
+        // ).getDate() +
+        // "/" +
+        // new Date(
+        //   this.userData.last_working_day_as_per_notice_period
+        // ).getMonth() +
+        // "/" +
+        // new Date(
+        //   this.userData.last_working_day_as_per_notice_period
+        // ).getFullYear();
 
-      this.user.resignation =
-        new Date(this.userData.date_of_resignation).getDate() +
-        "/" +
-        new Date(this.userData.date_of_resignation).getMonth() +
-        "/" +
-        new Date(this.userData.date_of_resignation).getFullYear();
+      this.user.resignation =moment
+        .unix(this.userData.date_of_resignation / 1000)
+        .format("LL");
+        // new Date(this.userData.date_of_resignation).getDate() +
+        // "/" +
+        // new Date(this.userData.date_of_resignation).getMonth() +
+        // "/" +
+        // new Date(this.userData.date_of_resignation).getFullYear();
 
       this.user.firstname = this.userData.first_name_personal_information;
       this.user.lastname = this.userData.last_name_personal_information;
@@ -295,6 +321,10 @@ export default {
 
 
 <style scoped>
+.row {
+  margin-left: 30px;
+  margin-right: initial;
+}
 .button:active {
   color: rgb(241, 135, 16) !important;
 }

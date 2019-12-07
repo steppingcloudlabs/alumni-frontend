@@ -5,6 +5,7 @@ let addTokenToPayload = (data) => {
 }
 let deleteExpiredToken = () => {
     sessionStorage.removeItem('AccessToken')
+    sessionStorage.removeItem('UserId')
 }
 
 let navigateToHome = () => {

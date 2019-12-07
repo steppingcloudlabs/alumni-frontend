@@ -5,6 +5,7 @@
     hide-delimiter-background
     show-arrows-on-hover
     hide-delimiters
+    cycle
     @change="resetHeight()"
   >
     <div v-if="!this.empty">
@@ -84,17 +85,23 @@ export default {
   },
   beforeMount() {
     this.$store.commit("showProgressBar", {});
-    this.$store.dispatch("adminModule/getAllNews", {payload:{skip:0,limit:1}}).then(response => {
-      this.len = 390;
-      this.limit=1,
-      this.skip=0,
-      this.heightCarousel = 350;
-      if (response.data.result.length > 0) {
-        this.empty = false;
-      } else {
-        this.empty = true;
-      }
-    });
+    this.$store
+      .dispatch("adminModule/getAllNews", { payload: { skip: 0, limit: 5 } })
+      .then(response => {
+        this.len = 390;
+        (this.limit = 1), (this.skip = 0), (this.heightCarousel = 350);
+        if (response.data.result.length > 0) {
+          this.empty = false;
+          for (var i = 0; i < this.getNewsList.length; i++) {
+            this.getNewsList[i].date = moment
+              .unix(this.getNewsList[i].date / 1000)
+              .format("LL");
+          }
+        } else {
+          this.empty = true;
+        }
+      });
+
     this.$store.commit("closeProgressBar", {});
   },
   methods: {
@@ -102,7 +109,7 @@ export default {
       if (!this.showMore) {
         this.showMore = true;
         this.len = this.getNewsList[data].content.length;
-        this.heightCarousel = 50 + this.len / 2;
+        this.heightCarousel = 150 + this.len / 2;
       } else {
         this.showMore = false;
         this.len = 390;
@@ -118,8 +125,8 @@ export default {
 
   data() {
     return {
-      limit:1,
-      skip:0,
+      limit: 1,
+      skip: 0,
       heightCarousel: 350,
       len: 390,
       showMore: false,

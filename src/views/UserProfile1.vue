@@ -29,7 +29,7 @@
                 <p
                   class="caption"
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >Worked As-{{user.designation}}</p>
+                >Worked As-{{user.position}}</p>
                 <p>
                   <v-icon color="blue">mdi-linkedin</v-icon>
                 </p>
@@ -74,8 +74,8 @@
                 >Add New Skill</v-btn>
                 <v-combobox
                   v-if="!showskill"
-                  v-model="select"
-                  :items="skills"
+                  v-model="skill"
+                  :items="skilled"
                   append-icon="add"
                   style=" margin-top:-15px;"
                   @keyup.enter.native="addSkill()"
@@ -83,7 +83,7 @@
                   @click:append="addSkill()"
                   label="Add Skill"
                   hide-details
-                  
+                  hide-selected
                 ></v-combobox>
                 <!-- <v-text-field
                   v-if="!showskill"
@@ -180,7 +180,7 @@
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top:2px !important; color: #181818	"
-                >{{user.designation}}</v-card-text>
+                >{{user.position}}</v-card-text>
               </v-flex>
             </v-layout>
             <v-layout>
@@ -288,7 +288,7 @@
               >FnF Status</v-card-title>
               <v-card-text>
                 <timeline
-                  :status="FnfStatus"
+                  :status="DocumentStatus.fnfStatus"
                   :code="96"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
@@ -304,7 +304,7 @@
               >Form16 Status</v-card-title>
               <v-card-text>
                 <timeline
-                  :status="FormStatus"
+                  :status="DocumentStatus.form16"
                   :code="95"
                   :userid="this.user.employeeId "
                   :showLoader="progress"
@@ -320,7 +320,7 @@
               >Pf Clearance Status</v-card-title>
               <v-card-text>
                 <timeline
-                  :status="PfStatus"
+                  :status="DocumentStatus.pfTransferStatus"
                   :code="95"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
@@ -346,6 +346,7 @@ export default {
   },
   data() {
     return {
+      select: "",
       showskill: true,
       office: true,
       read: false,
@@ -353,7 +354,8 @@ export default {
       status2: false,
       dialog: false,
       skill: "",
-      skills: ["hello", "testing", "python", "ruby"],
+      skilled: ["hello", "testing", "python", "ruby"],
+      skills: [],
       user: {
         username: "",
         firstname: "",
@@ -372,10 +374,12 @@ export default {
         managerid: "",
         relieving: "",
         lastworking: "",
-        nationality: ""
+        nationality: "",
+        gender: ""
       },
       progress: true,
-      userSkills: []
+      userSkills: [],
+      filteredArray: []
     };
   },
   beforeMount() {
@@ -389,6 +393,7 @@ export default {
   },
   mounted() {
     this.getStatus();
+   
   },
   computed: {
     // userSkills() {
@@ -397,6 +402,16 @@ export default {
     userData() {
       return this.$store.getters["userModule/getUserData"];
     },
+
+    DocumentStatus: {
+        get() {
+       return this.$store.getters["userModule/getStatusData"]
+      },
+      set(data) {
+        this.$store.commit("userModule/setStatusData", this.data);
+      }
+      
+     },
     FnfStatus() {
       return this.$store.getters["userModule/getStatusData"]
         ? this.$store.getters["userModule/getStatusData"].fnfStatus
@@ -415,6 +430,13 @@ export default {
   },
 
   methods: {
+    recommendedSkill() {
+      let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
+      this.filteredArray = this.skilled.filter(function(x) {
+        return tempSkill.indexOf(x) < 0;
+      });
+      console.log(this.filteredArray)
+    },
     deleteSkill(data) {
       let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
       let vm = this;
@@ -445,11 +467,17 @@ export default {
     },
 
     addSkill() {
+       if(this.userSkills.length)
+    {
+     this.recommendedSkill();
+    }
+     
+      console.log(this.skill);
       this.showskill = true;
       if (!this.skill.trim()) {
         this.showskill = true;
       } else {
-        let skillExists = this.skills.filter(item => {
+        let skillExists = this.userSkills.filter(item => {
           if (item.toLowerCase() == this.skill.toLowerCase()) {
             return true;
           }
@@ -485,33 +513,44 @@ export default {
       this.user.position = this.userData.designation_job_information;
       this.user.employeeId = this.userData.user_id;
       this.user.managerid = this.userData.manager_job_information;
-      console.log(moment(this.userData.relieving_date));
-      this.user.relieving =
-        new Date(this.userData.relieving_date).getDate() +
-        "/" +
-        new Date(this.userData.relieving_date).getMonth() +
-        "/" +
-        new Date(this.userData.relieving_date).getFullYear();
+      this.user.gender = this.userData.gender;
+      // this.user.DOB=moment
+      //   .unix(this.userData.date_of_birth / 1000)
+      //   .format("LL");
 
-      this.user.lastworking =
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getDate() +
-        "/" +
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getMonth() +
-        "/" +
-        new Date(
-          this.userData.last_working_day_as_per_notice_period
-        ).getFullYear();
+      this.user.relieving = moment
+        .unix(this.userData.relieving_date / 1000)
+        .format("LL");
+      // new Date(this.userData.relieving_date).getDate() +
+      // "/" +
+      // new Date(this.userData.relieving_date).getMonth() +
+      // "/" +
+      // new Date(this.userData.relieving_date).getFullYear();
 
-      this.user.resignation =
-        new Date(this.userData.date_of_resignation).getDate() +
-        "/" +
-        new Date(this.userData.date_of_resignation).getMonth() +
-        "/" +
-        new Date(this.userData.date_of_resignation).getFullYear();
+      this.user.lastworking = moment
+        .unix(this.userData.last_working_day_as_per_notice_period / 1000)
+        .format("LL");
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getDate() +
+      // "/" +
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getMonth() +
+      // "/" +
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getFullYear();
+      //  var date = new Date(this.userData.date_of_resignation*1000);
+
+      this.user.resignation = moment
+        .unix(this.userData.date_of_resignation / 1000)
+        .format("LL");
+      // new Date(this.userData.date_of_resignation).getDate() +
+      // "/" +
+      // new Date(this.userData.date_of_resignation).getMonth() +
+      // "/" +
+      // new Date(this.userData.date_of_resignation).getFullYear();
 
       this.user.firstname = this.userData.first_name_personal_information;
       this.user.lastname = this.userData.last_name_personal_information;
@@ -547,7 +586,7 @@ export default {
     getStatus() {
       let data = {
         payload: {
-          userid: this.user.employeeId
+          userid: getAlumniId()
         }
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {
@@ -567,6 +606,10 @@ export default {
 
 
 <style scoped>
+.row {
+  margin-left: 30px;
+  margin-right: initial;
+}
 .button:active {
   color: rgb(241, 135, 16) !important;
 }

@@ -1,15 +1,15 @@
 <template>
   <v-layout row wrap style="margin-left:unset">
     <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
-    <v-flex xs4 class="mt-3 mb-3">
+    <v-flex xs6 class="mt-3 mb-3">
       <statCards></statCards>
     </v-flex>
-    <v-flex xs4 class="mt-3 mb-3">
+    <v-flex xs6 class="mt-3 mb-3">
       <statCards></statCards>
     </v-flex>
-    <v-flex xs4 class="mt-3 mb-3">
+    <!-- <v-flex xs4 class="mt-3 mb-3">
       <statCards></statCards>
-    </v-flex>
+    </v-flex> -->
     <v-flex xs12>
       <v-data-table
         :headers="headers"
@@ -58,7 +58,7 @@
         <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore">Load More</v-btn>
       </p>
     </v-flex>
-    <profile :dialog="dialog" @closeClearanceDialog="closeClearanceDialog"></profile>
+ 
   </v-layout>
 </template>
     
@@ -67,7 +67,7 @@
 <script>
 import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
-import profile from "@/components/core/clearanceDialog.vue";
+
 import { stringify } from "querystring";
 export default {
   components: {
@@ -112,7 +112,7 @@ export default {
       this.skip = this.skip + 2;
       this.loader = true;
       this.showMore = false;
-      let actionToCall = "getAllAlumni";
+      let actionToCall = "getMoreAlumni";
       this.$store
         .dispatch("adminModule/getMoreData", {
           actionToCall: actionToCall,

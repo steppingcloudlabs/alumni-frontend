@@ -18,7 +18,7 @@
   </div>-->
   <div id="app">
     <!-- <google-map /> -->
-    <h3>My Google Maps Demo</h3>
+    <!-- <h3>My Google Maps Demo</h3> -->
     <!--The div element for the map -->
     <div id="map"></div>
   </div>
@@ -26,19 +26,125 @@
 <script>
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import GoogleMap from "@/components/core/googlemaps";
-
+function myfunction() {
+  console.log("hello");
+}
+function smoothZoom(map, max, cnt) {
+  if (cnt >= max) {
+    return;
+  } else {
+    var z = google.maps.event.addListener(map, "zoom_changed", function(event) {
+      google.maps.event.removeListener(z);
+      smoothZoom(map, max, cnt + 1);
+    });
+    setTimeout(function() {
+      map.setZoom(cnt);
+    }, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+  }
+}
 export default {
   components: {
     GoogleMap
+  },
+  computed: {
+    getAlumniList: {
+      get() {
+        return this.$store.getters["adminModule/getAlumniList"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setAlumniList", this.data);
+      }
+    }
+  },
+  watch: {
+    getAlumniList() {
+      var geocoder = new google.maps.Geocoder();
+      var infowindow = new google.maps.InfoWindow({});
+
+      // var markers = new google.maps.Marker({ position: uluru, map: this.map });
+      for (let i = 0; i < this.getAlumniList.length; i++) {
+        geocoder.geocode(
+          { address: this.getAlumniList[i].city_addresses },
+          (results, status) => {
+            if (status == "OK") {
+              this.map.setCenter(results[0].geometry.location);
+              this.marker[i] = new google.maps.Marker({
+                map: this.map,
+                position: results[0].geometry.location,
+                title: this.person[i],
+                animation: google.maps.Animation.DROP
+                // icon: image
+              });
+              var infowincontent =
+                "<a href='/#/profile/search/" +
+                this.getAlumniList[i].user_id +
+                "'>" +
+                this.getAlumniList[i].first_name_personal_information +
+                " " +
+                this.getAlumniList[i].last_name_personal_information +
+                "</a>" +
+                "<p>" +
+                this.getAlumniList[i].city_addresses +
+                "</p>";
+
+            
+              this.marker[i].addListener("click", () => {
+                // this.map.setZoom(8);
+                smoothZoom(this.map, 10, this.map.getZoom(), true);
+                infowindow.setContent(infowincontent);
+                infowindow.open(this.map, this.marker[i]);
+              });
+            } else {
+              alert(
+                "Geocode was not successful for the following reason: " + status
+              );
+            }
+          }
+        );
+      }
+      var markerCluster = new MarkerClusterer(this.map, this.marker, {
+        imagePath:
+          "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+      });
+    }
   },
   data() {
     return {
       places: ["New Delhi", "Haryana", "Gurgaon"],
       marker: [],
-      person: ["Daraksha", "Rahil", "Abid"]
+      person: ["Daraksha", "Rahil", "Abid"],
+      firstname: [],
+      lastname: [],
+      userid: [],
+      place: [],
+      // alumniList: [],
+      user_id: 11098,
+      map: {},
+      position: []
     };
   },
   methods: {
+    openAlumniProfile() {
+      let data = {
+        payload: {
+          keyword: userid
+        }
+      };
+      this.$store.dispatch("adminModule/getAllAlumni", data).then(response => {
+        this.alumniList = response.data.result;
+
+        console.log(this.alumniList[0]);
+      });
+      this.$store.commit("userModule/setSearchData", this.alumniList[0]);
+      this.$router.push({ path: "/profile/search" });
+    },
+    collectData() {
+      this.place = alumniCity();
+      this.firstname = alumniFirstName();
+      this.lastname = alumniLastName();
+      this.userid = alumniId();
+    },
+
     getAlumniData() {
       let data = {
         payload: {
@@ -48,11 +154,13 @@ export default {
       this.$store.dispatch("userModule/getAlumniById", data);
     },
     initMap() {
+      // var AlumniList = alumniList();
+      // console.log(AlumniList);
       var uluru = { lat: -25.344, lng: 131.036 };
       // The map, centered at Uluru
 
-      var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 8,
+      this.map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 2,
         center: uluru,
         styles: [
           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -139,57 +247,94 @@ export default {
         ]
       });
       // The marker, positioned at Uluru
-      var image = {
-        url: require("@/assets/enrichment.jpg"),
-        // This marker is 20 pixels wide by 32 pixels high.
-        size: new google.maps.Size(20, 32),
-        // The origin for this image is (0, 0).
-        origin: new google.maps.Point(0, 0),
-        // The anchor for this image is the base of the flagpole at (0, 32).
-        anchor: new google.maps.Point(0, 32)
-      };
+      // var image = {
+      //   url: require("@/assets/enrichment.jpg"),
+      //   // This marker is 20 pixels wide by 32 pixels high.
+      //   size: new google.maps.Size(20, 32),
+      //   // The origin for this image is (0, 0).
+      //   origin: new google.maps.Point(0, 0),
+      //   // The anchor for this image is the base of the flagpole at (0, 32).
+      //   anchor: new google.maps.Point(0, 32)
+      // };
 
       var geocoder = new google.maps.Geocoder();
-      var infowindow = new google.maps.InfoWindow({
-       
-      });
+      var infowindow = new google.maps.InfoWindow({});
 
-      var markers = new google.maps.Marker({ position: uluru, map: map });
-      for (let i = 0; i < this.places.length; i++) {
-        geocoder.geocode({ address: this.places[i] }, (results, status) => {
-          if (status == "OK") {
-            map.setCenter(results[0].geometry.location);
-            this.marker[i] = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location,
-              title: this.person[i],
-              // icon: image
-            });
-            this.marker[i].addListener("click", () => {
-              infowindow.setContent(this.person[i])
-              infowindow.open(map, this.marker[i]);
-            });
-          } else {
-            alert(
-              "Geocode was not successful for the following reason: " + status
-            );
+      // var markers = this.position.map(function(location, i) {
+      //   return new google.maps.Marker({
+      //     position: location,
+
+      //   });
+      // });
+
+      // var markers = new google.maps.Marker({ position: uluru, map: this.map });
+      for (let i = 0; i < this.getAlumniList.length; i++) {
+        geocoder.geocode(
+          { address: this.getAlumniList[i].city_addresses },
+          (results, status) => {
+            if (status == "OK") {
+              //  this.position[i]= results[0].geometry.location
+              this.map.setCenter(results[0].geometry.location);
+              this.marker[i] = new google.maps.Marker({
+                map: this.map,
+                position: results[0].geometry.location,
+                title: this.person[i],
+                animation: google.maps.Animation.DROP
+                // icon: image
+              });
+              var infowincontent =
+                "<a href='/#/profile/search/" +
+                this.getAlumniList[i].user_id +
+                "'>" +
+                this.getAlumniList[i].first_name_personal_information +
+                " " +
+                this.getAlumniList[i].last_name_personal_information +
+                "</a>" +
+                "<p>" +
+                this.getAlumniList[i].city_addresses +
+                "</p>";
+
+             
+              this.marker[i].addListener("click", () => {
+                // this.map.setZoom(8);
+                smoothZoom(this.map, 10, this.map.getZoom(), true);
+                infowindow.setContent(infowincontent);
+                infowindow.open(this.map, this.marker[i]);
+              });
+            } else {
+              alert(
+                "Geocode was not successful for the following reason: " + status
+              );
+            }
           }
-        });
+        );
       }
+      var markerCluster = new MarkerClusterer(this.map, this.marker, {
+        imagePath:
+          "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+      });
     }
   },
+
   beforeMount() {
     this.getAlumniData();
+    this.$store
+      .dispatch("adminModule/getAllAlumni", {
+        payload: {}
+      })
+      .then(response => {});
   },
   mounted() {
     this.initMap();
   }
 };
 </script>
+ 
+    
 
 <style>
 #map {
-  height: 400px; /* The height is 400 pixels */
+  height: 600px; /* The height is 400 pixels */
   width: 100%; /* The width is the width of the web page */
 }
 </style>

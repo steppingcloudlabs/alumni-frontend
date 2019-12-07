@@ -78,7 +78,7 @@ const router = new Router({
           component: AskHr
         },
         {
-          path: 'search',
+          path: 'search/:userId',
           // Relative to /src/views
           component: searchProfile
         },
@@ -181,9 +181,21 @@ router.beforeResolve((to, from, next) => {
     })
     return
   }
-  if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/admin') > -1) {
+  else if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/admin') > -1) {
     next({
       path: '/home'
+    })
+    return
+  }
+ else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type')=='21232f297a57a5a743894a0e4a801fc3' && to.fullPath.indexOf('/profile') > -1) {
+    next({
+      path: '/admin/dashboard'
+    })
+    return
+  }
+  else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type')=='ee11cbb19052e40b07aac0ca060c23ee' && to.fullPath.indexOf('/admin') > -1) {
+    next({
+      path: '/profile/dashboard'
     })
     return
   }

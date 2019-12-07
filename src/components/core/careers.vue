@@ -54,33 +54,33 @@
     <v-divider style="background:rgb(241, 135, 16);"></v-divider>
     <div>
       <v-layout row wrap style="margin-left:unset;">
-        <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in jobs" :key="i">
+        <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
           <v-hover v-slot:default="{ hover }">
-            <v-card class="job_class" :elevation="hover? 24:1">
-              <v-card-title style="color:#232B2B">{{jobs[i].name}}</v-card-title>
-              <v-card-text>
+            <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
+              <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
+              <!-- <v-card-text>
                 <span
                   v-for="(skill,j) in jobs[i].compentency"
                   :key="j"
                 >{{jobs[i].compentency[j]}},&nbsp;</span>
-              </v-card-text>
+              </v-card-text> -->
 
               <v-layout row wrap style="margin-left:unset;">
-                <v-flex xs4>
+                <v-flex xs5>
                   <v-card-text>
                     <v-icon color="blue">mdi-map-marker</v-icon>
-                    {{jobs[i].location}}
+                    {{item.location}}
                   </v-card-text>
                 </v-flex>
-                <v-flex xs6>
+                <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue">mdi-calendar</v-icon>
-                    {{jobs[i].date}}
+                    <v-icon color="blue">mdi-domain</v-icon>
+                    {{item.department}}
                   </v-card-text>
                 </v-flex>
                 <v-flex xs2>
                   <v-card-actions>
-                    <v-btn color="primary" outlined>Apply</v-btn>
+                    <v-btn color="primary" outlined @click="openJob(item)">View</v-btn>
                   </v-card-actions>
                 </v-flex>
                 <!-- <v-flex xs2>
@@ -94,13 +94,42 @@
         </v-flex>
       </v-layout>
     </div>
+    <viewjob></viewjob>
   </div>
 </template>
 
 <script>
+import viewjob from "@/components/core/viewjobDialog.vue";
 export default {
   components: {
-    CoreAppBar: () => import("@/components/core/AppBar")
+    CoreAppBar: () => import("@/components/core/AppBar"),
+    viewjob
+  },
+  beforeMount()
+  {
+    this.jobData()
+  },
+  computed:{
+    getjobs:{
+       get() {
+        return this.$store.getters["userModule/getJobs"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setJobs", this.data);
+      }
+    }
+  },
+  methods:{
+     jobData()
+     {
+      this.$store
+      .dispatch("userModule/getJob", { location:'United Kingdom',skill:'manager' })
+     
+     },
+     openJob(data)
+     {
+       this.$store.commit("userModule/showViewJob",data);
+     }
   },
   data() {
     return {

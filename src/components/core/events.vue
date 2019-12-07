@@ -1,17 +1,50 @@
 <template>
-  <div style="width:100%">
+  <div class="events"   style="width:95%;overflow-y: auto;height:500px">
         <v-card-title style="color:white; text-align:center">Upcoming Events</v-card-title>
         <v-divider class="mr-5 my-5" style="background:rgb(241, 135, 16);"></v-divider>
-    
+         <v-col
+         
+          v-for="(item, i) in getEventList"
+          :key="i"
+          cols="12"
+        >
+          <v-card
+            :color="item.color"
+            dark
+          >
+            <div class="d-flex flex-no-wrap ">
+               <v-avatar
+                class="ma-3"
+                size="125"
+                tile
+              >
+                <v-img :src="item.photo"></v-img>
+              </v-avatar>
+              <div>
+                <v-card-title
+                  class="headline"
+                  v-text="item.title"
+                ></v-card-title>
+                  <v-card-text v-text="item.date"></v-card-text>
+                <v-card-text class="py-0" v-text="item.content"></v-card-text>
+               
+              </div>
+             
+
+             
+            </div>
+          </v-card>
+        </v-col>
+<!--     
     <div class="events-group-container">
-      <v-sheet class="mx-auto" elevation="8" max-width="900" v-if="!empty">
+      <v-sheet color="transparent"  class="mx-auto" elevation="8" width="1145px" v-if="!empty">
         <v-slide-group show-arrows>
           <v-slide-item
             v-for="(item, i) in getEventList"
             :key="i"
             v-slot:default="{ active, toggle }"
           >
-            <v-card class="mt-3 ma-4" color="transparent" min-width="150px">
+            <v-card class="mt-3 ma-4" color="White" min-width="150px">
               <v-img
                 src="@/assets/calender.png"
                 width="100"
@@ -27,7 +60,7 @@
               <!-- <v-card-text py-1
               style="font-family:Raleway;text-align:center;color:white;font-size:10px;"
               >{{item.content}}</v-card-text>-->
-              <p class="text-center">
+              <!-- <p class="text-center">
                 <v-btn
                   style="color: rgb(241, 135, 16); font-weight: 200;"
                   @click="setSelectedEvent(item)"
@@ -61,11 +94,12 @@
           </v-img>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-layout> --> 
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     getEventList: {
@@ -95,6 +129,12 @@ export default {
     this.$store.dispatch("adminModule/getAllEvent", {payload:{}}).then(response => {
       if (response.data.result.length > 0) {
         this.empty = false;
+         for(var i=0;i<this.getEventList.length;i++)
+    {
+      this.getEventList[i].date=moment
+        .unix(this.getEventList[i].date / 1000)
+        .format("LL");
+    }
       } else {
         this.empty = true;
       }
@@ -152,15 +192,20 @@ export default {
 };
 </script>
 <style >
+
 div.item {
   vertical-align: top;
   display: inline-block;
   text-align: center;
 }
-.events-group-container .v-sheet .v-slide-group__prev {
+.events{
+   margin-left: -6%;
+  margin-right: unset;
+}
+/* .events-group-container .v-sheet .v-slide-group__prev {
   display: flex !important;
 }
 .events-group-container .v-sheet .v-slide-group__next {
-  display: flex !important;
-}
+  display: flex !important; */
+/* } */
 </style>

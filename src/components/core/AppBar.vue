@@ -1,14 +1,17 @@
 <template>
   <div>
-    <v-toolbar-title class="white--text font-weight-light align-self-center">
-      <v-btn v-if="responsive" icon @click.stop="onClick">
-        <v-icon>mdi-view-list</v-icon>
-      </v-btn>
-    </v-toolbar-title>
+    <v-toolbar-title class="white--text font-weight-light align-self-center"></v-toolbar-title>
 
     <v-spacer />
 
     <v-toolbar-items>
+      <v-img
+        src="@/assets/alum.png"
+        aspect-ratio="1"
+        class="grey lighten-2"
+        max-width="150"
+        max-height="100"
+      ></v-img>
       <v-layout row wrap align-center>
         <v-flex xs12>
           <SearchAlumni />

@@ -6,6 +6,36 @@
     <br />
     <br />
     <v-layout row wrap mt-4 ml-5 mr-5>
+      <v-flex xs4 mt-4 v-for="(item,i) in cards" :key="i">
+        <v-card class="mx-auto" max-width="350" min-height="300px">
+          <v-img
+            v-if="status[i]=='Available'"
+            class="white--text align-end"
+            height="200px"
+            :src="images[0].back"
+          >
+            <v-card-title>{{item.title}}</v-card-title>
+          </v-img>
+          <v-img v-else class="align-end" height="200px" :src="images[1].back">
+            <v-card-title>{{item.title}}</v-card-title>
+          </v-img>
+
+          <v-card-text class="text--primary" v-if="status[i]=='Available'" >
+            <div >Your Document is ready for download</div>
+          </v-card-text>
+          <v-card-text class="text--primary" v-else>
+            <div>
+              <v-icon color="orange">mdi-exclamation</v-icon>Your Document is Pending from Company.It will be available shortly
+            </div>
+          </v-card-text>
+
+          <v-card-actions v-if="status[i]=='Available'">
+            <v-btn color="orange" text @click="download(item.code)">Download</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <!-- <v-layout row wrap mt-4 ml-5 mr-5>
       <v-flex xs6>
         <v-card class="mr-3 ml-3" height="100%">
           <v-card-title
@@ -65,7 +95,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-layout>-->
 
     <!-- <v-row>
       <v-flex xs1></v-flex>
@@ -109,6 +139,26 @@ export default {
   },
   data() {
     return {
+      cards: [
+        { title: "Form16", code: 97 },
+        { title: "Full n Final", code: 95 },
+        { title: "Salary Slips", code: 96 },
+        { title: "Relieving Letter", code: 97 },
+        { title: "Pf Clearance", code: 97 },
+        { title: "Experience Letter", code: 97 }
+      ],
+      status: [
+        "Available",
+        " Not Available",
+        "Available",
+        "Available",
+        " Not Available",
+        "Available"
+      ],
+      images: [
+        { back: require("@/assets/documentavailable1.gif") },
+        { back: require("@/assets/documentwaiting.gif") }
+      ],
       progress: true
       // user: {
       //   userid: ""
@@ -122,7 +172,7 @@ export default {
     download(data) {
       let body = {
         payload: {
-          userid: this.userData,
+          userid: getAlumniId(),
           // code:data,
           filename: data
         }
@@ -158,6 +208,7 @@ export default {
   beforeMount() {
     this.getAlumniData();
     this.getStatus();
+    // this.getDocumentStatus();
   },
 
   computed: {
@@ -166,30 +217,38 @@ export default {
         ? this.$store.getters["userModule/getUserData"].user_id
         : null;
     },
-    FnfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].fnfStatus
-        : null;
-    },
-    FormStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].form16Status
-        : null;
-    },
-    PfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
-        : null;
-    },
-    SalaryStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].salarycurrent
-        : null;
+    DocumentStatus: {
+      get() {
+        return this.$store.getters["userModule/getStatusData"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setStatusData", this.data);
+      }
     }
+    // FnfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].fnfStatus
+    //     : null;
+    // },
+    // FormStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].form16
+    //     : null;
+    // },
+    // PfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+    //     : null;
+    // },
+    // SalaryStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].salarycurrent
+    //     : null;
+    // }
   },
 
   methods: {
-     getAlumniData() {
+    getAlumniData() {
       let data = {
         payload: {
           userid: getAlumniId()
@@ -207,6 +266,16 @@ export default {
         this.progress = false;
       });
     }
+    // getDocumentStatus(){
+
+    //     this.status[0]=this.DocumentStatus.form16
+    //     this.status[1]=this.DocumentStatus.fnfStatus
+    //     this.status[2]=this.DocumentStatus.salarycurrent
+    //     this.status[3]=this.DocumentStatus.fnfStatus
+    //     this.status[4]=this.DocumentStatus.pfTransferStatus
+    //     this.status[5]=this.DocumentStatus.fnfStatus
+
+    // }
   }
   // watch: {
   //   user() {

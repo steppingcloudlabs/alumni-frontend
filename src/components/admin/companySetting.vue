@@ -85,7 +85,7 @@
         </v-card-actions>
       </v-layout>-->
     </v-card>
-    <query></query>
+  
   </div>
 </template>
 
@@ -99,7 +99,7 @@ export default {
     return {
       showskill: true,
       items: [
-        { title: "spoc", index: 0 },
+        { title: "Spoc", index: 0 },
         { title: "Escalation Level 1", index: 1 },
         { title: "Escalation Level 2", index: 2 }
       ],
