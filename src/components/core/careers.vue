@@ -197,6 +197,5 @@ export default {
 .v-data-table {
   border-top: "none";
 }
-.job_class:hover {
-}
+
 </style>

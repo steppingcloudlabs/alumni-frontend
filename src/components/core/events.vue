@@ -57,7 +57,7 @@
                 <p style="text-align: center;  font-size:20px; font-weight:300;color:black">19</p>
               </v-img>
               <p class="subtitle-1 mt-2 mb-2" style="text-align:center; color:black;">{{item.title}}</p>
-              <!-- <v-card-text py-1
+          <v-card-text py-1
               style="font-family:Raleway;text-align:center;color:white;font-size:10px;"
               >{{item.content}}</v-card-text>-->
               <!-- <p class="text-center">
