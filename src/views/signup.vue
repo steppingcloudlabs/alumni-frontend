@@ -212,11 +212,6 @@ a {
   font-size: 10px;
   font-style: inherit;
 }
-.v-content__wrap {
-  background-image: url("../assets/login.jpg");
-  background-size: cover;
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

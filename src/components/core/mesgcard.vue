@@ -4,7 +4,10 @@
       <v-card-title style="margin:10px" class="headline white--text">Message From Director</v-card-title>
 
       <v-card-text class="white--text" style="margin:10px; padding-right: 100px;" v-text="message"></v-card-text>
-      <v-card-text  style="margin:10px; padding-right: 100px; font-size:20px; color: orange; letter-spacing:1px;" v-text="ceoName"></v-card-text>
+      <v-card-text
+        style="margin:10px; padding-right: 100px; font-size:20px; color: orange; letter-spacing:1px;"
+        v-text="ceoName"
+      ></v-card-text>
     </div>
     <div class="item">
       <v-avatar class="ma-3" style="border-radius: 50%;" size="250" tile>
@@ -36,7 +39,7 @@ div.item {
   display: block;
 }
 .d-flex.flex-no-wrap.justify-space-between {
-  background-image: url("/assets/login.jpg");
+  /* background-image: url("/assets/login.jpg"); */
   background-size: cover;
 }
 </style>
