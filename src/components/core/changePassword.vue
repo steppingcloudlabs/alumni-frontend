@@ -1,5 +1,5 @@
 <template>
-  <div id="core-login">
+  <div class="fill-height">
     <v-layout row wrap>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
@@ -103,11 +103,4 @@ a {
   background-size: cover;
   position: relative;
 } */
-#core-login {
-  background-image: url("/assets/login.jpg");
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-}
 </style>

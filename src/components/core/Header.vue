@@ -11,7 +11,7 @@
       style="background:#1A1A1D"
     >
       <v-flex xs5>
-        <img src="@/assets/logo.png" height="50" class="my-2" />
+        <img src="@/assets/alumx-logo-1.png" height="50" class="my-2" />
       </v-flex>
       <v-flex xs7 class="text-right">
         <div class="menu-wrapper">

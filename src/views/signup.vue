@@ -1,17 +1,15 @@
 <template>
-  <div id="core-login">
-    <v-content>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
-            <v-card class="elevation-12 white--text" style="background: rgb(0, 0, 0, .5); ">
-              <v-toolbar outlined="white" style="background: rgb(0, 0, 0, .5)">
-                <v-toolbar-title class="text-center" style="color:white">SignUp</v-toolbar-title>
-                <div class="flex-grow-1"></div>
-              </v-toolbar>
-              <v-card-text>
-                <v-form ref="signup" v-model="valid" lazy-validation>
-                  <!-- <v-col>
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="4">
+        <v-card class="elevation-12 white--text" style="background: rgb(0, 0, 0, .5); ">
+          <v-toolbar outlined="white" style="background: rgb(0, 0, 0, .5)">
+            <v-toolbar-title class="text-center" style="color:white">SignUp</v-toolbar-title>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+          <v-card-text>
+            <v-form ref="signup" v-model="valid" lazy-validation>
+              <!-- <v-col>
                       <v-text-field
                         dark
                         label="Companyname"
@@ -21,83 +19,78 @@
                         v-model="Companyname"
                     ></v-text-field>
                   
-                  </v-col>-->
-                  <v-text-field
-                    dark
-                    label="EmployeeId"
-                    name="EmployeeId"
-                    prepend-icon="person"
-                    type="text"
-                    v-model="EmployeeId"
-                    class="white--text"
-                    :rules="employeeRules"
-                  ></v-text-field>
-                  <v-text-field
-                    dark
-                    label="Email"
-                    name="login"
-                    prepend-icon="person"
-                    type="text"
-                    v-model="email"
-                    :rules="emailRules"
-                    class="white--text"
-                  ></v-text-field>
+              </v-col>-->
+              <v-text-field
+                dark
+                label="EmployeeId"
+                name="EmployeeId"
+                prepend-icon="person"
+                type="text"
+                v-model="EmployeeId"
+                class="white--text"
+                :rules="employeeRules"
+              ></v-text-field>
+              <v-text-field
+                dark
+                label="Email"
+                name="login"
+                prepend-icon="person"
+                type="text"
+                v-model="email"
+                :rules="emailRules"
+                class="white--text"
+              ></v-text-field>
 
-                  <v-text-field
-                    dark
-                    id="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="lock"
-                    v-model="password"
-                    :rules="passwordRules"
-                    class="white--text"
-                    :type="show1 ? 'text' : 'password'"
-                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
-                    @click:append="show1 = !show1"
-                  ></v-text-field>
-                  <v-text-field
-                    dark
-                    id="Cnfpassword"
-                    label="Confirm Password"
-                    name="Cnfpassword"
-                    prepend-icon="lock"
-                    type="password"
-                    v-model="Cnfpassword"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  outlined
-                  block
-                  @click="signup"
-                  class="button"
-                  style="background: rgb(0, 0, 0, 0);color:white"
-                >Signup</v-btn>
-              </v-card-actions>
-              <v-row class="text center">
-                <v-card-text style="color:white">
-                  <v-icon style="color:white; margin-right:5px">person</v-icon>Already have account?
-                  <router-link to="/login" style="color:#66FCF1">LogIn</router-link>
-                  <v-list-item link>
-                    <v-icon style="color:white; margin-right:5px">mdi-help-circle-outline</v-icon>
-                    <v-flex xs3>
-                      <v-list-item-subtitle style="color:white">Need Help?</v-list-item-subtitle>
-                    </v-flex>
-                    <v-flex xs6>
-                      <v-list-item-subtitle style="color:#66FCF1" @click="dialog=true">Contact Us</v-list-item-subtitle>
-                    </v-flex>
-                  </v-list-item>
-                </v-card-text>
-              </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-    <Contact :dialog="dialog" @closeAskHrDialog="closeAskHrDialog" />
-  </div>
+              <v-text-field
+                dark
+                id="password"
+                label="Password"
+                name="password"
+                prepend-icon="lock"
+                v-model="password"
+                :rules="passwordRules"
+                class="white--text"
+                :type="show1 ? 'text' : 'password'"
+                :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                @click:append="show1 = !show1"
+              ></v-text-field>
+              <v-text-field
+                dark
+                id="Cnfpassword"
+                label="Confirm Password"
+                name="Cnfpassword"
+                prepend-icon="lock"
+                type="password"
+                v-model="Cnfpassword"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              outlined
+              block
+              @click="signup"
+              class="button"
+              style="background: rgb(0, 0, 0, 0);color:white"
+            >Signup</v-btn>
+          </v-card-actions>
+          <v-row class>
+            <v-card-text style="color:white" class="text-center">
+              <v-icon style="color:white; margin-right:5px">person</v-icon>Already have account?
+              <router-link to="/login" style="color:#66FCF1">Login</router-link>
+            </v-card-text>
+            <v-card-text style="color:white" class="text-center pt-0 mb-5">
+              <v-icon style="color:white; margin-right:5px">mdi-help-circle-outline</v-icon>Need Help?
+              <a style="color:#66FCF1" @click="dialog=true">Contact Us</a>
+            </v-card-text>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <Contact :dialog="dialog" @closeAskHrDialog="closeAskHrDialog" />
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -161,17 +154,14 @@ export default {
             userid: this.EmployeeId
           })
           .then(response => {
-            if (
-              response &&
-              response.result &&
-              response.status == 200
-            ) {
+            if (response && response.result && response.status == 200) {
               this.$store.commit("closeProgressBar", {});
               console.log(response);
               this.$router.push({ path: "/login" });
             } else if (
-              response.result == "User is not an Alumni" ||response.result == "UserId already Exists" &&
-              response.status == 400
+              response.result == "User is not an Alumni" ||
+              (response.result == "UserId already Exists" &&
+                response.status == 400)
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
@@ -214,7 +204,7 @@ export default {
   }
 };
 </script>
-<style scoped  >
+<style  >
 a {
   text-decoration: none;
 }
@@ -233,12 +223,5 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: white !important;
-}
-#core-login {
-  background-image: url("../assets/login.jpg");
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
 }
 </style>

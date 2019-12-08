@@ -19,7 +19,6 @@
                   :append-icon="show2 ? 'visibility' : 'visibility_off'"
                   @click:append="show2 = !show2"
                   v-model="oldpassword"
-                 
                   dark
                 ></v-text-field>
                 <v-text-field
@@ -45,14 +44,14 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-                <p class="text-center">
-              <v-btn
-                outlined
-                v-on:
-                style="background: rgb(0, 0, 0, 0);color:white"
-              >Change password</v-btn>
-             <v-btn  outlined v-on: style="background: rgb(0, 0, 0, 0);color:white">Cancel</v-btn> 
-                </p>
+              <p class="text-center">
+                <v-btn
+                  outlined
+                  v-on:
+                  style="background: rgb(0, 0, 0, 0);color:white"
+                >Change password</v-btn>
+                <v-btn outlined v-on: style="background: rgb(0, 0, 0, 0);color:white">Cancel</v-btn>
+              </p>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -68,12 +67,12 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
-        show2:false,
+      show2: false,
       show1: false,
       valid: true,
       cnfpassword: null,
       password: null,
-      oldpassword:null,
+      oldpassword: null,
 
       passwordRules: [
         v => !!v || "Password is required",
@@ -118,11 +117,4 @@ a {
   background-size: cover;
   position: relative;
 } */
-#core-login {
-  background-image: url("/assets/login.jpg");
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-}
 </style>

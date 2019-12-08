@@ -68,12 +68,10 @@
 import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
 
-import { stringify } from "querystring";
 export default {
   components: {
     statCards,
     AddAlumni,
-    profile
   },
   watch: {
     dialog() {
