@@ -1,12 +1,11 @@
 <template>
   <div>
     <div v-if="!empty">
-      <v-layout row wrap mt-4 v-for="(item,i) in getNewsList" :key="i">
-        <v-flex xs4>
-          <v-avatar tile size="200">
-            <v-img v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>
-            <v-img v-else src="@/assets/news.png"></v-img>
-          </v-avatar>
+    
+      <v-layout row wrap mt-4 px-5 v-for="(item,i) in getNewsList" :key="i">
+        <v-flex xs4 class="px-5">
+          <v-img height="200px" v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>
+          <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
           <v-card-title class="pt-0">{{getNewsList[i].title}}</v-card-title>
@@ -124,9 +123,7 @@ export default {
       let actionToCall = "getAllNews";
       this.$store
         .dispatch("adminModule/getMoreNews", {
-          payload:{ limit: this.limit,
-          skip: this.skip}
-
+          payload: { limit: this.limit, skip: this.skip }
         })
         .then(response => {
           if (

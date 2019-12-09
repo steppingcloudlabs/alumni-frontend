@@ -2,15 +2,15 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <v-card outlined>
-          <v-card-title>
-            <p>FAQ</p>
+        <v-card outlined dark>
+          <v-toolbar>
+            <v-toolbar-title>FAQ</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn class="button" color="primary" dark @click="openAddFaqDialog">
               <i class="fas fa-plus-circle"></i>Upload FAQ
             </v-btn>
-          </v-card-title>
-          <v-card v-for="(item,i) in getFaqList" :key="i">
+          </v-toolbar>
+          <div v-for="(item,i) in getFaqList" :key="i">
             <v-list-item three-line>
               <v-list-item-content>
                 <v-flex xs10>
@@ -28,7 +28,7 @@
                 <v-list-item-subtitle>{{item.answer}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-          </v-card>
+          </div>
         </v-card>
       </v-col>
     </v-row>

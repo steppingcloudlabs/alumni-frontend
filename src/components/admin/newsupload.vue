@@ -1,10 +1,13 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12">
-        <v-card outlined>
-          <v-card-title>
-            <p>News</p>
+      <v-col cols="12" class="ml-0">
+        <v-card outlined dark>
+            <v-toolbar>
+         
+          <v-toolbar-title>
+            News
+          </v-toolbar-title>
             <v-spacer></v-spacer>
 
             <v-btn
@@ -27,15 +30,18 @@
                 <i class="fas fa-plus-circle mr-2"></i>Add News
               </span>
             </v-btn>
-          </v-card-title>
+         
+            </v-toolbar>
           <News />
         </v-card>
       </v-col>
 
-      <v-col cols="12">
-        <v-card outlined>
-          <v-card-title>
-            <p>Events</p>
+      <v-col cols="12" class="ml-0">
+        <v-card outlined dark>
+         <v-toolbar>
+          <v-toolbar-title>
+            Events
+          </v-toolbar-title>
             <v-spacer></v-spacer>
 
             <v-btn
@@ -57,7 +63,7 @@
                 <i class="fas fa-plus-circle mr-2"></i>Add Events
               </span>
             </v-btn>
-          </v-card-title>
+         </v-toolbar>
           <event />
         </v-card>
       </v-col>
@@ -144,6 +150,10 @@ export default {
 };
 </script>
 <style>
+.row {
+    margin-left: 2px;
+    margin-right: initial;
+}
 .button {
   margin-bottom: 10px;
 }

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <v-img height="200px" src="@/assets/back5.jpg"></v-img>
+  <v-card class="ml-3 pa-2" style="background-color:#1A1A1D;">
     <v-data-table
       :headers="headers"
       :items="getAlumniList"
@@ -11,11 +10,11 @@
       multi-sort
       height="auto"
       dark
-      style="background:#1A1A1D;border-bottom:none;"
+      style="background:#1A1A1D; border-bottom:none;"
     >
       <template v-slot:top>
-        <v-toolbar elevation="0" color="#1A1A1D">
-          <v-toolbar-title style="font-family: Raleway;color:#5097DD">Upload Pending Documents</v-toolbar-title>
+        <v-toolbar color="#1A1A1D">
+          <v-toolbar-title style="color:white">Upload Pending Documents</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -36,7 +35,7 @@
       </template>
     </v-data-table>
     <UploadDialog :dialog="dialog" :empId="empid" @closeDocumentDialog="closeDocumentDialog" />
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -50,11 +49,10 @@ export default {
     this.loader = true;
     this.$store
       .dispatch("adminModule/getAllAlumni", {
-        payload:{
-           skip: 0,
-        limit: 9
+        payload: {
+          skip: 0,
+          limit: 9
         }
-      
       })
       .then(response => {
         this.loader = false;
@@ -82,12 +80,11 @@ export default {
     findData(data) {
       this.loader = true;
       let body = {
-        payload:{
-         skip: 0,
-        limit: 9,
-        keyword: data
+        payload: {
+          skip: 0,
+          limit: 9,
+          keyword: data
         }
-      
       };
       this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
         this.loader = false;

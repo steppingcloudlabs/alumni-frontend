@@ -131,8 +131,5 @@ export default {
   margin-left: 0px;
   margin-right: unset;
 }
-.status {
-  margin-left: -13%;
-  margin-right: 13%;
-}
+
 </style>

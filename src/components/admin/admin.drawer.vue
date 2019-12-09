@@ -2,9 +2,8 @@
   <v-navigation-drawer
     id="app-drawer"
     v-model="inputValue"
-    src="@/assets/back1.jpg"
     app
-    color="grey darken-2"
+    color="rgb(35,43,43)"
     dark
     floating
     mobile-break-point="991"

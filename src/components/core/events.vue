@@ -180,7 +180,7 @@ div.item {
   text-align: center;
 }
 .events {
-  margin-left: -6%;
+  margin-left: unset;
   margin-right: unset;
 }
 /* .events-group-container .v-sheet .v-slide-group__prev {

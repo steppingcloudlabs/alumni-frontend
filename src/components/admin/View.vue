@@ -1,6 +1,6 @@
 <template>
   <v-content class="grey lighten-3">
-    <div id="core-view">
+    <div id="core-view" style="background: rgb(35, 43, 43)">
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>

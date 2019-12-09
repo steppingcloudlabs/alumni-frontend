@@ -1,13 +1,19 @@
 <template>
   <div>
-    <v-toolbar-title>Emails</v-toolbar-title>
+       <v-toolbar elevation="3" color="#424242" width="85%" >
+          <v-toolbar-title>
+            News
+          </v-toolbar-title>
+      </v-toolbar>
     <v-card
       width="85%"
       min-height="150px"
-      class="mt-3 px-3"
-      style="margin-left: auto; margin-right: auto; padding: 20px;"
+      class="px-3"
+      
+      dark
     >
-      <v-layout v-for="(item, i) in items" :key="i">
+   
+      <v-layout  v-for="(item, i) in items" :key="i">
         <v-card-title class="subtitle-2 mb-1 pl-4 user-profile-heading" style="font-weight: bold;">
           {{item.title}}
           <v-spacer></v-spacer>

@@ -2,11 +2,9 @@
   <div>
     <div v-if="!this.empty">
       <v-layout row wrap mt-4 v-for="(item,i) in count" :key="i">
-        <v-flex xs4>
-          <v-avatar tile size="200">
-            <v-img v-if="getEventList[i].photo" :src="getEventList[i].photo"></v-img>
-            <v-img v-else src="@/assets/news.png"></v-img>
-          </v-avatar>
+        <v-flex xs4 class="px-5">
+          <v-img height="200px" v-if="getEventList[i].photo" :src="getEventList[i].photo"></v-img>
+          <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
           <v-card-title class="pt-0">{{getEventList[i].title}}</v-card-title>

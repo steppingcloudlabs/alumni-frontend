@@ -5,11 +5,7 @@
     <v-spacer />
 
     <v-toolbar-items>
-      <v-img
-        src="@/assets/alumx-logo-1.png" height="50" class="my-2 ml-3"
-        aspect-ratio="1"
-        
-      ></v-img>
+      <img src="@/assets/alumx-logo-1.png" style="height: 50px" class="my-2" />
       <v-layout row wrap align-center>
         <v-flex xs12>
           <SearchAlumni />

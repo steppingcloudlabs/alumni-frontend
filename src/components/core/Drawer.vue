@@ -14,7 +14,7 @@
       <v-img v-bind="attrs" gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)" />
     </template>
 
-    <v-list-item two-line>
+    <v-list-item two-line style="height: 75px">
       <img width="150px" class="mx-auto" src="@/assets/logo.png" />
     </v-list-item>
     <v-divider class="mx-1 mb-1" />
