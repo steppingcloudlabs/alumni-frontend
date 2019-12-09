@@ -68,13 +68,13 @@
               <v-layout row wrap style="margin-left:unset;">
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue">mdi-map-marker</v-icon>
+                    <v-icon color="blue"  v-if="item.location">mdi-map-marker</v-icon>
                     {{item.location}}
                   </v-card-text>
                 </v-flex>
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue">mdi-domain</v-icon>
+                    <v-icon color="blue"  v-if="item.department">mdi-domain</v-icon>
                     {{item.department}}
                   </v-card-text>
                 </v-flex>

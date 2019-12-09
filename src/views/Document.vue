@@ -6,22 +6,24 @@
     <br />
     <br />
     <v-layout row wrap mt-4 ml-5 mr-5>
-      <v-flex xs4 mt-4 v-for="(item,i) in cards" :key="i">
-        <v-card class="mx-auto" max-width="350" min-height="300px">
+      <v-flex xs12 sm6 md6 lg4 pa-3 mt-4 v-for="(item,i) in cards" :key="i">
+        <v-card class="mx-auto" max-width="350" min-height="380px">
+          <v-toolbar dark color="#1DB0ED">
+          <v-toolbar-title>{{item.title}}</v-toolbar-title>
+           <v-spacer></v-spacer>
+           
+         </v-toolbar>
           <v-img
             v-if="status[i]=='Available'"
             class="white--text align-end"
             height="200px"
             :src="images[0].back"
-          >
-            <v-card-title>{{item.title}}</v-card-title>
+          >    
           </v-img>
-          <v-img v-else class="align-end" height="200px" :src="images[1].back">
-            <v-card-title>{{item.title}}</v-card-title>
-          </v-img>
+          <v-img v-else class="align-end" height="200px" :src="images[1].back"> </v-img>
 
-          <v-card-text class="text--primary" v-if="status[i]=='Available'" >
-            <div >Your Document is ready for download</div>
+          <v-card-text class="text--primary" v-if="status[i]=='Available'">
+            <div>Your Document is ready for download</div>
           </v-card-text>
           <v-card-text class="text--primary" v-else>
             <div>
@@ -147,17 +149,10 @@ export default {
         { title: "Pf Clearance", code: 97 },
         { title: "Experience Letter", code: 97 }
       ],
-      status: [
-        "Available",
-        " Not Available",
-        "Available",
-        "Available",
-        " Not Available",
-        "Available"
-      ],
+      status: [],
       images: [
-        { back: require("@/assets/documentavailable1.gif") },
-        { back: require("@/assets/documentwaiting.gif") }
+        { back: require("@/assets/documentavailable3.gif") },
+        { back: require("@/assets/documentwaiting3.gif") }
       ],
       progress: true
       // user: {
@@ -208,7 +203,7 @@ export default {
   beforeMount() {
     this.getAlumniData();
     this.getStatus();
-    // this.getDocumentStatus();
+    this.getDocumentStatus();
   },
 
   computed: {
@@ -265,17 +260,17 @@ export default {
       this.$store.dispatch("userModule/getStatus", data).then(response => {
         this.progress = false;
       });
+    },
+    getDocumentStatus(){
+
+        this.status[0]=this.DocumentStatus.form16
+        this.status[1]=this.DocumentStatus.fnfStatus
+        this.status[2]=this.DocumentStatus.salarycurrent
+        this.status[3]=this.DocumentStatus.fnfStatus
+        this.status[4]=this.DocumentStatus.pfTransferStatus
+        this.status[5]=this.DocumentStatus.fnfStatus
+
     }
-    // getDocumentStatus(){
-
-    //     this.status[0]=this.DocumentStatus.form16
-    //     this.status[1]=this.DocumentStatus.fnfStatus
-    //     this.status[2]=this.DocumentStatus.salarycurrent
-    //     this.status[3]=this.DocumentStatus.fnfStatus
-    //     this.status[4]=this.DocumentStatus.pfTransferStatus
-    //     this.status[5]=this.DocumentStatus.fnfStatus
-
-    // }
   }
   // watch: {
   //   user() {

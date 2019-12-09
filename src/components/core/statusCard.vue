@@ -1,10 +1,10 @@
 <template>
   <div class="status">
     <v-card-title style="color:white; text-align:center">Document Status</v-card-title>
-    <v-divider class="mr-5 my-5" style="background:rgb(241, 135, 16);"></v-divider>
+    <v-divider class="mr-5 mb-5" style="background:rgb(241, 135, 16);"></v-divider>
     <v-row class="alert">
       <v-alert
-        min-width="250px"
+        min-width="100%"
         min-height="50px"
         dense
         outlined
@@ -14,7 +14,7 @@
         Form 16 is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="200px" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
         Form 16 is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
@@ -22,7 +22,7 @@
 
     <v-row class="alert">
       <v-alert
-        min-width="200px"
+        min-width="100%"
         min-height="50px"
         dense
         outlined
@@ -32,14 +32,14 @@
         Full n Final is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="200px" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
         Full n Final is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>
     <v-row class="alert">
       <v-alert
-        min-width="200px"
+        min-width="100%"
         min-height="50px"
         dense
         outlined
@@ -49,15 +49,14 @@
         Salary Slip is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="200px" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
         Salary Slip is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>
-    <v-row class="alert"
-    >
+    <v-row class="alert">
       <v-alert
-        min-width="200px"
+        min-width="100%"
         min-height="50px"
         dense
         outlined
@@ -67,7 +66,7 @@
         pf Document is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="200px" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
         pf Clearance is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
@@ -128,12 +127,12 @@ export default {
 </script>
 
 <style scoped>
-.alert{
-   margin-left: 0px;
-  margin-right:unset;
+.alert {
+  margin-left: 0px;
+  margin-right: unset;
 }
-.status{
-   margin-left: -13%;
-  margin-right:13%;
+.status {
+  margin-left: -13%;
+  margin-right: 13%;
 }
 </style>

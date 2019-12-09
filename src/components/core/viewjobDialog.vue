@@ -6,6 +6,12 @@
           <v-btn icon dark @click="closeDialog">
             <v-icon>mdi-close</v-icon>
           </v-btn>
+         
+          <v-toolbar-title>Job Description</v-toolbar-title>
+           <v-spacer></v-spacer>
+           <v-toolbar-items>
+            <v-btn dark text >Apply</v-btn>
+          </v-toolbar-items>
          </v-toolbar>
           <v-card-title>{{viewJobData.jobTitle}}</v-card-title>
 
@@ -14,12 +20,12 @@
         align="center"
         class="mx-0"
       >
-         <v-icon color="blue">mdi-map-marker</v-icon>
+         <v-icon color="blue" v-if="viewJobData.location">mdi-map-marker</v-icon>
         <div class="grey--text ml-4"> {{viewJobData.location}}</div>
       </v-row>
 
       <div class="my-4 subtitle-1 black--text">
-        <v-icon color="blue">mdi-domain</v-icon>
+        <v-icon color="blue" v-if="viewJobData.department">mdi-domain</v-icon>
                     {{viewJobData.department}}
       </div>
        <div class="my-4 subtitle-1 black--text">

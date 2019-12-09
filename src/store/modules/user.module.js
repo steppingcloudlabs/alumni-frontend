@@ -381,6 +381,31 @@ export default {
 
             })
         },
+        resetPassword: ({
+            state,
+            commit
+        }, data) => {
+            // addTokenToPayload(data)
+            console.log(data.token)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://localhost:4000/user/reset/'+data.token,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
 
     }
 }

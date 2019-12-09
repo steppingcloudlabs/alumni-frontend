@@ -6,11 +6,9 @@
 
     <v-toolbar-items>
       <v-img
-        src="@/assets/alum.png"
+        src="@/assets/alumx-logo-1.png" height="50" class="my-2 ml-3"
         aspect-ratio="1"
-        class="grey lighten-2"
-        max-width="150"
-        max-height="100"
+        
       ></v-img>
       <v-layout row wrap align-center>
         <v-flex xs12>

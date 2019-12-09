@@ -27,153 +27,154 @@ Vue.use(Router)
 const router = new Router({
   base: process.env.BASE_URL,
   routes: [{
-    path: '/',
-    name: 'home',
-    component: Home,
-    children: [{
-      path: '/home',
-      name: 'hompage',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: HomePage
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+      path: '/',
+      name: 'home',
+      component: Home,
+      children: [{
+          path: '/home',
+          name: 'hompage',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: HomePage
+          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+        },
+        {
+          path: '/login',
+          name: 'signin',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: signin
+          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+        },
+        {
+          path: '/signup',
+          name: 'signup',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: signup
+          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+        },
+        {
+          path: '/forgotpassword',
+          name: 'resetpassword',
+          component: resetpassword
+        },
+        {
+          path: '/resetpassword/:token',
+          name: 'changepassword',
+          component: changepassword
+        }
+      ]
     },
     {
-      path: '/login',
-      name: 'signin',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: signin
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: signup
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-    },
-    {
-      path: '/forgotpassword',
-      name: 'resetpassword',
-      component: resetpassword
-    },
-    {
-      path: '/resetpassword',
-      name: 'changepassword',
-      component: changepassword
-    }]
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: portal,
-    children: [{
-      path: 'changepassword',
-      // Relative to /src/views
-      component: updatepassword
-    },
-    {
-      path: 'dashboard',
-      // Relative to /src/views
-      component: Dashboard
-    },
-    {
-      path: 'query',
-      // Relative to /src/views
-      component: AskHr
-    },
-    {
-      path: 'search/:userId',
-      // Relative to /src/views
-      component: searchProfile
-    },
-    {
-      path: 'user-profile',
-      name: 'Profile',
-      component: UserProfile
-    },
+      path: '/profile',
+      name: 'profile',
+      component: portal,
+      children: [{
+          path: 'changepassword',
+          // Relative to /src/views
+          component: updatepassword
+        },
+        {
+          path: 'dashboard',
+          // Relative to /src/views
+          component: Dashboard
+        },
+        {
+          path: 'query',
+          // Relative to /src/views
+          component: AskHr
+        },
+        {
+          path: 'search/:userId',
+          // Relative to /src/views
+          component: searchProfile
+        },
+        {
+          path: 'user-profile',
+          name: 'Profile',
+          component: UserProfile
+        },
 
-    {
-      path: 'maps',
-      component: Maps
-    },
-    {
-      path: 'careers',
-      name: 'careers',
-      component: careers
-    },
-    {
-      path: 'notification',
-      name: 'notification',
-      component: notification
-    },
-    {
-      path: 'dashboard',
-      name: 'dashboard',
-      component: Dashboard
-    },
-    {
-      path: 'document',
-      name: 'document',
-      component: Document
-    }
-
-
-    ]
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    component: admin,
-    children: [{
-      path: 'dashboard',
-      // Relative to /src/views
-      component: dashboard
-    },
-    {
-      path: 'newsupload',
-      name: '',
-      component: newsupload
-    },
-    {
-      path: 'update',
-      component: FaQ
-    },
-    {
-      path: 'document',
-
-      component: document
-    },
-    {
-      path: 'notification',
-
-      component: notification
-    },
-    {
-      path: 'dashboard',
-
-      component: Dashboard
-    },
-    {
-      path: 'document',
-
-      component: Document
-    },
-    {
-      path: 'settings',
-
-      component: companySetting
-    }
+        {
+          path: 'maps',
+          component: Maps
+        },
+        {
+          path: 'careers',
+          name: 'careers',
+          component: careers
+        },
+        {
+          path: 'notification',
+          name: 'notification',
+          component: notification
+        },
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: Dashboard
+        },
+        {
+          path: 'document',
+          name: 'document',
+          component: Document
+        }
 
 
+      ]
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin,
+      children: [{
+          path: 'dashboard',
+          // Relative to /src/views
+          component: dashboard
+        },
+        {
+          path: 'newsupload',
+          name: '',
+          component: newsupload
+        },
+        {
+          path: 'update',
+          component: FaQ
+        },
+        {
+          path: 'document',
 
-    ]
-  },
+          component: document
+        },
+        {
+          path: 'notification',
+
+          component: notification
+        },
+        {
+          path: 'dashboard',
+
+          component: Dashboard
+        },
+        {
+          path: 'document',
+
+          component: Document
+        },
+        {
+          path: 'settings',
+
+          component: companySetting
+        }
+
+
+
+      ]
+    },
 
 
 
@@ -190,20 +191,17 @@ router.beforeResolve((to, from, next) => {
       path: '/home'
     })
     return
-  }
-  else if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/admin') > -1) {
+  } else if (!sessionStorage.getItem('AccessToken') && to.fullPath.indexOf('/admin') > -1) {
     next({
       path: '/home'
     })
     return
-  }
-  else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type') == '21232f297a57a5a743894a0e4a801fc3' && to.fullPath.indexOf('/profile') > -1) {
+  } else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type') == '21232f297a57a5a743894a0e4a801fc3' && to.fullPath.indexOf('/profile') > -1) {
     next({
       path: '/admin/dashboard'
     })
     return
-  }
-  else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type') == 'ee11cbb19052e40b07aac0ca060c23ee' && to.fullPath.indexOf('/admin') > -1) {
+  } else if (sessionStorage.getItem('AccessToken') && sessionStorage.getItem('Type') == 'ee11cbb19052e40b07aac0ca060c23ee' && to.fullPath.indexOf('/admin') > -1) {
     next({
       path: '/profile/dashboard'
     })

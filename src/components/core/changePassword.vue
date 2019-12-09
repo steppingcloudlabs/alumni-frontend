@@ -38,6 +38,7 @@
                 outlined
                 v-on:
                 style="background: rgb(0, 0, 0, 0);color:white"
+                @click="savePassword"
               >Change password</v-btn>
               <!-- <v-btn block outlined v-on: style="background: rgb(0, 0, 0, 0);color:white">Cancel</v-btn> -->
             </v-card-actions>
@@ -57,14 +58,16 @@ export default {
     return {
       show1: false,
       valid: true,
-      cnfpassword: null,
-      password: null,
+      cnfpassword:"",
+      password:"",
 
       passwordRules: [
         v => !!v || "Password is required",
-        v =>
-          /.(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(v) ||
-          "Password must contain one uppercase letter, one lowercase letter and one number",
+         v =>/.(?=.*[A-Z]*)/.test(v) ||
+          "Password must contain one uppercase letter",
+        v=>/.(?=.*[a-z]*)/.test(v)|| "Password must contain one Lowercase letter",
+       v=>/.(?=.*\d*)/.test(v)|| "Password must contain one Number letter",
+        
         v => v.length > 6 || "Password must be greater than 6 characters"
       ]
     };
@@ -82,8 +85,23 @@ export default {
   },
   methods: {
     savePassword() {
+       if (this.password != this.Cnfpassword) {
+        this.$store.commit("closeProgressBar", {});
+        this.$store.commit("showSnackbar", {
+          color: "red",
+          duration: 1000,
+          message: "Password Doesn't Match",
+          heading: "Error"
+        });
+       }
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
+        this.$store
+      .dispatch("userModule/resetPassword", {token:this.$route.params.token ,payloadbody:{newpassword:this.password }}) .then(response =>{
+        this.$store.commit("closeProgressBar", {});
+        this.$router.push({ path: "/login" });
+      })
+
       }
     }
   }
