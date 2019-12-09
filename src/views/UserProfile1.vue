@@ -29,7 +29,10 @@
                 <p
                   class="caption"
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >Worked As-{{user.position}}</p>
+                >
+                  Worked As-
+                  <span class="font-weight-bold">{{user.position}}</span>
+                </p>
                 <p>
                   <v-icon color="blue">mdi-linkedin</v-icon>
                 </p>
@@ -393,7 +396,6 @@ export default {
   },
   mounted() {
     this.getStatus();
-   
   },
   computed: {
     // userSkills() {
@@ -404,14 +406,13 @@ export default {
     },
 
     DocumentStatus: {
-        get() {
-       return this.$store.getters["userModule/getStatusData"]
+      get() {
+        return this.$store.getters["userModule/getStatusData"];
       },
       set(data) {
         this.$store.commit("userModule/setStatusData", this.data);
       }
-      
-     },
+    },
     FnfStatus() {
       return this.$store.getters["userModule/getStatusData"]
         ? this.$store.getters["userModule/getStatusData"].fnfStatus
@@ -435,7 +436,7 @@ export default {
       this.filteredArray = this.skilled.filter(function(x) {
         return tempSkill.indexOf(x) < 0;
       });
-      console.log(this.filteredArray)
+      console.log(this.filteredArray);
     },
     deleteSkill(data) {
       let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
@@ -467,11 +468,10 @@ export default {
     },
 
     addSkill() {
-       if(this.userSkills.length)
-    {
-     this.recommendedSkill();
-    }
-     
+      if (this.userSkills.length) {
+        this.recommendedSkill();
+      }
+
       console.log(this.skill);
       this.showskill = true;
       if (!this.skill.trim()) {
