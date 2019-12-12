@@ -14,30 +14,38 @@
               </p>
             </div>
             <div style="text-align:center">
-              <v-card-text
-                class="headline py-1"
-                style="line-height:1px;margin-left:0px !important;"
-              >
-                <p
-                  style="color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
-                >{{user.firstname}} {{user.lastname}}</p>
-              </v-card-text>
-              <v-card-text
-                class="subtitle"
-                style="margin-left: 0px!important;line-height: 2px !important;"
-              >
-                <p
-                  class="caption"
-                  style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >
-                  Worked As-
-                  <span class="font-weight-bold">{{user.position}}</span>
-                </p>
-                <p>
-                  <v-icon color="blue">mdi-linkedin</v-icon>
-                </p>
-                <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
-              </v-card-text>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  <v-card-text
+                    class="headline py-1"
+                    style="line-height:1px;margin-left:0px !important; color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
+                  >{{user.firstname}} {{user.lastname}}</v-card-text>
+                </v-flex>
+                <v-flex xs12 class="mt-2">
+                  <v-card-text
+                    class="subtitle"
+                    style="margin-left: 0px!important; line-height: 2px !important;"
+                  >
+                    Worked As-
+                    <span class="font-weight-bold">{{user.position}}</span>
+                  </v-card-text>
+                </v-flex>
+                <v-flex xs12>
+                  <AddEditLinkedInLink
+                    :linkedInProfileLink="user.linkedInProfileLink"
+                    @saveProfileLink="saveProfileLink"
+                  ></AddEditLinkedInLink>
+                </v-flex>
+                <v-flex xs12>
+                  <v-card-text
+                    class="subtitle"
+                    style="margin-left: 0px!important;line-height: 2px !important;"
+                  >
+                    <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
+                  </v-card-text>
+                </v-flex>
+              </v-layout>
+
               <!-- <v-card-text class="py-5">
                 <p>
                   <v-btn
@@ -339,13 +347,15 @@
 <script>
 import timeline from "@/components/material/Timeline.vue";
 import updateContact from "@/components/core/updatecontactDialog.vue";
+import AddEditLinkedInLink from "@/views/AddEditLinkedInLink";
 import moment from "moment";
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 
 export default {
   components: {
     timeline,
-    updateContact
+    updateContact,
+    AddEditLinkedInLink
   },
   data() {
     return {
@@ -382,7 +392,9 @@ export default {
       },
       progress: true,
       userSkills: [],
-      filteredArray: []
+      filteredArray: [],
+      linkedInProfileLink: "",
+      showLinkedInInput: false
     };
   },
   beforeMount() {
@@ -431,6 +443,25 @@ export default {
   },
 
   methods: {
+    saveProfileLink(data) {
+      let datam = {
+        payload: {
+          user_id: this.user.employeeId,
+          linkedInProfileLink: data
+        }
+      };
+      this.$store.dispatch("userModule/updateData", datam).then(response => {
+        if (response.data.status == 200) {
+          this.$store.commit("showSnackbar", {
+            message: "Skill deleted successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+          this.user.linkedInProfileLink = data;
+        }
+      });
+    },
     recommendedSkill() {
       let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
       this.filteredArray = this.skilled.filter(function(x) {
@@ -576,8 +607,8 @@ export default {
         phone: this.user.mobile,
         email: this.user.email,
         city: this.user.city,
-        address:this.user.address,
-        state:this.user.state
+        address: this.user.address,
+        state: this.user.state
       };
       this.$store.commit("userModule/showContactDialog", contactData);
     },
