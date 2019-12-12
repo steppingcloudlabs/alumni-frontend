@@ -514,9 +514,9 @@ export default {
       this.user.employeeId = this.userData.user_id;
       this.user.managerid = this.userData.manager_job_information;
       this.user.gender = this.userData.gender;
-      // this.user.DOB=moment
-      //   .unix(this.userData.date_of_birth / 1000)
-      //   .format("LL");
+      this.user.DOB = moment
+        .unix(this.userData.date_of_birth / 1000)
+        .format("LL");
 
       this.user.relieving = moment
         .unix(this.userData.relieving_date / 1000)
@@ -575,7 +575,9 @@ export default {
       let contactData = {
         phone: this.user.mobile,
         email: this.user.email,
-        address: this.user.city
+        city: this.user.city,
+        address:this.user.address,
+        state:this.user.state
       };
       this.$store.commit("userModule/showContactDialog", contactData);
     },

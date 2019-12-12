@@ -97,7 +97,7 @@ export default {
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
         this.$store
-      .dispatch("userModule/resetPassword", {token:this.$route.params.token ,payloadbody:{newpassword:this.password }}) .then(response =>{
+      .dispatch("userModule/resetPassword", {resettoken:this.$route.params.token ,payloadbody:{newpassword:this.password }}) .then(response =>{
         this.$store.commit("closeProgressBar", {});
         this.$router.push({ path: "/login" });
       })

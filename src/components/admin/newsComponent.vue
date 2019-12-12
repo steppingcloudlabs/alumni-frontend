@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="!empty">
-    
       <v-layout row wrap mt-4 px-5 v-for="(item,i) in getNewsList" :key="i">
         <v-flex xs4 class="px-5">
           <v-img height="200px" v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>

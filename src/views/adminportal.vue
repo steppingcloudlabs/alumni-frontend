@@ -18,9 +18,7 @@
   }
 </script>
 <style >
-.v-content__wrap{
-/* background:#151515 !important */
-}
+
 
 </style>
 

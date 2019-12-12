@@ -22,7 +22,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="date"
+                      v-model="alumni.date_of_birth"
                       label="Date of Birth"
                       prepend-icon="event"
                       readonly
@@ -30,20 +30,27 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date"
+                    v-model="alumni.date_of_birth"
                     @input="menu2 = false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
                 </v-menu>
               </v-col>
               <v-col cols="12" md="6">
-                <v-overflow-btn
+                <v-autocomplete
+                  v-model="alumni.gender"
+                  :items="genders"
+                  label="Gender"
+                  placeholder="Select Gender"
+                  required
+                ></v-autocomplete>
+                <!-- <v-overflow-btn
                   class="my-2"
-                  v-model="gender"
+                  v-model="alumni.gender"
                   :items="genders"
                   label="Gender"
                   target="#dropdown-example"
-                ></v-overflow-btn>
+                ></v-overflow-btn>-->
               </v-col>
               <!-- <v-col cols="12" md="6">
                 <v-text-field v-model="alumni.salutation_personal_information" label="Salutation"></v-text-field>
@@ -64,7 +71,7 @@
                 <v-text-field v-model="alumni.phone_number_phone_information" label="Mobile No"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.email" label="Email"></v-text-field>
+                <v-text-field v-model="alumni.personal_email_id" label="Email"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-menu
@@ -77,7 +84,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="date_of_resignation"
+                      v-model="alumni.date_of_resignation"
                       label="Resignation Date"
                       prepend-icon="event"
                       readonly
@@ -85,7 +92,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date_of_resignation"
+                    v-model="alumni.date_of_resignation"
                     @input="menu_resignation=false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
@@ -102,7 +109,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="relieving"
+                      v-model="alumni.data_of_relieving"
                       label="Relieving Date"
                       prepend-icon="event"
                       readonly
@@ -111,7 +118,7 @@
                   </template>
                   <v-date-picker
                     class="picker"
-                    v-model="relieving"
+                    v-model="alumni.data_of_relieving"
                     @input="menu_relieving=false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
@@ -158,27 +165,29 @@ export default {
     closeDialog() {
       console.log(this.gender);
       console.log(parseInt(moment(this.date).format("x")));
-      
+
       this.$store.commit("adminModule/closeAlumniDialog");
     },
     saveDialog() {
       let alumniData = JSON.parse(JSON.stringify(this.alumni));
+
       this.$store.commit("adminModule/closeAlumniDialog");
-      if (this.gender == "Female") {
-        this.salutation_personal_information = "Ms";
+      if (alumniData.gender == "Female") {
+        alumniData.salutation_personal_information = "Ms";
       } else {
-        this.salutation_personal_information = "Mr";
+        alumniData.salutation_personal_information = "Mr";
       }
       let data = {
         payload: {
-          type:'admin',
+          type: "admin",
           user_id: alumniData.user_id,
 
           nationality_personal_information: "IND",
-          salutation_personal_information: this.salutation_personal_information,
+          salutation_personal_information:
+            alumniData.salutation_personal_information,
           city_addresses: alumniData.city_addresses,
-          address:alumniData.address1,
-          state:alumniData.state,
+          address: alumniData.address1,
+          state: alumniData.state,
           phone_number_phone_information:
             alumniData.phone_number_phone_information,
           manager_job_information: alumniData.manager_job_information,
@@ -188,17 +197,16 @@ export default {
           last_name_personal_information:
             alumniData.last_name_personal_information,
           date_of_resignation: parseInt(
-            moment(this.date_of_resignation).format("x")
+            moment(alumniData.date_of_resignation).format("x")
           ),
-          email: alumniData.email,
-          data_of_relieving: parseInt(moment(this.relieving).format("x")),
-          date_of_birth: parseInt(moment(this.date).format("x")),
-          gender: this.gender,
+          personal_email_id: alumniData.email,
+          data_of_relieving: parseInt(moment(alumniData.relieving).format("x")),
+          date_of_birth: parseInt(moment(alumniData.date_of_birth).format("x")),
+          gender: alumniData.gender
         }
-       
       };
-      console.log(data.payload. date_of_birth)
-      console.log(this.date)
+      console.log(data.payload.date_of_birth);
+      console.log(this.date);
       let data1 = {
         user_id: alumniData.user_id,
         first_name_personal_information:
@@ -207,28 +215,46 @@ export default {
           alumniData.last_name_personal_information
       };
       console.log(data);
-      this.$store.dispatch("adminModule/addAlumni", data).then(response => {
-        if (response.data.status == 200) {
-          this.$store.commit(
-            "adminModule/addNewAlumniToList",
-            JSON.parse(JSON.stringify(data))
-          );
-          this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
-          this.$store.commit("showSnackbar", {
-            message: "Alumni Added successfully",
-            color: "success",
-            heading: "Success",
-            duration: 3000
-          });
-        } else if (response.data.result == "User Id already exists") {
-          this.$store.commit("showSnackbar", {
-            message: "Alumni Already Exist",
-            color: "Warning",
-            heading: "Warning",
-            duration: 3000
-          });
-        }
-      });
+      if (this.alumni.openFrom == "New") {
+        this.$store.dispatch("adminModule/addAlumni", data).then(response => {
+          if (response.data.status == 200) {
+            this.$store.commit(
+              "adminModule/addNewAlumniToList",
+              JSON.parse(JSON.stringify(data))
+            );
+            this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+            this.$store.commit("showSnackbar", {
+              message: "Alumni Added successfully",
+              color: "success",
+              heading: "Success",
+              duration: 3000
+            });
+          } else if (response.data.result == "User Id already exists") {
+            this.$store.commit("showSnackbar", {
+              message: "Alumni Already Exist",
+              color: "Warning",
+              heading: "Warning",
+              duration: 3000
+            });
+          }
+        });
+      } else {
+        this.$store.dispatch("userModule/updateData", data).then(response => {
+          if (response.data.status == 200) {
+            // this.$store.commit(
+            //   "adminModule/addNewAlumniToList",
+            //   JSON.parse(JSON.stringify(data))
+            // );
+            this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+            this.$store.commit("showSnackbar", {
+              message: "Alumni updated successfully",
+              color: "success",
+              heading: "Success",
+              duration: 3000
+            });
+          }
+        });
+      }
     }
   },
   computed: {
@@ -259,19 +285,7 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       date_of_resignation: new Date().toISOString().substr(0, 10),
       relieving: new Date().toISOString().substr(0, 10),
-      menu2: false,
-      headers: [
-        {
-          text: "EmployeeId",
-          align: "left",
-          sortable: false,
-          value: "user_id"
-        },
-        { text: "FirstName", value: "FirstName" },
-        { text: "LastName", value: "LastName" },
-        { text: "SalarySlipStatus", value: "SlipStatus" },
-        { text: "Form16Status", value: "Form16Status" }
-      ]
+      menu2: false
     };
   }
 };

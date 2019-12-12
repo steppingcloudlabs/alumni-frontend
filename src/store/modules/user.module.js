@@ -40,6 +40,10 @@ export default {
         setJobs: (state, data) => {
             state.jobs = data;
         },
+        appendJobList: (state, data) => {
+            state.jobs = state.jobs.concat(data)
+        },
+
         setData: (state, data) => {
             state.userData = data;
         },
@@ -356,13 +360,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs?country='+data.location+'&'+'skill='+data.skill,
+                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data:{
-                        token:data['token']
-                    } 
+                    data:data
+                        
+
+                     
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -381,6 +386,42 @@ export default {
 
             })
         },
+        getMoreJob: ({
+            state,
+            commit
+        }, data) => {
+            var data1
+            addTokenToPayload(data)
+            console.log(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data:data
+                        
+
+                     
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        commit('appendJobList', response.data.result)
+                        resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
         resetPassword: ({
             state,
             commit
@@ -390,7 +431,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://localhost:4000/user/reset/'+data.token,
+                    url: 'http://localhost:4000/user/reset/'+data.resettoken,
                     headers: {
                         'Content-Type': 'application/json',
                     },

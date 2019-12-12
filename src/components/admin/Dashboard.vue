@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ml-3 pa-2" style="background-color:#1A1A1D;">
+  <v-card class="ml-3 pa-2" style="background-color:#232B2B;">
     <v-layout row wrap style="margin-left:unset">
       <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
       <!-- <v-flex xs6 class="mt-3 mb-3">
@@ -11,7 +11,7 @@
       <!-- <v-flex xs4 class="mt-3 mb-3">
       <statCards></statCards>
       </v-flex>-->
-      <v-flex xs12 class="mt-5">
+      <v-flex xs12 >
         <v-data-table
           :headers="headers"
           :items="getAlumniList"
@@ -69,6 +69,7 @@
 <script>
 import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
+import moment from "moment";
 
 export default {
   components: {
@@ -147,7 +148,8 @@ export default {
         first_name_personal_information: "",
         last_name_personal_information: "",
         paySlipStatus: "",
-        form16Status: ""
+        form16Status: "",
+        openFrom:"New"
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
     },
@@ -162,10 +164,24 @@ export default {
 
     editAlumniDialog(data) {
       console.log(data);
-
+      let alumniData = JSON.parse(JSON.stringify(data));
+      if(data.date_of_resignation)
+      { alumniData.date_of_resignation=moment
+        .unix(data.date_of_resignation / 1000)
+        .toISOString().substr(0, 10);}
+      if(data.date_of_birth)
+      { alumniData.date_of_birth=moment
+        .unix(data.date_of_birth / 1000)
+        .toISOString().substr(0, 10);}
+      if(data.date_of_resignation)
+      {
+      alumniData.date_of_resignation=moment
+        .unix(data.date_of_resignation / 1000)
+        .toISOString().substr(0, 10);
+      }
       this.$store.commit(
         "adminModule/showAlumniDialog",
-        JSON.parse(JSON.stringify(data))
+        JSON.parse(JSON.stringify(alumniData))
       );
     },
     findData(data) {

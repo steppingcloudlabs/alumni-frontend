@@ -14,7 +14,6 @@
                   <v-text-field
                     v-model="contact.phone"
                     label="Phone No"
-                    :rules="phoneRules"
                     prepend-icon="mdi-cellphone"
                   ></v-text-field>
                 </v-col>
@@ -34,10 +33,10 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field label=" City" prepend-icon="mdi-city"></v-text-field>
+                  <v-text-field v-model="contact.city" label=" City" prepend-icon="mdi-city"></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field label="State"></v-text-field>
+                  <v-text-field v-model="contact.state" label="State"></v-text-field>
                 </v-col>
               </v-row>
             </v-form>
@@ -59,15 +58,17 @@ export default {
   data() {
     return {
       emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"],
-      phoneRules: [
-        v =>
-          (v.length > 9 && v.length < 11) || "Please Enter valid Phone number"
-      ],
+      // phoneRules: [
+      //   v =>
+      //     (v.length > 9 && v.length < 11) || "Please Enter valid Phone number"
+      // ],
       employeeRules: [v => !!v || "Employee Id is required"],
       user: {
         phone: "",
         email: "",
-        address: ""
+        address: "",
+        city: "",
+        state: ""
       }
     };
   },
@@ -80,7 +81,9 @@ export default {
         this.$store.commit("userModule/setShowContactDialogData", {
           phone: this.userData.phone_number_phone_information,
           email: this.userData.personal_email_id,
-          address: this.userData.city_addresses
+          city: this.userData.city_addresses,
+          address: this.userData.address,
+          state: this.userData.state
         });
       }
     },
@@ -105,16 +108,27 @@ export default {
         let contactData = JSON.parse(JSON.stringify(this.contact));
         this.$store.commit("userModule/closeContactDialog");
         let data = {
-          user_id: this.userData.user_id,
-          city_addresses: contactData.address,
-          phone_number_phone_information: contactData.phone,
-          personal_email_id: contactData.email
+          payload: {
+            user_id: this.userData.user_id,
+            city_addresses: contactData.city,
+            phone_number_phone_information: contactData.phone,
+            personal_email_id: contactData.email,
+            address: contactData.address,
+            state: contactData.state
+          }
         };
-
+        let updatedData = {
+          user_id: this.userData.user_id,
+          city_addresses: contactData.city,
+          phone_number_phone_information: contactData.phone,
+          personal_email_id: contactData.email,
+          address: contactData.address,
+          state: contactData.state
+        };
         console.log(data);
         this.$store.dispatch("userModule/updateData", data).then(response => {
           if (response.data.status == 200) {
-            this.$store.commit("userModule/setUpdateContactData", data);
+            this.$store.commit("userModule/setUpdateContactData", updatedData);
             this.$store.commit("showSnackbar", {
               message: "COntact Updated successfully",
               color: "success",

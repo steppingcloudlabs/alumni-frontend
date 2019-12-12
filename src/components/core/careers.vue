@@ -36,14 +36,14 @@
         <p class="text--center">
           <v-layout style="margin-left:auto;margin-right:auto">
             <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-text-field label="Search By Keywords" solo dense></v-text-field>
+              <v-text-field v-model="search.skill" label="Search By Keywords" solo dense></v-text-field>
             </v-flex>
             <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-text-field label="Search By Location" solo dense></v-text-field>
+              <v-text-field v-model="search.country" label="Search By Location" solo dense></v-text-field>
             </v-flex>
 
             <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-btn color="blue" style="color:White" large>Search</v-btn>
+              <v-btn color="blue" style="color:White" large @click="jobData(search)">Search</v-btn>
             </v-flex>
           </v-layout>
         </p>
@@ -53,7 +53,7 @@
     <v-card-title style="color:white">Current Openings</v-card-title>
     <v-divider style="background:rgb(241, 135, 16);"></v-divider>
     <div>
-      <v-layout row wrap style="margin-left:unset;">
+      <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length">
         <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
           <v-hover v-slot:default="{ hover }">
             <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
@@ -63,18 +63,18 @@
                   v-for="(skill,j) in jobs[i].compentency"
                   :key="j"
                 >{{jobs[i].compentency[j]}},&nbsp;</span>
-              </v-card-text> -->
+              </v-card-text>-->
 
               <v-layout row wrap style="margin-left:unset;">
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue"  v-if="item.location">mdi-map-marker</v-icon>
+                    <v-icon color="blue" v-if="item.location">mdi-map-marker</v-icon>
                     {{item.location}}
                   </v-card-text>
                 </v-flex>
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue"  v-if="item.department">mdi-domain</v-icon>
+                    <v-icon color="blue" v-if="item.department">mdi-domain</v-icon>
                     {{item.department}}
                   </v-card-text>
                 </v-flex>
@@ -92,7 +92,23 @@
             </v-card>
           </v-hover>
         </v-flex>
+        <v-flex xs12 v-if=" Number.isInteger(getjobs.length/10)">
+          <p class="text-center">
+            <v-btn color="primary" x-large text @click="jobMoreData({country,skill})">Load More</v-btn>
+          </p>
+        </v-flex>
       </v-layout>
+      <div v-else class="subtitle-1 mt-5">
+        <p class="white--text text-center">
+          NoJobs Available
+          <v-img
+            style="margin-right:auto;margin-left:auto;"
+            width="100"
+            height="100"
+            src="@/assets/waiting.gif"
+          ></v-img>
+        </p>
+      </div>
     </div>
     <viewjob></viewjob>
   </div>
@@ -105,13 +121,17 @@ export default {
     CoreAppBar: () => import("@/components/core/AppBar"),
     viewjob
   },
-  beforeMount()
-  {
-    this.jobData()
+  beforeMount() {
+    (this.country = "null"), (this.skill = "null");
+    let data = {
+      country: this.country,
+      skill: this.skill
+    };
+    this.jobData(data);
   },
-  computed:{
-    getjobs:{
-       get() {
+  computed: {
+    getjobs: {
+      get() {
         return this.$store.getters["userModule/getJobs"];
       },
       set(data) {
@@ -119,76 +139,49 @@ export default {
       }
     }
   },
-  methods:{
-     jobData()
-     {
-      this.$store
-      .dispatch("userModule/getJob", { location:'United Kingdom',skill:'manager' })
-     
-     },
-     openJob(data)
-     {
-       this.$store.commit("userModule/showViewJob",data);
-     }
+  methods: {
+    jobData(data) {
+      let data1 = {
+        payload: {
+          skip: 0,
+          limit: 10,
+          country: data.country,
+          skill: data.skill
+        }
+      };
+      console.log(this.getjobs.length);
+      this.$store.dispatch("userModule/getJob", data1);
+
+      (this.search.country = null), (this.search.skill = null);
+    },
+    jobMoreData(data) {
+      this.skip = this.skip + 1;
+      let data1 = {
+        payload: {
+          skip: this.skip,
+          limit: 10,
+          country: data.country,
+          skill: data.skill
+        }
+      };
+      console.log(this.getjobs.length);
+      this.$store.dispatch("userModule/getMoreJob", data1);
+
+      (this.search.country = null), (this.search.skill = null);
+    },
+    openJob(data) {
+      this.$store.commit("userModule/showViewJob", data);
+    }
   },
   data() {
     return {
-      headers: [
-        {
-          text: "POSTION",
-          align: "left",
-          sortable: false,
-          value: "name"
-        },
-        { text: "LOCATION", value: "location" },
-        { text: "DEPARTMENT", value: "department" },
-        { text: "DATE", value: "date" }
-      ],
-      jobs: [
-        {
-          name: "Associate Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: "Developer",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: " Deputy Manager",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: "IT Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: "Senior Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-
-        {
-          name: "Associate Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        }
-      ]
+      search: {
+        country: null,
+        skill: null
+      },
+      country: null,
+      skill: null,
+      skip: 0
     };
   }
 };
@@ -197,5 +190,4 @@ export default {
 .v-data-table {
   border-top: "none";
 }
-
 </style>

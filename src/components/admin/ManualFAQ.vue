@@ -60,7 +60,7 @@ question: faqData.question,
         
       };
       this.$store.dispatch("adminModule/addFaq", data).then(response => {
-        if(data.id==null)
+        if(data.payload.id==null)
         {
         this.$store.commit(
           "adminModule/addNewFaqToList",
