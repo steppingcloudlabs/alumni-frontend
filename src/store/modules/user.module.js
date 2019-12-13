@@ -17,8 +17,8 @@ export default {
         showContactDialog: false,
         contactData: {},
         jobs: [],
-        viewJobDialog:false,
-        viewJobData:{},
+        viewJobDialog: false,
+        viewJobData: {},
     },
     mutations: {
         setTest: (state, data) => {
@@ -30,13 +30,13 @@ export default {
         setViewJobData: (state, data) => {
             state.viewJobData = data;
         },
-        showViewJob:(state,data)=>{
-           state.viewJobDialog=true,
-           state.viewJobData=data
+        showViewJob: (state, data) => {
+            state.viewJobDialog = true,
+                state.viewJobData = data
         },
-        closeViewJob:(state,data)=>{
-            state.viewJobDialog=false
-         },
+        closeViewJob: (state, data) => {
+            state.viewJobDialog = false
+        },
         setJobs: (state, data) => {
             state.jobs = data;
         },
@@ -90,9 +90,8 @@ export default {
         getViewJob: (state) => {
             return state.viewJobDialog;
         },
-        getViewJobData:(state)=>
-        {
-          return state.viewJobData
+        getViewJobData: (state) => {
+            return state.viewJobData
         },
         getJobs: (state) => {
             return state.jobs;
@@ -117,7 +116,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/signin',
+                    url: 'http://18.190.14.5/user/signin',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -157,7 +156,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/signup',
+                    url: 'http://18.190.14.5/user/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -185,7 +184,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/awsadmin/documentdownlaod',
+                    url: 'http://18.190.14.5/awsadmin/documentdownlaod',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -215,7 +214,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/updatealumni',
+                    url: 'http://18.190.14.5/admin/action/updatealumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -245,7 +244,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    url: 'http://18.190.14.5/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -273,7 +272,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    url: 'http://18.190.14.5/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -303,7 +302,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/forgetpassword',
+                    url: 'http://18.190.14.5/user/forgetpassword',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -329,7 +328,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/status',
+                    url: 'http://18.190.14.5/personaluser/user/status',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -360,14 +359,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
+                    url: 'http://18.190.14.5/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data:data
-                        
+                    data: data
 
-                     
+
+
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -396,14 +395,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
+                    url: 'http://18.190.14.5/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    data:data
-                        
+                    data: data
 
-                     
+
+
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -431,7 +430,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://localhost:4000/user/reset/'+data.resettoken,
+                    url: 'http://18.190.14.5/user/reset/' + data.resettoken,
                     headers: {
                         'Content-Type': 'application/json',
                     },

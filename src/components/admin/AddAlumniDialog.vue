@@ -199,7 +199,7 @@ export default {
           date_of_resignation: parseInt(
             moment(alumniData.date_of_resignation).format("x")
           ),
-          personal_email_id: alumniData.email,
+          personal_email_id: alumniData.personal_email_id,
           data_of_relieving: parseInt(moment(alumniData.relieving).format("x")),
           date_of_birth: parseInt(moment(alumniData.date_of_birth).format("x")),
           gender: alumniData.gender
@@ -271,7 +271,7 @@ export default {
         return this.$store.getters["adminModule/getshowAlumniDialog"];
       },
       set(data) {
-        this.$store.commit("adminModule/setShowAlumni", setShowAlumniDialog);
+        this.$store.commit("adminModule/setShowAlumniDialog", data);
       }
     }
   },

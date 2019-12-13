@@ -11,7 +11,7 @@ let deleteExpiredToken = () => {
 let navigateToHome = () => {
     router.push({
         path: '/home'
-    })
+    }).catch(err => {})
 }
 
 let getAlumniId = () => {

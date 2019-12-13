@@ -44,7 +44,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.fnfStatus=='Available'"
+        v-if="DocumentStatus.salarycurrent=='Available'"
       >
         Salary Slip is
         <strong>Available</strong> in Document Section

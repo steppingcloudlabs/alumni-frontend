@@ -39,7 +39,7 @@ export default {
             title: "",
             content: "",
         },
-        alumniDialogOpenFrom:"",
+        alumniDialogOpenFrom: "",
         showNewsProgress: false,
         showEventsProgress: false,
         showNewsDialog: false,
@@ -136,7 +136,7 @@ export default {
         showAlumniDialog: (state, data) => {
             state.alumniDialogData = data
             state.showAlumniDialog = true
-           
+
         },
         setShowAlumniDialog: (state, data) => {
             state.showAlumniDialog = data
@@ -381,7 +381,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/updatenews',
+                    url: 'http://18.190.14.5/admin/action/updatenews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -412,7 +412,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allnews',
+                    url: 'http://18.190.14.5/admin/action/allnews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -449,7 +449,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allnews',
+                    url: 'http://18.190.14.5/admin/action/allnews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -491,7 +491,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'http://18.190.14.5:4000/admin/action/deletenews',
+                    url: 'http://18.190.14.5/admin/action/deletenews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -530,7 +530,7 @@ export default {
                 console.log("event data", data)
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/updateevent',
+                    url: 'http://18.190.14.5/admin/action/updateevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -563,7 +563,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allevent',
+                    url: 'http://18.190.14.5/admin/action/allevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -596,7 +596,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allevent',
+                    url: 'http://18.190.14.5/admin/action/allevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -632,7 +632,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'http://18.190.14.5:4000/admin/action/deleteevent',
+                    url: 'http://18.190.14.5/admin/action/deleteevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -673,7 +673,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'http://18.190.14.5:4000/admin/action/deletealumni',
+                    url: 'http://18.190.14.5/admin/action/deletealumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -711,7 +711,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/alumni',
+                    url: 'http://18.190.14.5/admin/action/alumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -741,7 +741,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allalumni',
+                    url: 'http://18.190.14.5/admin/action/allalumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -773,7 +773,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allalumni',
+                    url: 'http://18.190.14.5/admin/action/allalumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -806,7 +806,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/allfaq',
+                    url: 'http://18.190.14.5/admin/action/allfaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -837,7 +837,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/updatefaq',
+                    url: 'http://18.190.14.5/admin/action/updatefaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -874,7 +874,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'http://18.190.14.5:4000/admin/action/deletefaq',
+                    url: 'http://18.190.14.5/admin/action/deletefaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -910,7 +910,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/awsadmin/documentupload',
+                    url: 'http://18.190.14.5/awsadmin/documentupload',
                     headers: {
                         'Content-Type': 'application/json',
                     },

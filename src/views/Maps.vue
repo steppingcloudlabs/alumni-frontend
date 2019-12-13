@@ -56,71 +56,71 @@ export default {
       }
     }
   },
-  watch: {
-    getAlumniList() {
-      var geocoder = new google.maps.Geocoder();
-      var infowindow = new google.maps.InfoWindow({});
-      var image = {
-        url: require("@/assets/marker.png"),
-        // This marker is 20 pixels wide by 32 pixels high.
-        size: new google.maps.Size(20, 32),
-        // The origin for this image is (0, 0).
-        origin: new google.maps.Point(0, 0),
-        // The anchor for this image is the base of the flagpole at (0, 32).
-        anchor: new google.maps.Point(0, 32)
-      };
-       var shape = {
-          coords: [1, 1, 1, 20, 18, 20, 18, 1],
-          type: 'poly'
-        };
+  // watch: {
+  //   getAlumniList() {
+  //     var geocoder = new google.maps.Geocoder();
+  //     var infowindow = new google.maps.InfoWindow({});
+  //     var image = {
+  //       url: require("@/assets/marker.png"),
+  //       // This marker is 20 pixels wide by 32 pixels high.
+  //       size: new google.maps.Size(20, 32),
+  //       // The origin for this image is (0, 0).
+  //       origin: new google.maps.Point(0, 0),
+  //       // The anchor for this image is the base of the flagpole at (0, 32).
+  //       anchor: new google.maps.Point(0, 32)
+  //     };
+  //      var shape = {
+  //         coords: [1, 1, 1, 20, 18, 20, 18, 1],
+  //         type: 'poly'
+  //       };
 
-      // var markers = new google.maps.Marker({ position: uluru, map: this.map });
-      for (let i = 0; i < this.getAlumniList.length; i++) {
-        geocoder.geocode(
-          { address: this.getAlumniList[i].city_addresses },
-          (results, status) => {
-            if (status == "OK") {
-              this.map.setCenter(results[0].geometry.location);
-              this.marker[i] = new google.maps.Marker({
-                map: this.map,
-                position: results[0].geometry.location,
-                title: this.person[i],
-                animation: google.maps.Animation.DROP,
-                // icon: image,
-                // shape: shape,
-              });
-              var infowincontent =
-                "<a href='/#/profile/search/" +
-                this.getAlumniList[i].user_id +
-                "'>" +
-                this.getAlumniList[i].first_name_personal_information +
-                " " +
-                this.getAlumniList[i].last_name_personal_information +
-                "</a>" +
-                "<p>" +
-                this.getAlumniList[i].city_addresses +
-                "</p>";
+  //     // var markers = new google.maps.Marker({ position: uluru, map: this.map });
+  //     for (let i = 0; i < this.getAlumniList.length; i++) {
+  //       geocoder.geocode(
+  //         { address: this.getAlumniList[i].city_addresses },
+  //         (results, status) => {
+  //           if (status == "OK") {
+  //             this.map.setCenter(results[0].geometry.location);
+  //             this.marker[i] = new google.maps.Marker({
+  //               map: this.map,
+  //               position: results[0].geometry.location,
+  //               title: this.person[i],
+  //               animation: google.maps.Animation.DROP,
+  //               // icon: image,
+  //               // shape: shape,
+  //             });
+  //             var infowincontent =
+  //               "<a href='/#/profile/search/" +
+  //               this.getAlumniList[i].user_id +
+  //               "'>" +
+  //               this.getAlumniList[i].first_name_personal_information +
+  //               " " +
+  //               this.getAlumniList[i].last_name_personal_information +
+  //               "</a>" +
+  //               "<p>" +
+  //               this.getAlumniList[i].city_addresses +
+  //               "</p>";
 
-              this.marker[i].addListener("click", () => {
-                // this.map.setZoom(8);
-                smoothZoom(this.map, 10, this.map.getZoom(), true);
-                infowindow.setContent(infowincontent);
-                infowindow.open(this.map, this.marker[i]);
-              });
-            } else {
-              alert(
-                "Geocode was not successful for the following reason: " + status
-              );
-            }
-          }
-        );
-      }
-      var markerCluster = new MarkerClusterer(this.map, this.marker, {
-        imagePath:
-          "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
-      });
-    }
-  },
+  //             this.marker[i].addListener("click", () => {
+  //               // this.map.setZoom(8);
+  //               smoothZoom(this.map, 10, this.map.getZoom(), true);
+  //               infowindow.setContent(infowincontent);
+  //               infowindow.open(this.map, this.marker[i]);
+  //             });
+  //           } else {
+  //             alert(
+  //               "Geocode was not successful for the following reason: " + status
+  //             );
+  //           }
+  //         }
+  //       );
+  //     }
+  //     var markerCluster = new MarkerClusterer(this.map, this.marker, {
+  //       imagePath:
+  //         "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+  //     });
+  //   }
+
   data() {
     return {
       places: ["New Delhi", "Haryana", "Gurgaon"],
@@ -166,6 +166,7 @@ export default {
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
+
     initMap() {
       // var AlumniList = alumniList();
       // console.log(AlumniList);
@@ -269,69 +270,63 @@ export default {
         // The anchor for this image is the base of the flagpole at (0, 32).
         anchor: new google.maps.Point(0, 32)
       };
-       var shape = {
-          coords: [1, 1, 1, 20, 18, 20, 18, 1],
-          type: 'poly'
-        };
 
       var geocoder = new google.maps.Geocoder();
       var infowindow = new google.maps.InfoWindow({
         maxWidth: 400
       });
+      let vm = this;
+      new Promise((resolve, reject) => {
+        for (let i = 0; i < vm.getAlumniList.length; i++) {
+          geocoder.geocode(
+            { address: vm.getAlumniList[i].city_addresses },
+            (results, status) => {
+              if (status == "OK") {
+                //  vm.position[i]= results[0].geometry.location
+                vm.map.setCenter(results[0].geometry.location);
+                vm.marker[i] = new google.maps.Marker({
+                  map: vm.map,
+                  position: results[0].geometry.location,
+                  title: vm.person[i],
+                  animation: google.maps.Animation.DROP
+                  //  icon: image,
+                  //  shape: shape,
+                });
+                var infowincontent =
+                  "<a href='/#/profile/search/" +
+                  vm.getAlumniList[i].user_id +
+                  "'>" +
+                  vm.getAlumniList[i].first_name_personal_information +
+                  " " +
+                  vm.getAlumniList[i].last_name_personal_information +
+                  "</a>" +
+                  "<p>" +
+                  vm.getAlumniList[i].city_addresses +
+                  "</p>";
 
-      // var markers = this.position.map(function(location, i) {
-      //   return new google.maps.Marker({
-      //     position: location,
-
-      //   });
-      // });
-
-      // var markers = new google.maps.Marker({ position: uluru, map: this.map });
-      for (let i = 0; i < this.getAlumniList.length; i++) {
-        geocoder.geocode(
-          { address: this.getAlumniList[i].city_addresses },
-          (results, status) => {
-            if (status == "OK") {
-              //  this.position[i]= results[0].geometry.location
-              this.map.setCenter(results[0].geometry.location);
-              this.marker[i] = new google.maps.Marker({
-                map: this.map,
-                position: results[0].geometry.location,
-                title: this.person[i],
-                animation: google.maps.Animation.DROP,
-                //  icon: image,
-                //  shape: shape,
-              });
-              var infowincontent =
-                "<a href='/#/profile/search/" +
-                this.getAlumniList[i].user_id +
-                "'>" +
-                this.getAlumniList[i].first_name_personal_information +
-                " " +
-                this.getAlumniList[i].last_name_personal_information +
-                "</a>" +
-                "<p>" +
-                this.getAlumniList[i].city_addresses +
-                "</p>";
-
-              this.marker[i].addListener("click", () => {
-                // this.map.setZoom(8);
-                smoothZoom(this.map, 10, this.map.getZoom(), true);
-                infowindow.setContent(infowincontent);
-                infowindow.open(this.map, this.marker[i]);
-              });
-            } else {
-              alert(
-                "Geocode was not successful for the following reason: " + status
-              );
+                vm.marker[i].addListener("click", () => {
+                  // vm.map.setZoom(8);
+                  smoothZoom(vm.map, 4, vm.map.getZoom(), true);
+                  infowindow.setContent(infowincontent);
+                  infowindow.open(vm.map, vm.marker[i]);
+                });
+                if (i == vm.getAlumniList.length - 1) {
+                  var markerCluster = new MarkerClusterer(vm.map, vm.marker, {
+                    imagePath:
+                      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+                  });
+                }
+              } else {
+                alert(
+                  "Geocode was not successful for the following reason: " +
+                    status
+                );
+              }
             }
-          }
-        );
-      }
-      var markerCluster = new MarkerClusterer(this.map, this.marker, {
-        imagePath:
-          "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
-      });
+          );
+        }
+        resolve("hello");
+      }).then(response => {});
     }
   },
 
@@ -341,11 +336,11 @@ export default {
       .dispatch("adminModule/getAllAlumni", {
         payload: {}
       })
-      .then(response => {});
+      .then(response => {
+        this.initMap();
+      });
   },
-  mounted() {
-    this.initMap();
-  }
+  mounted() {}
 };
 </script>
  
