@@ -54,6 +54,24 @@ export default {
       selectedQuery: {}
     };
   },
+  computed: {
+    userId() {
+      return this.$store.getters["userModule/getUserData"]._id;
+    }
+  },
+  beforeMount() {
+    let data = {
+      payload: {
+        creater_id: this.userId
+      }
+    };
+    this.$store
+      .dispatch("userModule/getAllUserQueries", data)
+      .then(response => {
+        this.queryList = response.result;
+        console.log(response);
+      });
+  },
   methods: {
     queryItemClicked(item) {
       this.$emit("queryItemClicked", item);
