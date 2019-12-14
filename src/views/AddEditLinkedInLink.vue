@@ -53,11 +53,7 @@ export default {
   methods: {
     saveLinkedInLink() {
       this.showLoading = true;
-      this.$emit("saveProfileLink", this.tempLinkedInProfileLink).then(
-        response => {
-          this.showLoading = false;
-        }
-      );
+      this.$emit("saveProfileLink", this.tempLinkedInProfileLink);
     }
   }
 };

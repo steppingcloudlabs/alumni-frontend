@@ -117,7 +117,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/signin',
+                    url: 'http://18.190.14.5/user/signin',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -157,7 +157,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/signup',
+                    url: 'http://18.190.14.5/user/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -185,7 +185,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/awsadmin/documentdownlaod',
+                    url: 'http://18.190.14.5/awsadmin/documentdownlaod',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -215,7 +215,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/updatealumni',
+                    url: 'http://18.190.14.5/admin/action/updatealumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -245,7 +245,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    url: 'http://18.190.14.5/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -273,7 +273,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/admin/action/alumniview',
+                    url: 'http://18.190.14.5/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -303,7 +303,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/user/forgetpassword',
+                    url: 'http://18.190.14.5/user/forgetpassword',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -329,7 +329,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/status',
+                    url: 'http://18.190.14.5/personaluser/user/status',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -360,7 +360,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
+                    url: 'http://18.190.14.5/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -396,7 +396,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5:4000/personaluser/user/getjobs',
+                    url: 'http://18.190.14.5/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -431,7 +431,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://localhost:4000/user/reset/'+data.resettoken,
+                    url: 'http://localhost/user/reset/'+data.resettoken,
                     headers: {
                         'Content-Type': 'application/json',
                     },

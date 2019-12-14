@@ -1,5 +1,5 @@
 <template>
-  <v-window v-model="queryModel" reverse class="mb-4">
+  <v-window v-model="queryModel" reverse class="mb-4" dark>
     <v-window-item key="queryList">
       <UserQueryList @queryItemClicked="queryItemClicked"></UserQueryList>
     </v-window-item>
