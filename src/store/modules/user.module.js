@@ -426,7 +426,6 @@ export default {
             commit
         }, data) => {
             // addTokenToPayload(data)
-            console.log(data.token)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
@@ -437,7 +436,6 @@ export default {
                     data: data
                 }).then((response) => {
                     resolve(response)
-
                     console.log(response)
                 }).catch((error) => {
                     reject(error)
@@ -445,6 +443,25 @@ export default {
 
             })
         },
+        createTicket: ({ state, commit }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5/hrroutes/postticket',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        }
+
 
 
     }

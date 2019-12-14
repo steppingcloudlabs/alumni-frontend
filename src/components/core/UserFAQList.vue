@@ -26,15 +26,32 @@
         <br />
         <v-row>
           <v-spacer></v-spacer>
-          <v-btn @click="dialog=true" large absolute dark fab float right color="blue">
-            <v-icon>mdi-wechat</v-icon>
-          </v-btn>
         </v-row>
       </v-card>
     </v-flex>
     <v-flex xs12>
       <Contact :dialog="dialog" :Showemail="emailDailog" @closeAskHrDialog="closeAskHrDialog" />
     </v-flex>
+    <v-tooltip top>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          @click="dialog=true"
+          style="position: fixed; bottom: 20px;"
+          large
+          absolute
+          dark
+          fab
+          float
+          right
+          bottom
+          color="blue"
+          class="mb-5"
+        >
+          <v-icon>mdi-wechat</v-icon>
+        </v-btn>
+      </template>
+      <span>Raise Concern</span>
+    </v-tooltip>
   </v-layout>
 </template>
 <script>
