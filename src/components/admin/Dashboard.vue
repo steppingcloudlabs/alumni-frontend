@@ -11,7 +11,7 @@
       <!-- <v-flex xs4 class="mt-3 mb-3">
       <statCards></statCards>
       </v-flex>-->
-      <v-flex xs12 >
+      <v-flex xs12>
         <v-data-table
           :headers="headers"
           :items="getAlumniList"
@@ -56,7 +56,7 @@
             <v-icon small class="mr-2" @click="showDeleteDialog(item)">delete</v-icon>
           </template>
         </v-data-table>
-        <p class="text-center text-white">
+        <p class="text-center text-white" v-if="getAlumniList.length">
           <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore">Load More</v-btn>
         </p>
       </v-flex>
@@ -149,7 +149,7 @@ export default {
         last_name_personal_information: "",
         paySlipStatus: "",
         form16Status: "",
-        openFrom:"New"
+        openFrom: "New"
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
     },
@@ -165,19 +165,23 @@ export default {
     editAlumniDialog(data) {
       console.log(data);
       let alumniData = JSON.parse(JSON.stringify(data));
-      if(data.date_of_resignation)
-      { alumniData.date_of_resignation=moment
-        .unix(data.date_of_resignation / 1000)
-        .toISOString().substr(0, 10);}
-      if(data.date_of_birth)
-      { alumniData.date_of_birth=moment
-        .unix(data.date_of_birth / 1000)
-        .toISOString().substr(0, 10);}
-      if(data.date_of_resignation)
-      {
-      alumniData.date_of_resignation=moment
-        .unix(data.date_of_resignation / 1000)
-        .toISOString().substr(0, 10);
+      if (data.date_of_resignation) {
+        alumniData.date_of_resignation = moment
+          .unix(data.date_of_resignation / 1000)
+          .toISOString()
+          .substr(0, 10);
+      }
+      if (data.date_of_birth) {
+        alumniData.date_of_birth = moment
+          .unix(data.date_of_birth / 1000)
+          .toISOString()
+          .substr(0, 10);
+      }
+      if (data.date_of_resignation) {
+        alumniData.date_of_resignation = moment
+          .unix(data.date_of_resignation / 1000)
+          .toISOString()
+          .substr(0, 10);
       }
       this.$store.commit(
         "adminModule/showAlumniDialog",
@@ -200,6 +204,7 @@ export default {
   },
   data() {
     return {
+      initial: false,
       skip: 0,
       showMore: true,
       limit: 9,

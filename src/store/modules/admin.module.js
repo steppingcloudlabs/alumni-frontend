@@ -39,7 +39,7 @@ export default {
             title: "",
             content: "",
         },
-        alumniDialogOpenFrom:"",
+        alumniDialogOpenFrom: "",
         showNewsProgress: false,
         showEventsProgress: false,
         showNewsDialog: false,
@@ -136,7 +136,7 @@ export default {
         showAlumniDialog: (state, data) => {
             state.alumniDialogData = data
             state.showAlumniDialog = true
-           
+
         },
         setShowAlumniDialog: (state, data) => {
             state.showAlumniDialog = data

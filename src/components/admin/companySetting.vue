@@ -5,8 +5,8 @@
         <v-toolbar-title style="color:white">Escalation Mails</v-toolbar-title>
       </v-toolbar>
       <v-layout row wrap>
-        <v-flex xs4 pa-4 v-for="(item, i) in items" :key="i">
-          <v-card class="mx-auto" min-width="344px" min-height="200px" light>
+        <v-flex xs4 pa-1 v-for="(item, i) in items" :key="i">
+          <v-card class="mx-auto" min-width="304px" min-height="250px" light>
             <v-layout row wrap>
               <div class="title mb-4 pt-4 pl-3">{{item.title}}</div>
               <v-list-item three-line v-if="getEmailList[i].levelOrder">
@@ -19,12 +19,13 @@
               </v-list-item>
 
               <v-card-actions v-if="getEmailList[i].levelOrder">
-                <v-flex xs8>
+                <v-flex xs4></v-flex>
+                <v-flex xs7>
                   <v-btn>
                     <v-icon @click="showDeleteDialog(getEmailList[i])">mdi-delete</v-icon>
                   </v-btn>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex xs1>
                   <v-btn>
                     <v-icon @click="showEmailDialog1(i)">edit</v-icon>
                   </v-btn>

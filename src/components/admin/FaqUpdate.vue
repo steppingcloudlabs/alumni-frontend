@@ -106,15 +106,20 @@ export default {
     }
   },
   beforeMount() {
-    this.limit = 1;
-    this.showMore = true;
+    this.showMore = false;
     this.$store
       .dispatch("adminModule/getAllFaq", {
-        payload: { skip: 0, limit: this.limit }
+        payload: { skip: 0, limit: 3 }
       })
-      .then(response => {});
+      .then(response => {
+        this.limit = 3;
+        this.showMore = true;
+      });
   },
-
+  destroyed() {
+    this.$store.commit("adminModule/setFaqList", {});
+    this.showMore = false;
+  },
   computed: {
     getFaqList: {
       get() {

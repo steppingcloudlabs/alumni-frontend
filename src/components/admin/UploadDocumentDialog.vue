@@ -28,11 +28,11 @@
               <v-col cols="12" md="10">
                 <v-file-input
                   accept="application/pdf"
-                  placeholder="Upload your Salary Slip"
+                  placeholder="Upload 1st Salary Slip"
                   label="Salary Slip"
                   multiple
                   prepend-icon="mdi-paperclip"
-                  @change="getBase64Salary"
+                  @change="getBase64Salary1st"
                 >
                   <template v-slot:selection="{ text }">
                     <v-chip small label color="primary">{{ text }}</v-chip>
@@ -40,7 +40,50 @@
                 </v-file-input>
               </v-col>
               <v-col cols="12" md="2">
-                <v-icon style="margin-top: 28px;" @click="saveDialogSalary()">fas fa-upload</v-icon>
+                <v-icon
+                  style="margin-top: 28px;"
+                  @click="saveDialogSalary({stream:getBase64Salary1st,code:'96'})"
+                >fas fa-upload</v-icon>
+              </v-col>
+              <v-col cols="12" md="10">
+                <v-file-input
+                  accept="application/pdf"
+                  placeholder="Upload 2nd Salary Slip"
+                  label="Salary Slip"
+                  multiple
+                  prepend-icon="mdi-paperclip"
+                  @change="getBase64Salary2nd"
+                >
+                  <template v-slot:selection="{ text }">
+                    <v-chip small label color="primary">{{ text }}</v-chip>
+                  </template>
+                </v-file-input>
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-icon
+                  style="margin-top: 28px;"
+                  @click="saveDialogSalary({stream:salarySlipBase642nd,code:'97'})"
+                >fas fa-upload</v-icon>
+              </v-col>
+              <v-col cols="12" md="10">
+                <v-file-input
+                  accept="application/pdf"
+                  placeholder="Upload 3rd Salary Slip "
+                  label="Salary Slip"
+                  multiple
+                  prepend-icon="mdi-paperclip"
+                  @change="getBase64Salary3rd"
+                >
+                  <template v-slot:selection="{ text }">
+                    <v-chip small label color="primary">{{ text }}</v-chip>
+                  </template>
+                </v-file-input>
+              </v-col>
+              <v-col cols="12" md="2">
+                <v-icon
+                  style="margin-top: 28px;"
+                  @click="saveDialogSalary({stream:getBase64Salary3rd, code:'98'})"
+                >fas fa-upload</v-icon>
               </v-col>
             </v-row>
           </v-container>
@@ -62,7 +105,9 @@ export default {
     return {
       salaryupload: true,
       files: "",
-      salarySlipBase64: "",
+      salarySlipBase641st: "",
+      salarySlipBase642nd: "",
+      salarySlipBase643rd: "",
       form16Base64: ""
       // rules: [
       //   value =>
@@ -83,21 +128,16 @@ export default {
     }
   },
   methods: {
-    saveDialogSalary() {
-      // this.$emit("closeDocumentDialog");
-
+    saveDialogSalary(salaryinfo) {
       let data = {
-        salarySlip: this.salarySlipBase64,
-        
         userid: this.empId
       };
       let salary = {
-        payload:{
-         userid: data.userid,
-        stream: data.salarySlip,
-        type: 96
+        payload: {
+          userid: data.userid,
+          stream: salaryinfo.stream,
+          filename: salaryinfo.code
         }
-       
       };
 
       this.$store
@@ -129,21 +169,19 @@ export default {
     saveDialogForm() {
       // this.$emit("closeDocumentDialog");
       let data = {
-        
         form16: this.form16Base64,
         userid: this.empId
       };
       console.log(data);
 
       let form16 = {
-        payload:{
-       userid: data.userid,
-        stream: data.form16,
-        type: 95
+        payload: {
+          userid: data.userid,
+          stream: data.form16,
+          filename: "95"
         }
-      
       };
-      console.log(form16)
+      console.log(form16);
 
       this.$store
         .dispatch("adminModule/uploadDocument", form16)
@@ -173,14 +211,40 @@ export default {
     closeDialog() {
       this.$emit("closeDocumentDialog");
     },
-    getBase64Salary(file) {
+    getBase64Salary1st(file) {
       console.log(file[0]);
       var reader = new FileReader();
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.salarySlipBase64 = str;
+        this.salarySlipBase641st = str;
+      };
+      reader.onerror = function(error) {
+        console.log("Error: ", error);
+      };
+    },
+    getBase64Salary2nd(file) {
+      console.log(file[0]);
+      var reader = new FileReader();
+      reader.readAsDataURL(file[0]);
+      reader.onload = () => {
+        console.log(reader.result);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        this.salarySlipBase642nd = str;
+      };
+      reader.onerror = function(error) {
+        console.log("Error: ", error);
+      };
+    },
+    getBase64Salary3rd(file) {
+      console.log(file[0]);
+      var reader = new FileReader();
+      reader.readAsDataURL(file[0]);
+      reader.onload = () => {
+        console.log(reader.result);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        this.salarySlipBase643rd = str;
       };
       reader.onerror = function(error) {
         console.log("Error: ", error);
@@ -192,13 +256,13 @@ export default {
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
         console.log(reader.result);
-       var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
         this.form16Base64 = str;
       };
       reader.onerror = function(error) {
         console.log("Error: ", error);
       };
-    },
+    }
 
     // fileInputSalarySlip(files) {
     //   // const pdf2base64 = require("pdf-to-base64");
