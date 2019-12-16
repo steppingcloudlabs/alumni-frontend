@@ -6,7 +6,7 @@
           <v-toolbar-title class="ml-5">Contact Us</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-        <v-card-text>
+        <v-card-text class="mt-3">
           <v-form ref="contact" lazy-validation>
             <v-row>
               <!-- <v-col cols="12">
@@ -65,7 +65,8 @@ export default {
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
-      subjectRules: [v => !!v || "Subject is required"]
+      subjectRules: [v => !!v || "Subject is required"],
+      esclationList: []
     };
   },
   props: {
@@ -83,37 +84,53 @@ export default {
       return this.$store.getters["userModule/getUserData"]._id;
     }
   },
+  watch: {
+    dialog() {
+      if (this.dialog) {
+        this.getAllEscaltionManager();
+      }
+    }
+  },
   methods: {
     closeDialog() {
       this.$emit("closeAskHrDialog");
     },
+    getAllEscaltionManager() {
+      this.$store
+        .dispatch("userModule/getAllEsclationManagers", {})
+        .then(response => {
+          if (response && response && response.status == 200) {
+            this.esclationList = response.result;
+          }
+        });
+    },
     sendDialog() {
       this.$emit("closeAskHrDialog");
-      // let data = {
-      //   payload: {
-      //     participants: this.userId,
-      //     created_at: moment().unix(),
-      //     created_by: this.userId,
-      //     updated_by: this.userId,
-      //     title: this.ask.subject,
-      //     message: this.ask.body,
-      //     esclation: false,
-      //     esclation_manager_1: ["5de77f4bf7fa0010ac57462d"],
-      //     esclation_manager_2: "5de77f4bf7fa0010ac57462d",
-      //     esclation_manager_3: "5de77f4bf7fa0010ac57462d",
-      //     resolved_status: false
-      //   }
-      // };
-      // this.$store.dispatch("userModule/createTicket", data).then(response => {
-      //   if (response.data.status == 200) {
-      //     this.$store.commit("showSnackbar", {
-      //       message: "We will come back to you shortly",
-      //       color: "success",
-      //       heading: "Success",
-      //       duration: 3000
-      //     });
-      //   }
-      // });
+      let data = {
+        payload: {
+          participants: this.userId,
+          created_at: moment().unix(),
+          created_by: this.userId,
+          updated_by: this.userId,
+          title: this.ask.subject,
+          message: this.ask.body,
+          esclation: false,
+          esclation_manager_1: ["5de77f4bf7fa0010ac57462d"],
+          esclation_manager_2: "5de77f4bf7fa0010ac57462d",
+          esclation_manager_3: "5de77f4bf7fa0010ac57462d",
+          resolved_status: false
+        }
+      };
+      this.$store.dispatch("userModule/createTicket", data).then(response => {
+        if (response.data.status == 200) {
+          this.$store.commit("showSnackbar", {
+            message: "We will come back to you shortly",
+            color: "success",
+            heading: "Success",
+            duration: 3000
+          });
+        }
+      });
 
       // this.$store.dispatch("userModule/contactHr", data).then(response => {
       //   if (response.data.status == 200) {

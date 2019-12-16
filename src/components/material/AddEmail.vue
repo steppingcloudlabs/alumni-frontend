@@ -1,30 +1,18 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-dialog v-model="showEmail" persistent width="400px" height="300px">
+      <v-dialog v-model="showEmailDialog" persistent width="400px" height="300px">
         <v-card>
           <v-card-title>
             <span class="headline">Add Email</span>
           </v-card-title>
           <v-card-text>
-             
-              
-             <v-col cols="12">
-                    <v-text-field
-                      type="text"
-                      v-model="Mail.name"
-                      label="Name"
-                      
-                    ></v-text-field>
-                  </v-col>
-                   <v-col cols="12">
-                    <v-text-field
-                      type="text"
-                      v-model="Mail.email"
-                      label="Email"
-                      
-                    ></v-text-field>
-                  </v-col>
+            <v-col cols="12">
+              <v-text-field type="text" v-model="tempName" label="Name"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field type="text" v-model="tempEmail" label="Email"></v-text-field>
+            </v-col>
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
@@ -39,40 +27,27 @@
 
 <script>
 export default {
-
-    data(){
-        return{
-     
-        }
+  data() {
+    return {
+      tempName: "",
+      tempEmail: ""
+    };
+  },
+  props: {
+    editEsclationData: {
+      type: Object
     },
-    computed:{
-         Mail: {
-      get() {
-        return this.$store.getters["adminModule/getEmailDialogData"];
-      },
-      set(data) {
-        this.$store.commit("adminModule/setEmailDialogData", data);
-      }
-         },
-        showEmail: {
-      get() {
-        return this.$store.getters["adminModule/getshowEmailDialog"];
-      },
-      set(data) {
-        this.$store.commit("adminModule/setShowEmailDialog", data);
-      }
+    showEmailDialog: {
+      type: Boolean
     }
-
-    },
-    methods:{
+  },
+  methods: {
     closeDialog() {
-      this.$store.commit("adminModule/closeEmailDialog");
+      this.$emit("closeDialog");
     },
-     saveDialog() {
-       
-     this.$store.commit("adminModule/addNewEmailToList",this.Mail)
-      this.$store.commit("adminModule/closeEmailDialog");
-    },
+    saveDialog() {
+      this.$emit("saveEsclationData", {});
     }
-}
+  }
+};
 </script>
