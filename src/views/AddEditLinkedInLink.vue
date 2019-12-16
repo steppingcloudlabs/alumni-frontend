@@ -2,12 +2,13 @@
   <v-layout row wrap class="ma-0">
     <v-flex xs12>
       <v-card-text class="subtitle" style="margin-left: 0px!important;line-height: 2px !important;">
-        <a
-          v-if="!linkedInProfileLink"
-          class="pa-2"
-          @click="showLinkedInInput=true"
-        >Add LinkedIn Profile Link</a>
-        <v-icon v-else color="blue">mdi-linkedin</v-icon>
+        <span v-if="!linkedInProfileLink">
+          <a class="pa-2" @click="showLinkedInInput=true">Add LinkedIn Profile Link</a>
+        </span>
+        <span v-else class="linkedin-edit-wrapper">
+          <v-icon color="blue" @click="openLinkedInProfile" class="mr-1">mdi-linkedin</v-icon>
+          <v-icon @click="showLinkedInInput=true" small class="linkedin-edit-icon">edit</v-icon>
+        </span>
       </v-card-text>
     </v-flex>
     <v-flex xs12>
@@ -50,7 +51,18 @@ export default {
       default: null
     }
   },
+  watch: {
+    linkedInProfileLink() {
+      this.tempLinkedInProfileLink = this.linkedInProfileLink;
+    }
+  },
+  mounted() {
+    this.tempLinkedInProfileLink = this.linkedInProfileLink;
+  },
   methods: {
+    openLinkedInProfile() {
+      window.open(this.linkedInProfileLink, "_blank");
+    },
     saveLinkedInLink() {
       this.showLoading = true;
       this.$emit("saveProfileLink", this.tempLinkedInProfileLink);
@@ -60,4 +72,11 @@ export default {
 </script>
 
 <style>
+.linkedin-edit-wrapper:hover .linkedin-edit-icon {
+  visibility: visible !important;
+  transition: all 1s ease-in;
+}
+.linkedin-edit-icon {
+  visibility: hidden !important;
+}
 </style>
