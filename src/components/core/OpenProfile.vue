@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card class="pt-5">
         <v-layout row wrap ma-0>
-          <v-flex xs6>
+          <v-flex xs12>
             <div>
               <p class="text-center">
                 <img
@@ -29,7 +29,8 @@
                 <p
                   class="caption"
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >Worked As-{{user.designation}}</p>
+                >Worked As-{{user.position}}</p>
+                <p>Till {{user.relieving}}</p>
                 <p>
                   <v-icon color="blue">mdi-linkedin</v-icon>
                 </p>
@@ -61,7 +62,7 @@
               </v-card-text>-->
             </div>
           </v-flex>
-          <v-flex xs6>
+          <!-- <v-flex xs6>
             <div>
               <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
                 Skills
@@ -119,8 +120,8 @@
           </v-flex>
         </v-layout>
       </v-card>
-    </v-flex>
-    <v-flex xs12>
+          </v-flex>-->
+          <!-- <v-flex xs12>
       <v-card class="mt-2">
         <v-layout row wrap>
           <v-flex xs6 pr-5>
@@ -183,7 +184,7 @@
                 >{{user.managerid}}</v-card-text>
               </v-flex>
             </v-layout>
-          </v-flex>
+          </v-flex>-->
         </v-layout>
       </v-card>
     </v-flex>
@@ -237,18 +238,22 @@ export default {
           userid: this.$route.params.userId
         }
       };
-      this.$store.dispatch("userModule/getSearchAlumniById", data).then(response => {
-        this.initializeUserData();
-      });
+      this.$store
+        .dispatch("userModule/getSearchAlumniById", data)
+        .then(response => {
+          this.initializeUserData();
+        });
     } else if (this.userData.user_id != this.$route.params.userId) {
       let data = {
         payload: {
           userid: this.$route.params.userId
         }
       };
-      this.$store.dispatch("userModule/getSearchAlumniById", data).then(response => {
-        this.initializeUserData();
-      });
+      this.$store
+        .dispatch("userModule/getSearchAlumniById", data)
+        .then(response => {
+          this.initializeUserData();
+        });
     } else {
       this.initializeUserData();
     }
@@ -273,38 +278,38 @@ export default {
       this.user.employeeId = this.userData.user_id;
       this.user.managerid = this.userData.manager_job_information;
       console.log(moment(this.userData.relieving_date));
-      this.user.relieving =moment
+      this.user.relieving = moment
         .unix(this.userData.relieving_date / 1000)
         .format("LL");
-        // new Date(this.userData.relieving_date).getDate() +
-        // "/" +
-        // new Date(this.userData.relieving_date).getMonth() +
-        // "/" +
-        // new Date(this.userData.relieving_date).getFullYear();
+      // new Date(this.userData.relieving_date).getDate() +
+      // "/" +
+      // new Date(this.userData.relieving_date).getMonth() +
+      // "/" +
+      // new Date(this.userData.relieving_date).getFullYear();
 
-      this.user.lastworking =moment
+      this.user.lastworking = moment
         .unix(this.userData.last_working_day_as_per_notice_period / 1000)
         .format("LL");
-        // new Date(
-        //   this.userData.last_working_day_as_per_notice_period
-        // ).getDate() +
-        // "/" +
-        // new Date(
-        //   this.userData.last_working_day_as_per_notice_period
-        // ).getMonth() +
-        // "/" +
-        // new Date(
-        //   this.userData.last_working_day_as_per_notice_period
-        // ).getFullYear();
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getDate() +
+      // "/" +
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getMonth() +
+      // "/" +
+      // new Date(
+      //   this.userData.last_working_day_as_per_notice_period
+      // ).getFullYear();
 
-      this.user.resignation =moment
+      this.user.resignation = moment
         .unix(this.userData.date_of_resignation / 1000)
         .format("LL");
-        // new Date(this.userData.date_of_resignation).getDate() +
-        // "/" +
-        // new Date(this.userData.date_of_resignation).getMonth() +
-        // "/" +
-        // new Date(this.userData.date_of_resignation).getFullYear();
+      // new Date(this.userData.date_of_resignation).getDate() +
+      // "/" +
+      // new Date(this.userData.date_of_resignation).getMonth() +
+      // "/" +
+      // new Date(this.userData.date_of_resignation).getFullYear();
 
       this.user.firstname = this.userData.first_name_personal_information;
       this.user.lastname = this.userData.last_name_personal_information;

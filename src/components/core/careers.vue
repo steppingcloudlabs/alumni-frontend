@@ -54,19 +54,12 @@
     <v-divider style="background:rgb(241, 135, 16);"></v-divider>
     <div>
       <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length">
-        <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
+        <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
           <v-hover v-slot:default="{ hover }">
             <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
               <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
-              <!-- <v-card-text>
-                <span
-                  v-for="(skill,j) in jobs[i].compentency"
-                  :key="j"
-                >{{jobs[i].compentency[j]}},&nbsp;</span>
-              </v-card-text>-->
-
-              <v-layout row wrap style="margin-left:unset;">
-                <v-flex xs5>
+<v-layout row wrap style="margin-left:unset;">
+                <v-flex xs3 class="my-0">
                   <v-card-text>
                     <v-icon color="blue" v-if="item.location">mdi-map-marker</v-icon>
                     {{item.location}}
@@ -78,17 +71,35 @@
                     {{item.department}}
                   </v-card-text>
                 </v-flex>
-                <v-flex xs2>
+</v-layout>
+              <div class="pa-5">
+                <p style="font-size:15px">
+                  {{item.jobDescription.substring(0,250)}}
+                  <span id="dots">
+                    ...
+                    <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
+                  </span>
+                </p>
+              </div>
+              <!-- <v-card-text>
+                <span
+                  v-for="(skill,j) in jobs[i].compentency"
+                  :key="j"
+                >{{jobs[i].compentency[j]}},&nbsp;</span>
+              </v-card-text>-->
+
+              
+                <!-- <v-flex xs2>
                   <v-card-actions>
                     <v-btn color="primary" outlined @click="openJob(item)">View</v-btn>
                   </v-card-actions>
-                </v-flex>
+                </v-flex>-->
                 <!-- <v-flex xs2>
                   <v-card-actions>
                    <v-btn color="primary">Refer</v-btn>
                   </v-card-actions>
                 </v-flex>-->
-              </v-layout>
+              
             </v-card>
           </v-hover>
         </v-flex>

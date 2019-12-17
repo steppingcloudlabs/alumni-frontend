@@ -11,9 +11,11 @@
 import Header from "../components/core/Header";
 import news from "../components/core/news&events";
 
+
 export default {
   components: {
-    Header
+    Header,
+   
   }
 };
 </script>

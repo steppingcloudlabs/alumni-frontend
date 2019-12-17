@@ -110,7 +110,8 @@
                 ></v-text-field>-->
               </v-card-title>
               <v-divider></v-divider>
-              <v-chip
+              <div v-if="userSkills.length">
+              <v-chip 
                 color="primary"
                 v-for="(item, i) in userSkills"
                 :key="i"
@@ -119,6 +120,10 @@
                 close
                 @click:close="deleteSkill(i)"
               >{{item}}</v-chip>
+              </div>
+              <div v-else>
+               <p class="text-center mt-2" style="font-size:15px"> No Skills to Show</p>
+              </div>
             </div>
             <div class="mt-2">
               <p
