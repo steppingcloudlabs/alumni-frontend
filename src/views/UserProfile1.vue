@@ -32,7 +32,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <AddEditLinkedInLink
-                    :linkedInProfileLink="user.linkedInProfileLink"
+                    :linkedInProfileLink="user.linkedInlink"
                     @saveProfileLink="saveProfileLink"
                   ></AddEditLinkedInLink>
                 </v-flex>
@@ -452,7 +452,7 @@ export default {
       let datam = {
         payload: {
           user_id: this.user.employeeId,
-          linkedInProfileLink: data
+          linkedInlink: data
         }
       };
       this.$store.dispatch("userModule/updateData", datam).then(response => {
@@ -595,6 +595,7 @@ export default {
       this.user.email = this.userData.personal_email_id;
       this.user.mobile = this.userData.phone_number_phone_information;
       this.userSkills = this.userData.skill;
+      this.user.linkedInlink = this.userData.linkedInlink;
     },
     getAlumniData() {
       let data = {

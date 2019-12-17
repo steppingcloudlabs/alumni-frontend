@@ -476,11 +476,24 @@ export default {
                 }).catch((error) => {
                     reject(error)
                 })
-
+            })
+        },
+        getAllEsclationManagers: ({ state, commit }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5/hrroutes/getescalationmanager',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
             })
         }
-
-
-
     }
 }
