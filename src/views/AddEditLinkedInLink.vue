@@ -65,6 +65,7 @@ export default {
     },
     saveLinkedInLink() {
       this.showLoading = true;
+      this.showLinkedInInput = false;
       this.$emit("saveProfileLink", this.tempLinkedInProfileLink);
     }
   }
