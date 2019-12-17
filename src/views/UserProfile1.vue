@@ -111,18 +111,18 @@
               </v-card-title>
               <v-divider></v-divider>
               <div v-if="userSkills.length">
-              <v-chip 
-                color="primary"
-                v-for="(item, i) in userSkills"
-                :key="i"
-                class="body-1 mr-2 ml-2 mt-4"
-                style="margin-top:10px"
-                close
-                @click:close="deleteSkill(i)"
-              >{{item}}</v-chip>
+                <v-chip
+                  color="primary"
+                  v-for="(item, i) in userSkills"
+                  :key="i"
+                  class="body-1 mr-2 ml-2 mt-4"
+                  style="margin-top:10px"
+                  close
+                  @click:close="deleteSkill(i)"
+                >{{item}}</v-chip>
               </div>
               <div v-else>
-               <p class="text-center mt-2" style="font-size:15px"> No Skills to Show</p>
+                <p class="text-center mt-2" style="font-size:15px">No Skills to Show</p>
               </div>
             </div>
             <div class="mt-2">
@@ -305,7 +305,7 @@
               <v-card-text>
                 <timeline
                   :status="DocumentStatus.fnfStatus"
-                  :code="96"
+                  :code="95"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
                 />
@@ -333,11 +333,11 @@
               <v-card-title
                 class="font-weight-medium"
                 style="font-family:Raleway;font-size:15px"
-              >Pf Clearance Status</v-card-title>
+              >Salary Slip Status</v-card-title>
               <v-card-text>
                 <timeline
-                  :status="DocumentStatus.pfTransferStatus"
-                  :code="95"
+                  :status="DocumentStatus.currentsalary"
+                  :code="96"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
                 />
@@ -458,7 +458,7 @@ export default {
       this.$store.dispatch("userModule/updateData", datam).then(response => {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
-            message: "Skill deleted successfully",
+            message: "Profile link updated successfully",
             color: "success",
             heading: "Success",
             duration: 3000
@@ -629,7 +629,11 @@ export default {
         }
       };
       this.$store.dispatch("userModule/getStatus", data).then(response => {
-        this.progress = false;
+        if (response.data.status == 400) {
+          this.progress = true;
+        } else {
+          this.progress = false;
+        }
       });
     },
     setoffice() {
