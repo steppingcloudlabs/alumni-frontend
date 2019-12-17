@@ -58,7 +58,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
               <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
-<v-layout row wrap style="margin-left:unset;">
+              <v-layout row wrap style="margin-left:unset;">
                 <v-flex xs3 class="my-0">
                   <v-card-text>
                     <v-icon color="blue" v-if="item.location">mdi-map-marker</v-icon>
@@ -71,7 +71,7 @@
                     {{item.department}}
                   </v-card-text>
                 </v-flex>
-</v-layout>
+              </v-layout>
               <div class="pa-5">
                 <p style="font-size:15px">
                   {{item.jobDescription.substring(0,250)}}
@@ -88,18 +88,16 @@
                 >{{jobs[i].compentency[j]}},&nbsp;</span>
               </v-card-text>-->
 
-              
-                <!-- <v-flex xs2>
+              <!-- <v-flex xs2>
                   <v-card-actions>
                     <v-btn color="primary" outlined @click="openJob(item)">View</v-btn>
                   </v-card-actions>
-                </v-flex>-->
-                <!-- <v-flex xs2>
+              </v-flex>-->
+              <!-- <v-flex xs2>
                   <v-card-actions>
                    <v-btn color="primary">Refer</v-btn>
                   </v-card-actions>
-                </v-flex>-->
-              
+              </v-flex>-->
             </v-card>
           </v-hover>
         </v-flex>
@@ -139,6 +137,9 @@ export default {
       skill: this.skill
     };
     this.jobData(data);
+  },
+  destroyed() {
+    this.$store.commit("userModule/setJobs", {});
   },
   computed: {
     getjobs: {

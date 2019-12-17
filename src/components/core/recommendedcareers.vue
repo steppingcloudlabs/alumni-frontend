@@ -1,71 +1,113 @@
 <template>
-  <v-layout row wrap style="margin-left:unset;">
-    <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in jobs" :key="i">
-      <v-card>
-        <v-card-title>{{jobs[i].name}}</v-card-title>
-        <v-card-text>
-          <span v-for="(skill,j) in jobs[i].compentency" :key="j">{{jobs[i].compentency[j]}},&nbsp;</span>
-        </v-card-text>
-
-        <v-layout row wrap style="margin-left:unset;">
-          <v-flex xs4>
-            <v-card-text>
-              <v-icon color="blue">mdi-map-marker</v-icon>
-              {{jobs[i].location}}
-            </v-card-text>
-          </v-flex>
-          <v-flex xs6>
-            <v-card-text>
-              <v-icon color="blue">mdi-calendar</v-icon>
-              {{jobs[i].date}}
-            </v-card-text>
-          </v-flex>
-          <v-flex xs2>
-            <v-card-actions>
-              <v-btn color="primary" outlined>Apply</v-btn>
-            </v-card-actions>
-          </v-flex>
-        </v-layout>
-      </v-card>
+  <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length">
+    <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
+      <v-hover v-slot:default="{ hover }">
+        <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
+          <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
+          <v-layout row wrap style="margin-left:unset;">
+            <v-flex xs5 class="my-0">
+              <v-card-text>
+                <v-icon color="blue" v-if="item.location">mdi-map-marker</v-icon>
+                {{item.location}}
+              </v-card-text>
+            </v-flex>
+            <v-flex xs5>
+              <v-card-text>
+                <v-icon color="blue" v-if="item.department">mdi-domain</v-icon>
+                {{item.department}}
+              </v-card-text>
+            </v-flex>
+            <v-flex xs9></v-flex>
+             <v-flex xs3>
+             <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
+             </v-flex>
+          </v-layout>
+          
+         
+          
+        </v-card>
+      </v-hover>
     </v-flex>
+    <viewjob/>
   </v-layout>
 </template>
 
 <script>
+import { addTokenToPayload, getAlumniId } from "@/utils/utils";
+import viewjob from "@/components/core/viewjobDialog.vue";
 export default {
+  components: {
+    CoreAppBar: () => import("@/components/core/AppBar"),
+    viewjob
+  },
+  beforeMount() {
+    let data = {
+      payload: {
+        skip: 0,
+        limit: 10,
+        userId: getAlumniId()
+      }
+    };
+    this.jobData(data);
+  },
+  destroyed()
+  {
+    this.$store.commit("userModule/setJobs", {});
+  },
+  computed: {
+    getjobs: {
+      get() {
+        return this.$store.getters["userModule/getJobs"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setJobs", this.data);
+      }
+    }
+  },
+  methods: {
+    jobData(data) {
+      this.skip = 0;
+      let data1 = {
+        payload: {
+          skip: 0,
+          limit: 10,
+          userId: getAlumniId()
+        }
+      };
+      console.log(this.getjobs.length);
+      this.$store.dispatch("userModule/getJob", data1);
+    },
+    jobMoreData(data) {
+      this.skip = this.skip + 1;
+      let data1 = {
+        payload: {
+          skip: this.skip,
+          limit: 10,
+          userId: this.getAlumniId()
+        }
+      };
+      console.log(this.getjobs.length);
+      this.$store.dispatch("userModule/getMoreJob", data1);
+    },
+    openJob(data) {
+      this.$store.commit("userModule/showViewJob",data);
+    }
+  },
   data() {
     return {
-      jobs: [
-        {
-          name: "Associate Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: "Developer",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: " Deputy Manager",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        },
-        {
-          name: "IT Consultant",
-          location: "new delhi",
-          department: "integration",
-          date: "24-12-2018",
-          compentency: ["C", "C++", "javaScript"]
-        }
-      ]
+      search: {
+        country: null,
+        skill: null
+      },
+      country: null,
+      skill: null,
+      skip: 0
     };
   }
 };
 </script>
+<style >
+.v-data-table {
+  border-top: "none";
+}
+</style>

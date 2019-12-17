@@ -385,6 +385,42 @@ export default {
 
             })
         },
+       recommendedJob: ({
+            state,
+            commit
+        }, data) => {
+            var data1
+            addTokenToPayload(data)
+            console.log(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5/personaluser/user/jobrecommendations',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+
+
+
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        commit('setJobs', response.data.result)
+                        resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
         getMoreJob: ({
             state,
             commit
