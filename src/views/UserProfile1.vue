@@ -336,7 +336,7 @@
               >Salary Slip Status</v-card-title>
               <v-card-text>
                 <timeline
-                  :status="DocumentStatus.currentsalary"
+                  :status="DocumentStatus.salarycurrent"
                   :code="96"
                   :userid="this.user.employeeId"
                   :showLoader="progress"

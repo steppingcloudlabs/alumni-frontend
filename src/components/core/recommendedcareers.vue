@@ -18,17 +18,19 @@
               </v-card-text>
             </v-flex>
             <v-flex xs9></v-flex>
-             <v-flex xs3>
-             <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
-             </v-flex>
+            <v-flex xs3>
+              <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
+            </v-flex>
           </v-layout>
-          
-         
-          
         </v-card>
       </v-hover>
     </v-flex>
-    <viewjob/>
+    <v-flex xs12 v-if=" Number.isInteger(getjobs.length/10) && getjobs.length">
+      <p class="text-center">
+        <v-btn color="primary" x-large text @click="jobMoreData()">Load More</v-btn>
+      </p>
+    </v-flex>
+    <viewjob />
   </v-layout>
 </template>
 
@@ -50,8 +52,7 @@ export default {
     };
     this.jobData(data);
   },
-  destroyed()
-  {
+  destroyed() {
     this.$store.commit("userModule/setJobs", {});
   },
   computed: {
@@ -75,7 +76,7 @@ export default {
         }
       };
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getJob", data1);
+      this.$store.dispatch("userModule/recommendedJob", data1);
     },
     jobMoreData(data) {
       this.skip = this.skip + 1;
@@ -83,14 +84,14 @@ export default {
         payload: {
           skip: this.skip,
           limit: 10,
-          userId: this.getAlumniId()
+          userId: getAlumniId()
         }
       };
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getMoreJob", data1);
+      this.$store.dispatch("userModule/getMoreRecommendedJob", data1);
     },
     openJob(data) {
-      this.$store.commit("userModule/showViewJob",data);
+      this.$store.commit("userModule/showViewJob", data);
     }
   },
   data() {
