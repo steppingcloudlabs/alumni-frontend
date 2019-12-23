@@ -44,6 +44,7 @@
             :arrayIndex="item - 1"
             :escalationManager="escalationManagerList[item - 1] ? escalationManagerList[item - 1] : undefined"
             @addManagerDialog="addManagerDialog"
+            @showDeleteDialog="showDeleteDialog"
           />
         </v-flex>
       </v-layout>
@@ -111,6 +112,18 @@ export default {
     addManagerDialog(data) {
       this.showDialog = true;
       this.selectedIndex = data;
+    },
+    showDeleteDialog(index) {
+      let data = {
+        payload: {
+          level: this.escalationManagerList[index].level
+        }
+      };
+      this.$store.commit("showDeleteDialog", {
+        objectToDelete: data,
+        commitToCall: undefined,
+        deleteActionToDispatch: "removeEscalationManager"
+      });
     },
     getMangerList() {
       this.$store.dispatch("adminModule/getMangerList", {}).then(response => {

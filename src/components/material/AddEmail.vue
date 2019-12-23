@@ -19,12 +19,6 @@
                 clearable
               ></v-select>
             </v-col>
-            <!-- <v-col cols="12">
-              <v-text-field type="text" v-model="tempName" label="Name"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field type="text" v-model="tempEmail" label="Email"></v-text-field>
-            </v-col>-->
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
@@ -67,7 +61,13 @@ export default {
       console.log(this.selectedItem);
     },
     saveDialog() {
-      this.$emit("saveEsclationData", this.selectedItem);
+      this.$emit(
+        "saveEsclationData",
+        JSON.parse(JSON.stringify(this.selectedItem))
+      );
+      setTimeout(() => {
+        this.selectedItem = undefined;
+      }, 1000);
     }
   }
 };

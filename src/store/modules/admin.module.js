@@ -15,17 +15,17 @@ export default {
         level: "",
         level1Email: [{
 
-        },
-        {
-            levelOrder: 2,
-            email: "Abid@steppingcloud",
-            name: "daraksha"
-        },
-        {
-            levelOrder: 3,
-            email: "darak@steppingcloud",
-            name: "daraksha"
-        }
+            },
+            {
+                levelOrder: 2,
+                email: "Abid@steppingcloud",
+                name: "daraksha"
+            },
+            {
+                levelOrder: 3,
+                email: "darak@steppingcloud",
+                name: "daraksha"
+            }
         ],
         level2Email: {},
         level3Email: {},
@@ -369,8 +369,6 @@ export default {
         getFaqList: (state) => {
             return state.FaqList
         },
-
-
     },
     actions: {
         addNews: ({
@@ -952,7 +950,10 @@ export default {
 
             })
         },
-        getMangerList: ({ state, commit }, data) => {
+        getMangerList: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
@@ -979,7 +980,10 @@ export default {
 
             })
         },
-        saveEscalationManager: ({ state, commit }, data) => {
+        saveEscalationManager: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
@@ -1003,7 +1007,35 @@ export default {
                 }).catch((error) => {
                     reject(error)
                 })
-
+            })
+        },
+        removeEscalationManager: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: 'http://18.190.14.5/hrroutes/deleteManager',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
             })
         }
     }
