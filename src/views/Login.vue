@@ -101,11 +101,16 @@ export default {
           })
           .then(response => {
             if (
-              response &&
-              response.status == 200 &&
-              response.usertype == "admin" || response.usertype =="hr"
+              (response &&
+                response.status == 200 &&
+                response.usertype == "admin") ||
+              response.usertype == "hr"
             ) {
               this.$router.push({ path: "/admin/dashboard" });
+              this.$store.commit(
+                "userModule/savedUserObjectId",
+                response.result._id
+              );
               this.$store.commit("closeProgressBar", {});
             } else if (
               response &&
@@ -114,6 +119,10 @@ export default {
               response.usertype == "user"
             ) {
               this.$router.push({ path: "/profile/dashboard" });
+              this.$store.commit(
+                "userModule/savedUserObjectId",
+                response.result._id
+              );
               this.$store.commit("closeProgressBar", {});
             } else if (response.result != "Login Successful") {
               this.$store.commit("closeProgressBar", {});

@@ -41,10 +41,9 @@ export default {
   },
   computed: {
     userId() {
-      return this.$store.getters["userModule/getUserData"]._id;
+      return this.$store.getters["userModule/getSavedUserObjectId"];
     }
   },
-
   methods: {
     queryItemClicked(item, index) {
       this.$emit("queryItemClicked", { messageObj: item, messageIndex: index });

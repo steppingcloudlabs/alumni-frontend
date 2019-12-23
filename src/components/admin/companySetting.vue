@@ -50,7 +50,6 @@
       </v-layout>
     </v-card>
     <AddEmail
-      :escalationList="escalationList"
       :editEsclationData="selectedEsclation"
       :showEmailDialog="showDialog"
       @closeDialog="closeEmailDialog"
@@ -146,8 +145,8 @@ export default {
     saveEsclationData(managerId) {
       let data = {
         payload: {
-          manager_id: managerId,
-          esclation_manager: "esclation_manager_" + (this.selectedIndex + 1)
+          new_manager_obejctid: managerId,
+          level: "esclation_manager_" + (this.selectedIndex + 1)
         }
       };
       this.$store

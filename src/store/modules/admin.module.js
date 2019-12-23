@@ -988,7 +988,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/postManager',
+                    url: 'http://18.190.14.5/hrroutes/updatemanager',
                     headers: {
                         'Content-Type': 'application/json',
                     },

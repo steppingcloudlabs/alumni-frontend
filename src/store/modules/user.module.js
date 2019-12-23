@@ -11,6 +11,7 @@ export default {
     namespaced: true,
     state: {
         test: "Hello Test",
+        userObejctId: undefined,
         userData: {},
         searchUser: undefined,
         statusData: {},
@@ -75,9 +76,15 @@ export default {
             state.userData.city_addresses = data.city_addresses
             state.userData = JSON.parse(JSON.stringify(state.userData))
         },
+        savedUserObjectId: (state, data) => {
+            state.userObejctId = data
+        }
 
     },
     getters: {
+        getSavedUserObjectId: (state) => {
+            return state.userObejctId
+        },
         getshowContactDialog: (state) => {
             return state.showContactDialog
         },
@@ -385,7 +392,7 @@ export default {
 
             })
         },
-       recommendedJob: ({
+        recommendedJob: ({
             state,
             commit
         }, data) => {
@@ -515,7 +522,10 @@ export default {
 
             })
         },
-        createTicket: ({ state, commit }, data) => {
+        createTicket: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
@@ -533,7 +543,10 @@ export default {
 
             })
         },
-        getAllUserQueries: ({ state, commit }, data) => {
+        getAllUserQueries: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
@@ -550,7 +563,10 @@ export default {
                 })
             })
         },
-        getAllEsclationManagers: ({ state, commit }, data) => {
+        getAllEsclationManagers: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
@@ -567,7 +583,10 @@ export default {
                 })
             })
         },
-        postQueryMessage: ({ state, commit }, data) => {
+        postQueryMessage: ({
+            state,
+            commit
+        }, data) => {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({

@@ -32,10 +32,11 @@ export default {
   },
   computed: {
     userId() {
-      return this.$store.getters["userModule/getUserData"]._id;
+      return this.$store.getters["userModule/getSavedUserObjectId"];
     }
   },
   beforeMount() {
+    console.log(this.userId);
     let data = {
       payload: {
         creater_id: this.userId

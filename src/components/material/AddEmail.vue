@@ -37,7 +37,8 @@ export default {
     return {
       tempName: "",
       tempEmail: "",
-      selectedItem: undefined
+      selectedItem: undefined,
+      escalationList: []
     };
   },
   props: {
@@ -46,10 +47,21 @@ export default {
     },
     showEmailDialog: {
       type: Boolean
-    },
-    escalationList: {
-      type: Array,
-      default: []
+    }
+    // escalationList: {
+    //   type: Array,
+    //   default: []
+    // }
+  },
+  watch: {
+    showEmailDialog() {
+      if (this.showEmailDialog) {
+        this.$store
+          .dispatch("userModule/getAllEsclationManagers", {})
+          .then(response => {
+            this.escalationList = response.result;
+          });
+      }
     }
   },
   methods: {
