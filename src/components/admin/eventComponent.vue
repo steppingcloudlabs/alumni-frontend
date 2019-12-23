@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!this.empty">
-      <v-layout row wrap mt-4 v-for="(item,i) in count" :key="i">
+      <v-layout row wrap mt-4 v-for="(item,i) in getEventList" :key="i">
         <v-flex xs4 class="px-5">
           <v-img height="200px" v-if="getEventList[i].photo" :src="getEventList[i].photo"></v-img>
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
@@ -108,7 +108,7 @@ export default {
 
       this.$store
         .dispatch("adminModule/getMoreEvent", {
-          payload: { limit: this.limit, skip: this.skip }
+          payload: { limit:this.limit, skip:this.skip }
         })
         .then(response => {
           if (

@@ -16,9 +16,9 @@
       <v-flex xs7 class="text-right">
         <div class="menu-wrapper">
           <ul>
-            <li>
+            <!-- <li>
               <a :class="$route.path == '/about' ? 'active' : ''">About</a>
-            </li>
+            </li> -->
             <li>
               <a
                 :class="$route.path == '/signup' ? 'active' : ''"

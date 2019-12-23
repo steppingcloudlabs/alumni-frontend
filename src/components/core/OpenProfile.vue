@@ -30,9 +30,10 @@
                   class="caption"
                   style="line-height: 2px !important;font-family:'Raleway',sans-serif"
                 >Worked As-{{user.position}}</p>
+
                 <p>Till {{user.relieving}}</p>
                 <p>
-                  <v-icon color="blue">mdi-linkedin</v-icon>
+                  <v-icon color="blue" @click="openLinkedInProfile" class="mr-1">mdi-linkedin</v-icon>
                 </p>
                 <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
               </v-card-text>
@@ -227,7 +228,8 @@ export default {
         nationality: ""
       },
       progress: true,
-      userSkills: []
+      userSkills: [],
+      linkedInProfileLink: ""
     };
   },
   beforeMount() {
@@ -273,6 +275,9 @@ export default {
     }
   },
   methods: {
+    openLinkedInProfile() {
+      window.open(this.linkedInProfileLink, "_blank");
+    },
     initializeUserData() {
       this.user.position = this.userData.designation_job_information;
       this.user.employeeId = this.userData.user_id;
@@ -318,6 +323,7 @@ export default {
       this.user.email = this.userData.personal_email_id;
       this.user.mobile = this.userData.phone_number_phone_information;
       this.userSkills = this.userData.skill;
+      this.linkedInProfileLink = this.userData.linkedInlink;
     }
   }
 };

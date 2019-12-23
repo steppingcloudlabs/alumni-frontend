@@ -42,7 +42,7 @@
               <v-col cols="12" md="2">
                 <v-icon
                   style="margin-top: 28px;"
-                  @click="saveDialogSalary({stream:getBase64Salary1st,code:'96'})"
+                  @click="saveDialogSalary({stream:salarySlipBase641st,code:'96'})"
                 >fas fa-upload</v-icon>
               </v-col>
               <v-col cols="12" md="10">
@@ -82,7 +82,7 @@
               <v-col cols="12" md="2">
                 <v-icon
                   style="margin-top: 28px;"
-                  @click="saveDialogSalary({stream:getBase64Salary3rd, code:'98'})"
+                  @click="saveDialogSalary({stream:salarySlipBase643rd, code:'98'})"
                 >fas fa-upload</v-icon>
               </v-col>
             </v-row>

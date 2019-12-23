@@ -8,16 +8,20 @@
             <a style="color:green">Download</a>
           </span>
         </p>
-        <p class="text-center">
-          <span class="ml-4 mr-4" v-if="code==96" @click="download({payload:{userid,filename:code}})">
+        <p class="text-right">
+          <span
+            class="ml-4 mr-4"
+            v-if="code==96"
+            @click="download({payload:{userid,filename:code}})"
+          >
             <a style="color:green">Payslip1</a>
           </span>
-          <span class="ml-4 mr-4" v-if="code==96" @click="download({payload:{userid,filename:97}})">
+          <!-- <span class="ml-4 mr-4" v-if="code==96" @click="download({payload:{userid,filename:97}})">
             <a style="color:green">PaySlip2</a>
           </span>
           <span class="ml-4 mr-4" v-if="code==96" @click="download({payload:{userid,filename:98}})">
             <a style="color:green">PaySlip3</a>
-          </span>
+          </span>-->
         </p>
       </div>
       <v-alert type="warning" dense text v-else>Pending From Company</v-alert>

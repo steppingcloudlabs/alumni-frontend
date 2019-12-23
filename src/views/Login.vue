@@ -103,7 +103,7 @@ export default {
             if (
               response &&
               response.status == 200 &&
-              response.usertype == "admin"
+              response.usertype == "admin" || response.usertype =="hr"
             ) {
               this.$router.push({ path: "/admin/dashboard" });
               this.$store.commit("closeProgressBar", {});

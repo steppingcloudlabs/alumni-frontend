@@ -51,11 +51,12 @@ export default {
   background-image: url('../../assets/shutterstock/landing1.jpg');
   background-size: 1500px;
   background-position: center;  
+  /* background-size: contain; */
 }
 .image-bg-text-wrapper {
   height: 100%;
   width: 100%;
-  background: linear-gradient(to bottom, rgb(26, 26, 29), rgba(26, 26, 29, .2));
+  background: linear-gradient(to bottom, rgb(26, 26, 29), rgba(26, 26, 29, .1));
   
 }
 .image-bg-text-wrapper h2 {

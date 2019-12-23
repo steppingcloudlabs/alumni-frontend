@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-img height="250px" src="@/assets/document_bg.jpg">
+    <v-img height="250px" src="@/assets/shutterstock/document.jpg">
       <!-- <core-app-bar></core-app-bar> -->
     </v-img>
     <br />
@@ -161,7 +161,7 @@ export default {
         { title: "Full n Final", code: 95 },
         { title: "Salary Slips", code: 96 },
         { title: "Relieving Letter", code: 97 },
-        { title: "Pf Clearance", code: 97 },
+       
         { title: "Experience Letter", code: 97 }
       ],
       status: [],
@@ -278,8 +278,7 @@ export default {
       this.status[1] = this.DocumentStatus.fnfStatus;
       this.status[2] = this.DocumentStatus.salarycurrent;
       this.status[3] = this.DocumentStatus.fnfStatus;
-      this.status[4] = this.DocumentStatus.pfTransferStatus;
-      this.status[5] = this.DocumentStatus.fnfStatus;
+      this.status[4] = this.DocumentStatus.fnfStatus;
     }
   }
   // watch: {
