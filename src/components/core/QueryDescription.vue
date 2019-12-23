@@ -7,24 +7,25 @@
             <span class="mr-5">
               <i class="fas fa-arrow-left" style="cursor:pointer" @click="backToList"></i>
             </span>
-            <span>{{selectedQueryItem.querySubject}}</span>
+            <span>{{selectedQueryItem.title}}</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-layout row wrap style="overflow: auto; max-height:400px">
           <v-flex xs12>
             <v-timeline dense class="pr-5">
-              <v-timeline-item v-for="item in queryList" :key="item.messageId" large fill-dot>
+              <v-timeline-item
+                v-for="(item, k) in selectedQueryItem.message"
+                :key="item.senders + k"
+                large
+                fill-dot
+              >
                 <template v-slot:icon>
                   <v-avatar>
-                    <span
-                      class="white--text title"
-                    >{{currentUserId == item.messageFrom ? "Y" : item.responserName.substring(0, 1) }}</span>
+                    <span class="white--text title">{{ currentUserId == item.senders ? "Y" : "A" }}</span>
                   </v-avatar>
                 </template>
                 <v-card class="elevation-2">
-                  <v-card-title
-                    class="headline"
-                  >{{currentUserId == item.messageFrom ? "You" : item.responserName}}</v-card-title>
+                  <v-card-title class="headline">{{currentUserId == item.senders ? "You" : "Admin"}}</v-card-title>
                   <v-card-text>{{item.message}}</v-card-text>
                 </v-card>
               </v-timeline-item>
@@ -61,59 +62,17 @@ export default {
   name: "QueryDescription",
   data() {
     return {
-      addComment: "",
-      queryList: [
-        {
-          messageId: "1",
-          queryId: "1",
-          requesterId: "007",
-          requesterName: "John Doe",
-          responserName: "Admin",
-          responserId: "1232",
-          message: "Hello",
-          messageTime: "10/14/2019",
-          messageFrom: "007"
-        },
-        {
-          messageId: "2",
-          queryId: "1",
-          requesterId: "007",
-          responserId: "1232",
-          requesterName: "John Doe",
-          responserName: "Admin",
-          message: "How are you",
-          messageTime: "10/15/2019",
-          messageFrom: "1232"
-        },
-        {
-          messageId: "3",
-          queryId: "1",
-          requesterId: "007",
-          responserId: "1232",
-          requesterName: "John Doe",
-          responserName: "Admin",
-          message: "How are u doing",
-          messageTime: "10/22/2019",
-          messageFrom: "007"
-        },
-        {
-          messageId: "4",
-          queryId: "1",
-          requesterId: "007",
-          responserId: "1232",
-          requesterName: "John Doe",
-          responserName: "Admin",
-          message: "New work in progress",
-          messageTime: "10/30/2019",
-          messageFrom: "1232"
-        }
-      ]
+      addComment: ""
     };
   },
   props: {
     selectedQueryItem: {
       type: Object,
-      default: {}
+      default: undefined
+    },
+    objIndex: {
+      type: Number,
+      default: undefined
     }
   },
   methods: {
@@ -122,23 +81,29 @@ export default {
     },
     updateMessage() {
       let message = {
-        messageId: "5",
-        queryId: "1",
-        requesterId: sessionStorage.getItem("UserId"),
-        responserId: "1232",
-        requesterName: "John Doe",
-        responserName: "Admin",
-        message: this.addComment,
-        messageTime: new Date().getTime(),
-        messageFrom: sessionStorage.getItem("UserId")
+        payload: {
+          senders: this.currentUserId,
+          // created_at: "",use
+          message: this.addComment,
+          ticket_id: this.selectedQueryItem._id
+        }
       };
-      this.queryList.push(message);
+      this.$store
+        .dispatch("userModule/postQueryMessage", message)
+        .then(response => {
+          if (response.status == 200) {
+            this.$emit("newMessageAdded", {
+              objIndex: this.objIndex,
+              messageObj: message.payload
+            });
+          }
+        });
       this.addComment = "";
     }
   },
   computed: {
     currentUserId() {
-      return sessionStorage.getItem("UserId");
+      return this.$store.getters["userModule/getUserData"]._id;
     }
   }
 };

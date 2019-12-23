@@ -11,10 +11,10 @@
               two-line
               v-for="(item, i) in queryList"
               :key="i"
-              @click="queryItemClicked(item)"
+              @click="queryItemClicked(item, i)"
             >
               <v-list-item-content>
-                <v-list-item-title v-text="item.querySubject"></v-list-item-title>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.queryDescription"></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -30,51 +30,24 @@ export default {
   name: "UserQueryList",
   data() {
     return {
-      queryList: [
-        {
-          id: "1",
-          querySubject: "Unable to Login",
-          queryDescription: "I am unable to login. Kindly do the needful",
-          lastUpdated: "10/25/2019"
-        },
-        {
-          id: "1",
-          querySubject: "Connection Problem",
-          queryDescription:
-            "I am facing connection prblem. Kindly do the needful",
-          lastUpdated: "10/25/2019"
-        },
-        {
-          id: "1",
-          querySubject: "Failed to Register",
-          queryDescription: "I am unable to register. Kindly do the needful",
-          lastUpdated: "10/25/2019"
-        }
-      ],
       selectedQuery: {}
     };
+  },
+  props: {
+    queryList: {
+      type: Array,
+      default: undefined
+    }
   },
   computed: {
     userId() {
       return this.$store.getters["userModule/getUserData"]._id;
     }
   },
-  beforeMount() {
-    let data = {
-      payload: {
-        creater_id: this.userId
-      }
-    };
-    this.$store
-      .dispatch("userModule/getAllUserQueries", data)
-      .then(response => {
-        this.queryList = response.result;
-        console.log(response);
-      });
-  },
+
   methods: {
-    queryItemClicked(item) {
-      this.$emit("queryItemClicked", item);
+    queryItemClicked(item, index) {
+      this.$emit("queryItemClicked", { messageObj: item, messageIndex: index });
     }
   }
 };

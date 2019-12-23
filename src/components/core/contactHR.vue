@@ -66,7 +66,7 @@ export default {
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
       subjectRules: [v => !!v || "Subject is required"],
-      esclationList: []
+      esclationList: [{}, {}, {}]
     };
   },
   props: {
@@ -96,13 +96,18 @@ export default {
       this.$emit("closeAskHrDialog");
     },
     getAllEscaltionManager() {
-      this.$store
-        .dispatch("userModule/getAllEsclationManagers", {})
-        .then(response => {
-          if (response && response && response.status == 200) {
-            this.esclationList = response.result;
+      this.$store.dispatch("adminModule/getMangerList", {}).then(response => {
+        if (response && response.status == 200) {
+          for (let i = 0; i < response.data.result.length; i++) {
+            let level = response.data.result[i].level.charAt(
+              response.data.result[i].level.length - 1
+            );
+            this.esclationList[parseInt(level) - 1] = response.data.result[i];
           }
-        });
+          // this.esclationList = response.result;
+          console.log(this.esclationList);
+        }
+      });
     },
     sendDialog() {
       this.$emit("closeAskHrDialog");
@@ -114,10 +119,11 @@ export default {
           updated_by: this.userId,
           title: this.ask.subject,
           message: this.ask.body,
+          messagebody: this.ask.body,
           esclation: false,
-          esclation_manager_1: ["5de77f4bf7fa0010ac57462d"],
-          esclation_manager_2: "5de77f4bf7fa0010ac57462d",
-          esclation_manager_3: "5de77f4bf7fa0010ac57462d",
+          esclation_manager_1: this.esclationList[0].esclation_manager_id._id,
+          esclation_manager_2: this.esclationList[1].esclation_manager_id._id,
+          esclation_manager_3: this.esclationList[2].esclation_manager_id._id,
           resolved_status: false
         }
       };
