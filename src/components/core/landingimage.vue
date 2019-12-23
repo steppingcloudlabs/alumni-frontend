@@ -48,7 +48,7 @@ export default {
 }
 .image-bg-wrapper {
   height: 500px;
-  background-image: url('../../assets/enrichment.jpg');
+  background-image: url('../../assets/shutterstock/landing1.jpg');
   background-size: 1500px;
   background-position: center;  
 }

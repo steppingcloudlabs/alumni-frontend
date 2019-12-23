@@ -289,8 +289,6 @@ export default {
                   position: results[0].geometry.location,
                   title: vm.person[i],
                   animation: google.maps.Animation.DROP
-                  //  icon: image,
-                  //  shape: shape,
                 });
                 var infowincontent =
                   "<a href='/#/profile/search/" +

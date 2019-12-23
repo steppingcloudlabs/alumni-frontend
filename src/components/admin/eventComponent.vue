@@ -79,7 +79,8 @@ export default {
       limit: 1,
       showMore: true,
       count: 0,
-      empty: false
+      empty: false,
+      skip:0
     };
   },
   methods: {
@@ -101,8 +102,8 @@ export default {
       this.showMore = true;
     },
     getMore() {
-      this.limit = 2;
-      this.skip = this.skip + this.limit;
+      this.limit = 1;
+      this.skip = this.skip +1;
       this.showMore = false;
 
       this.$store
@@ -139,7 +140,7 @@ export default {
     (this.showMore = true), this.$store.commit("showProgressBar", {});
     this.$store
       .dispatch("adminModule/getAllEvent", {
-        payload: { skip: 0, limit: this.limit }
+        payload: { skip:0, limit: this.limit }
       })
       .then(response => {
         this.$store.commit("closeProgressBar", {});

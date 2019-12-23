@@ -7,13 +7,14 @@
     hide-delimiters
     cycle
     @change="resetHeight()"
+    cover
   >
     <div v-if="!this.empty">
       <v-carousel-item
         v-for="(item, i) in getNewsList"
         :key="i"
         :src="getNewsList[i].photo"
-        style="background-color:rgba(0,0,0,0.5)"
+       
       >
         <v-card class="px-5 py-5" color="transparent" height="100%">
           <v-card-title>
@@ -26,6 +27,7 @@
           <v-card-text
             class="title font-weight-light"
             style="font-family:Raleway !important;text-align:justify;color:white"
+            v-if="item.content"
           >
             <p>
               {{item.content.substring(0,len)}}
@@ -200,7 +202,7 @@ div.item {
   display: inline-block;
   text-align: center;
 }
-.news-carousel-wrapper .v-responsive__content {
+/* .news-carousel-wrapper .v-responsive__content {
   background: rgb(0, 0, 0, 0.5);
-}
+} */
 </style>
