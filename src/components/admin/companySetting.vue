@@ -5,11 +5,11 @@
         <v-toolbar-title style="color:white">Escalation Mails</v-toolbar-title>
       </v-toolbar>
       <v-layout row wrap>
-        <v-flex xs4 pa-5 v-for="(item, i) in items" :key="i">
+        <!-- <v-flex xs4 pa-5 v-for="(item, i) in items" :key="i">
           <v-card class="mx-auto" min-width="304px" min-height="250px" light>
             <v-layout row wrap>
               <v-flex xs12>
-                <div class="title mb-4 pt-4 pl-3">{{item.title}}</div>
+                <div class="title pt-4 pl-3">{{item.title}}</div>
                 <v-list-item three-line v-if="getEmailList[i].levelOrder">
                   <v-list-item-content>
                     <v-list-item-title class="headline mb-1">{{getEmailList[i].name}}</v-list-item-title>
@@ -37,10 +37,20 @@
               </v-flex>
             </v-layout>
           </v-card>
+        </v-flex>-->
+        <v-flex xs4 v-for="item in 3" :key="'escalationManager'+item">
+          <EscalationManagerCard
+            :render="renderManagerComponent"
+            :arrayIndex="item - 1"
+            :escalationManager="escalationManagerList[item - 1] ? escalationManagerList[item - 1] : undefined"
+            @addManagerDialog="addManagerDialog"
+            @showDeleteDialog="showDeleteDialog"
+          />
         </v-flex>
       </v-layout>
     </v-card>
     <AddEmail
+      :escalationList="escalationList"
       :editEsclationData="selectedEsclation"
       :showEmailDialog="showDialog"
       @closeDialog="closeEmailDialog"
@@ -51,16 +61,22 @@
 
 <script>
 import AddEmail from "@/components/material/AddEmail";
+import EscalationManagerCard from "@/components/admin/EscalationManagerCard";
 
 export default {
   components: {
-    AddEmail
+    AddEmail,
+    EscalationManagerCard
   },
   data() {
     return {
       showskill: true,
       showDialog: false,
       selectedEsclation: {},
+      escalationManagerList: [{}, {}, {}],
+      renderManagerComponent: false,
+      selectedIndex: undefined,
+      escalationList: [],
       items: [
         { title: "Spoc", index: 0 },
         { title: "Escalation Level 1", index: 1 },
@@ -83,7 +99,9 @@ export default {
       }
     }
   },
-
+  beforeMount() {
+    this.getMangerList();
+  },
   methods: {
     closeEmailDialog() {
       this.showDialog = false;
@@ -91,7 +109,53 @@ export default {
     showEmailDialog(data) {
       this.showDialog = true;
     },
-    saveEsclationData() {}
+    addManagerDialog(data) {
+      this.showDialog = true;
+      this.selectedIndex = data;
+    },
+    showDeleteDialog(index) {
+      let data = {
+        payload: {
+          level: this.escalationManagerList[index].level
+        }
+      };
+      this.$store.commit("showDeleteDialog", {
+        objectToDelete: data,
+        commitToCall: undefined,
+        deleteActionToDispatch: "removeEscalationManager"
+      });
+    },
+    getMangerList() {
+      this.$store.dispatch("adminModule/getMangerList", {}).then(response => {
+        if (response && response.data && response.data.result) {
+          for (let i = 0; i < response.data.result.length; i++) {
+            let level = response.data.result[i].level.charAt(
+              response.data.result[i].level.length - 1
+            );
+            this.escalationManagerList[parseInt(level) - 1] =
+              response.data.result[i];
+            this.escalationList.push(
+              response.data.result[i].esclation_manager_id
+            );
+          }
+        }
+        this.renderManagerComponent = true;
+        console.log("Response", this.escalationManagerList);
+      });
+    },
+    saveEsclationData(managerId) {
+      let data = {
+        payload: {
+          manager_id: managerId,
+          esclation_manager: "esclation_manager_" + (this.selectedIndex + 1)
+        }
+      };
+      this.$store
+        .dispatch("adminModule/saveEscalationManager", data)
+        .then(response => {
+          this.showDialog = false;
+        });
+    }
   }
 };
 </script>
