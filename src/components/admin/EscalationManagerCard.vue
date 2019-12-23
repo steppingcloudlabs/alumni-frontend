@@ -24,7 +24,7 @@
         </v-card-actions>
       </v-card>
       <v-card v-else light min-height="200px" class="pa-0 ma-0">
-        <v-card-title class="title pt-4 pl-3">Escalation Level 1</v-card-title>
+        <v-card-title class="title pt-4 pl-3">{{"Escalation Level " + (arrayIndex + 1)}}</v-card-title>
         <div class="text-center">
           <v-card-text style="color: black; height: 110px; line-height: 80px">No manager added</v-card-text>
           <v-card-actions>
