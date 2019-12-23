@@ -551,7 +551,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/getuserticket',
+                    url: 'http://18.190.14.5/hrroutes/getticket',
                     headers: {
                         'Content-Type': 'application/json',
                     },

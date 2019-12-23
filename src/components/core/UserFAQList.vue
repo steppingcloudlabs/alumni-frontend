@@ -29,29 +29,6 @@
         </v-row>
       </v-card>
     </v-flex>
-    <v-flex xs12>
-      <Contact :dialog="dialog" :Showemail="emailDailog" @closeAskHrDialog="closeAskHrDialog" />
-    </v-flex>
-    <v-tooltip top>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          @click="dialog=true"
-          style="position: fixed; bottom: 20px;"
-          large
-          absolute
-          dark
-          fab
-          float
-          right
-          bottom
-          color="blue"
-          class="mb-5"
-        >
-          <v-icon>mdi-wechat</v-icon>
-        </v-btn>
-      </template>
-      <span>Raise Concern</span>
-    </v-tooltip>
   </v-layout>
 </template>
 <script>
@@ -72,9 +49,7 @@ export default {
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
-    closeAskHrDialog() {
-      this.dialog = false;
-    },
+
     questionPresent(data) {
       if (data.endsWith("?") == false) {
         return true;

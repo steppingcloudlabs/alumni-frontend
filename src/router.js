@@ -27,154 +27,154 @@ Vue.use(Router)
 const router = new Router({
   base: process.env.BASE_URL,
   routes: [{
-      path: '/',
-      name: 'home',
-      component: Home,
-      children: [{
-          path: '/home',
-          name: 'hompage',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: HomePage
-          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-        },
-        {
-          path: '/login',
-          name: 'signin',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: signin
-          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-        },
-        {
-          path: '/signup',
-          name: 'signup',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: signup
-          //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-        },
-        {
-          path: '/forgotpassword',
-          name: 'resetpassword',
-          component: resetpassword
-        },
-        {
-          path: '/resetpassword/:token',
-          name: 'changepassword',
-          component: changepassword
-        }
-      ]
+    path: '/',
+    name: 'home',
+    component: Home,
+    children: [{
+      path: '/home',
+      name: 'hompage',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: HomePage
+      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: portal,
-      children: [{
-          path: 'changepassword',
-          // Relative to /src/views
-          component: updatepassword
-        },
-        {
-          path: 'dashboard',
-          // Relative to /src/views
-          component: Dashboard
-        },
-        {
-          path: 'query',
-          // Relative to /src/views
-          component: AskHr
-        },
-        {
-          path: 'search/:userId',
-          // Relative to /src/views
-          component: searchProfile
-        },
-        {
-          path: 'user-profile',
-          name: 'Profile',
-          component: UserProfile
-        },
-
-        {
-          path: 'maps',
-          component: Maps
-        },
-        {
-          path: 'careers',
-          name: 'careers',
-          component: careers
-        },
-        {
-          path: 'notification',
-          name: 'notification',
-          component: notification
-        },
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: Dashboard
-        },
-        {
-          path: 'document',
-          name: 'document',
-          component: Document
-        }
-
-
-      ]
+      path: '/login',
+      name: 'signin',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: signin
+      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: admin,
-      children: [{
-          path: 'dashboard',
-          // Relative to /src/views
-          component: dashboard
-        },
-        {
-          path: 'newsupload',
-          name: '',
-          component: newsupload
-        },
-        {
-          path: 'update',
-          component: FaQ
-        },
-        {
-          path: 'document',
-
-          component: document
-        },
-        {
-          path: 'notification',
-
-          component: notification
-        },
-        {
-          path: 'dashboard',
-
-          component: Dashboard
-        },
-        {
-          path: 'document',
-
-          component: Document
-        },
-        {
-          path: 'settings',
-
-          component: companySetting
-        }
-
-
-
-      ]
+      path: '/signup',
+      name: 'signup',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: signup
+      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
+    {
+      path: '/forgotpassword',
+      name: 'resetpassword',
+      component: resetpassword
+    },
+    {
+      path: '/resetpassword/:token',
+      name: 'changepassword',
+      component: changepassword
+    }
+    ]
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: portal,
+    children: [{
+      path: 'changepassword',
+      // Relative to /src/views
+      component: updatepassword
+    },
+    {
+      path: 'dashboard',
+      // Relative to /src/views
+      component: Dashboard
+    },
+    {
+      path: 'query',
+      // Relative to /src/views
+      component: AskHr
+    },
+    {
+      path: 'search/:userId',
+      // Relative to /src/views
+      component: searchProfile
+    },
+    {
+      path: 'user-profile',
+      name: 'Profile',
+      component: UserProfile
+    },
+
+    {
+      path: 'maps',
+      component: Maps
+    },
+    {
+      path: 'careers',
+      name: 'careers',
+      component: careers
+    },
+    {
+      path: 'notification',
+      name: 'notification',
+      component: notification
+    },
+    {
+      path: 'dashboard',
+      name: 'dashboard',
+      component: Dashboard
+    },
+    {
+      path: 'document',
+      name: 'document',
+      component: Document
+    }
+
+
+    ]
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: admin,
+    children: [{
+      path: 'dashboard',
+      // Relative to /src/views
+      component: dashboard
+    },
+    {
+      path: 'newsupload',
+      name: '',
+      component: newsupload
+    },
+    {
+      path: 'update',
+      component: FaQ
+    },
+    {
+      path: 'document',
+
+      component: document
+    },
+    {
+      path: 'notification',
+
+      component: notification
+    },
+    {
+      path: 'dashboard',
+
+      component: Dashboard
+    },
+    {
+      path: 'document',
+
+      component: Document
+    },
+    {
+      path: 'settings',
+
+      component: companySetting
+    }
+
+
+
+    ]
+  },
 
 
 

@@ -104,7 +104,6 @@ export default {
             );
             this.esclationList[parseInt(level) - 1] = response.data.result[i];
           }
-          // this.esclationList = response.result;
           console.log(this.esclationList);
         }
       });
@@ -135,19 +134,9 @@ export default {
             heading: "Success",
             duration: 3000
           });
+          this.$emit("updateQueryList");
         }
       });
-
-      // this.$store.dispatch("userModule/contactHr", data).then(response => {
-      //   if (response.data.status == 200) {
-      //     this.$store.commit("showSnackbar", {
-      //       message: "We will come back to you shortly",
-      //       color: "success",
-      //       heading: "Success",
-      //       duration: 3000
-      //     });
-      //   }
-      // });
     }
   }
 };

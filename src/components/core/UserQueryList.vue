@@ -5,7 +5,7 @@
         <v-toolbar>
           <v-toolbar-title class="ml-5">User Queries</v-toolbar-title>
         </v-toolbar>
-        <v-list shaped>
+        <v-list shaped style="max-height: 300px; overflow-y: auto">
           <v-list-item-group v-model="selectedQuery" color="primary">
             <v-list-item
               two-line

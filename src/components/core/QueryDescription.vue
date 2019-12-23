@@ -10,7 +10,7 @@
             <span>{{selectedQueryItem.title}}</span>
           </v-toolbar-title>
         </v-toolbar>
-        <v-layout row wrap style="overflow: auto; max-height:400px">
+        <v-layout row wrap style="overflow: auto; max-height:400px" id="queryContainer">
           <v-flex xs12>
             <v-timeline dense class="pr-5">
               <v-timeline-item
@@ -21,11 +21,15 @@
               >
                 <template v-slot:icon>
                   <v-avatar>
-                    <span class="white--text title">{{ currentUserId == item.senders ? "Y" : "A" }}</span>
+                    <span
+                      class="white--text title"
+                    >{{ currentUserId == item.senders ? "Y" : userType == "adab7b701f23bb82014c8506d3dc784e" ? "U" : "A" }}</span>
                   </v-avatar>
                 </template>
                 <v-card class="elevation-2">
-                  <v-card-title class="headline">{{currentUserId == item.senders ? "You" : "Admin"}}</v-card-title>
+                  <v-card-title
+                    class="headline"
+                  >{{currentUserId == item.senders ? "You" : userType == "adab7b701f23bb82014c8506d3dc784e" ? "User" : "Admin" }}</v-card-title>
                   <v-card-text>{{item.message}}</v-card-text>
                 </v-card>
               </v-timeline-item>
@@ -104,6 +108,9 @@ export default {
   computed: {
     currentUserId() {
       return this.$store.getters["userModule/getUserData"]._id;
+    },
+    userType() {
+      return sessionStorage.getItem("Type");
     }
   }
 };
