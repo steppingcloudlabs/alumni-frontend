@@ -123,7 +123,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/user/signin',
+                    url: 'https://api.steppingcloud.com/user/signin',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -163,7 +163,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/user/signup',
+                    url: 'https://api.steppingcloud.com/user/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -191,7 +191,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/awsadmin/documentdownlaod',
+                    url: 'https://api.steppingcloud.com/awsadmin/documentdownlaod',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -221,7 +221,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/admin/action/updatealumni',
+                    url: 'https://api.steppingcloud.com/admin/action/updatealumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -251,7 +251,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/admin/action/alumniview',
+                    url: 'https://api.steppingcloud.com/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -279,7 +279,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/admin/action/alumniview',
+                    url: 'https://api.steppingcloud.com/admin/action/alumniview',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -309,7 +309,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/user/forgetpassword',
+                    url: 'https://api.steppingcloud.com/user/forgetpassword',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -335,7 +335,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/personaluser/user/status',
+                    url: 'https://api.steppingcloud.com/personaluser/user/status',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -366,7 +366,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/personaluser/user/getjobs',
+                    url: 'https://api.steppingcloud.com/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -402,7 +402,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/personaluser/user/jobrecommendations',
+                    url: 'https://api.steppingcloud.com/personaluser/user/jobrecommendations',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -438,7 +438,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/personaluser/user/getjobs',
+                    url: 'https://api.steppingcloud.com/personaluser/user/getjobs',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -474,7 +474,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/personaluser/user/jobrecommendations',
+                    url: 'https://api.steppingcloud.com/personaluser/user/jobrecommendations',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -508,7 +508,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/user/reset/' + data.resettoken,
+                    url: 'https://api.steppingcloud.com/user/reset/' + data.resettoken,
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -530,7 +530,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/postticket',
+                    url: 'https://api.steppingcloud.com/hrroutes/postticket',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -551,7 +551,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/getticket',
+                    url: 'https://api.steppingcloud.com/hrroutes/getticket',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -571,7 +571,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/getescalationmanager',
+                    url: 'https://api.steppingcloud.com/hrroutes/getescalationmanager',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -591,7 +591,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'http://18.190.14.5/hrroutes/postmessage',
+                    url: 'https://api.steppingcloud.com/hrroutes/postmessage',
                     headers: {
                         'Content-Type': 'application/json',
                     },
