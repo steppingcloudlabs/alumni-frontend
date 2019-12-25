@@ -15,17 +15,17 @@ export default {
         level: "",
         level1Email: [{
 
-        },
-        {
-            levelOrder: 2,
-            email: "Abid@steppingcloud",
-            name: "daraksha"
-        },
-        {
-            levelOrder: 3,
-            email: "darak@steppingcloud",
-            name: "daraksha"
-        }
+            },
+            {
+                levelOrder: 2,
+                email: "Abid@steppingcloud",
+                name: "daraksha"
+            },
+            {
+                levelOrder: 3,
+                email: "darak@steppingcloud",
+                name: "daraksha"
+            }
         ],
         level2Email: {},
         level3Email: {},
@@ -379,7 +379,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/updatenews',
+                    url: 'https://api.steppingcloud.com/admin/action/updatenews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -410,7 +410,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allnews',
+                    url: 'https://api.steppingcloud.com/admin/action/allnews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -447,7 +447,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allnews',
+                    url: 'https://api.steppingcloud.com/admin/action/allnews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -489,7 +489,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'https://18.190.14.5/admin/action/deletenews',
+                    url: 'https://api.steppingcloud.com/admin/action/deletenews',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -528,7 +528,7 @@ export default {
                 console.log("event data", data)
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/updateevent',
+                    url: 'https://api.steppingcloud.com/admin/action/updateevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -561,7 +561,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allevent',
+                    url: 'https://api.steppingcloud.com/admin/action/allevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -594,7 +594,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allevent',
+                    url: 'https://api.steppingcloud.com/admin/action/allevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -630,7 +630,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'https://18.190.14.5/admin/action/deleteevent',
+                    url: 'https://api.steppingcloud.com/admin/action/deleteevent',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -671,7 +671,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'https://18.190.14.5/admin/action/deletealumni',
+                    url: 'https://api.steppingcloud.com/admin/action/deletealumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -709,7 +709,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/alumni',
+                    url: 'https://api.steppingcloud.com/admin/action/alumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -739,7 +739,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allalumni',
+                    url: 'https://api.steppingcloud.com/admin/action/allalumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -771,7 +771,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allalumni',
+                    url: 'https://api.steppingcloud.com/admin/action/allalumni',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -804,7 +804,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/allfaq',
+                    url: 'https://api.steppingcloud.com/admin/action/allfaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -835,7 +835,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/admin/action/updatefaq',
+                    url: 'https://api.steppingcloud.com/admin/action/updatefaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -872,7 +872,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'DELETE',
-                    url: 'https://18.190.14.5/admin/action/deletefaq',
+                    url: 'https://api.steppingcloud.com/admin/action/deletefaq',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -908,7 +908,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/awsadmin/documentupload',
+                    url: 'https://api.steppingcloud.com/awsadmin/documentupload',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -958,7 +958,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/hrroutes/getManager',
+                    url: 'https://api.steppingcloud.com/hrroutes/getManager',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -988,7 +988,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/hrroutes/updatemanager',
+                    url: 'https://api.steppingcloud.com/hrroutes/updatemanager',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1017,7 +1017,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://18.190.14.5/hrroutes/deleteManager',
+                    url: 'https://api.steppingcloud.com/hrroutes/deleteManager',
                     headers: {
                         'Content-Type': 'application/json',
                     },
