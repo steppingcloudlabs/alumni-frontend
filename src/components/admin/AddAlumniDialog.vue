@@ -2,15 +2,17 @@
   <v-layout row wrap>
     <v-dialog v-model="showAlumni" width="600px">
       <v-card>
-        <v-card-title>
-          <span class="headline">Add Alumni</span>
-        </v-card-title>
+         <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Add Alumni</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+       
 
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field v-model="alumni.user_id" label="Employee Id"></v-text-field>
+                <v-text-field shaped outlined v-model="alumni.user_id" label="Employee Id"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-menu
@@ -18,6 +20,8 @@
                   :close-on-content-click="false"
                   transition="scale-transition"
                   offset-y
+                  shaped
+                  outlined
                   min-width="290px"
                 >
                   <template v-slot:activator="{ on }">
@@ -26,6 +30,8 @@
                       label="Date of Birth"
                       prepend-icon="event"
                       readonly
+                      shaped
+                      outlined
                       v-on="on"
                     ></v-text-field>
                   </template>
@@ -43,6 +49,8 @@
                   label="Gender"
                   placeholder="Select Gender"
                   required
+                  shaped
+                  outlined
                 ></v-autocomplete>
                 <!-- <v-overflow-btn
                   class="my-2"
@@ -56,22 +64,47 @@
                 <v-text-field v-model="alumni.salutation_personal_information" label="Salutation"></v-text-field>
               </v-col>-->
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.first_name_personal_information" label="First Name"></v-text-field>
+                <v-text-field
+                  v-model="alumni.first_name_personal_information"
+                  shaped
+                  outlined
+                  label="First Name"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.last_name_personal_information" label="Last Name"></v-text-field>
+                <v-text-field
+                  v-model="alumni.last_name_personal_information"
+                  shaped
+                  outlined
+                  label="Last Name"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.manager_job_information" label="Manager"></v-text-field>
+                <v-text-field
+                  v-model="alumni.manager_job_information"
+                  shaped
+                  outlined
+                  label="Manager"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.designation_job_information" label="Designation"></v-text-field>
+                <v-text-field
+                  v-model="alumni.designation_job_information"
+                  shaped
+                  outlined
+                  label="Designation"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.phone_number_phone_information" label="Mobile No"></v-text-field>
+                <v-text-field
+                  v-model="alumni.phone_number_phone_information"
+                  shaped
+                  outlined
+                  label="Mobile No"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.personal_email_id" label="Email"></v-text-field>
+                <v-text-field shaped outlined v-model="alumni.personal_email_id" d label="Email"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-menu
@@ -88,6 +121,8 @@
                       label="Resignation Date"
                       prepend-icon="event"
                       readonly
+                      shaped
+                      outlined
                       v-on="on"
                     ></v-text-field>
                   </template>
@@ -113,6 +148,8 @@
                       label="Relieving Date"
                       prepend-icon="event"
                       readonly
+                      shaped
+                      outlined
                       v-on="on"
                     ></v-text-field>
                   </template>
@@ -125,13 +162,19 @@
                 </v-menu>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="alumni.address1" label="Flat No/LandMark"></v-text-field>
+                <v-text-field shaped outlined v-model="alumni.address1" label="Flat No/LandMark"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.city_addresses" label=" City" prepend-icon="mdi-city"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="alumni.city_addresses"
+                  label=" City"
+                  prepend-icon="mdi-city"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field v-model="alumni.state" label="State"></v-text-field>
+                <v-text-field shaped outlined v-model="alumni.state" label="State"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -139,7 +182,7 @@
 
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
+          <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
           <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>

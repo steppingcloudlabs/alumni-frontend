@@ -2,17 +2,28 @@
   <v-layout row wrap>
     <v-dialog v-model="showEvent" persistent max-width="600px">
       <v-card>
-        <v-card-title>
-          <span class="headline">Add Events</span>
-        </v-card-title>
+        <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Add Event</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field v-model="event.title" label="Title*" required :rules="titleRules"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="event.title"
+                  label="Title*"
+                  required
+                  :rules="titleRules"
+                ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  shaped
+                  outlined
                   v-model="event.content"
                   label="Description*"
                   required
@@ -20,7 +31,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="event.location" label="Location" required></v-text-field>
+                <v-text-field shaped outlined v-model="event.location" label="Location" required></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-menu
@@ -37,6 +48,8 @@
                       label="Date"
                       prepend-icon="event"
                       readonly
+                      shaped
+                      outlined
                       v-on="on"
                     ></v-text-field>
                   </template>
@@ -53,6 +66,8 @@
                   prepend-icon="mdi-camera"
                   label="Upload Image"
                   @change="getBase64Image"
+                  shaped
+                  outlined
                 ></v-file-input>
               </v-col>
             </v-row>
@@ -61,7 +76,7 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="blue darken-1" text @click="closeDialog">Close</v-btn>
+          <v-btn color="error darken-1" text @click="closeDialog">Close</v-btn>
           <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -123,13 +138,13 @@ export default {
       this.$store.commit("adminModule/closeEventDialog");
       let currDate = parseInt(moment(this.Date).format("x"));
       let data = {
-        payload:{
-        title: eventData.title,
-        content: eventData.content,
-        tag: eventData.title,
-        id: eventData._id ? eventData._id : null,
-        photo: this.imageBase64,
-        date: currDate
+        payload: {
+          title: eventData.title,
+          content: eventData.content,
+          tag: eventData.title,
+          id: eventData._id ? eventData._id : null,
+          photo: this.imageBase64,
+          date: currDate
         }
       };
       this.$store.dispatch("adminModule/addEvents", data).then(response => {
@@ -145,7 +160,7 @@ export default {
             duration: 3000
           });
         } else {
-          this.$store.dispatch("adminModule/getAllEvent", {payload:{}});
+          this.$store.dispatch("adminModule/getAllEvent", { payload: {} });
           this.$store.commit("showSnackbar", {
             message: "Event updated successfully",
             color: "success",

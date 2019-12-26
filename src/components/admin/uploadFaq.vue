@@ -2,9 +2,12 @@
   <v-layout row wrap>
     <v-dialog v-model="showFaqDialog" persistent max-width="700px">
       <v-card class="card">
-        <v-card-title>
-          <span class="headline-mb-1">Upload FAQ</span>
-        </v-card-title>
+         <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Upload FAQ</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+         
+      
         <v-card-text>
           <v-container>
             <ManualFaq />
@@ -23,7 +26,7 @@
           <div class="flex-grow-1"></div>
           <v-flex xs4></v-flex>
           <!--<v-btn color="blue-darken-1" text @click="closeDialog"> save</v-btn>-->
-          <v-btn color="blue-darken-1" text @click="closeFaqDialog">Close</v-btn>
+          <v-btn color="error darken-1" text @click="closeFaqDialog">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

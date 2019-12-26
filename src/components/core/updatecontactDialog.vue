@@ -2,41 +2,54 @@
   <v-layout row wrap>
     <v-dialog v-model="showContact" width="600px">
       <v-card>
-        <v-card-title>
-          <span class="headline text-center">Update Contact</span>
-        </v-card-title>
+        <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Update Contact</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
 
         <v-card-text>
           <v-container>
             <v-form ref="contact" lazy-validation>
               <v-row>
-                <v-col cols="12" md="6">
+                <v-col class="ma-0 pa-1" cols="12" md="6">
                   <v-text-field
+                    outlined
+                    shaped
                     v-model="contact.phone"
                     label="Phone No"
                     prepend-icon="mdi-cellphone"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
+                <v-col class="ma-0 pa-1" cols="12" md="6">
                   <v-text-field
+                    outlined
+                    shaped
                     v-model="contact.email"
                     label="Email"
                     :rules="emailRules"
                     prepend-icon="mdi-email"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col class="ma-0 pa-0" cols="12">
                   <v-text-field
+                    outlined
+                    shaped
                     v-model="contact.address"
                     label="Flat No/Landmark"
                     prepend-icon="mdi-home"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.city" label=" City" prepend-icon="mdi-city"></v-text-field>
+                <v-col class="ma-0 pa-1" cols="12" md="6">
+                  <v-text-field
+                    outlined
+                    shaped
+                    v-model="contact.city"
+                    label=" City"
+                    prepend-icon="mdi-city"
+                  ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="6">
-                  <v-text-field v-model="contact.state" label="State"></v-text-field>
+                <v-col class="ma-0 pa-1" cols="12" md="6">
+                  <v-text-field outlined shaped v-model="contact.state" label="State"></v-text-field>
                 </v-col>
               </v-row>
             </v-form>
@@ -45,7 +58,7 @@
 
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
+          <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
           <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>

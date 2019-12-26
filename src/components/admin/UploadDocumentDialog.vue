@@ -2,9 +2,10 @@
   <v-layout row wrap>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
-        <v-card-title>
-          <span class="headline">Upload Documents</span>
-        </v-card-title>
+       <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Upload Document</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
         <v-card-text>
           <v-container>
             <v-row>
@@ -14,6 +15,8 @@
                   label="Form 16"
                   accept="application/pdf"
                   multiple
+                  shaped
+                  outlined
                   prepend-icon="mdi-paperclip"
                   @change="getBase64Form"
                 >
@@ -27,6 +30,8 @@
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
+                shaped
+                  outlined
                   accept="application/pdf"
                   placeholder="Upload 1st Salary Slip"
                   label="Salary Slip"
@@ -47,6 +52,8 @@
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
+                shaped
+                  outlined
                   accept="application/pdf"
                   placeholder="Upload 2nd Salary Slip"
                   label="Salary Slip"
@@ -67,6 +74,8 @@
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
+                 shaped
+                  outlined
                   accept="application/pdf"
                   placeholder="Upload 3rd Salary Slip "
                   label="Salary Slip"

@@ -5,6 +5,8 @@
         v-model="faq.question"
         prepend-icon="mdi-comment-question-outline"
         label="Question"
+        shaped
+        outlined
         required
       ></v-text-field>
     </v-col>
@@ -14,6 +16,8 @@
         prepend-icon="mdi-comment-check-outline"
         label="Answer"
         required
+        shaped
+        outlined
       ></v-text-field>
     </v-col>
     <v-col cols="12" md="9"></v-col>

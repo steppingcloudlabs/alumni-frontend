@@ -3,9 +3,11 @@
     <v-flex xs12>
       <v-dialog v-model="showNews" persistent max-width="600px">
         <v-card>
-          <v-card-title>
-            <span class="headline">Add News</span>
-          </v-card-title>
+          <v-toolbar class="mb-5">
+          <v-toolbar-title class="ml-5">Add News</v-toolbar-title>
+          <div class="flex-grow-1"></div>
+        </v-toolbar>
+         
           <v-card-text>
             <v-container>
               <v-form>
@@ -13,13 +15,16 @@
                   <v-col cols="12">
                     <v-text-field
                       type="text"
+                      shaped
+                      outlined
                       v-model="news.title"
                       label="Headline*"
                       :rules="titleRules"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
+                    <v-text-field shaped
+                      outlined v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-menu
@@ -36,6 +41,8 @@
                           label="Date"
                           prepend-icon="event"
                           readonly
+                          shaped
+                          outlined
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -49,6 +56,8 @@
 
                   <v-col cols="12">
                     <v-file-input
+                     shaped
+                      outlined
                       accept="image/*"
                       prepend-icon="mdi-camera"
                       label="Upload Image"
@@ -62,7 +71,7 @@
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="blue darken-1" text @click="closeDialog">Close</v-btn>
+            <v-btn color="error darken-1" text @click="closeDialog">Close</v-btn>
             <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
           </v-card-actions>
         </v-card>

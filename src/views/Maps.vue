@@ -125,7 +125,7 @@ export default {
     return {
       places: ["New Delhi", "Haryana", "Gurgaon"],
       marker: [],
-      person: ["Daraksha", "Rahil", "Abid"],
+
       firstname: [],
       lastname: [],
       userid: [],
@@ -282,16 +282,18 @@ export default {
             { address: vm.getAlumniList[i].city_addresses },
             (results, status) => {
               if (status == "OK") {
-                 var latitude=results[0].geometry.location.lat()+(Math.random()/20);
-                var longitude= results[0].geometry.location.lng()+(Math.random()/20);
-                var mylatlng={lat:latitude,lng:longitude};
-                console.log(mylatlng)
+                var latitude =
+                  results[0].geometry.location.lat() + Math.random() / 20;
+                var longitude =
+                  results[0].geometry.location.lng() + Math.random() / 20;
+                var mylatlng = { lat: latitude, lng: longitude };
+                console.log(mylatlng);
                 //  vm.position[i]= results[0].geometry.location
                 vm.map.setCenter(results[0].geometry.location);
                 vm.marker[i] = new google.maps.Marker({
                   map: vm.map,
-                  position:mylatlng,
-                  title: vm.person[i],
+                  position: mylatlng,
+                  // title: vm.person[i],
                   animation: google.maps.Animation.DROP
                 });
                 var infowincontent =
@@ -314,7 +316,7 @@ export default {
                 });
                 if (i == vm.getAlumniList.length - 1) {
                   var markerCluster = new MarkerClusterer(vm.map, vm.marker, {
-                    maxZoom:10,
+                    maxZoom: 10,
                     imagePath:
                       "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
                   });
