@@ -52,8 +52,12 @@
 
     <v-card-title style="color:white">Current Openings</v-card-title>
     <v-divider style="background:rgb(241, 135, 16);"></v-divider>
+      <div class="text-center" v-if="showLoader">
+        <v-progress-circular style="margin-top:100px" :size="50" color="primary" indeterminate></v-progress-circular>
+      </div>
     <div>
-      <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length">
+    
+      <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length && !showLoader">
         <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
           <v-hover v-slot:default="{ hover }">
             <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
@@ -107,7 +111,7 @@
           </p>
         </v-flex>
       </v-layout>
-      <div v-else class="subtitle-1 mt-5">
+      <div v-if="!getjobs.length && !showLoader" class="subtitle-1 mt-5">
         <p class="white--text text-center">
           NoJobs Available
           <v-img
@@ -131,7 +135,9 @@ export default {
     viewjob
   },
   beforeMount() {
-    (this.country = "null"), (this.skill = "null");
+    this.showLoader = true
+    this.country = "null"
+    this.skill = "null"
     let data = {
       country: this.country,
       skill: this.skill
@@ -162,7 +168,11 @@ export default {
         }
       };
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getJob", data1);
+      this.$store.dispatch("userModule/getJob", data1).then(response => {
+        if (response.status == 200) {
+          this.showLoader = false;
+        }
+      });
 
       (this.search.country = null), (this.search.skill = null);
     },
@@ -187,6 +197,7 @@ export default {
   },
   data() {
     return {
+      showLoader: false,
       search: {
         country: null,
         skill: null

@@ -1,8 +1,9 @@
 <template>
+
   <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length">
     <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
       <v-hover v-slot:default="{ hover }">
-        <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
+        <v-card class="job_class" :elevation="hover? 24:1" min-height="180px">
           <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
           <v-layout row wrap style="margin-left:unset;">
             <v-flex xs5 class="my-0">
@@ -32,6 +33,17 @@
     </v-flex>
     <viewjob />
   </v-layout>
+  <div v-else class="subtitle-1 mt-5">
+    <p class="white--text text-center">
+      NoJobs Available
+      <v-img
+        style="margin-right:auto;margin-left:auto;"
+        width="100"
+        height="100"
+        src="@/assets/waiting.gif"
+      ></v-img>
+    </p>
+  </div>
 </template>
 
 <script>
