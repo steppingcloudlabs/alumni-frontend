@@ -13,7 +13,7 @@
                 item-value="_id"
                 item-text="email"
                 v-model="selectedItem"
-                label="Outlined style"
+                label="Select Email"
                 outlined
                 @change="checks"
                 clearable

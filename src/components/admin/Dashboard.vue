@@ -93,7 +93,7 @@ export default {
     }
   },
   beforeMount() {
-    this.limit = 2;
+    this.limit = 10;
     this.skip = 0;
     this.loader = true;
     this.$store
@@ -104,13 +104,25 @@ export default {
         }
       })
       .then(response => {
+        if (
+          response.data.status == 200 &&
+          response.data.result.length < this.limit
+        ) {
+          this.showMore = false;
+        } else {
+          this.showMore = true;
+        }
+
         this.loader = false;
       });
+  },
+  destroyed() {
+    this.$store.commit("adminModule/setAlumniList", []);
   },
   methods: {
     getMore() {
       this.limit = this.limit;
-      this.skip = this.skip + 2;
+      this.skip = this.skip + this.limit;
       this.loader = true;
       this.showMore = false;
       let actionToCall = "getMoreAlumni";

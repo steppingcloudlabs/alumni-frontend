@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-window v-model="queryModel" reverse class="mb-4" dark>
+      <v-window v-model="queryModel" reverse dark>
         <v-window-item key="queryList">
           <UserQueryList :queryList="queryList" @queryItemClicked="queryItemClicked"></UserQueryList>
         </v-window-item>

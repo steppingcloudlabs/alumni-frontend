@@ -80,7 +80,7 @@ export default {
       showMore: true,
       count: 0,
       empty: false,
-      skip:0
+      skip: 0
     };
   },
   methods: {
@@ -103,12 +103,12 @@ export default {
     },
     getMore() {
       this.limit = 1;
-      this.skip = this.skip +1;
+      this.skip = this.skip + 1;
       this.showMore = false;
 
       this.$store
         .dispatch("adminModule/getMoreEvent", {
-          payload: { limit:this.limit, skip:this.skip }
+          payload: { limit: this.limit, skip: this.skip }
         })
         .then(response => {
           if (
@@ -136,11 +136,11 @@ export default {
     }
   },
   beforeMount() {
-    this.limit = 1;
+    this.limit = 10;
     (this.showMore = true), this.$store.commit("showProgressBar", {});
     this.$store
       .dispatch("adminModule/getAllEvent", {
-        payload: { skip:0, limit: this.limit }
+        payload: { skip: 0, limit: this.limit }
       })
       .then(response => {
         this.$store.commit("closeProgressBar", {});
@@ -150,6 +150,13 @@ export default {
         } else {
           this.count = 0;
           this.empty = true;
+        }
+        if (response.data.result.length < this.limit) {
+          this.empty = false;
+          this.showMore = false;
+        } else {
+          this.empty = false;
+          this.showMore = true;
         }
       });
   }

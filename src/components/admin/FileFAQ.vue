@@ -3,7 +3,6 @@
     <v-col cols="12">
       <v-file-input
         accept="pdf"
-
         label="FAQ Document"
         multiple
         shaped

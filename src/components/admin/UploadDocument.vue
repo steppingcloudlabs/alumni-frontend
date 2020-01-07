@@ -35,6 +35,10 @@
       </template>
     </v-data-table>
     <UploadDialog :dialog="dialog" :empId="empid" @closeDocumentDialog="closeDocumentDialog" />
+
+    <p class="text-center text-white" v-if="getAlumniList.length">
+      <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore">Load More</v-btn>
+    </p>
   </v-card>
 </template>
 
@@ -46,6 +50,7 @@ export default {
     UploadDialog
   },
   beforeMount() {
+    this.limit = 9;
     this.loader = true;
     this.$store
       .dispatch("adminModule/getAllAlumni", {
@@ -55,6 +60,15 @@ export default {
         }
       })
       .then(response => {
+        if (
+          response.data.status == 200 &&
+          response.data.result.length < this.limit
+        ) {
+          this.showMore = false;
+        } else {
+          this.showMore = true;
+        }
+
         this.loader = false;
       });
   },
@@ -69,6 +83,30 @@ export default {
     }
   },
   methods: {
+    getMore() {
+      this.limit = this.limit;
+      this.skip = this.skip + this.limit;
+      this.loader = true;
+      this.showMore = false;
+      let actionToCall = "getMoreAlumni";
+      this.$store
+        .dispatch("adminModule/getMoreData", {
+          actionToCall: actionToCall,
+          limit: this.limit,
+          skip: this.skip
+        })
+        .then(response => {
+          if (
+            response.data.status == 200 &&
+            response.data.result.length < this.limit
+          ) {
+            this.showMore = false;
+          } else {
+            this.showMore = true;
+          }
+          this.loader = false;
+        });
+    },
     openDialog(data) {
       this.dialog = true;
       this.empid = data.user_id;
@@ -91,8 +129,14 @@ export default {
       });
     }
   },
+  destroyed() {
+    this.$store.commit("adminModule/setAlumniList", []);
+  },
   data() {
     return {
+      limit: 9,
+      skip: 0,
+      showMore: false,
       loader: false,
       search: "",
       dialog: false,

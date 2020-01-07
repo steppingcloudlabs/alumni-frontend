@@ -57,7 +57,7 @@ export default {
   },
   beforeMount() {
     this.showMore = true;
-    this.limit = 1;
+    this.limit = 10;
     (this.skip = 0), this.$store.commit("showProgressBar", {});
     this.$store
       .dispatch("adminModule/getAllNews", {
@@ -71,6 +71,14 @@ export default {
         } else {
           this.count = 0;
           this.empty = true;
+        }
+        if (response.data.result.length < this.limit) {
+          this.empty = false;
+          this.showMore = false;
+        }
+        else{
+           this.empty = false;
+          this.showMore = true;
         }
       });
   },

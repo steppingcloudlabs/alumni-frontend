@@ -1,11 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card class="mx-auto">
-        <v-toolbar>
-          <v-toolbar-title class="ml-5">User Queries</v-toolbar-title>
-        </v-toolbar>
-        <v-list shaped style="max-height: 300px; overflow-y: auto">
+      <v-card outlined class="mx-auto" style="border-radius: 0px;">
+        <v-list shaped>
           <v-list-item-group v-model="selectedQuery" color="primary">
             <v-list-item
               two-line
@@ -15,7 +12,7 @@
             >
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.queryDescription"></v-list-item-subtitle>
+                <v-list-item-subtitle style="font-size:12px" v-text="item.created_at"></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
