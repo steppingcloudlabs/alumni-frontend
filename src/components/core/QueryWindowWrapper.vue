@@ -49,6 +49,7 @@
 import UserQueryList from "@/components/core/UserQueryList";
 import QueryDescription from "@/components/core/QueryDescription";
 import Contact from "@/components/core/contactHR";
+import { getObjectId } from "@/utils/utils";
 
 export default {
   name: "QueryWindowWrapper",
@@ -57,7 +58,7 @@ export default {
       queryModel: 0,
       selectedQueryItem: undefined,
       selectedIndex: undefined,
-      queryList: undefined,
+      queryList: [],
       dialog: false,
       emailDailog: false
     };
@@ -79,7 +80,7 @@ export default {
     getQueryList() {
       let data = {
         payload: {
-          manager_id: this.userId
+          manager_id: getObjectId()
         }
       };
       this.$store

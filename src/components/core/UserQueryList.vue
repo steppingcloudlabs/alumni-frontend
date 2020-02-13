@@ -1,8 +1,8 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card outlined class="mx-auto" style="border-radius: 0px;">
-        <v-list shaped>
+      <v-card outlined class="mx-auto" style="border-radius: 0px;" min-height="250px">
+        <v-list shaped v-if="queryList.length">
           <v-list-item-group v-model="selectedQuery" color="primary">
             <v-list-item
               two-line
@@ -17,6 +17,9 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
+        <div v-else>
+          <p class="text-center" style="font-size:18px;margin-top:30px">No Ticket Assigned</p>
+        </div>
       </v-card>
     </v-flex>
   </v-layout>

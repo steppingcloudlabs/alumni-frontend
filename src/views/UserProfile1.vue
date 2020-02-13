@@ -293,7 +293,7 @@
         <v-card-title
           class="subtitle-1 pt-5 mb-1 user-profile-heading"
           style="font-weight: bold;"
-        >Company Status</v-card-title>
+        >Document Status</v-card-title>
         <v-divider></v-divider>
         <v-layout row wrap mt-4 ml-0>
           <v-flex xs4>
@@ -555,7 +555,7 @@ export default {
         .format("LL");
 
       this.user.relieving = moment
-        .unix(this.userData.relieving_date / 1000)
+        .unix(this.userData.date_of_relieving / 1000)
         .format("LL");
       // new Date(this.userData.relieving_date).getDate() +
       // "/" +

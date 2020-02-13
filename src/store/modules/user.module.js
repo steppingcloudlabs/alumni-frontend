@@ -138,11 +138,13 @@ export default {
                         sessionStorage.setItem("AccessToken", response.data.token)
                         var type = md5(response.data.usertype).toString()
                         sessionStorage.setItem("Type", type)
+                        sessionStorage.setItem("ObjectId", response.data.result._id)
                     }
                     if (response && response.data.status && response.data.result) {
                         sessionStorage.setItem("UserId", response.data.result.user_id)
                         var type = md5(response.data.usertype).toString()
                         sessionStorage.setItem("Type", type)
+                        sessionStorage.setItem("ObjectId", response.data.result._id)
                     }
                     // } else {
                     //     commit('statusData', response.data.status)

@@ -17,10 +17,14 @@ let navigateToHome = () => {
 let getAlumniId = () => {
     return sessionStorage.getItem('UserId')
 }
+let getObjectId = () => {
+    return sessionStorage.getItem('ObjectId')
+}
 
 export {
     addTokenToPayload,
     deleteExpiredToken,
     navigateToHome,
-    getAlumniId
+    getAlumniId,
+    getObjectId
 }

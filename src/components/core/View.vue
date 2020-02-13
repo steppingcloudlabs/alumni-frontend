@@ -29,9 +29,9 @@ export default {
 .main-user-container {
   margin: 10px 20px !important;
 }
-.main-user-container .v-content__wrap #core-view {
-  /* height: 100%; */
-}
+/* .main-user-container .v-content__wrap #core-view {
+  height: 100%;
+} */
 .main-user-container .v-content__wrap #core-view .user-profile-card {
   border-radius: 50px;
 }
