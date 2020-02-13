@@ -1,7 +1,15 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card outlined class="mx-auto" style="border-radius: 0px;" min-height="250px">
+      <v-card class="mx-auto mb-3" min-height="250px" >
+      <v-toolbar fixed>
+          <v-toolbar-title class="ml-5">
+            <!-- <span class="mr-5">
+              <i class="fas fa-arrow-left" style="cursor:pointer" @click="backToList"></i>
+            </span> -->
+            <span>Queries</span>
+          </v-toolbar-title>
+        </v-toolbar>
         <v-list shaped v-if="queryList.length">
           <v-list-item-group v-model="selectedQuery" color="primary">
             <v-list-item
@@ -12,20 +20,21 @@
             >
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
-                <v-list-item-subtitle style="font-size:12px" v-text="item.created_at"></v-list-item-subtitle>
+                <v-list-item-subtitle style="font-size:12px" v-text="getDateFromTimeStamp(item.created_at)"></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-list>
         <div v-else>
-          <p class="text-center" style="font-size:18px;margin-top:30px">No Ticket Assigned</p>
+          <p class="text-center" style="font-size:18px;margin-top:30px">No Tickets</p>
         </div>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
-
+ 
 <script>
+import moment from 'moment'
 export default {
   name: "UserQueryList",
   data() {
@@ -44,7 +53,11 @@ export default {
       return this.$store.getters["userModule/getSavedUserObjectId"];
     }
   },
+  
   methods: {
+    getDateFromTimeStamp(date) {
+    return moment.unix(parseInt(date/1000)).format("LL")
+  },
     queryItemClicked(item, index) {
       this.$emit("queryItemClicked", { messageObj: item, messageIndex: index });
     }
