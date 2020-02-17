@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "UserQueryList",
   data() {
@@ -39,9 +40,17 @@ export default {
       default: undefined
     }
   },
+
   computed: {
     userId() {
       return this.$store.getters["userModule/getSavedUserObjectId"];
+    }
+  },
+  afterMount() {
+    for (var i = 0; i < this.queryList.length; i++) {
+      this.queryList[i].created_at = moment
+        .unix(this.queryList[i].created_at/ 1000)
+        .format("LL");
     }
   },
   methods: {

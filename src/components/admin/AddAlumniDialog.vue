@@ -2,11 +2,10 @@
   <v-layout row wrap>
     <v-dialog v-model="showAlumni" width="600px">
       <v-card>
-         <v-toolbar class="mb-5">
+        <v-toolbar class="mb-5">
           <v-toolbar-title class="ml-5">Add Alumni</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-       
 
         <v-card-text>
           <v-container>
@@ -144,7 +143,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="alumni.data_of_relieving"
+                      v-model="alumni.date_of_relieving"
                       label="Relieving Date"
                       prepend-icon="event"
                       readonly
@@ -155,7 +154,7 @@
                   </template>
                   <v-date-picker
                     class="picker"
-                    v-model="alumni.data_of_relieving"
+                    v-model="alumni.date_of_relieving"
                     @input="menu_relieving=false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
@@ -243,7 +242,9 @@ export default {
             moment(alumniData.date_of_resignation).format("x")
           ),
           personal_email_id: alumniData.personal_email_id,
-          data_of_relieving: parseInt(moment(alumniData.relieving).format("x")),
+          date_of_relieving: parseInt(
+            moment(alumniData.date_of_relieving).format("x")
+          ),
           date_of_birth: parseInt(moment(alumniData.date_of_birth).format("x")),
           gender: alumniData.gender
         }

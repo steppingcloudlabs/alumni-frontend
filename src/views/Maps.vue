@@ -297,7 +297,7 @@ export default {
                   animation: google.maps.Animation.DROP
                 });
                 var infowincontent =
-                  "<a href='/#/profile/search/" +
+                  "<a href='/index.html#/profile/search/" +
                   vm.getAlumniList[i].user_id +
                   "'>" +
                   vm.getAlumniList[i].first_name_personal_information +

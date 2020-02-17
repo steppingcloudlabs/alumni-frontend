@@ -189,9 +189,9 @@ export default {
           .toISOString()
           .substr(0, 10);
       }
-      if (data.date_of_resignation) {
-        alumniData.date_of_resignation = moment
-          .unix(data.date_of_resignation / 1000)
+      if (data.date_of_relieving) {
+        alumniData.date_of_relieving = moment
+          .unix(data.date_of_relieving / 1000)
           .toISOString()
           .substr(0, 10);
       }
