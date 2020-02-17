@@ -284,7 +284,7 @@ export default {
       this.user.managerid = this.userData.manager_job_information;
       console.log(moment(this.userData.relieving_date));
       this.user.relieving = moment
-        .unix(this.userData.relieving_date / 1000)
+        .unix(this.userData.date_of_relieving / 1000)
         .format("LL");
       // new Date(this.userData.relieving_date).getDate() +
       // "/" +
