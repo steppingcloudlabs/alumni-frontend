@@ -14,7 +14,7 @@
   <div class="image-bg-wrapper">
     <div class="image-bg-text-wrapper">
       <h2>
-        Yesterday is not ours to recover,
+        Today is not ours to recover,
         <br />but tomorrow is our to win or lose.
       </h2>
     </div>
