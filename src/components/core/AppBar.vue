@@ -26,11 +26,11 @@
         ></v-text-field>-->
         <v-spacer></v-spacer>
 
-        <v-btn icon to="/profile/dashboard" v-if="$route.path != '/profile/dashboard'">
+        <!-- <v-btn icon to="/profile/dashboard" v-if="$route.path != '/profile/dashboard'">
           <v-icon color="white">mdi-view-dashboard</v-icon>
-        </v-btn>
+        </v-btn> -->
 
-        <v-menu bottom left offset-y transition="slide-y-transition">
+        <!-- <v-menu bottom left offset-y transition="slide-y-transition">
           <template v-slot:activator="{ attrs, on }">
             <v-btn class="toolbar-items" icon v-bind="attrs" v-on="on">
               <v-badge color="error" overlap>
@@ -51,7 +51,7 @@
               </v-list-item>
             </v-list>
           </v-card>
-        </v-menu>
+        </v-menu> -->
 
         <v-menu offset-y>
           <template v-slot:activator="{ on,attrs }">
