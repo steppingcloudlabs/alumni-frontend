@@ -22,7 +22,7 @@ let getObjectId = () => {
 }
 
 let baseurl = () => {
-     let url = "https://org-dev-sclabs-space-dev-express-api-server.cfapps.eu10.hana.ondemand.com"
+     let url = "https://org-dev-sclabs-space-dev-single-tenant-alumniportal-sap-srv.cfapps.eu10.hana.ondemand.com"
     return url
 }
 
