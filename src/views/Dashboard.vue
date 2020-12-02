@@ -5,9 +5,7 @@
     <!-- </v-img> -->
     <carosel />
     <v-row></v-row>
-    <v-row>
-      
-    </v-row>
+    <v-row> </v-row>
     <v-row>
       <v-layout row wrap class="mt-5">
         <v-flex xs8>
@@ -18,13 +16,11 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-card-title style="color:white">Recommended Opportunities</v-card-title>
-    <v-divider style="background:rgb(241, 135, 16);"></v-divider>
+    <v-card-title style="color: white">Recommended Opportunities</v-card-title>
+    <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div>
-     <RecommendedCareers/>
+      <RecommendedCareers />
     </div>
-
-    
   </div>
 </template>
 
@@ -36,17 +32,17 @@ import carosel from "@/components/material/carosel.vue";
 import news from "@/components/core/newsComponent.vue";
 import timeline from "@/components/material/Timeline.vue";
 import statusCard from "@/components/core/statusCard.vue";
-import RecommendedCareers from "@/components/core/recommendedcareers.vue"
+import RecommendedCareers from "@/components/core/recommendedcareers.vue";
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
-   
+
     statusCard,
     carosel,
     news,
     timeline,
     events,
-    RecommendedCareers
+    RecommendedCareers,
   },
   data() {
     return {
@@ -58,7 +54,6 @@ export default {
       sound: true,
       widgets: false,
       progress: true,
-     
     };
   },
   beforeMount() {
@@ -69,9 +64,9 @@ export default {
   computed: {
     userData() {
       return this.$store.getters["userModule/getUserData"]
-        ? this.$store.getters["userModule/getUserData"].user_id
+        ? this.$store.getters["userModule/getUserData"].USER_ID
         : null;
-    }
+    },
     // FnfStatus() {
     //   return this.$store.getters["userModule/getStatusData"]
     //     ? this.$store.getters["userModule/getStatusData"].fnfStatus
@@ -96,8 +91,8 @@ export default {
     getAlumniData() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
@@ -109,13 +104,13 @@ export default {
     },
     getStatus() {
       let data = {
-        payload: { userid: this.userData }
+        payload: { userid: this.userData },
       };
-      this.$store.dispatch("userModule/getStatus", data).then(response => {
+      this.$store.dispatch("userModule/getStatus", data).then((response) => {
         this.progress = false;
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style >

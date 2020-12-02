@@ -11,7 +11,12 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field shaped outlined v-model="alumni.user_id" label="Employee Id"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="alumni.USER_ID"
+                  label="Employee Id"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-menu
@@ -25,7 +30,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="alumni.date_of_birth"
+                      v-model="alumni.DATE_OF_BIRTH"
                       label="Date of Birth"
                       prepend-icon="event"
                       readonly
@@ -35,7 +40,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="alumni.date_of_birth"
+                    v-model="alumni.DATE_OF_BIRTH"
                     @input="menu2 = false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
@@ -43,19 +48,19 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-autocomplete
-                  v-model="alumni.gender"
-                  :items="genders"
-                  label="Gender"
-                  placeholder="Select Gender"
+                  v-model="alumni.GENDER"
+                  :items="GENDERs"
+                  label="GENDER"
+                  placeholder="Select GENDER"
                   required
                   shaped
                   outlined
                 ></v-autocomplete>
                 <!-- <v-overflow-btn
                   class="my-2"
-                  v-model="alumni.gender"
-                  :items="genders"
-                  label="Gender"
+                  v-model="alumni.GENDER"
+                  :items="GENDERs"
+                  label="GENDER"
                   target="#dropdown-example"
                 ></v-overflow-btn>-->
               </v-col>
@@ -64,7 +69,7 @@
               </v-col>-->
               <v-col cols="12" md="6">
                 <v-text-field
-                  v-model="alumni.first_name_personal_information"
+                  v-model="alumni.FIRST_NAME_PERSONAL_INFORMATION"
                   shaped
                   outlined
                   label="First Name"
@@ -72,7 +77,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
-                  v-model="alumni.last_name_personal_information"
+                  v-model="alumni.LAST_NAME_PERSONAL_INFORMATION"
                   shaped
                   outlined
                   label="Last Name"
@@ -80,7 +85,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
-                  v-model="alumni.manager_job_information"
+                  v-model="alumni.MANAGER_JOB_INFORMATION"
                   shaped
                   outlined
                   label="Manager"
@@ -88,7 +93,7 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
-                  v-model="alumni.designation_job_information"
+                  v-model="alumni.DESIGNATION_JOB_INFORMATION"
                   shaped
                   outlined
                   label="Designation"
@@ -96,14 +101,20 @@
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
-                  v-model="alumni.phone_number_phone_information"
+                  v-model="alumni.PHONE_NUMBER_PHONE_INFORMATION"
                   shaped
                   outlined
                   label="Mobile No"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field shaped outlined v-model="alumni.personal_email_id" d label="Email"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="alumni.PERSONAL_EMAIL_ID"
+                  d
+                  label="Email"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-menu
@@ -116,7 +127,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="alumni.date_of_resignation"
+                      v-model="alumni.DATE_OF_RESIGNATION"
                       label="Resignation Date"
                       prepend-icon="event"
                       readonly
@@ -126,8 +137,8 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="alumni.date_of_resignation"
-                    @input="menu_resignation=false"
+                    v-model="alumni.DATE_OF_RESIGNATION"
+                    @input="menu_resignation = false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
                 </v-menu>
@@ -155,25 +166,35 @@
                   <v-date-picker
                     class="picker"
                     v-model="alumni.date_of_relieving"
-                    @input="menu_relieving=false"
+                    @input="menu_relieving = false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
                 </v-menu>
               </v-col>
               <v-col cols="12">
-                <v-text-field shaped outlined v-model="alumni.address1" label="Flat No/LandMark"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="alumni.address1"
+                  label="Flat No/LandMark"
+                ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
                   shaped
                   outlined
-                  v-model="alumni.city_addresses"
+                  v-model="alumni.CITY_ADDRESSES"
                   label=" City"
                   prepend-icon="mdi-city"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
-                <v-text-field shaped outlined v-model="alumni.state" label="State"></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="alumni.state"
+                  label="State"
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -195,17 +216,17 @@ export default {
   props: {
     dialog: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     dialog() {
       console.log(this.dialog);
-    }
+    },
   },
   methods: {
     closeDialog() {
-      console.log(this.gender);
+      console.log(this.GENDER);
       console.log(parseInt(moment(this.date).format("x")));
 
       this.$store.commit("adminModule/closeAlumniDialog");
@@ -214,7 +235,7 @@ export default {
       let alumniData = JSON.parse(JSON.stringify(this.alumni));
 
       this.$store.commit("adminModule/closeAlumniDialog");
-      if (alumniData.gender == "Female") {
+      if (alumniData.GENDER == "Female") {
         alumniData.salutation_personal_information = "Ms";
       } else {
         alumniData.salutation_personal_information = "Mr";
@@ -222,45 +243,45 @@ export default {
       let data = {
         payload: {
           type: "admin",
-          user_id: alumniData.user_id,
+          USER_ID: alumniData.USER_ID,
 
-          nationality_personal_information: "IND",
+          NATIONALITY_PERSONAL_INFORMATION: "IND",
           salutation_personal_information:
             alumniData.salutation_personal_information,
-          city_addresses: alumniData.city_addresses,
+          CITY_ADDRESSES: alumniData.CITY_ADDRESSES,
           address: alumniData.address1,
           state: alumniData.state,
-          phone_number_phone_information:
-            alumniData.phone_number_phone_information,
-          manager_job_information: alumniData.manager_job_information,
-          designation_job_information: alumniData.designation_job_information,
-          first_name_personal_information:
-            alumniData.first_name_personal_information,
-          last_name_personal_information:
-            alumniData.last_name_personal_information,
-          date_of_resignation: parseInt(
-            moment(alumniData.date_of_resignation).format("x")
+          PHONE_NUMBER_PHONE_INFORMATION:
+            alumniData.PHONE_NUMBER_PHONE_INFORMATION,
+          MANAGER_JOB_INFORMATION: alumniData.MANAGER_JOB_INFORMATION,
+          DESIGNATION_JOB_INFORMATION: alumniData.DESIGNATION_JOB_INFORMATION,
+          FIRST_NAME_PERSONAL_INFORMATION:
+            alumniData.FIRST_NAME_PERSONAL_INFORMATION,
+          LAST_NAME_PERSONAL_INFORMATION:
+            alumniData.LAST_NAME_PERSONAL_INFORMATION,
+          DATE_OF_RESIGNATION: parseInt(
+            moment(alumniData.DATE_OF_RESIGNATION).format("x")
           ),
-          personal_email_id: alumniData.personal_email_id,
+          PERSONAL_EMAIL_ID: alumniData.PERSONAL_EMAIL_ID,
           date_of_relieving: parseInt(
             moment(alumniData.date_of_relieving).format("x")
           ),
-          date_of_birth: parseInt(moment(alumniData.date_of_birth).format("x")),
-          gender: alumniData.gender
-        }
+          DATE_OF_BIRTH: parseInt(moment(alumniData.DATE_OF_BIRTH).format("x")),
+          GENDER: alumniData.GENDER,
+        },
       };
-      console.log(data.payload.date_of_birth);
+      console.log(data.payload.DATE_OF_BIRTH);
       console.log(this.date);
       let data1 = {
-        user_id: alumniData.user_id,
-        first_name_personal_information:
-          alumniData.first_name_personal_information,
-        last_name_personal_information:
-          alumniData.last_name_personal_information
+        USER_ID: alumniData.USER_ID,
+        FIRST_NAME_PERSONAL_INFORMATION:
+          alumniData.FIRST_NAME_PERSONAL_INFORMATION,
+        LAST_NAME_PERSONAL_INFORMATION:
+          alumniData.LAST_NAME_PERSONAL_INFORMATION,
       };
       console.log(data);
       if (this.alumni.openFrom == "New") {
-        this.$store.dispatch("adminModule/addAlumni", data).then(response => {
+        this.$store.dispatch("adminModule/addAlumni", data).then((response) => {
           if (response.data.status == 200) {
             this.$store.commit(
               "adminModule/addNewAlumniToList",
@@ -271,19 +292,19 @@ export default {
               message: "Alumni Added successfully",
               color: "success",
               heading: "Success",
-              duration: 3000
+              duration: 3000,
             });
           } else if (response.data.result == "User Id already exists") {
             this.$store.commit("showSnackbar", {
               message: "Alumni Already Exist",
               color: "Warning",
               heading: "Warning",
-              duration: 3000
+              duration: 3000,
             });
           }
         });
       } else {
-        this.$store.dispatch("userModule/updateData", data).then(response => {
+        this.$store.dispatch("userModule/updateData", data).then((response) => {
           if (response.data.status == 200) {
             // this.$store.commit(
             //   "adminModule/addNewAlumniToList",
@@ -294,12 +315,12 @@ export default {
               message: "Alumni updated successfully",
               color: "success",
               heading: "Success",
-              duration: 3000
+              duration: 3000,
             });
           }
         });
       }
-    }
+    },
   },
   computed: {
     alumni: {
@@ -308,7 +329,7 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowAlumniDialogData", data);
-      }
+      },
     },
     showAlumni: {
       get() {
@@ -316,22 +337,22 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowAlumniDialog", data);
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       salutation_personal_information: "",
       menu_resignation: false,
       menu_relieving: false,
-      gender: "",
-      genders: ["Male", "Female", "Other"],
+      GENDER: "",
+      GENDERs: ["Male", "Female", "Other"],
       date: new Date().toISOString().substr(0, 10),
-      date_of_resignation: new Date().toISOString().substr(0, 10),
+      DATE_OF_RESIGNATION: new Date().toISOString().substr(0, 10),
       relieving: new Date().toISOString().substr(0, 10),
-      menu2: false
+      menu2: false,
     };
-  }
+  },
 };
 </script>
 

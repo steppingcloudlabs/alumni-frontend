@@ -2,9 +2,15 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
-          <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
-            <v-toolbar-title class="text-center" style="color:white">Login</v-toolbar-title>
+        <v-card class="elevation-12" style="background: rgb(0, 0, 0, 0.5)">
+          <v-toolbar
+            flat
+            outlined="white"
+            style="background: rgb(0, 0, 0, 0.5)"
+          >
+            <v-toolbar-title class="text-center" style="color: white"
+              >Login</v-toolbar-title
+            >
             <div class="flex-grow-1"></div>
           </v-toolbar>
           <v-card-text>
@@ -39,15 +45,20 @@
               outlined
               v-on:
               @click="login"
-              style="background: rgb(0, 0, 0, 0);color:white"
-            >Login</v-btn>
+              style="background: rgb(0, 0, 0, 0); color: white"
+              >Login</v-btn
+            >
           </v-card-actions>
           <v-card-text class="text-center">
-            <router-link to="/forgotpassword" style="color:#66FCF1">Forgot Password</router-link>
+            <router-link to="/forgotpassword" style="color: #66fcf1"
+              >Forgot Password</router-link
+            >
           </v-card-text>
-          <v-card-text style="color:white" class="text-center pt-0 mb-5">
+          <v-card-text style="color: white" class="text-center pt-0 mb-5">
             Not Registered?
-            <router-link to="/signup" style="color:#66FCF1">SignUp</router-link>
+            <router-link to="/signup" style="color: #66fcf1"
+              >SignUp</router-link
+            >
           </v-card-text>
         </v-card>
       </v-col>
@@ -66,10 +77,10 @@ export default {
       username: null,
       password: null,
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
-      passwordRules: [v => !!v || "Password is required"]
+      passwordRules: [(v) => !!v || "Password is required"],
     };
   },
   mounted() {
@@ -87,8 +98,8 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setTest", data);
-      }
-    }
+      },
+    },
   },
   methods: {
     login() {
@@ -97,9 +108,9 @@ export default {
         this.$store
           .dispatch("userModule/login", {
             email: this.username,
-            password: this.password
+            password: this.password,
           })
-          .then(response => {
+          .then((response) => {
             if (
               (response &&
                 response.status == 200 &&
@@ -109,32 +120,27 @@ export default {
               this.$router.push({ path: "/admin/dashboard" });
               this.$store.commit(
                 "userModule/savedUserObjectId",
-                response.result._id
+                response.result.USER_ID
               );
               this.$store.commit("closeProgressBar", {});
-            } else if (
-              response &&
-              response.status == 200 &&
-              response.result &&
-              response.usertype == "user"
-            ) {
+            } else if (response && response.status == 200 && response.result !="Incorrect Username") {
               this.$router.push({ path: "/profile/dashboard" });
               this.$store.commit(
                 "userModule/savedUserObjectId",
-                response.result._id
+                response.result.USER_ID
               );
               this.$store.commit("closeProgressBar", {});
-            } else if (response.result != "Login Successful") {
+            } else if (response.result == "Incorrect Username") {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
                 color: "red",
                 duration: 3000,
                 message: response.result,
-                heading: "Error"
+                heading: "Error",
               });
             }
           })
-          .catch(error => {
+          .catch((error) => {
             this.$store.commit("closeProgressBar", {});
             this.$store.commit("showNetworkError");
           });
@@ -143,7 +149,7 @@ export default {
           color: "red",
           duration: 1000,
           message: "Correct Errors",
-          heading: "Error"
+          heading: "Error",
         });
       }
     },
@@ -154,8 +160,8 @@ export default {
       //   message: "Password must have at least 6 letters.",
       //   heading: "Error"
       // });
-    }
-  }
+    },
+  },
 };
 </script>
 <style  >

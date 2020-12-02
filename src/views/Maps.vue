@@ -33,18 +33,20 @@ function smoothZoom(map, max, cnt) {
   if (cnt >= max) {
     return;
   } else {
-    var z = google.maps.event.addListener(map, "zoom_changed", function(event) {
+    var z = google.maps.event.addListener(map, "zoom_changed", function (
+      event
+    ) {
       google.maps.event.removeListener(z);
       smoothZoom(map, max, cnt + 1);
     });
-    setTimeout(function() {
+    setTimeout(function () {
       map.setZoom(cnt);
     }, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
   }
 }
 export default {
   components: {
-    GoogleMap
+    GoogleMap,
   },
   computed: {
     getAlumniList: {
@@ -53,8 +55,8 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setAlumniList", this.data);
-      }
-    }
+      },
+    },
   },
   // watch: {
   //   getAlumniList() {
@@ -77,7 +79,7 @@ export default {
   //     // var markers = new google.maps.Marker({ position: uluru, map: this.map });
   //     for (let i = 0; i < this.getAlumniList.length; i++) {
   //       geocoder.geocode(
-  //         { address: this.getAlumniList[i].city_addresses },
+  //         { address: this.getAlumniList[i].CITY_ADDRESSES },
   //         (results, status) => {
   //           if (status == "OK") {
   //             this.map.setCenter(results[0].geometry.location);
@@ -91,14 +93,14 @@ export default {
   //             });
   //             var infowincontent =
   //               "<a href='/#/profile/search/" +
-  //               this.getAlumniList[i].user_id +
+  //               this.getAlumniList[i].USER_ID +
   //               "'>" +
-  //               this.getAlumniList[i].first_name_personal_information +
+  //               this.getAlumniList[i].FIRST_NAME_PERSONAL_INFORMATION +
   //               " " +
-  //               this.getAlumniList[i].last_name_personal_information +
+  //               this.getAlumniList[i].LAST_NAME_PERSONAL_INFORMATION +
   //               "</a>" +
   //               "<p>" +
-  //               this.getAlumniList[i].city_addresses +
+  //               this.getAlumniList[i].CITY_ADDRESSES +
   //               "</p>";
 
   //             this.marker[i].addListener("click", () => {
@@ -131,23 +133,25 @@ export default {
       userid: [],
       place: [],
       // alumniList: [],
-      user_id: 11098,
+      USER_ID: 11098,
       map: {},
-      position: []
+      position: [],
     };
   },
   methods: {
     openAlumniProfile() {
       let data = {
         payload: {
-          keyword: userid
-        }
+          keyword: userid,
+        },
       };
-      this.$store.dispatch("adminModule/getAllAlumni", data).then(response => {
-        this.alumniList = response.data.result;
+      this.$store
+        .dispatch("adminModule/getAllAlumni", data)
+        .then((response) => {
+          this.alumniList = response.data.result;
 
-        console.log(this.alumniList[0]);
-      });
+          console.log(this.alumniList[0]);
+        });
       this.$store.commit("userModule/setSearchData", this.alumniList[0]);
       this.$router.push({ path: "/profile/search" });
     },
@@ -161,8 +165,8 @@ export default {
     getAlumniData() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
@@ -180,85 +184,85 @@ export default {
           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
           {
             elementType: "labels.text.stroke",
-            stylers: [{ color: "#242f3e" }]
+            stylers: [{ color: "#242f3e" }],
           },
           { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
           {
             featureType: "administrative.locality",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }]
+            stylers: [{ color: "#d59563" }],
           },
           {
             featureType: "poi",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }]
+            stylers: [{ color: "#d59563" }],
           },
           {
             featureType: "poi.park",
             elementType: "geometry",
-            stylers: [{ color: "#263c3f" }]
+            stylers: [{ color: "#263c3f" }],
           },
           {
             featureType: "poi.park",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#6b9a76" }]
+            stylers: [{ color: "#6b9a76" }],
           },
           {
             featureType: "road",
             elementType: "geometry",
-            stylers: [{ color: "#38414e" }]
+            stylers: [{ color: "#38414e" }],
           },
           {
             featureType: "road",
             elementType: "geometry.stroke",
-            stylers: [{ color: "#212a37" }]
+            stylers: [{ color: "#212a37" }],
           },
           {
             featureType: "road",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#9ca5b3" }]
+            stylers: [{ color: "#9ca5b3" }],
           },
           {
             featureType: "road.highway",
             elementType: "geometry",
-            stylers: [{ color: "#746855" }]
+            stylers: [{ color: "#746855" }],
           },
           {
             featureType: "road.highway",
             elementType: "geometry.stroke",
-            stylers: [{ color: "#1f2835" }]
+            stylers: [{ color: "#1f2835" }],
           },
           {
             featureType: "road.highway",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#f3d19c" }]
+            stylers: [{ color: "#f3d19c" }],
           },
           {
             featureType: "transit",
             elementType: "geometry",
-            stylers: [{ color: "#2f3948" }]
+            stylers: [{ color: "#2f3948" }],
           },
           {
             featureType: "transit.station",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }]
+            stylers: [{ color: "#d59563" }],
           },
           {
             featureType: "water",
             elementType: "geometry",
-            stylers: [{ color: "#17263c" }]
+            stylers: [{ color: "#17263c" }],
           },
           {
             featureType: "water",
             elementType: "labels.text.fill",
-            stylers: [{ color: "#515c6d" }]
+            stylers: [{ color: "#515c6d" }],
           },
           {
             featureType: "water",
             elementType: "labels.text.stroke",
-            stylers: [{ color: "#17263c" }]
-          }
-        ]
+            stylers: [{ color: "#17263c" }],
+          },
+        ],
       });
       // The marker, positioned at Uluru
       var image = {
@@ -268,18 +272,18 @@ export default {
         // The origin for this image is (0, 0).
         origin: new google.maps.Point(0, 0),
         // The anchor for this image is the base of the flagpole at (0, 32).
-        anchor: new google.maps.Point(0, 32)
+        anchor: new google.maps.Point(0, 32),
       };
 
       var geocoder = new google.maps.Geocoder();
       var infowindow = new google.maps.InfoWindow({
-        maxWidth: 400
+        maxWidth: 400,
       });
       let vm = this;
       new Promise((resolve, reject) => {
         for (let i = 0; i < vm.getAlumniList.length; i++) {
           geocoder.geocode(
-            { address: vm.getAlumniList[i].city_addresses },
+            { address: vm.getAlumniList[i].CITY_ADDRESSES },
             (results, status) => {
               if (status == "OK") {
                 var latitude =
@@ -294,18 +298,18 @@ export default {
                   map: vm.map,
                   position: mylatlng,
                   // title: vm.person[i],
-                  animation: google.maps.Animation.DROP
+                  animation: google.maps.Animation.DROP,
                 });
                 var infowincontent =
                   "<a href='/index.html#/profile/search/" +
-                  vm.getAlumniList[i].user_id +
+                  vm.getAlumniList[i].USER_ID +
                   "'>" +
-                  vm.getAlumniList[i].first_name_personal_information +
+                  vm.getAlumniList[i].FIRST_NAME_PERSONAL_INFORMATION +
                   " " +
-                  vm.getAlumniList[i].last_name_personal_information +
+                  vm.getAlumniList[i].LAST_NAME_PERSONAL_INFORMATION +
                   "</a>" +
                   "<p>" +
-                  vm.getAlumniList[i].city_addresses +
+                  vm.getAlumniList[i].CITY_ADDRESSES +
                   "</p>";
 
                 vm.marker[i].addListener("click", () => {
@@ -318,7 +322,7 @@ export default {
                   var markerCluster = new MarkerClusterer(vm.map, vm.marker, {
                     maxZoom: 10,
                     imagePath:
-                      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+                      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
                   });
                 }
               } else {
@@ -331,21 +335,21 @@ export default {
           );
         }
         resolve("hello");
-      }).then(response => {});
-    }
+      }).then((response) => {});
+    },
   },
 
   beforeMount() {
     this.getAlumniData();
     this.$store
       .dispatch("adminModule/getAllAlumni", {
-        payload: {}
+        payload: {},
       })
-      .then(response => {
+      .then((response) => {
         this.initMap();
       });
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
  

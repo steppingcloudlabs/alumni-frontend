@@ -3,7 +3,8 @@ import axios from 'axios'
 import {
     addTokenToPayload,
     deleteExpiredToken,
-    navigateToHome
+    navigateToHome,
+    baseurl
 } from '@/utils/utils'
 
 export default {
@@ -71,9 +72,9 @@ export default {
             state.showContactDialog = false
         },
         setUpdateContactData: (state, data) => {
-            state.userData.phone_number_phone_information = data.phone_number_phone_information
-            state.userData.personal_email_id = data.personal_email_id
-            state.userData.city_addresses = data.city_addresses
+            state.userData.PHONE_NUMBER_PHONE_INFORMATION = data.PHONE_NUMBER_PHONE_INFORMATION
+            state.userData.PERSONAL_EMAIL_ID = data.PERSONAL_EMAIL_ID
+            state.userData.CITY_ADDRESSES = data.CITY_ADDRESSES
             state.userData = JSON.parse(JSON.stringify(state.userData))
         },
         savedUserObjectId: (state, data) => {
@@ -119,33 +120,35 @@ export default {
             commit,
             dispatch
         }, data) => {
-            let pass = md5(data.password).toString()
+            //let pass = md5(data.password).toString()
+            let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/user/signin',
+                    url: burl + '/user/auth/login',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     data: {
-                        'email': data.email,
-                        'password': pass
+                        "EMAIL": data.email,
+                        "PASSWORD": data.password
                     }
                 }).then((response) => {
                     console.log('heya!')
-                    if (response && response.data.status && response.data.status == 200) {
+                    if (response && response.data.status && response.data.status == 200 && response.data.result!="Incorrect Username") {
                         commit('setData', response.data.result)
+                        sessionStorage.setItem("UserId", response.data.result.USER_ID)
                         sessionStorage.setItem("AccessToken", response.data.token)
                         var type = md5(response.data.usertype).toString()
                         sessionStorage.setItem("Type", type)
-                        sessionStorage.setItem("ObjectId", response.data.result._id)
+                        sessionStorage.setItem("ObjectId", response.data.result.ID)
                     }
-                    if (response && response.data.status && response.data.result) {
-                        sessionStorage.setItem("UserId", response.data.result.user_id)
-                        var type = md5(response.data.usertype).toString()
-                        sessionStorage.setItem("Type", type)
-                        sessionStorage.setItem("ObjectId", response.data.result._id)
-                    }
+                    // if (response && response.data.status && response.data.result) {
+                    //     sessionStorage.setItem("UserId", response.data.result.USER_ID)
+                    //     var type = md5(response.data.usertype).toString()
+                    //     sessionStorage.setItem("Type", type)
+                    //     sessionStorage.setItem("ObjectId", response.data.result.ID)
+                    // }
                     // } else {
                     //     commit('statusData', response.data.status)
                     // }
@@ -161,19 +164,19 @@ export default {
             commit,
             dispatch
         }, data) => {
-            let pass = md5(data.password).toString()
+            //let pass = md5(data.password).toString()
+            let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/user/signup',
+                    url: burl + '/user/auth/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     data: {
-                        'email': data.email,
-                        'password': pass,
-                        'companyname': "tata",
-                        'userid': data.userid
+                        'EMAIL': data.email,
+                        'PASSWORD': data.password,
+                        'USERID': data.userid
                     }
                 }).then((response) => {
                     console.log(response)
@@ -250,12 +253,15 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
+            let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/alumniview',
+                    method: 'GET',
+                    url: burl+'/user/action/userprofile/get?USERID='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+
                     },
                     data: data
                 }).then((response) => {

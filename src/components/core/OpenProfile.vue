@@ -9,33 +9,55 @@
                 <img
                   class="img"
                   src="@/assets/avatar/download.jpg"
-                  style="border-radius: 50%; border: 3px solid white; width: 200px;"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 200px;
+                  "
                 />
               </p>
             </div>
-            <div style="text-align:center">
+            <div style="text-align: center">
               <v-card-text
                 class="headline py-1"
-                style="line-height:1px;margin-left:0px !important;"
+                style="line-height: 1px; margin-left: 0px !important"
               >
                 <p
-                  style="color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
-                >{{user.firstname}} {{user.lastname}}</p>
+                  style="
+                    color: black;
+                    font-family: 'Raleway', sans-serif;
+                    font-weight: bolder;
+                  "
+                >
+                  {{ user.firstname }} {{ user.lastname }}
+                </p>
               </v-card-text>
               <v-card-text
                 class="subtitle"
-                style="margin-left: 0px!important;line-height: 2px !important;"
+                style="margin-left: 0px !important; line-height: 2px !important"
               >
                 <p
                   class="caption"
-                  style="line-height: 2px !important;font-family:'Raleway',sans-serif"
-                >Worked As-{{user.position}}</p>
-
-                <p>Till {{user.relieving}}</p>
-                <p>
-                  <v-icon color="blue" @click="openLinkedInProfile" class="mr-1">mdi-linkedin</v-icon>
+                  style="
+                    line-height: 2px !important;
+                    font-family: 'Raleway', sans-serif;
+                  "
+                >
+                  Worked As-{{ user.position }}
                 </p>
-                <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
+
+                <p>Till {{ user.relieving }}</p>
+                <p>
+                  <v-icon
+                    color="blue"
+                    @click="openlinkedInlinkProfile"
+                    class="mr-1"
+                    >mdi-LINKEDIN</v-icon
+                  >
+                </p>
+                <p style="font-family: 'Raleway', sans-serif">
+                  {{ user.city }}
+                </p>
               </v-card-text>
               <!-- <v-card-text class="py-5">
                 <p>
@@ -66,13 +88,13 @@
           <!-- <v-flex xs6>
             <div>
               <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
-                Skills
+                skills
                 <v-spacer></v-spacer>
               </v-card-title>
               <v-divider></v-divider>
               <v-chip
                 color="primary"
-                v-for="(item, i) in userSkills"
+                v-for="(item, i) in userskills"
                 :key="i"
                 class="body-1 mr-2 ml-2 mt-4"
                 style="margin-top:10px"
@@ -97,13 +119,13 @@
               </v-layout>
               <v-layout>
                 <v-flex xs5>
-                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
+                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">GENDER</v-card-text>
                 </v-flex>
                 <v-flex xs7>
                   <v-card-text
                     class="body-1 py-1 font-weight-bold"
                     style="margin-top:2px !important; color: #181818	"
-                  >{{user.gender}}</v-card-text>
+                  >{{user.GENDER}}</v-card-text>
                 </v-flex>
               </v-layout>
               <v-layout class="mb-4">
@@ -205,7 +227,7 @@ export default {
       status: "Not Available",
       status2: false,
       dialog: false,
-      skill: "",
+      SKILL: "",
       skills: ["hello", "testing", "python", "ruby"],
       user: {
         username: "",
@@ -225,11 +247,11 @@ export default {
         managerid: "",
         relieving: "",
         lastworking: "",
-        nationality: ""
+        nationality: "",
       },
       progress: true,
-      userSkills: [],
-      linkedInProfileLink: ""
+      userskills: [],
+      linkedInlinkProfileLink: "",
     };
   },
   beforeMount() {
@@ -237,23 +259,23 @@ export default {
     if (!this.userData) {
       let data = {
         payload: {
-          userid: this.$route.params.userId
-        }
+          userid: this.$route.params.userId,
+        },
       };
       this.$store
         .dispatch("userModule/getSearchAlumniById", data)
-        .then(response => {
+        .then((response) => {
           this.initializeUserData();
         });
-    } else if (this.userData.user_id != this.$route.params.userId) {
+    } else if (this.userData.USER_ID != this.$route.params.userId) {
       let data = {
         payload: {
-          userid: this.$route.params.userId
-        }
+          userid: this.$route.params.userId,
+        },
       };
       this.$store
         .dispatch("userModule/getSearchAlumniById", data)
-        .then(response => {
+        .then((response) => {
           this.initializeUserData();
         });
     } else {
@@ -263,25 +285,25 @@ export default {
   watch: {
     userData() {
       this.initializeUserData();
-    }
+    },
   },
 
   computed: {
-    // userSkills() {
+    // userskills() {
     //   return this.user.skills;
     // },
     userData() {
       return this.$store.getters["userModule/getSearchUserData"];
-    }
+    },
   },
   methods: {
-    openLinkedInProfile() {
-      window.open(this.linkedInProfileLink, "_blank");
+    openlinkedInlinkProfile() {
+      window.open(this.linkedInlinkProfileLink, "_blank");
     },
     initializeUserData() {
-      this.user.position = this.userData.designation_job_information;
-      this.user.employeeId = this.userData.user_id;
-      this.user.managerid = this.userData.manager_job_information;
+      this.user.position = this.userData.DESIGNATION_JOB_INFORMATION;
+      this.user.employeeId = this.userData.USER_ID;
+      this.user.managerid = this.userData.MANAGER_JOB_INFORMATION;
       console.log(moment(this.userData.relieving_date));
       this.user.relieving = moment
         .unix(this.userData.date_of_relieving / 1000)
@@ -293,39 +315,39 @@ export default {
       // new Date(this.userData.relieving_date).getFullYear();
 
       this.user.lastworking = moment
-        .unix(this.userData.last_working_day_as_per_notice_period / 1000)
+        .unix(this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD / 1000)
         .format("LL");
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getDate() +
       // "/" +
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getMonth() +
       // "/" +
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getFullYear();
 
       this.user.resignation = moment
-        .unix(this.userData.date_of_resignation / 1000)
+        .unix(this.userData.DATE_OF_RESIGNATION / 1000)
         .format("LL");
-      // new Date(this.userData.date_of_resignation).getDate() +
+      // new Date(this.userData.DATE_OF_RESIGNATION).getDate() +
       // "/" +
-      // new Date(this.userData.date_of_resignation).getMonth() +
+      // new Date(this.userData.DATE_OF_RESIGNATION).getMonth() +
       // "/" +
-      // new Date(this.userData.date_of_resignation).getFullYear();
+      // new Date(this.userData.DATE_OF_RESIGNATION).getFullYear();
 
-      this.user.firstname = this.userData.first_name_personal_information;
-      this.user.lastname = this.userData.last_name_personal_information;
-      this.user.nationality = this.userData.nationality_personal_information;
-      this.user.city = this.userData.city_addresses;
-      this.user.email = this.userData.personal_email_id;
-      this.user.mobile = this.userData.phone_number_phone_information;
-      this.userSkills = this.userData.skill;
-      this.linkedInProfileLink = this.userData.linkedInlink;
-    }
-  }
+      this.user.firstname = this.userData.FIRST_NAME_PERSONAL_INFORMATION;
+      this.user.lastname = this.userData.LAST_NAME_PERSONAL_INFORMATION;
+      this.user.nationality = this.userData.NATIONALITY_PERSONAL_INFORMATION;
+      this.user.city = this.userData.CITY_ADDRESSES;
+      this.user.email = this.userData.PERSONAL_EMAIL_ID;
+      this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
+      this.userskills = this.userData.SKILL;
+      this.linkedInlinkProfileLink = this.userData.LINKEDIN;
+    },
+  },
 };
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-layout row wrap mt-4 v-for="(item,i) in getAlumniList" :key="i">
+    <v-layout row wrap mt-4 v-for="(item, i) in getAlumniList" :key="i">
       <v-row>
         <v-col cols="12" md="3">
-          <span>item.user_id</span>
+          <span>item.USER_ID</span>
         </v-col>
         <v-col cols="12" md="3">
           <span>item.firstName</span>
@@ -25,13 +25,13 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setAlumniList", this.data);
-      }
-    }
+      },
+    },
   },
 
   data() {
     return {
-      count: 1
+      count: 1,
     };
   },
   methods: {
@@ -45,12 +45,12 @@ export default {
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: "deleteSelectedEvents",
-        deleteActionToDispatch: "deleteEvents"
+        deleteActionToDispatch: "deleteEvents",
       });
-    }
+    },
   },
   beforeMount() {
-    this.$store.dispatch("adminModule/getAllAlumni",{payload:{}});
-  }
+    this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+  },
 };
 </script>

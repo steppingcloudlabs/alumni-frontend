@@ -16,6 +16,7 @@
         </div>
       </v-card>
     </v-col>
+    <pagination :next="next" :prev="prev" :totalLength="pagination.totalLength" @pageClicked="pageClicked"></pagination>
     <!--     
     <div class="events-group-container">
       <v-sheet color="transparent"  class="mx-auto" elevation="8" width="1145px" v-if="!empty">
@@ -81,7 +82,11 @@
 
 <script>
 import moment from "moment";
+import pagination from "@/components/material/CommonPagination.vue"
 export default {
+  components:{
+   pagination
+  },
   computed: {
     getEventList: {
       get() {
@@ -101,14 +106,17 @@ export default {
     }
   },
   methods: {
+    pageClicked(data)
+    {
+      this.getEvents(data)
+    },
     setSelectedEvent(item) {
       this.selectedEvent = item;
       this.showMore = true;
-    }
-  },
-  beforeMount() {
-    this.$store
-      .dispatch("adminModule/getAllEvent", { payload: {} })
+    },
+    getEvents(limit,offset)
+    {
+      this.$store.dispatch("adminModule/getAllEvent", { payload: {limit:limit,offset:offset} })
       .then(response => {
         if (response.data.result.length > 0) {
           this.empty = false;
@@ -117,15 +125,53 @@ export default {
               .unix(this.getEventList[i].date / 1000)
               .format("LL");
           }
+         this.pagination=response.data.pagination 
         } else {
           this.empty = true;
         }
       });
+    },
+    next()
+    {
+      this.limit+=3
+      this.offset+=1
+      this.getEvents(this.limit,this.offset)
+    },
+
+     prev()
+    {
+      this.limit-=3
+      this.offset-=1
+      this.getEvents(this.limit,this.offset)
+    }
+
+  },
+  beforeMount() {
+
+    this.getEvents(3,0)
+    // this.$store
+    //   .dispatch("adminModule/getAllEvent", { payload: {} })
+    //   .then(response => {
+    //     if (response.data.result.length > 0) {
+    //       this.empty = false;
+    //       for (var i = 0; i < this.getEventList.length; i++) {
+    //         this.getEventList[i].date = moment
+    //           .unix(this.getEventList[i].date / 1000)
+    //           .format("LL");
+    //       }
+          
+    //     } else {
+    //       this.empty = true;
+    //     }
+    //   });
   },
 
   data() {
     return {
       model: {},
+      pagination:{},
+      limit:3,
+      offset:0,
       showMore: false,
       empty: false,
       selectedEvent: {},

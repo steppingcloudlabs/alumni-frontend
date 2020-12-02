@@ -1,6 +1,6 @@
 <template>
-  <v-card class="ml-3 pa-2" style="background-color:#232B2B;">
-    <v-layout row wrap style="margin-left:unset">
+  <v-card class="ml-3 pa-2" style="background-color: #232b2b">
+    <v-layout row wrap style="margin-left: unset">
       <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
       <!-- <v-flex xs6 class="mt-3 mb-3">
       <statCards></statCards>
@@ -29,8 +29,9 @@
                 dark
                 class="mb-2"
                 @click="openAddAlumniDialog"
-                style="margin-left: 20px; margin-top: 14px;"
-              >New Alumni</v-btn>
+                style="margin-left: 20px; margin-top: 14px"
+                >New Alumni</v-btn
+              >
               <v-divider class="mx-4" inset vertical></v-divider>
               <div class="flex-grow-1"></div>
               <v-text-field
@@ -52,12 +53,22 @@
           </template>
           <template v-slot:item.action="{ item }">
             <!-- <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon> -->
-            <v-icon small class="mr-2" @click="editAlumniDialog(item)">edit</v-icon>
-            <v-icon small class="mr-2" @click="showDeleteDialog(item)">delete</v-icon>
+            <v-icon small class="mr-2" @click="editAlumniDialog(item)"
+              >edit</v-icon
+            >
+            <v-icon small class="mr-2" @click="showDeleteDialog(item)"
+              >delete</v-icon
+            >
           </template>
         </v-data-table>
         <p class="text-center text-white" v-if="getAlumniList.length">
-          <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore">Load More</v-btn>
+          <v-btn
+            v-if="showMore"
+            color="blue"
+            style="margin-top: 10px"
+            @click="getMore"
+            >Load More</v-btn
+          >
         </p>
       </v-flex>
     </v-layout>
@@ -74,12 +85,12 @@ import moment from "moment";
 export default {
   components: {
     statCards,
-    AddAlumni
+    AddAlumni,
   },
   watch: {
     dialog() {
       console.log(this.dialog);
-    }
+    },
   },
   mounted() {},
   computed: {
@@ -89,8 +100,8 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setAlumniList", this.data);
-      }
-    }
+      },
+    },
   },
   beforeMount() {
     this.limit = 10;
@@ -100,10 +111,10 @@ export default {
       .dispatch("adminModule/getAllAlumni", {
         payload: {
           skip: 0,
-          limit: this.limit
-        }
+          limit: this.limit,
+        },
       })
-      .then(response => {
+      .then((response) => {
         if (
           response.data.status == 200 &&
           response.data.result.length < this.limit
@@ -130,9 +141,9 @@ export default {
         .dispatch("adminModule/getMoreData", {
           actionToCall: actionToCall,
           limit: this.limit,
-          skip: this.skip
+          skip: this.skip,
         })
-        .then(response => {
+        .then((response) => {
           if (
             response.data.status == 200 &&
             response.data.result.length < this.limit
@@ -151,17 +162,17 @@ export default {
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: "deleteSelectedAlumni",
-        deleteActionToDispatch: "deleteAlumni"
+        deleteActionToDispatch: "deleteAlumni",
       });
     },
     openAddAlumniDialog() {
       let alumniData = {
-        user_id: null,
-        first_name_personal_information: "",
-        last_name_personal_information: "",
+        USER_ID: null,
+        FIRST_NAME_PERSONAL_INFORMATION: "",
+        LAST_NAME_PERSONAL_INFORMATION: "",
         paySlipStatus: "",
         form16Status: "",
-        openFrom: "New"
+        openFrom: "New",
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
     },
@@ -177,15 +188,15 @@ export default {
     editAlumniDialog(data) {
       console.log(data);
       let alumniData = JSON.parse(JSON.stringify(data));
-      if (data.date_of_resignation) {
-        alumniData.date_of_resignation = moment
-          .unix(data.date_of_resignation / 1000)
+      if (data.DATE_OF_RESIGNATION) {
+        alumniData.DATE_OF_RESIGNATION = moment
+          .unix(data.DATE_OF_RESIGNATION / 1000)
           .toISOString()
           .substr(0, 10);
       }
-      if (data.date_of_birth) {
-        alumniData.date_of_birth = moment
-          .unix(data.date_of_birth / 1000)
+      if (data.DATE_OF_BIRTH) {
+        alumniData.DATE_OF_BIRTH = moment
+          .unix(data.DATE_OF_BIRTH / 1000)
           .toISOString()
           .substr(0, 10);
       }
@@ -206,13 +217,15 @@ export default {
         payload: {
           skip: 0,
           limit: 2,
-          keyword: data
-        }
+          keyword: data,
+        },
       };
-      this.$store.dispatch("adminModule/getAllAlumni", body).then(response => {
-        this.loader = false;
-      });
-    }
+      this.$store
+        .dispatch("adminModule/getAllAlumni", body)
+        .then((response) => {
+          this.loader = false;
+        });
+    },
   },
   data() {
     return {
@@ -228,13 +241,13 @@ export default {
           text: "EmployeeId",
           align: "left",
           sortable: false,
-          value: "user_id"
+          value: "USER_ID",
         },
-        { text: "FirstName", value: "first_name_personal_information" },
-        { text: "LastName", value: "last_name_personal_information" },
-        { text: "Action", value: "action" }
-      ]
+        { text: "FirstName", value: "FIRST_NAME_PERSONAL_INFORMATION" },
+        { text: "LastName", value: "LAST_NAME_PERSONAL_INFORMATION" },
+        { text: "Action", value: "action" },
+      ],
     };
-  }
+  },
 };
 </script>

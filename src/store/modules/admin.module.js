@@ -2,7 +2,8 @@ import axios from "axios";
 import {
     addTokenToPayload,
     deleteExpiredToken,
-    navigateToHome
+    navigateToHome,
+    baseurl
 } from '@/utils/utils'
 
 export default {
@@ -405,16 +406,19 @@ export default {
             state,
             commit
         }, data) => {
+           
             addTokenToPayload(data)
 
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/allnews',
+                    method: 'GET',
+                    url: burl+"/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    data: data
+                        "Authorization":"Bearer " + data.token
+
+                    }
+                    
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -426,6 +430,7 @@ export default {
                         resolve(response)
 
                         commit("setNewsList", response.data.result)
+                        
 
 
                         // commit('setNewsList', response.data.result)
@@ -556,14 +561,16 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-
+            let burl = baseurl()
 
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/allevent',
+                    method: 'GET',
+                    url: burl+"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+
                     },
                     data: data
                 }).then((response) => {
@@ -664,7 +671,7 @@ export default {
             dispatch
         }, data) => {
             let payload = {
-                userid: data.user_id
+                userid: data.USER_ID
             }
             addTokenToPayload(data)
             let token = data['token']
@@ -801,12 +808,15 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
+            let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/allfaq',
+                    method: 'GET',
+                    url: burl+"/admin/action/faq/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+
                     },
                     data: data
                 }).then((response) => {

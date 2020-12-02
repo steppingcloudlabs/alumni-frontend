@@ -9,39 +9,58 @@
                 <img
                   class="img"
                   src="@/assets/avatar/download.jpg"
-                  style="border-radius: 50%; border: 3px solid white; width: 200px;"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 200px;
+                  "
                 />
               </p>
             </div>
-            <div style="text-align:center">
+            <div style="text-align: center">
               <v-layout row wrap>
                 <v-flex xs12>
                   <v-card-text
                     class="headline py-1"
-                    style="line-height:1px;margin-left:0px !important; color:black;font-family:'Raleway',sans-serif;font-weight:bolder"
-                  >{{user.firstname}} {{user.lastname}}</v-card-text>
+                    style="
+                      line-height: 1px;
+                      margin-left: 0px !important;
+                      color: black;
+                      font-family: 'Raleway', sans-serif;
+                      font-weight: bolder;
+                    "
+                    >{{ user.firstname }} {{ user.lastname }}</v-card-text
+                  >
                 </v-flex>
                 <v-flex xs12 class="mt-2">
                   <v-card-text
                     class="subtitle"
-                    style="margin-left: 0px!important; line-height: 2px !important;"
+                    style="
+                      margin-left: 0px !important;
+                      line-height: 2px !important;
+                    "
                   >
                     Worked As-
-                    <span class="font-weight-bold">{{user.position}}</span>
+                    <span class="font-weight-bold">{{ user.position }}</span>
                   </v-card-text>
                 </v-flex>
                 <v-flex xs12>
-                  <AddEditLinkedInLink
-                    :linkedInProfileLink="user.linkedInlink"
+                  <AddEditlinkedInlink
+                    :linkedInlinkProfileLink="user.LINKEDIN"
                     @saveProfileLink="saveProfileLink"
-                  ></AddEditLinkedInLink>
+                  ></AddEditlinkedInlink>
                 </v-flex>
                 <v-flex xs12>
                   <v-card-text
                     class="subtitle"
-                    style="margin-left: 0px!important;line-height: 2px !important;"
+                    style="
+                      margin-left: 0px !important;
+                      line-height: 2px !important;
+                    "
                   >
-                    <p style="font-family:'Raleway',sans-serif">{{user.city}}</p>
+                    <p style="font-family: 'Raleway', sans-serif">
+                      {{ user.city }}
+                    </p>
                   </v-card-text>
                 </v-flex>
               </v-layout>
@@ -74,94 +93,117 @@
           </v-flex>
           <v-flex xs6>
             <div>
-              <v-card-title class="subtitle-1 pt-0 user-profile-heading font-weight-bold">
-                Skills
+              <v-card-title
+                class="subtitle-1 pt-0 user-profile-heading font-weight-bold"
+              >
+                skills
                 <v-spacer></v-spacer>
                 <v-btn
                   v-if="showskill"
                   class="text-capitalize"
                   color="primary"
                   @click="showskillinput"
-                >Add New Skill</v-btn>
+                  >Add New SKILL</v-btn
+                >
                 <v-combobox
                   v-if="!showskill"
-                  v-model="skill"
+                  v-model="SKILL"
                   :items="skilled"
                   append-icon="add"
-                  style=" margin-top:-15px;"
-                  @keyup.enter.native="addSkill()"
-                  @keydown.esc="showskill=true"
-                  @click:append="addSkill()"
-                  label="Add Skill"
+                  style="margin-top: -15px"
+                  @keyup.enter.native="addskill()"
+                  @keydown.esc="showskill = true"
+                  @click:append="addskill()"
+                  label="Add SKILL"
                   hide-details
                   hide-selected
                 ></v-combobox>
                 <!-- <v-text-field
                   v-if="!showskill"
-                  v-model="skill"
-                  label=" Add Skill"
+                  v-model="SKILL"
+                  label=" Add SKILL"
                   style=" margin-top:-15px;"
                   append-icon="add"
                   single-line
                   hide-details
-                  @keyup.enter.native="addSkill()"
+                  @keyup.enter.native="addskill()"
                   @keydown.esc="showskill=true"
-                  @click:append="addSkill()"
+                  @click:append="addskill()"
                 ></v-text-field>-->
               </v-card-title>
               <v-divider></v-divider>
-              <div v-if="userSkills.length">
+              <div v-if="userskills.length">
                 <v-chip
                   color="primary"
-                  v-for="(item, i) in userSkills"
+                  v-for="(item, i) in userskills"
                   :key="i"
                   class="body-1 mr-2 ml-2 mt-4"
-                  style="margin-top:10px"
+                  style="margin-top: 10px"
                   close
-                  @click:close="deleteSkill(i)"
-                >{{item}}</v-chip>
+                  @click:close="deleteskill(i)"
+                  >{{ item }}</v-chip
+                >
               </div>
               <div v-else>
-                <p class="text-center mt-2" style="font-size:15px">No Skills to Show</p>
+                <p class="text-center mt-2" style="font-size: 15px">
+                  No skills to Show
+                </p>
               </div>
             </div>
             <div class="mt-2">
               <p
                 class="subtitle-1 pt-5 mb-1 pl-4 user-profile-heading"
-                style="font-weight: bold;"
-              >Basic Information</p>
+                style="font-weight: bold"
+              >
+                Basic Information
+              </p>
               <v-divider></v-divider>
               <v-layout row wrap class="ma-0">
                 <v-flex xs5>
-                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Date Of Birth</v-card-text>
+                  <v-card-text
+                    class="body-1 py-1"
+                    style="margin-top: 2px !important"
+                    >Date Of Birth</v-card-text
+                  >
                 </v-flex>
                 <v-flex xs7>
                   <v-card-text
                     class="body-1 py-1 font-weight-bold"
-                    style="margin-top:2px !important; color: #181818	"
-                  >{{user.DOB}}</v-card-text>
+                    style="margin-top: 2px !important; color: #181818"
+                    >{{ user.DOB }}</v-card-text
+                  >
                 </v-flex>
               </v-layout>
               <v-layout>
                 <v-flex xs5>
-                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Gender</v-card-text>
+                  <v-card-text
+                    class="body-1 py-1"
+                    style="margin-top: 2px !important"
+                    >GENDER</v-card-text
+                  >
                 </v-flex>
                 <v-flex xs7>
                   <v-card-text
                     class="body-1 py-1 font-weight-bold"
-                    style="margin-top:2px !important; color: #181818	"
-                  >{{user.gender}}</v-card-text>
+                    style="margin-top: 2px !important; color: #181818"
+                    >{{ user.GENDER }}</v-card-text
+                  >
                 </v-flex>
               </v-layout>
               <v-layout class="mb-4">
                 <v-flex xs5>
-                  <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Nationality</v-card-text>
+                  <v-card-text
+                    class="body-1 py-1"
+                    style="margin-top: 2px !important"
+                    >Nationality</v-card-text
+                  >
                 </v-flex>
                 <v-flex xs7>
                   <v-card-text
                     class="body-1 py-1 font-weight-bold"
-                    style="margin-top:2px !important; color: #181818	"
-                  >{{user.nationality}}</v-card-text>
+                    style="margin-top: 2px !important; color: #181818"
+                    >{{ user.nationality }}</v-card-text
+                  >
                 </v-flex>
               </v-layout>
             </div>
@@ -175,112 +217,154 @@
           <v-flex xs6 pr-5>
             <v-card-title
               class="subtitle-1 font-weight-bold pt-5 pl-4 pb-3 user-profile-heading"
-            >Company Information</v-card-title>
+              >Company Information</v-card-title
+            >
             <v-divider></v-divider>
             <v-layout pt-2>
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Employee Id</v-card-text>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                  >Employee Id</v-card-text
+                >
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
-                >{{user.employeeId}}</v-card-text>
+                  style="margin-top: 2px !important; color: #181818"
+                  >{{ user.employeeId }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Last Designation</v-card-text>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                  >Last Designation</v-card-text
+                >
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
-                >{{user.position}}</v-card-text>
+                  style="margin-top: 2px !important; color: #181818"
+                  >{{ user.position }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Resignation Date</v-card-text>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                  >Resignation Date</v-card-text
+                >
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
-                >{{user.resignation}}</v-card-text>
+                  style="margin-top: 2px !important; color: #181818"
+                  >{{ user.resignation }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Relieving Date</v-card-text>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                  >Relieving Date</v-card-text
+                >
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
-                >{{user.relieving}}</v-card-text>
+                  style="margin-top: 2px !important; color: #181818"
+                  >{{ user.relieving }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout class="mb-4">
               <v-flex xs5>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">Manager</v-card-text>
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                  >Manager</v-card-text
+                >
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:2px !important; color: #181818	"
-                >{{user.managerid}}</v-card-text>
+                  style="margin-top: 2px !important; color: #181818"
+                  >{{ user.managerid }}</v-card-text
+                >
               </v-flex>
             </v-layout>
           </v-flex>
           <v-flex xs6>
-            <v-card-title class="subtitle-1 user-profile-heading" style="font-weight: bold;">
+            <v-card-title
+              class="subtitle-1 user-profile-heading"
+              style="font-weight: bold"
+            >
               Contact Information
               <v-spacer></v-spacer>
               <v-btn
                 color="primary"
                 class="text-capitalize"
                 @click="openContactDialog"
-              >Update Contact</v-btn>
+                >Update Contact</v-btn
+              >
             </v-card-title>
             <v-divider></v-divider>
             <v-layout>
               <v-flex xs1>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                >
                   <v-icon class="mt-1" color="blue">mdi-cellphone</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:8px !important; color: #181818	"
-                >{{user.mobile}}</v-card-text>
+                  style="margin-top: 8px !important; color: #181818"
+                  >{{ user.mobile }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex xs1>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                >
                   <v-icon color="blue">mdi-email</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:8px !important;"
-                >{{user.email}}</v-card-text>
+                  style="margin-top: 8px !important"
+                  >{{ user.email }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <v-layout>
               <v-flex xs1>
-                <v-card-text class="body-1 py-1" style="margin-top:2px !important;">
+                <v-card-text
+                  class="body-1 py-1"
+                  style="margin-top: 2px !important"
+                >
                   <v-icon color="blue">mdi-home</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs7>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
-                  style="margin-top:5px !important; color: #181818"
-                >{{user.city}}</v-card-text>
+                  style="margin-top: 5px !important; color: #181818"
+                  >{{ user.city }}</v-card-text
+                >
               </v-flex>
             </v-layout>
             <updateContact></updateContact>
@@ -292,16 +376,18 @@
       <v-card class="mt-2 pb-5">
         <v-card-title
           class="subtitle-1 pt-5 mb-1 user-profile-heading"
-          style="font-weight: bold;"
-        >Document Status</v-card-title>
+          style="font-weight: bold"
+          >Document Status</v-card-title
+        >
         <v-divider></v-divider>
         <v-layout row wrap mt-4 ml-0>
           <v-flex xs4>
             <v-card class="mr-3 ml-3" height="100%">
               <v-card-title
                 class="font-weight-medium"
-                style="font-family:Raleway; font-size:15px;"
-              >FnF Status</v-card-title>
+                style="font-family: Raleway; font-size: 15px"
+                >FnF Status</v-card-title
+              >
               <v-card-text>
                 <timeline
                   :status="DocumentStatus.fnfStatus"
@@ -316,24 +402,26 @@
             <v-card class="mr-3 ml-3" height="100%">
               <v-card-title
                 class="font-weight-medium"
-                style="font-family:Raleway; font-size:15px"
-              >Form16 Status</v-card-title>
+                style="font-family: Raleway; font-size: 15px"
+                >Form16 Status</v-card-title
+              >
               <v-card-text>
                 <timeline
                   :status="DocumentStatus.form16"
                   :code="95"
-                  :userid="this.user.employeeId "
+                  :userid="this.user.employeeId"
                   :showLoader="progress"
                 />
               </v-card-text>
             </v-card>
           </v-flex>
           <v-flex xs4>
-            <v-card class="mr-3 ml-3" style="margin-left:20px" height="100%">
+            <v-card class="mr-3 ml-3" style="margin-left: 20px" height="100%">
               <v-card-title
                 class="font-weight-medium"
-                style="font-family:Raleway;font-size:15px"
-              >Salary Slip Status</v-card-title>
+                style="font-family: Raleway; font-size: 15px"
+                >Salary Slip Status</v-card-title
+              >
               <v-card-text>
                 <timeline
                   :status="DocumentStatus.salarycurrent"
@@ -352,7 +440,7 @@
 <script>
 import timeline from "@/components/material/Timeline.vue";
 import updateContact from "@/components/core/updatecontactDialog.vue";
-import AddEditLinkedInLink from "@/views/AddEditLinkedInLink";
+import AddEditlinkedInlink from "@/views/AddEditLinkedInLink";
 import moment from "moment";
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 
@@ -360,7 +448,7 @@ export default {
   components: {
     timeline,
     updateContact,
-    AddEditLinkedInLink
+    AddEditlinkedInlink,
   },
   data() {
     return {
@@ -371,7 +459,7 @@ export default {
       status: "Not Available",
       status2: false,
       dialog: false,
-      skill: "",
+      SKILL: "",
       skilled: ["hello", "testing", "python", "ruby"],
       skills: [],
       user: {
@@ -393,13 +481,13 @@ export default {
         relieving: "",
         lastworking: "",
         nationality: "",
-        gender: ""
+        GENDER: "",
       },
       progress: true,
-      userSkills: [],
+      userskills: [],
       filteredArray: [],
-      linkedInProfileLink: "",
-      showLinkedInInput: false
+      linkedInlinkProfileLink: "",
+      showlinkedInlinkInput: false,
     };
   },
   beforeMount() {
@@ -409,13 +497,13 @@ export default {
   watch: {
     userData() {
       this.initializeUserData();
-    }
+    },
   },
   mounted() {
     this.getStatus();
   },
   computed: {
-    // userSkills() {
+    // userskills() {
     //   return this.user.skills;
     // },
     userData() {
@@ -428,7 +516,7 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setStatusData", this.data);
-      }
+      },
     },
     FnfStatus() {
       return this.$store.getters["userModule/getStatusData"]
@@ -444,114 +532,116 @@ export default {
       return this.$store.getters["userModule/getStatusData"]
         ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
         : null;
-    }
+    },
   },
 
   methods: {
     saveProfileLink(data) {
       let datam = {
         payload: {
-          user_id: this.user.employeeId,
-          linkedInlink: data
-        }
+          USER_ID: this.user.employeeId,
+          LINKEDIN: data,
+        },
       };
-      this.$store.dispatch("userModule/updateData", datam).then(response => {
+      this.$store.dispatch("userModule/updateData", datam).then((response) => {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
             message: "Profile link updated successfully",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
-          this.user.linkedInProfileLink = data;
+          this.user.linkedInlinkProfileLink = data;
         }
       });
     },
-    recommendedSkill() {
-      let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
-      this.filteredArray = this.skilled.filter(function(x) {
-        return tempSkill.indexOf(x) < 0;
+    recommendedskill() {
+      let tempskill = JSON.parse(JSON.stringify(this.userskills));
+      this.filteredArray = this.skilled.filter(function (x) {
+        return tempskill.indexOf(x) < 0;
       });
       console.log(this.filteredArray);
     },
-    deleteSkill(data) {
-      let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
+    deleteskill(data) {
+      let tempskill = JSON.parse(JSON.stringify(this.userskills));
       let vm = this;
-      tempSkill.splice(data, 1);
+      tempskill.splice(data, 1);
       let index = data;
       // this.user.skills.splice(data, 1);
       let datam = {
         payload: {
-          user_id: this.user.employeeId,
-          skill: tempSkill
-        }
+          USER_ID: this.user.employeeId,
+          SKILL: tempskill,
+        },
       };
       console.log(data);
-      this.$store.dispatch("userModule/updateData", datam).then(response => {
+      this.$store.dispatch("userModule/updateData", datam).then((response) => {
         if (response.data.status == 200) {
           // this.user.skills.splice(index, 1);
           this.$store.commit("showSnackbar", {
-            message: "Skill deleted successfully",
+            message: "SKILL deleted successfully",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
-          this.userSkills = tempSkill;
+          this.userskills = tempskill;
         }
 
-        this.skill = "";
+        this.SKILL = "";
       });
     },
 
-    addSkill() {
-      if (this.userSkills.length) {
-        this.recommendedSkill();
+    addskill() {
+      if (this.userskills.length) {
+        this.recommendedskill();
       }
 
-      console.log(this.skill);
+      console.log(this.SKILL);
       this.showskill = true;
-      if (!this.skill.trim()) {
+      if (!this.SKILL.trim()) {
         this.showskill = true;
       } else {
-        let skillExists = this.userSkills.filter(item => {
-          if (item.toLowerCase() == this.skill.toLowerCase()) {
+        let skillExists = this.userskills.filter((item) => {
+          if (item.toLowerCase() == this.SKILL.toLowerCase()) {
             return true;
           }
           return false;
         });
         if (skillExists.length < 1) {
-          let tempSkill = JSON.parse(JSON.stringify(this.userSkills));
-          tempSkill.push(this.skill);
+          let tempskill = JSON.parse(JSON.stringify(this.userskills));
+          tempskill.push(this.SKILL);
           let data = {
             payload: {
-              user_id: this.user.employeeId,
-              skill: tempSkill
-            }
+              USER_ID: this.user.employeeId,
+              SKILL: tempskill,
+            },
           };
           console.log(data);
-          this.$store.dispatch("userModule/updateData", data).then(response => {
-            if (response.data.status == 200) {
-              this.userSkills.push(this.skill);
-              this.$store.commit("showSnackbar", {
-                message: "Skill added successfully",
-                color: "success",
-                heading: "Success",
-                duration: 3000
-              });
-            }
+          this.$store
+            .dispatch("userModule/updateData", data)
+            .then((response) => {
+              if (response.data.status == 200) {
+                this.userskills.push(this.SKILL);
+                this.$store.commit("showSnackbar", {
+                  message: "SKILL added successfully",
+                  color: "success",
+                  heading: "Success",
+                  duration: 3000,
+                });
+              }
 
-            this.skill = "";
-          });
+              this.SKILL = "";
+            });
         }
       }
     },
     initializeUserData() {
-      this.user.position = this.userData.designation_job_information;
-      this.user.employeeId = this.userData.user_id;
-      this.user.managerid = this.userData.manager_job_information;
-      this.user.gender = this.userData.gender;
+      this.user.position = this.userData.DESIGNATION_JOB_INFORMATION;
+      this.user.employeeId = this.userData.USER_ID;
+      this.user.managerid = this.userData.MANAGER_JOB_INFORMATION;
+      this.user.GENDER = this.userData.GENDER;
       this.user.DOB = moment
-        .unix(this.userData.date_of_birth / 1000)
+        .unix(this.userData.DATE_OF_BIRTH / 1000)
         .format("LL");
 
       this.user.relieving = moment
@@ -564,44 +654,45 @@ export default {
       // new Date(this.userData.relieving_date).getFullYear();
 
       this.user.lastworking = moment
-        .unix(this.userData.last_working_day_as_per_notice_period / 1000)
+        .unix(this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD / 1000)
         .format("LL");
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getDate() +
       // "/" +
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getMonth() +
       // "/" +
       // new Date(
-      //   this.userData.last_working_day_as_per_notice_period
+      //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getFullYear();
-      //  var date = new Date(this.userData.date_of_resignation*1000);
+      //  var date = new Date(this.userData.DATE_OF_RESIGNATION*1000);
 
       this.user.resignation = moment
-        .unix(this.userData.date_of_resignation / 1000)
+        .unix(this.userData.DATE_OF_RESIGNATION / 1000)
         .format("LL");
-      // new Date(this.userData.date_of_resignation).getDate() +
+      // new Date(this.userData.DATE_OF_RESIGNATION).getDate() +
       // "/" +
-      // new Date(this.userData.date_of_resignation).getMonth() +
+      // new Date(this.userData.DATE_OF_RESIGNATION).getMonth() +
       // "/" +
-      // new Date(this.userData.date_of_resignation).getFullYear();
+      // new Date(this.userData.DATE_OF_RESIGNATION).getFullYear();
 
-      this.user.firstname = this.userData.first_name_personal_information;
-      this.user.lastname = this.userData.last_name_personal_information;
-      this.user.nationality = this.userData.nationality_personal_information;
-      this.user.city = this.userData.city_addresses;
-      this.user.email = this.userData.personal_email_id;
-      this.user.mobile = this.userData.phone_number_phone_information;
-      this.userSkills = this.userData.skill;
-      this.user.linkedInlink = this.userData.linkedInlink;
+      this.user.firstname = this.userData.FIRST_NAME_PERSONAL_INFORMATION;
+      this.user.lastname = this.userData.LAST_NAME_PERSONAL_INFORMATION;
+      this.user.nationality = this.userData.NATIONALITY_PERSONAL_INFORMATION;
+      this.user.city = this.userData.CITY_ADDRESSES;
+      this.user.email = this.userData.PERSONAL_EMAIL_ID;
+      this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
+      this.userskills = this.userData.SKILL;
+      this.user.LINKEDIN = this.userData.LINKEDIN;
     },
     getAlumniData() {
+      console.log(getAlumniId())
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
@@ -614,7 +705,7 @@ export default {
         email: this.user.email,
         city: this.user.city,
         address: this.user.address,
-        state: this.user.state
+        state: this.user.state,
       };
       this.$store.commit("userModule/showContactDialog", contactData);
     },
@@ -625,10 +716,10 @@ export default {
     getStatus() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
-      this.$store.dispatch("userModule/getStatus", data).then(response => {
+      this.$store.dispatch("userModule/getStatus", data).then((response) => {
         if (response.data.status == 400) {
           this.progress = true;
         } else {
@@ -641,8 +732,8 @@ export default {
     },
     resetoffice() {
       this.office = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

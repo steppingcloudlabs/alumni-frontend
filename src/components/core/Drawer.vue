@@ -11,7 +11,10 @@
     width="260"
   >
     <template v-slot:img="attrs">
-      <v-img v-bind="attrs" gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)" />
+      <v-img
+        v-bind="attrs"
+        gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
+      />
     </template>
 
     <v-list-item two-line style="height: 75px">
@@ -28,8 +31,13 @@
         </v-list-item-avatar>
 
         <v-list-item-title
-          style="white-space:inherit;font-family: 'Raleway', sans-serif; font-weight: bold;"
-        >Welcome {{userData}}!!</v-list-item-title>
+          style="
+            white-space: inherit;
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
+          "
+          >Welcome {{ userData }}!!</v-list-item-title
+        >
       </v-list-item>
 
       <v-divider class="mx-1 mb-1" />
@@ -63,55 +71,55 @@ export default {
   props: {
     opened: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({
     image: "",
     inputValue: true,
     user: {
-      firstname: "hello"
+      firstname: "hello",
     },
 
     links: [
       {
         to: "/profile/dashboard",
         icon: "mdi-view-dashboard",
-        text: "Dashboard"
+        text: "Dashboard",
       },
       {
         to: "/profile/user-profile",
         icon: "mdi-account",
-        text: "My Profile"
+        text: "My Profile",
       },
 
       {
         to: "/profile/document",
         icon: "mdi-clipboard",
-        text: "My Documents"
+        text: "My Documents",
       },
       {
         to: "/profile/careers",
         icon: "mdi-chart-bubble",
-        text: "Careers"
+        text: "Careers",
       },
       {
         to: "/profile/maps",
         icon: "mdi-map-marker",
-        text: "Maps"
+        text: "Maps",
       },
       {
         to: "/profile/query",
         icon: "mdi-wechat",
-        text: "Ask HR"
-      }
+        text: "Ask HR",
+      },
       // {
       //   to: "/home",
       //   icon: "mdi-logout",
       //   text: "Logout",
       //   click: "logout"
       // }
-    ]
+    ],
   }),
 
   watch: {},
@@ -123,17 +131,17 @@ export default {
       this.$router.push({ path: "/home" });
 
       console.log("session deleted");
-    }
+    },
   },
 
   computed: {
     userData() {
       return this.$store.getters["userModule/getUserData"]
         ? this.$store.getters["userModule/getUserData"]
-            .first_name_personal_information
+            .FIRST_NAME_PERSONAL_INFORMATION
         : null;
-    }
-  }
+    },
+  },
 };
 </script>
 

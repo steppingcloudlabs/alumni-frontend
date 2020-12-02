@@ -11,23 +11,31 @@
         filled
         color="blue-grey lighten-2"
         label="Search Alumni"
-        item-text="first_name_personal_information"
-        item-value="first_name_personal_information"
+        item-text="FIRST_NAME_PERSONAL_INFORMATION"
+        item-value="FIRST_NAME_PERSONAL_INFORMATION"
         @change="openSearch()"
       >
         <template v-slot:item="data">
           <template>
             <v-list-item-avatar color="indigo">
               <!-- <img :src="data.item.avatar" /> -->
-              <span
-                class="white--text headline"
-              >{{data.item.first_name_personal_information.substring(0, 1) + '' + data.item.last_name_personal_information.substring(0, 1)}}</span>
+              <span class="white--text headline">{{
+                data.item.FIRST_NAME_PERSONAL_INFORMATION.substring(0, 1) +
+                "" +
+                data.item.LAST_NAME_PERSONAL_INFORMATION.substring(0, 1)
+              }}</span>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title
-                v-html="data.item.first_name_personal_information + ' ' + data.item.last_name_personal_information"
+                v-html="
+                  data.item.FIRST_NAME_PERSONAL_INFORMATION +
+                  ' ' +
+                  data.item.LAST_NAME_PERSONAL_INFORMATION
+                "
               ></v-list-item-title>
-              <v-list-item-subtitle v-html="data.item.designation_job_information"></v-list-item-subtitle>
+              <v-list-item-subtitle
+                v-html="data.item.DESIGNATION_JOB_INFORMATION"
+              ></v-list-item-subtitle>
             </v-list-item-content>
           </template>
         </template>
@@ -44,16 +52,16 @@ export default {
       alumniList: [],
       selectedAlumni: [],
       isLoading: false,
-      searchAlumni: null
+      searchAlumni: null,
     };
   },
   methods: {
     openSearch() {
       this.$store.commit("userModule/setSearchData", this.alumniList[0]);
       this.$router.push({
-        path: "/profile/search/" + this.alumniList[0].user_id
+        path: "/profile/search/" + this.alumniList[0].USER_ID,
       });
-    }
+    },
   },
   watch: {
     searchAlumni(val) {
@@ -68,19 +76,19 @@ export default {
       this.isLoading = true;
       let data = {
         payload: {
-          keyword: val
-        }
+          keyword: val,
+        },
       };
       this.$store
         .dispatch("adminModule/getAllAlumni", data)
-        .then(response => {
+        .then((response) => {
           this.alumniList = response.data.result;
 
           console.log(this.alumniList);
         })
         .finally(() => (this.isLoading = false));
-    }
-  }
+    },
+  },
 };
 </script>
 

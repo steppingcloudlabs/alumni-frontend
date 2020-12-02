@@ -49,7 +49,12 @@
                   ></v-text-field>
                 </v-col>
                 <v-col class="ma-0 pa-1" cols="12" md="6">
-                  <v-text-field outlined shaped v-model="contact.state" label="State"></v-text-field>
+                  <v-text-field
+                    outlined
+                    shaped
+                    v-model="contact.state"
+                    label="State"
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-form>
@@ -70,19 +75,19 @@
 export default {
   data() {
     return {
-      emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"],
+      emailRules: [(v) => /.+@.+/.test(v) || "E-mail must be valid"],
       // phoneRules: [
       //   v =>
       //     (v.length > 9 && v.length < 11) || "Please Enter valid Phone number"
       // ],
-      employeeRules: [v => !!v || "Employee Id is required"],
+      employeeRules: [(v) => !!v || "Employee Id is required"],
       user: {
         phone: "",
         email: "",
         address: "",
         city: "",
-        state: ""
-      }
+        state: "",
+      },
     };
   },
   computed: {
@@ -92,13 +97,13 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setShowContactDialogData", {
-          phone: this.userData.phone_number_phone_information,
-          email: this.userData.personal_email_id,
-          city: this.userData.city_addresses,
+          phone: this.userData.PHONE_NUMBER_PHONE_INFORMATION,
+          email: this.userData.PERSONAL_EMAIL_ID,
+          city: this.userData.CITY_ADDRESSES,
           address: this.userData.address,
-          state: this.userData.state
+          state: this.userData.state,
         });
-      }
+      },
     },
     showContact: {
       get() {
@@ -106,11 +111,11 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setShowContactDialog", data);
-      }
+      },
     },
     userData() {
       return this.$store.getters["userModule/getUserData"];
-    }
+    },
   },
   methods: {
     closeDialog() {
@@ -122,31 +127,31 @@ export default {
         this.$store.commit("userModule/closeContactDialog");
         let data = {
           payload: {
-            user_id: this.userData.user_id,
-            city_addresses: contactData.city,
-            phone_number_phone_information: contactData.phone,
-            personal_email_id: contactData.email,
+            USER_ID: this.userData.USER_ID,
+            CITY_ADDRESSES: contactData.city,
+            PHONE_NUMBER_PHONE_INFORMATION: contactData.phone,
+            PERSONAL_EMAIL_ID: contactData.email,
             address: contactData.address,
-            state: contactData.state
-          }
+            state: contactData.state,
+          },
         };
         let updatedData = {
-          user_id: this.userData.user_id,
-          city_addresses: contactData.city,
-          phone_number_phone_information: contactData.phone,
-          personal_email_id: contactData.email,
+          USER_ID: this.userData.USER_ID,
+          CITY_ADDRESSES: contactData.city,
+          PHONE_NUMBER_PHONE_INFORMATION: contactData.phone,
+          PERSONAL_EMAIL_ID: contactData.email,
           address: contactData.address,
-          state: contactData.state
+          state: contactData.state,
         };
         console.log(data);
-        this.$store.dispatch("userModule/updateData", data).then(response => {
+        this.$store.dispatch("userModule/updateData", data).then((response) => {
           if (response.data.status == 200) {
             this.$store.commit("userModule/setUpdateContactData", updatedData);
             this.$store.commit("showSnackbar", {
               message: "COntact Updated successfully",
               color: "success",
               heading: "Success",
-              duration: 3000
+              duration: 3000,
             });
           }
         });
@@ -155,10 +160,10 @@ export default {
           color: "red",
           duration: 1000,
           message: "Correct Errors",
-          heading: "Error"
+          heading: "Error",
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>

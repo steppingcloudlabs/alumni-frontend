@@ -25,69 +25,110 @@
       min-height="100%"
       width="100%"
       class="ma-0 pa-0"
-      style="margin-left:auto;margin-right:auto"
+      style="margin-left: auto; margin-right: auto"
     >
       <v-img
         height="200px"
         src="@/assets/pic1.jpg"
         gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)"
       >
-        <v-card-title class="title" style="margin-left:3%;margin-top:1%;color:white">Search Jobs</v-card-title>
+        <v-card-title
+          class="title"
+          style="margin-left: 3%; margin-top: 1%; color: white"
+          >Search Jobs</v-card-title
+        >
         <p class="text--center">
-          <v-layout style="margin-left:auto;margin-right:auto">
-            <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-text-field v-model="search.skill" label="Search By Keywords" solo dense></v-text-field>
+          <v-layout style="margin-left: auto; margin-right: auto">
+            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+              <v-text-field
+                v-model="search.SKILL"
+                label="Search By Keywords"
+                solo
+                dense
+              ></v-text-field>
             </v-flex>
-            <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-text-field v-model="search.country" label="Search By Location" solo dense></v-text-field>
+            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+              <v-text-field
+                v-model="search.country"
+                label="Search By Location"
+                solo
+                dense
+              ></v-text-field>
             </v-flex>
 
-            <v-flex xs4 style="margin-top:0%;margin-left:5%">
-              <v-btn color="blue" style="color:White" large @click="jobData(search)">Search</v-btn>
+            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+              <v-btn
+                color="blue"
+                style="color: White"
+                large
+                @click="jobData(search)"
+                >Search</v-btn
+              >
             </v-flex>
           </v-layout>
         </p>
       </v-img>
     </v-card>
 
-    <v-card-title style="color:white">Current Openings</v-card-title>
-    <v-divider style="background:rgb(241, 135, 16);"></v-divider>
-      <div class="text-center" v-if="showLoader">
-        <v-progress-circular style="margin-top:100px" :size="50" color="primary" indeterminate></v-progress-circular>
-      </div>
+    <v-card-title style="color: white">Current Openings</v-card-title>
+    <v-divider style="background: rgb(241, 135, 16)"></v-divider>
+    <div class="text-center" v-if="showLoader">
+      <v-progress-circular
+        style="margin-top: 100px"
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
     <div>
-    
-      <v-layout row wrap style="margin-left:unset;" v-if="getjobs.length && !showLoader">
+      <v-layout
+        row
+        wrap
+        style="margin-left: unset"
+        v-if="getjobs.length && !showLoader"
+      >
         <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
           <v-hover v-slot:default="{ hover }">
-            <v-card class="job_class" :elevation="hover? 24:1" min-height="150px">
-              <v-card-title style="color:#232B2B">{{item.jobTitle}}</v-card-title>
-              <v-layout row wrap style="margin-left:unset;">
+            <v-card
+              class="job_class"
+              :elevation="hover ? 24 : 1"
+              min-height="150px"
+            >
+              <v-card-title style="color: #232b2b">{{
+                item.jobTitle
+              }}</v-card-title>
+              <v-layout row wrap style="margin-left: unset">
                 <v-flex xs3 class="my-0">
                   <v-card-text>
-                    <v-icon color="blue" v-if="item.location">mdi-map-marker</v-icon>
-                    {{item.location}}
+                    <v-icon color="blue" v-if="item.location"
+                      >mdi-map-marker</v-icon
+                    >
+                    {{ item.location }}
                   </v-card-text>
                 </v-flex>
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue" v-if="item.department">mdi-domain</v-icon>
-                    {{item.department}}
+                    <v-icon color="blue" v-if="item.department"
+                      >mdi-domain</v-icon
+                    >
+                    {{ item.department }}
                   </v-card-text>
                 </v-flex>
               </v-layout>
               <div class="pa-5">
-                <p style="font-size:15px">
-                  {{item.jobDescription.substring(0,250)}}
+                <p style="font-size: 15px">
+                  {{ item.jobDescription.substring(0, 250) }}
                   <span id="dots">
                     ...
-                    <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
+                    <v-btn color="primary" text @click="openJob(item)"
+                      >View More</v-btn
+                    >
                   </span>
                 </p>
               </div>
               <!-- <v-card-text>
                 <span
-                  v-for="(skill,j) in jobs[i].compentency"
+                  v-for="(SKILL,j) in jobs[i].compentency"
                   :key="j"
                 >{{jobs[i].compentency[j]}},&nbsp;</span>
               </v-card-text>-->
@@ -105,9 +146,15 @@
             </v-card>
           </v-hover>
         </v-flex>
-        <v-flex xs12 v-if=" Number.isInteger(getjobs.length/10)">
+        <v-flex xs12 v-if="Number.isInteger(getjobs.length / 10)">
           <p class="text-center">
-            <v-btn color="primary" x-large text @click="jobMoreData({country,skill})">Load More</v-btn>
+            <v-btn
+              color="primary"
+              x-large
+              text
+              @click="jobMoreData({ country, SKILL })"
+              >Load More</v-btn
+            >
           </p>
         </v-flex>
       </v-layout>
@@ -115,7 +162,7 @@
         <p class="white--text text-center">
           NoJobs Available
           <v-img
-            style="margin-right:auto;margin-left:auto;"
+            style="margin-right: auto; margin-left: auto"
             width="100"
             height="100"
             src="@/assets/waiting.gif"
@@ -132,15 +179,15 @@ import viewjob from "@/components/core/viewjobDialog.vue";
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
-    viewjob
+    viewjob,
   },
   beforeMount() {
-    this.showLoader = true
-    this.country = "null"
-    this.skill = "null"
+    this.showLoader = true;
+    this.country = "null";
+    this.SKILL = "null";
     let data = {
       country: this.country,
-      skill: this.skill
+      SKILL: this.SKILL,
     };
     this.jobData(data);
   },
@@ -154,8 +201,8 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setJobs", this.data);
-      }
-    }
+      },
+    },
   },
   methods: {
     jobData(data) {
@@ -164,17 +211,17 @@ export default {
           skip: 0,
           limit: 10,
           country: data.country,
-          skill: data.skill
-        }
+          SKILL: data.SKILL,
+        },
       };
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getJob", data1).then(response => {
+      this.$store.dispatch("userModule/getJob", data1).then((response) => {
         if (response.status == 200) {
           this.showLoader = false;
         }
       });
 
-      (this.search.country = null), (this.search.skill = null);
+      (this.search.country = null), (this.search.SKILL = null);
     },
     jobMoreData(data) {
       this.skip = this.skip + 1;
@@ -183,30 +230,30 @@ export default {
           skip: this.skip,
           limit: 10,
           country: data.country,
-          skill: data.skill
-        }
+          SKILL: data.SKILL,
+        },
       };
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getMoreJob", data1);
 
-      (this.search.country = null), (this.search.skill = null);
+      (this.search.country = null), (this.search.SKILL = null);
     },
     openJob(data) {
       this.$store.commit("userModule/showViewJob", data);
-    }
+    },
   },
   data() {
     return {
       showLoader: false,
       search: {
         country: null,
-        skill: null
+        SKILL: null,
       },
       country: null,
-      skill: null,
-      skip: 0
+      SKILL: null,
+      skip: 0,
     };
-  }
+  },
 };
 </script>
 <style >

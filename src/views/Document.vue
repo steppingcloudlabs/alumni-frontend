@@ -6,48 +6,60 @@
     <br />
     <br />
     <v-layout row wrap mt-4 ml-5 mr-5 v-if="show">
-      <v-flex xs12 sm6 md6 lg4 pa-3 mt-4 v-for="(item,i) in cards" :key="i">
+      <v-flex xs12 sm6 md6 lg4 pa-3 mt-4 v-for="(item, i) in cards" :key="i">
         <v-card class="mx-auto" max-width="350" min-height="380px">
           <v-toolbar dark color="#1DB0ED">
-            <v-toolbar-title>{{item.title}}</v-toolbar-title>
+            <v-toolbar-title>{{ item.title }}</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-img
-            v-if="status[i]=='Available'"
+            v-if="status[i] == 'Available'"
             class="white--text align-end"
             height="200px"
             :src="images[0].back"
           ></v-img>
-          <v-img v-else class="align-end" height="200px" :src="images[1].back"></v-img>
+          <v-img
+            v-else
+            class="align-end"
+            height="200px"
+            :src="images[1].back"
+          ></v-img>
 
-          <v-card-text class="text--primary" v-if="status[i]=='Available'">
+          <v-card-text class="text--primary" v-if="status[i] == 'Available'">
             <div>Your Document is ready for download</div>
           </v-card-text>
           <v-card-text class="text--primary" v-else>
             <div>
-              <v-icon color="orange">mdi-exclamation</v-icon>Your Document is Pending from Company.It will be available shortly
+              <v-icon color="orange">mdi-exclamation</v-icon>Your Document is
+              Pending from Company.It will be available shortly
             </div>
           </v-card-text>
 
-          <v-card-actions v-if="status[i]=='Available' && item.code!=96">
-            <v-btn color="orange" small text @click="download(item.code)">Download</v-btn>
+          <v-card-actions v-if="status[i] == 'Available' && item.code != 96">
+            <v-btn color="orange" small text @click="download(item.code)"
+              >Download</v-btn
+            >
           </v-card-actions>
-          <v-card-actions v-if="status[i]=='Available' && item.code==96">
-            <v-btn color="orange" small text @click="download(item.code)">Salary1</v-btn>
+          <v-card-actions v-if="status[i] == 'Available' && item.code == 96">
+            <v-btn color="orange" small text @click="download(item.code)"
+              >Salary1</v-btn
+            >
             <v-btn
               color="orange"
               small
-              v-if="DocumentStatus.salaryprevious=='Available'"
+              v-if="DocumentStatus.salaryprevious == 'Available'"
               text
               @click="download('97')"
-            >Salary2</v-btn>
+              >Salary2</v-btn
+            >
             <v-btn
               color="orange"
               small
-              v-if="DocumentStatus.salarylast=='Available'"
+              v-if="DocumentStatus.salarylast == 'Available'"
               text
               @click="download('98')"
-            >Salary3</v-btn>
+              >Salary3</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -152,7 +164,7 @@ import timeline from "@/components/material/Timeline.vue";
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
-    timeline
+    timeline,
   },
   data() {
     return {
@@ -161,16 +173,16 @@ export default {
         { title: "Full n Final", code: 95 },
         { title: "Salary Slips", code: 96 },
         { title: "Relieving Letter", code: 97 },
-       
-        { title: "Experience Letter", code: 97 }
+
+        { title: "Experience Letter", code: 97 },
       ],
       status: [],
       images: [
         { back: require("@/assets/documentavailable3.gif") },
-        { back: require("@/assets/documentwaiting3.gif") }
+        { back: require("@/assets/documentwaiting3.gif") },
       ],
       show: false,
-      progress: true
+      progress: true,
       // user: {
       //   userid: ""
       // }
@@ -186,7 +198,7 @@ export default {
   computed: {
     userData() {
       return this.$store.getters["userModule/getUserData"]
-        ? this.$store.getters["userModule/getUserData"].user_id
+        ? this.$store.getters["userModule/getUserData"].USER_ID
         : null;
     },
     DocumentStatus: {
@@ -195,8 +207,8 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setStatusData", this.data);
-      }
-    }
+      },
+    },
     // FnfStatus() {
     //   return this.$store.getters["userModule/getStatusData"]
     //     ? this.$store.getters["userModule/getStatusData"].fnfStatus
@@ -225,48 +237,48 @@ export default {
         payload: {
           userid: getAlumniId(),
           // code:data,
-          filename: data
-        }
+          filename: data,
+        },
       };
       console.log(body);
 
       this.$store
         .dispatch("userModule/downloadDocument", body)
-        .then(response => {
+        .then((response) => {
           if (response.data.status == 200) {
             this.$store.commit("showSnackbar", {
               color: "green",
               duration: 3000,
               message: "File downloaded succesfully",
-              heading: "Success"
+              heading: "Success",
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
             color: "red",
             duration: 1000,
             message: error,
-            heading: "Error"
+            heading: "Error",
           });
         });
     },
     getAlumniData() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
     getStatus() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
-      this.$store.dispatch("userModule/getStatus", data).then(response => {
+      this.$store.dispatch("userModule/getStatus", data).then((response) => {
         this.progress = false;
         this.getDocumentStatus();
         this.show = true;
@@ -279,8 +291,8 @@ export default {
       this.status[2] = this.DocumentStatus.salarycurrent;
       this.status[3] = this.DocumentStatus.fnfStatus;
       this.status[4] = this.DocumentStatus.fnfStatus;
-    }
-  }
+    },
+  },
   // watch: {
   //   user() {
   //     this.initializeUserId();
