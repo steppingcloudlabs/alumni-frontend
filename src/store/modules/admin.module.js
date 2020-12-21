@@ -412,7 +412,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+"/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
+                    url: baseurl() +"/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -566,7 +566,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
+                    url: burl+"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -810,9 +810,13 @@ export default {
             addTokenToPayload(data)
             let burl = baseurl()
             return new Promise((resolve, reject) => {
+                let limitURL = ""
+                if (data.payload.limit) {
+                    limitURL = "?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset
+                }
                 axios({
                     method: 'GET',
-                    url: burl+"/admin/action/faq/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.limit,
+                    url: burl+"/admin/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -948,7 +952,7 @@ export default {
             return new Promise((resolve, reject) => {
                 dispatch(data.actionToCall, {
                     payload: {
-                        skip: data.skip,
+                        offset: data.offset,
                         limit: data.limit,
                         commitToCall: data.commitToCall
                     }

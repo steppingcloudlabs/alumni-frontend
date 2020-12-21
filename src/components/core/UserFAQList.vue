@@ -11,13 +11,13 @@
             <v-expansion-panel v-for="(item,i) in getFaqList" :key="i">
               <v-expansion-panel-header
                 class="subtitle-1 font-weight-meduim"
-                v-if="questionPresent(item.question)"
-              >{{item.question}}{{questionMark}}</v-expansion-panel-header>
-              <v-expansion-panel-header class="subtitle-1" v-else>{{item.question}}</v-expansion-panel-header>
+                v-if="item.QUESTION"
+              >{{item.QUESTION}}{{questionMark}}</v-expansion-panel-header>
+              <v-expansion-panel-header class="subtitle-1" v-else>{{item.QUESTION}}</v-expansion-panel-header>
 
               <v-expansion-panel-content class="subtitle-1 p2-4">
                 <span style="font-weight:bold">Answer:</span>
-                {{item.answer}}
+                {{item.ANSWER}}
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>

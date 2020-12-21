@@ -30,7 +30,7 @@
      },
      totalLength:
      {
-       type:Number,
+       type: Number,
        default: 4
      }
     },
@@ -40,7 +40,12 @@
          console.log(this.page)
          this.$emit("pageClicked",this.page)
        }
-    }
-
+    },
+    // computed: {
+    //   totalLength() {
+    //     // console.log("Total Page Length",this.totalLength)
+    //     return this.totalLength
+    //   }
+    // }
   }
 </script>

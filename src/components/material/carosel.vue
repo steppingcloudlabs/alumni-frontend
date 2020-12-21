@@ -13,35 +13,42 @@
       <v-carousel-item
         v-for="(item, i) in getNewsList"
         :key="i"
-        :src="getNewsList[i].photo"
-       
+        :src="getNewsList[i].PHOTO"
       >
         <v-card class="px-5 py-5" color="transparent" height="100%">
           <v-card-title>
             <span
               class="headline font-weight-bold"
-              style="font-family:Raleway;font-size:30px"
-            >{{item.title}}</span>
+              style="font-family: Raleway; font-size: 30px"
+              >{{ item.TITLE }}</span
+            >
           </v-card-title>
-          <v-card-text>{{item.date}}</v-card-text>
+          <v-card-text>{{ item.DATE }}</v-card-text>
           <v-card-text
             class="title font-weight-light"
-            style="font-family:Raleway !important;text-align:justify;color:white"
-            v-if="item.content"
+            style="
+              font-family: Raleway !important;
+              text-align: justify;
+              color: white;
+            "
+            v-if="item.CONTENT"
           >
             <p>
-              {{item.content.substring(0,len)}}
-              <span
-                id="dots"
-                v-if="!showMore && item.content.length>len"
-              >...</span>
+              {{ item.CONTENT.substring(0, len) }}
+              <span id="dots" v-if="!showMore && item.CONTENT.length > len"
+                >...</span
+              >
             </p>
             <button
-              v-if="!showMore && item.content.length>len"
+              v-if="!showMore && item.CONTENT.length > len"
               @click="myFunction(i)"
               id="myBtn"
-            >Read more</button>
-            <button v-if="showMore" @click="myFunction(i)" id="myBtn">Read less</button>
+            >
+              Read more
+            </button>
+            <button v-if="showMore" @click="myFunction(i)" id="myBtn">
+              Read less
+            </button>
           </v-card-text>
           <br />
           <br />
@@ -52,10 +59,16 @@
       <v-carousel-item>
         <v-sheet color="grey" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <div class="subtitle-1" style="margin-right: auto;
-    margin-left: auto;">
+            <div
+              class="subtitle-1"
+              style="margin-right: auto; margin-left: auto"
+            >
               No News Available
-              <v-img width="100" height="100" src="@/assets/waiting.gif"></v-img>
+              <v-img
+                width="100"
+                height="100"
+                src="@/assets/waiting.gif"
+              ></v-img>
             </div>
           </v-row>
         </v-sheet>
@@ -74,7 +87,7 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setNewsList", this.data);
-      }
+      },
     },
     showNews: {
       get() {
@@ -82,21 +95,21 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowNews", data);
-      }
-    }
+      },
+    },
   },
   beforeMount() {
     this.$store.commit("showProgressBar", {});
     this.$store
-      .dispatch("adminModule/getAllNews", { payload: { skip: 0, limit: 5 } })
-      .then(response => {
+      .dispatch("adminModule/getAllNews", { payload: { offset: 0, limit: 10 } })
+      .then((response) => {
         this.len = 390;
         (this.limit = 1), (this.skip = 0), (this.heightCarousel = 350);
         if (response.data.result.length > 0) {
           this.empty = false;
           for (var i = 0; i < this.getNewsList.length; i++) {
-            this.getNewsList[i].date = moment
-              .unix(this.getNewsList[i].date / 1000)
+            this.getNewsList[i].DATE = moment
+              .unix(this.getNewsList[i].DATE / 1000)
               .format("LL");
           }
         } else {
@@ -122,7 +135,7 @@ export default {
       this.heightCarousel = 350;
       this.showMore = false;
       this.len = 390;
-    }
+    },
   },
 
   data() {
@@ -149,7 +162,7 @@ export default {
         "indigo",
         "pink darken-2",
         "red lighten-1",
-        "deep-purple accent-4"
+        "deep-purple accent-4",
       ],
 
       event: [
@@ -159,15 +172,15 @@ export default {
           eventDescription:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 
-          eventLocation: "New Delhi"
+          eventLocation: "New Delhi",
         },
         {
           id: 2,
           eventTitle: "Annual Sports News",
           eventDescription:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          eventLocation: "USA"
-        }
+          eventLocation: "USA",
+        },
         //  {
         //     id: 3,
         //     eventTitle: "Hello asdf",
@@ -188,9 +201,9 @@ export default {
 
         //     eventLocation: "USA",
         // },
-      ]
+      ],
     };
-  }
+  },
 };
 </script>
 <style >

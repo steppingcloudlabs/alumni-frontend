@@ -109,7 +109,6 @@ export default {
     return {
       titleRules: [v => !!v || "Title is required"],
       bodyRules: [v => !!v || "Body is required"],
-
       date: new Date().toISOString().substr(0, 10),
       menu2: false
     };

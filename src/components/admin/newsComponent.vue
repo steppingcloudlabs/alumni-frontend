@@ -58,10 +58,11 @@ export default {
   beforeMount() {
     this.showMore = true;
     this.limit = 10;
-    (this.skip = 0), this.$store.commit("showProgressBar", {});
+    this.skip = 0
+     this.$store.commit("showProgressBar", {});
     this.$store
       .dispatch("adminModule/getAllNews", {
-        payload: { skip: 0, limit: this.limit }
+        payload: { offset: 0, limit: this.limit }
       })
       .then(response => {
         this.$store.commit("closeProgressBar", {});
@@ -77,7 +78,7 @@ export default {
           this.showMore = false;
         }
         else{
-           this.empty = false;
+          this.empty = false;
           this.showMore = true;
         }
       });

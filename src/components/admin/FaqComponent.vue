@@ -93,9 +93,9 @@ export default {
     this.showMore = false;
     this.$store
       .dispatch("adminModule/getAllFaq", {
-        payload: { skip: 0, limit: 5 }
+        payload: { offset: 0, limit: 5 }
       })
-      .then(response => {
+      .then(response => { 
         if (
           response.data.status == 200 &&
           response.data.result.length < this.limit

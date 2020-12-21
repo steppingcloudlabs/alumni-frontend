@@ -3,20 +3,20 @@
     <v-card-title style="color:white; text-align:center">Upcoming Events</v-card-title>
     <v-divider class="mr-5 mb-2" style="background:rgb(241, 135, 16);"></v-divider>
     <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
-      <v-card :color="item.color" dark>
+      <v-card >
         <div class="d-flex flex-no-wrap">
           <v-avatar class="ma-3" size="125" tile>
-            <v-img :src="item.photo"></v-img>
+            <v-img :src="item.PHOTO"></v-img>
           </v-avatar>
           <div>
-            <v-card-title class="headline" v-text="item.title"></v-card-title>
-            <v-card-text v-text="item.date"></v-card-text>
-            <v-card-text class="py-0" v-text="item.content"></v-card-text>
+            <v-card-title class="headline" v-text="item.TITLE"></v-card-title>
+            <v-card-text v-text="item.DATE"></v-card-text>
+            <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
           </div>
         </div>
       </v-card>
     </v-col>
-    <pagination :next="next" :prev="prev" :totalLength="pagination.totalLength" @pageClicked="pageClicked"></pagination>
+    <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
     <!--     
     <div class="events-group-container">
       <v-sheet color="transparent"  class="mx-auto" elevation="8" width="1145px" v-if="!empty">
@@ -116,16 +116,18 @@ export default {
     },
     getEvents(limit,offset)
     {
-      this.$store.dispatch("adminModule/getAllEvent", { payload: {limit:limit,offset:offset} })
+      this.$store.dispatch("adminModule/getAllEvent", { payload: { limit:limit,offset:offset } })
       .then(response => {
         if (response.data.result.length > 0) {
           this.empty = false;
           for (var i = 0; i < this.getEventList.length; i++) {
-            this.getEventList[i].date = moment
-              .unix(this.getEventList[i].date / 1000)
+            this.getEventList[i].DATE = moment
+              .unix(this.getEventList[i].DATE / 1000)
               .format("LL");
           }
          this.pagination=response.data.pagination 
+         this.pagination = Object.assign({}, this.someObject, response.data.pagination )
+
         } else {
           this.empty = true;
         }
@@ -133,21 +135,20 @@ export default {
     },
     next()
     {
-      this.limit+=3
-      this.offset+=1
-      this.getEvents(this.limit,this.offset)
+      this.pagination.LIMIT+=3
+      this.pagination.OFFSET+=1
+      this.getEvents(this.pagination.LIMIT,this.pagination.OFFSET)
     },
 
      prev()
     {
-      this.limit-=3
-      this.offset-=1
-      this.getEvents(this.limit,this.offset)
+      this.pagination.LIMIT-=3
+      this.pagination.OFFSET-=1
+      this.getEvents(this.pagination.LIMIT,this.pagination.OFFSET)
     }
 
   },
   beforeMount() {
-
     this.getEvents(3,0)
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
@@ -169,9 +170,10 @@ export default {
   data() {
     return {
       model: {},
-      pagination:{},
-      limit:3,
-      offset:0,
+      pagination:{
+        LIMIT:3,
+        OFFSET:0,
+      },
       showMore: false,
       empty: false,
       selectedEvent: {},
