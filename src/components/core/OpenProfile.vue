@@ -46,13 +46,13 @@
                   Worked As-{{ user.position }}
                 </p>
 
-                <p>Till {{ user.relieving }}</p>
+                <p>Till {{ user.lastworking }}</p>
                 <p>
                   <v-icon
                     color="blue"
                     @click="openlinkedInlinkProfile"
                     class="mr-1"
-                    >mdi-LINKEDIN</v-icon
+                    >mdi-linkedin</v-icon
                   >
                 </p>
                 <p style="font-family: 'Raleway', sans-serif">
@@ -301,13 +301,13 @@ export default {
       window.open(this.linkedInlinkProfileLink, "_blank");
     },
     initializeUserData() {
-      this.user.position = this.userData.DESIGNATION_JOB_INFORMATION;
-      this.user.employeeId = this.userData.USER_ID;
-      this.user.managerid = this.userData.MANAGER_JOB_INFORMATION;
-      console.log(moment(this.userData.relieving_date));
-      this.user.relieving = moment
-        .unix(this.userData.date_of_relieving / 1000)
-        .format("LL");
+      this.user.position = this.userData[0].DESIGNATION_JOB_INFORMATION;
+      this.user.employeeId = this.userData[0].USER_ID;
+      //this.user.managerid = this.userData.MANAGER_JOB_INFORMATION;
+      //console.log(moment(this.userData.relieving_date));
+      //this.user.relieving = moment
+      //  .unix(this.userData.date_of_relieving / 1000)
+      //  .format("LL");
       // new Date(this.userData.relieving_date).getDate() +
       // "/" +
       // new Date(this.userData.relieving_date).getMonth() +
@@ -315,7 +315,7 @@ export default {
       // new Date(this.userData.relieving_date).getFullYear();
 
       this.user.lastworking = moment
-        .unix(this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD / 1000)
+        .unix(this.userData[0].LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD / 1000)
         .format("LL");
       // new Date(
       //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
@@ -329,23 +329,21 @@ export default {
       //   this.userData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
       // ).getFullYear();
 
-      this.user.resignation = moment
-        .unix(this.userData.DATE_OF_RESIGNATION / 1000)
-        .format("LL");
+      //  this.user.resignation = moment .unix(this.userData.DATE_OF_RESIGNATION / 1000).format("LL");
       // new Date(this.userData.DATE_OF_RESIGNATION).getDate() +
       // "/" +
       // new Date(this.userData.DATE_OF_RESIGNATION).getMonth() +
       // "/" +
       // new Date(this.userData.DATE_OF_RESIGNATION).getFullYear();
 
-      this.user.firstname = this.userData.FIRST_NAME_PERSONAL_INFORMATION;
-      this.user.lastname = this.userData.LAST_NAME_PERSONAL_INFORMATION;
-      this.user.nationality = this.userData.NATIONALITY_PERSONAL_INFORMATION;
-      this.user.city = this.userData.CITY_ADDRESSES;
-      this.user.email = this.userData.PERSONAL_EMAIL_ID;
-      this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
-      this.userskills = this.userData.SKILL;
-      this.linkedInlinkProfileLink = this.userData.LINKEDIN;
+      this.user.firstname = this.userData[0].FIRST_NAME_PERSONAL_INFORMATION;
+      this.user.lastname = this.userData[0].LAST_NAME_PERSONAL_INFORMATION;
+      //this.user.nationality = this.userData.NATIONALITY_PERSONAL_INFORMATION;
+      this.user.city = this.userData[0].CITY_ADDRESSES;
+      // this.user.email = this.userData[0].PERSONAL_EMAIL_ID;
+      // this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
+      //  this.userskills = this.userData[0].SKILL;
+      this.linkedInlinkProfileLink = this.userData[0].LINKEDIN;
     },
   },
 };

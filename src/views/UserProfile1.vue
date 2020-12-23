@@ -390,7 +390,7 @@
               >
               <v-card-text>
                 <timeline
-                  :status="DocumentStatus.fnfStatus"
+                  :status="DocumentStatus.FIRSTMONTHSALARY"
                   :code="95"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
@@ -407,7 +407,7 @@
               >
               <v-card-text>
                 <timeline
-                  :status="DocumentStatus.form16"
+                  :status="DocumentStatus.FORM16"
                   :code="95"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
@@ -424,7 +424,7 @@
               >
               <v-card-text>
                 <timeline
-                  :status="DocumentStatus.salarycurrent"
+                  :status="DocumentStatus.THIRDMONTHSALARY"
                   :code="96"
                   :userid="this.user.employeeId"
                   :showLoader="progress"
@@ -518,28 +518,28 @@ export default {
         this.$store.commit("userModule/setStatusData", this.data);
       },
     },
-    FnfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].fnfStatus
-        : null;
-    },
-    FormStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].form16Status
-        : null;
-    },
-    PfStatus() {
-      return this.$store.getters["userModule/getStatusData"]
-        ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
-        : null;
-    },
+    // FnfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].fnfStatus
+    //     : null;
+    // },
+    // FormStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].form16Status
+    //     : null;
+    // },
+    // PfStatus() {
+    //   return this.$store.getters["userModule/getStatusData"]
+    //     ? this.$store.getters["userModule/getStatusData"].pfTransferStatus
+    //     : null;
+    // },
   },
 
   methods: {
     saveProfileLink(data) {
       let datam = {
         payload: {
-          USER_ID: this.user.employeeId,
+          USERID: this.user.employeeId,
           LINKEDIN: data,
         },
       };
@@ -551,7 +551,8 @@ export default {
             heading: "Success",
             duration: 3000,
           });
-          this.user.linkedInlinkProfileLink = data;
+          this.$store.commit("userModule/updatelinkedinData", data);
+          //this.user.linkedInlinkProfileLink = data;
         }
       });
     },
@@ -688,7 +689,7 @@ export default {
       this.user.LINKEDIN = this.userData.LINKEDIN;
     },
     getAlumniData() {
-      console.log(getAlumniId())
+      console.log(getAlumniId());
       let data = {
         payload: {
           userid: getAlumniId(),

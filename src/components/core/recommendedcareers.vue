@@ -1,48 +1,60 @@
 <template>
   <v-layout row wrap style="margin-left: unset" v-if="getjobs.length">
-    <v-flex xs6 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
+    <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
       <v-hover v-slot:default="{ hover }">
-        <v-card
-          class="job_class"
-          :elevation="hover ? 24 : 1"
-          min-height="180px"
-        >
-          <v-card-title style="color: #232b2b">{{
-            item.jobTitle
-          }}</v-card-title>
-          <v-layout row wrap style="margin-left: unset">
-            <v-flex xs5 class="my-0">
-              <v-card-text>
-                <v-icon color="blue" v-if="item.location"
-                  >mdi-map-marker</v-icon
-                >
-                {{ item.location }}
-              </v-card-text>
-            </v-flex>
-            <v-flex xs5>
-              <v-card-text>
-                <v-icon color="blue" v-if="item.department">mdi-domain</v-icon>
-                {{ item.department }}
-              </v-card-text>
-            </v-flex>
-            <v-flex xs9></v-flex>
-            <v-flex xs3>
-              <v-btn color="primary" text @click="openJob(item)"
-                >View More</v-btn
-              >
-            </v-flex>
+        <v-card class="job_class" :elevation="hover ? 24 : 1" min-height="100px">
+              <v-card-title style="color: #232b2b">{{item.JOBTITLE}}</v-card-title>
+              <v-layout row wrap style="margin-left: unset">
+                    <v-card-text>
+                            <v-row align="center" class="mx-0">
+        
+                                <v-col cols="12" sm="2" v-if="item.LOCATION"> 
+                                  <div class="grey--text ml-4"><v-icon color="blue" >mdi-map-marker</v-icon> {{item.LOCATION}}</div>
+                                </v-col>
+                                  
+                                   <v-col cols="12" sm="3" v-if="item.POSTINGENDDATE">
+                                  <div class="grey--text ml-4"> <v-icon color="blue" >mdi-calendar</v-icon> End Date: {{item.POSTINGENDDATE.substring(0,10)}}</div>
+                                </v-col>
+                                <v-col cols="12" sm="3" v-if="item.POSTINGSTARTDATE">
+                                  <div class="grey--text ml-4"> <v-icon color="blue" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                  <v-col cols="12" sm="2">
+                                    <div class="grey--text ml-4">Posting ID:{{item.JOBPOSTINGID}}</div>
+                                  </v-col>
+                                  <v-col cols="12" sm="2">
+                                    <div class="grey--text ml-4">Req ID:{{item.JOBREQID}}</div>
+                                  </v-col>
+                              </v-row>
+                      </v-card-text>    
+           
+                    <v-flex xs5 v-if="item.DEPARTMENT">
+                      <v-card-text>
+                              <v-icon color="blue" >mdi-domain</v-icon>
+                              {{ item.DEPARTMENT }}
+                        </v-card-text>
+                    </v-flex>
+                  <v-flex xs8 class="ml-5">
+                          {{ item.JOBDESCRIPTION.substring(0,10) }}
+                              <span id="dots">
+                                ...
+                              
+                              </span>   
+                   </v-flex>
+                  <v-flex xs3 class="mb-2">
+                      <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
+                  </v-flex>
           </v-layout>
         </v-card>
       </v-hover>
     </v-flex>
-    <v-flex xs12 v-if="Number.isInteger(getjobs.length / 10) && getjobs.length">
-      <p class="text-center">
-        <v-btn color="primary" x-large text @click="jobMoreData()"
-          >Load More</v-btn
-        >
-      </p>
+    <v-flex xs12 >
+       <p class="text-center">
+          <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
+       </p>
     </v-flex>
-    <viewjob />
+       <viewjob />
   </v-layout>
   <div v-else class="subtitle-1 mt-5">
     <p class="white--text text-center">
@@ -60,20 +72,15 @@
 <script>
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import viewjob from "@/components/core/viewjobDialog.vue";
+import pagination from "@/components/material/CommonPagination.vue"
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
     viewjob,
+    pagination
   },
-  beforeMount() {
-    let data = {
-      payload: {
-        skip: 0,
-        limit: 10,
-        userId: getAlumniId(),
-      },
-    };
-    this.jobData(data);
+  beforeMount() { 
+    this.jobData(3,0);
   },
   destroyed() {
     this.$store.commit("userModule/setJobs", {});
@@ -89,17 +96,34 @@ export default {
     },
   },
   methods: {
-    jobData(data) {
-      this.skip = 0;
-      let data1 = {
-        payload: {
-          skip: 0,
-          limit: 10,
-          userId: getAlumniId(),
-        },
-      };
+    pageClicked(data)
+    {
+      this.jobData(data)
+    },
+    next()
+    {
+      this.pagination.LIMIT+=3
+      this.pagination.OFFSET+=1
+      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+    },
+
+     prev()
+    {
+      this.pagination.LIMIT-=3
+      this.pagination.OFFSET-=1
+      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+    },
+    jobData(limit,offset) {
+     let userId=getAlumniId()
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/recommendedJob", data1);
+       this.$store.dispatch("userModule/recommendedJob", { payload: { limit:limit,offset:offset,userId:userId } }).then((response) => {
+        if (response.status == 200) {
+          this.showLoader = false;
+          this.pagination=response.data.pagination 
+         this.pagination = Object.assign({}, this.someObject, response.data.pagination )
+        }
+      });
+
     },
     jobMoreData(data) {
       this.skip = this.skip + 1;
@@ -119,6 +143,10 @@ export default {
   },
   data() {
     return {
+       pagination:{
+        LIMIT:3,
+        OFFSET:0,
+      },
       search: {
         country: null,
         SKILL: null,

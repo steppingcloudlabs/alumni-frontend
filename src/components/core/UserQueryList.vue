@@ -1,17 +1,17 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card class="mx-auto mb-3" min-height="250px" >
-      <v-toolbar fixed>
-          <v-toolbar-title class="ml-5">
+      <v-card class="mx-auto mb-3" min-height="250px" style=" background-color:white;" >
+      <v-toolbar fixed style="background:white">
+          <v-toolbar-title class="ml-5" style="color:black">
             <!-- <span class="mr-5">
               <i class="fas fa-arrow-left" style="cursor:pointer" @click="backToList"></i>
             </span> -->
             <span>Queries</span>
           </v-toolbar-title>
         </v-toolbar>
-        <v-list shaped v-if="queryList.length">
-          <v-list-item-group v-model="selectedQuery" color="primary">
+        <v-list shaped v-if="queryList.length" style="color:white">
+          <v-list-item-group v-model="selectedQuery" >
             <v-list-item
               two-line
               v-for="(item, i) in queryList"
@@ -25,7 +25,7 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
-        <div v-else>
+        <div v-else style="color:black">
           <p class="text-center" style="font-size:18px;margin-top:30px">No Tickets</p>
         </div>
       </v-card>

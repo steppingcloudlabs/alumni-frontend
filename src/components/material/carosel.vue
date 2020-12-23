@@ -83,10 +83,10 @@ export default {
   computed: {
     getNewsList: {
       get() {
-        return this.$store.getters["adminModule/getNewsList"];
+        return this.$store.getters["userModule/getNewsList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setNewsList", this.data);
+        this.$store.commit("userModule/setNewsList", this.data);
       },
     },
     showNews: {
@@ -101,7 +101,7 @@ export default {
   beforeMount() {
     this.$store.commit("showProgressBar", {});
     this.$store
-      .dispatch("adminModule/getAllNews", { payload: { offset: 0, limit: 10 } })
+      .dispatch("userModule/getAllNews", { payload: { offset: 0, limit: 10 } })
       .then((response) => {
         this.len = 390;
         (this.limit = 1), (this.skip = 0), (this.heightCarousel = 350);

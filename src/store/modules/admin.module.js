@@ -742,13 +742,15 @@ export default {
             state,
             commit
         }, data) => {
+            let burl=baseurl()
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/allalumni',
+                    method: 'GET',
+                    url: burl+'/admin/action/user/get',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
                     },
                     data: data
                 }).then((response) => {

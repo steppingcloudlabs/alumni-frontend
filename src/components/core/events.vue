@@ -1,22 +1,45 @@
 <template>
-  <div class="events" style="width:95%;overflow-y: auto;height:450px">
-    <v-card-title style="color:white; text-align:center">Upcoming Events</v-card-title>
-    <v-divider class="mr-5 mb-2" style="background:rgb(241, 135, 16);"></v-divider>
-    <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
-      <v-card >
-        <div class="d-flex flex-no-wrap">
-          <v-avatar class="ma-3" size="125" tile>
-            <v-img :src="item.PHOTO"></v-img>
-          </v-avatar>
-          <div>
-            <v-card-title class="headline" v-text="item.TITLE"></v-card-title>
-            <v-card-text v-text="item.DATE"></v-card-text>
-            <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+  <div class="events" style="width: 95%; overflow-y: auto; height: 450px">
+    <v-card-title style="color: white; text-align: center"
+      >Upcoming Events</v-card-title
+    >
+    <v-divider
+      class="mr-5 mb-2"
+      style="background: rgb(241, 135, 16)"
+    ></v-divider>
+    <div v-if="getEventList.length">
+      <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
+        <v-card>
+          <div class="d-flex flex-no-wrap">
+            <v-avatar class="ma-3" size="125" tile>
+              <v-img :src="item.PHOTO"></v-img>
+            </v-avatar>
+            <div>
+              <v-card-title class="headline" v-text="item.TITLE"></v-card-title>
+              <v-card-text v-text="item.DATE"></v-card-text>
+              <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+            </div>
           </div>
-        </div>
-      </v-card>
-    </v-col>
-    <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
+        </v-card>
+      </v-col>
+      <pagination
+        :next="next"
+        :prev="prev"
+        :totalLength="pagination.TOTALPAGES"
+        @pageClicked="pageClicked"
+      ></pagination>
+    </div>
+    <div v-else>
+      <p class="white--text text-center">
+        No Events Available
+        <v-img
+          style="margin-right: auto; margin-left: auto"
+          width="100"
+          height="100"
+          src="@/assets/waiting.gif"
+        ></v-img>
+      </p>
+    </div>
     <!--     
     <div class="events-group-container">
       <v-sheet color="transparent"  class="mx-auto" elevation="8" width="1145px" v-if="!empty">
@@ -82,19 +105,19 @@
 
 <script>
 import moment from "moment";
-import pagination from "@/components/material/CommonPagination.vue"
+import pagination from "@/components/material/CommonPagination.vue";
 export default {
-  components:{
-   pagination
+  components: {
+    pagination,
   },
   computed: {
     getEventList: {
       get() {
-        return this.$store.getters["adminModule/getEventList"];
+        return this.$store.getters["userModule/getEventList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setEventList", this.data);
-      }
+        this.$store.commit("userModule/setEventList", this.data);
+      },
     },
     showEvent: {
       get() {
@@ -102,54 +125,53 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowEvent", data);
-      }
-    }
+      },
+    },
   },
   methods: {
-    pageClicked(data)
-    {
-      this.getEvents(data)
+    pageClicked(data) {
+      this.getEvents(data);
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
       this.showMore = true;
     },
-    getEvents(limit,offset)
-    {
-      this.$store.dispatch("adminModule/getAllEvent", { payload: { limit:limit,offset:offset } })
-      .then(response => {
-        if (response.data.result.length > 0) {
-          this.empty = false;
-          for (var i = 0; i < this.getEventList.length; i++) {
-            this.getEventList[i].DATE = moment
-              .unix(this.getEventList[i].DATE / 1000)
-              .format("LL");
+    getEvents(limit, offset) {
+      this.$store
+        .dispatch("userModule/getAllEvent", {
+          payload: { limit: limit, offset: offset },
+        })
+        .then((response) => {
+          if (response.data.result.length > 0) {
+            this.empty = false;
+           
+            for (var i = 0; i < this.getEventList.length; i++) {
+              this.getEventList[i].DATE = moment
+                .unix(this.getEventList[i].DATE / 1000)
+                .format("LL");
+            }
+            this.pagination = response.data.pagination;
+            this.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(this.pagination)
+          } else {
+            this.empty = true;
           }
-         this.pagination=response.data.pagination 
-         this.pagination = Object.assign({}, this.someObject, response.data.pagination )
-
-        } else {
-          this.empty = true;
-        }
-      });
+        });
     },
-    next()
-    {
-      this.pagination.LIMIT+=3
-      this.pagination.OFFSET+=1
-      this.getEvents(this.pagination.LIMIT,this.pagination.OFFSET)
+    next() {
+      this.pagination.LIMIT += 3;
+      this.pagination.OFFSET += 1;
+      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
-     prev()
-    {
-      this.pagination.LIMIT-=3
-      this.pagination.OFFSET-=1
-      this.getEvents(this.pagination.LIMIT,this.pagination.OFFSET)
-    }
-
+    prev() {
+      this.pagination.LIMIT -= 3;
+      this.pagination.OFFSET -= 1;
+      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
   },
   beforeMount() {
-    this.getEvents(3,0)
+    this.getEvents(3, 0);
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
     //   .then(response => {
@@ -160,7 +182,7 @@ export default {
     //           .unix(this.getEventList[i].date / 1000)
     //           .format("LL");
     //       }
-          
+
     //     } else {
     //       this.empty = true;
     //     }
@@ -170,9 +192,10 @@ export default {
   data() {
     return {
       model: {},
-      pagination:{
-        LIMIT:3,
-        OFFSET:0,
+      pagination: {
+        LIMIT: 3,
+        OFFSET: 0,
+        TOTALPAGES:0
       },
       showMore: false,
       empty: false,
@@ -194,8 +217,8 @@ export default {
         "indigo",
         "pink darken-2",
         "red lighten-1",
-        "deep-purple accent-4"
-      ]
+        "deep-purple accent-4",
+      ],
 
       //  {
       //     id: 3,
@@ -218,7 +241,7 @@ export default {
       //     eventLocation: "USA",
       // },
     };
-  }
+  },
 };
 </script>
 <style >

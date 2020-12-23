@@ -13,26 +13,37 @@
             <v-btn dark text >Apply</v-btn>
           </v-toolbar-items>
          </v-toolbar>
-          <v-card-title>{{viewJobData.jobTitle}}</v-card-title>
+          <v-card-title>{{viewJobData.JOBTITLE}}</v-card-title>
 
     <v-card-text>
       <v-row
         align="center"
         class="mx-0"
       >
-         <v-icon color="blue" v-if="viewJobData.location">mdi-map-marker</v-icon>
-        <div class="grey--text ml-4"> {{viewJobData.location}}</div>
+      <v-col cols="12" sm="2"> 
+        <div class="grey--text ml-4"><v-icon color="blue" v-if="viewJobData.LOCATION">mdi-map-marker</v-icon> {{viewJobData.LOCATION}}</div>
+      </v-col>
+       <v-col cols="12" sm="2">
+        <div class="grey--text ml-4">Posting ID:{{viewJobData.JOBPOSTINGID}}</div>
+      </v-col>
+       <v-col cols="12" sm="2">
+        <div class="grey--text ml-4">Req ID:{{viewJobData.JOBREQID}}</div>
+      </v-col>
+      </v-row>
+      <v-row>
+         <v-col cols="12"
+        sm="3">
+        <div class="grey--text ml-4"> <v-icon color="blue" v-if="viewJobData.POSTINGENDDATE">mdi-calendar</v-icon> End Date: {{viewJobData.POSTINGENDDATE}}</div>
+      </v-col>
+       <v-col cols="12" sm="3">
+        <div class="grey--text ml-4"> <v-icon color="blue" v-if="viewJobData.POSTINGSTARTDATE">mdi-calendar</v-icon>Start Date: {{viewJobData.POSTINGSTARTDATE}}</div>
+      </v-col>
       </v-row>
 
       <div class="my-4 subtitle-1 black--text">
-        <v-icon color="blue" v-if="viewJobData.department">mdi-domain</v-icon>
-                    {{viewJobData.department}}
+        <v-icon color="blue" v-if="viewJobData.DEPARTMENT">mdi-domain</v-icon>{{viewJobData.DEPARTMENT}}
       </div>
-       <div class="my-4 subtitle-1 black--text">
-       Job Posting Id:{{viewJobData.jobPostingId}}
-      </div>
-
-      <div>{{viewJobData.jobDescription}}</div>
+      <div>{{viewJobData.JOBDESCRIPTION}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>

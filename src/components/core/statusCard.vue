@@ -9,7 +9,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.form16=='Available'"
+        v-if="DocumentStatus.FORM16=='Available'"
       >
         Form 16 is
         <strong>Available</strong> in Document Section
@@ -27,7 +27,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.fnfStatus=='Available'"
+        v-if="DocumentStatus.FIRSTMONTHSALARY=='Available'"
       >
         Full n Final is
         <strong>Available</strong> in Document Section
@@ -44,7 +44,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.salarycurrent=='Available'"
+        v-if="DocumentStatus.SECONDMONTHSALARY=='Available'"
       >
         Salary Slip is
         <strong>Available</strong> in Document Section
@@ -61,7 +61,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.pfStatus=='Available'"
+        v-if="DocumentStatus.THIRDMONTHSALARY=='Available'"
       >
         pf Document is
         <strong>Available</strong> in Document Section
@@ -117,7 +117,14 @@ export default {
           userid: getAlumniId()
         }
       };
-      this.$store.dispatch("userModule/getStatus", data).then(response => {});
+      this.$store.dispatch("userModule/getStatus", data).then(response => {
+        if(response.status==200)
+        {
+       this.DocumentStatus=response.data.result
+       console.log(this.DocumentStatus)
+        }
+        
+      });
     }
   },
   beforeMount() {

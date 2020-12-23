@@ -19,7 +19,7 @@
     <v-card-title style="color: white">Recommended Opportunities</v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div>
-      <RecommendedCareers />
+     <recommendedcareers></recommendedcareers>
     </div>
   </div>
 </template>
@@ -32,7 +32,8 @@ import carosel from "@/components/material/carosel.vue";
 import news from "@/components/core/newsComponent.vue";
 import timeline from "@/components/material/Timeline.vue";
 import statusCard from "@/components/core/statusCard.vue";
-import RecommendedCareers from "@/components/core/recommendedcareers.vue";
+import recommendedcareers from "@/components/core/recommendedcareers.vue";
+
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
@@ -42,7 +43,8 @@ export default {
     news,
     timeline,
     events,
-    RecommendedCareers,
+    recommendedcareers
+
   },
   data() {
     return {

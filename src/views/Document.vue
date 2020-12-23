@@ -169,7 +169,7 @@ export default {
   data() {
     return {
       cards: [
-        { title: "Form16", code: 95 },
+        { title: "Form16", code:"form16" },
         { title: "Full n Final", code: 95 },
         { title: "Salary Slips", code: 96 },
         { title: "Relieving Letter", code: 97 },
@@ -286,11 +286,11 @@ export default {
     },
     getDocumentStatus() {
       console.log(this.DocumentStatus);
-      this.status[0] = this.DocumentStatus.form16;
-      this.status[1] = this.DocumentStatus.fnfStatus;
-      this.status[2] = this.DocumentStatus.salarycurrent;
-      this.status[3] = this.DocumentStatus.fnfStatus;
-      this.status[4] = this.DocumentStatus.fnfStatus;
+      this.status[0] = this.DocumentStatus.FORM16;
+      this.status[1] = this.DocumentStatus.FIRSTMONTHSALARY;
+      this.status[2] = this.DocumentStatus.SECONDMONTHSALARY;
+      this.status[3] = this.DocumentStatus.THIRDMONTHSALARY;
+      this.status[4] = this.DocumentStatus.THIRDMONTHSALARY;
     },
   },
   // watch: {

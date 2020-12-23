@@ -127,7 +127,7 @@ export default {
         this.$store.commit("userModule/closeContactDialog");
         let data = {
           payload: {
-            USER_ID: this.userData.USER_ID,
+            USERID: this.userData.USER_ID,
             CITY_ADDRESSES: contactData.city,
             PHONE_NUMBER_PHONE_INFORMATION: contactData.phone,
             PERSONAL_EMAIL_ID: contactData.email,
@@ -148,7 +148,7 @@ export default {
           if (response.data.status == 200) {
             this.$store.commit("userModule/setUpdateContactData", updatedData);
             this.$store.commit("showSnackbar", {
-              message: "COntact Updated successfully",
+              message: "Contact Updated successfully",
               color: "success",
               heading: "Success",
               duration: 3000,

@@ -24,7 +24,7 @@
       />
     </v-flex>
     <v-tooltip top>
-      <template v-slot:activator="{ on }">
+      <template v-slot:activator="{ }">
         <v-btn
           @click="dialog=true"
           style="position: fixed; bottom: 20px;"

@@ -51,10 +51,10 @@ export default {
   computed: {
     getAlumniList: {
       get() {
-        return this.$store.getters["adminModule/getAlumniList"];
+        return this.$store.getters["userModule/getAlumniList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setAlumniList", this.data);
+        this.$store.commit("userModule/setAlumniList", this.data);
       },
     },
   },
@@ -342,7 +342,7 @@ export default {
   beforeMount() {
     this.getAlumniData();
     this.$store
-      .dispatch("adminModule/getAllAlumni", {
+      .dispatch("userModule/getAllAlumni", {
         payload: {},
       })
       .then((response) => {

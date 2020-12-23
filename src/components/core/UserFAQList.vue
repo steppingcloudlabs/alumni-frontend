@@ -6,22 +6,36 @@
           <v-toolbar-title class="ml-5">FAQs</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
-        <v-row justify="center">
+        <v-row justify="center" v-if="getFaqList.length" color="primary">
           <v-expansion-panels class="mr-5 elevation-0" accordion>
-            <v-expansion-panel v-for="(item,i) in getFaqList" :key="i">
+            <v-expansion-panel v-for="(item, i) in getFaqList" :key="i">
               <v-expansion-panel-header
                 class="subtitle-1 font-weight-meduim"
                 v-if="item.QUESTION"
-              >{{item.QUESTION}}{{questionMark}}</v-expansion-panel-header>
-              <v-expansion-panel-header class="subtitle-1" v-else>{{item.QUESTION}}</v-expansion-panel-header>
+                >{{ item.QUESTION }}{{ questionMark }}</v-expansion-panel-header
+              >
+              <v-expansion-panel-header class="subtitle-1" v-else>{{
+                item.QUESTION
+              }}</v-expansion-panel-header>
 
               <v-expansion-panel-content class="subtitle-1 p2-4">
-                <span style="font-weight:bold">Answer:</span>
-                {{item.ANSWER}}
+                <span style="font-weight: bold">Answer:</span>
+                {{ item.ANSWER }}
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
         </v-row>
+        <div v-else>
+          <p class="black--text text-center">
+            No FAQs Available
+            <v-img
+              style="margin-right: auto; margin-left: auto"
+              width="100"
+              height="100"
+              src="@/assets/waiting.gif"
+            ></v-img>
+          </p>
+        </div>
         <br />
         <br />
         <v-row>
@@ -38,14 +52,14 @@ import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 export default {
   name: "UserFAQList",
   components: {
-    Contact
+    Contact,
   },
   methods: {
     getAlumniData() {
       let data = {
         payload: {
-          userid: getAlumniId()
-        }
+          userid: getAlumniId(),
+        },
       };
       this.$store.dispatch("userModule/getAlumniById", data);
     },
@@ -56,14 +70,14 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   beforeMount() {
     this.$store.commit("showProgressBar", {});
     this.getAlumniData(),
       this.$store
-        .dispatch("adminModule/getAllFaq", { payload: {} })
-        .then(response => {
+        .dispatch("userModule/getAllFaq", { payload: {} })
+        .then((response) => {
           this.$store.commit("closeProgressBar", {});
         });
   },
@@ -71,12 +85,12 @@ export default {
   computed: {
     getFaqList: {
       get() {
-        return this.$store.getters["adminModule/getFaqList"];
+        return this.$store.getters["userModule/getFaqList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setFaqList", this.data);
-      }
-    }
+        this.$store.commit("userModule/setFaqList", this.data);
+      },
+    },
   },
 
   data() {
@@ -84,8 +98,8 @@ export default {
       emailDailog: false,
       dialog: false,
       questionMark: "?",
-      space: "  "
+      space: "  ",
     };
-  }
+  },
 };
 </script>

@@ -6,13 +6,10 @@
         style="margin-left: 0px !important; line-height: 2px !important"
       >
         <span v-if="!linkedInlinkProfileLink">
-          <a class="pa-2" @click="showlinkedInlinkInput = true"
-            >Add LINKEDIN Profile Link</a
-          >
+          <a class="pa-2" @click="showlinkedInlinkInput = true">Add LINKEDIN Profile Link</a>
         </span>
-        <span v-else class="LINKEDIN-edit-wrapper">
-          <v-icon color="blue" @click="openlinkedInlinkProfile" class="mr-1"
-            >mdi-LINKEDIN</v-icon
+        <span v-else >
+          <v-icon class="LINKEDIN-edit-wrapper" color="blue" @click="openlinkedInlinkProfile">mdi-linkedin</v-icon
           >
           <v-icon
             @click="showlinkedInlinkInput = true"
@@ -85,11 +82,10 @@ export default {
 </script>
 
 <style>
-.LINKEDIN-edit-wrapper:hover .LINKEDIN-edit-icon {
+.LINKEDIN-edit-wrapper {
   visibility: visible !important;
-  transition: all 1s ease-in;
 }
 .LINKEDIN-edit-icon {
-  visibility: hidden !important;
+  visibility: visible !important;
 }
 </style>

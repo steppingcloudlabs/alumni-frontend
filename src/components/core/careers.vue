@@ -34,9 +34,8 @@
       >
         <v-card-title
           class="title"
-          style="margin-left: 3%; margin-top: 1%; color: white"
-          >Search Jobs</v-card-title
-        >
+          style="margin-left:3%; margin-top:1%; color:white"
+          >Search Jobs</v-card-title>
         <p class="text--center">
           <v-layout style="margin-left: auto; margin-right: auto">
             <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
@@ -61,7 +60,7 @@
                 color="blue"
                 style="color: White"
                 large
-                @click="jobData(search)"
+                @click="jobMoreData(3,0)"
                 >Search</v-btn
               >
             </v-flex>
@@ -95,29 +94,29 @@
               min-height="150px"
             >
               <v-card-title style="color: #232b2b">{{
-                item.jobTitle
+                item.JOBTITLE
               }}</v-card-title>
               <v-layout row wrap style="margin-left: unset">
                 <v-flex xs3 class="my-0">
                   <v-card-text>
-                    <v-icon color="blue" v-if="item.location"
+                    <v-icon color="blue" v-if="item.LOCATION"
                       >mdi-map-marker</v-icon
                     >
-                    {{ item.location }}
+                    {{ item.LOCATION }}
                   </v-card-text>
                 </v-flex>
                 <v-flex xs5>
                   <v-card-text>
-                    <v-icon color="blue" v-if="item.department"
+                    <v-icon color="blue" v-if="item.DEPARTMENT"
                       >mdi-domain</v-icon
                     >
-                    {{ item.department }}
+                    {{ item.DEPARTMENT }}
                   </v-card-text>
                 </v-flex>
               </v-layout>
               <div class="pa-5">
                 <p style="font-size: 15px">
-                  {{ item.jobDescription.substring(0, 250) }}
+                  {{ item.JOBDESCRIPTION.substring(0,10) }}
                   <span id="dots">
                     ...
                     <v-btn color="primary" text @click="openJob(item)"
@@ -146,15 +145,9 @@
             </v-card>
           </v-hover>
         </v-flex>
-        <v-flex xs12 v-if="Number.isInteger(getjobs.length / 10)">
+        <v-flex xs12>
           <p class="text-center">
-            <v-btn
-              color="primary"
-              x-large
-              text
-              @click="jobMoreData({ country, SKILL })"
-              >Load More</v-btn
-            >
+           <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
           </p>
         </v-flex>
       </v-layout>
@@ -176,10 +169,12 @@
 
 <script>
 import viewjob from "@/components/core/viewjobDialog.vue";
+import pagination from "@/components/material/CommonPagination.vue"
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
     viewjob,
+    pagination
   },
   beforeMount() {
     this.showLoader = true;
@@ -189,7 +184,7 @@ export default {
       country: this.country,
       SKILL: this.SKILL,
     };
-    this.jobData(data);
+    this.jobData(3,0);
   },
   destroyed() {
     this.$store.commit("userModule/setJobs", {});
@@ -205,37 +200,46 @@ export default {
     },
   },
   methods: {
-    jobData(data) {
-      let data1 = {
-        payload: {
-          skip: 0,
-          limit: 10,
-          country: data.country,
-          SKILL: data.SKILL,
-        },
-      };
+    pageClicked(data)
+    {
+      this.jobData(data)
+    },
+    next()
+    {
+      this.pagination.LIMIT+=3
+      this.pagination.OFFSET+=1
+      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+    },
+
+     prev()
+    {
+      this.pagination.LIMIT-=3
+      this.pagination.OFFSET-=1
+      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+    },
+    jobData(limit,offset) {
+     
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getJob", data1).then((response) => {
+      this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
         if (response.status == 200) {
           this.showLoader = false;
+          this.pagination=response.data.pagination 
+         this.pagination = Object.assign({}, this.someObject, response.data.pagination )
         }
       });
 
       (this.search.country = null), (this.search.SKILL = null);
     },
-    jobMoreData(data) {
-      this.skip = this.skip + 1;
-      let data1 = {
-        payload: {
-          skip: this.skip,
-          limit: 10,
-          country: data.country,
-          SKILL: data.SKILL,
-        },
-      };
+    jobMoreData(limit,offset) {
+      
       console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getMoreJob", data1);
-
+      this.$store.dispatch("userModule/getSearchJob", { payload: { limit:limit,offset:offset,skill:this.search.SKILL,country:this.search.country } }).then((response) => {
+        if (response.status == 200) {
+          this.showLoader = false;
+          this.pagination=response.data.pagination 
+         this.pagination = Object.assign({}, this.someObject, response.data.pagination )
+        }
+      });
       (this.search.country = null), (this.search.SKILL = null);
     },
     openJob(data) {
@@ -245,6 +249,11 @@ export default {
   data() {
     return {
       showLoader: false,
+      pagination:{
+        LIMIT:3,
+        OFFSET:0,
+        TOTALPAGES:0
+      },
       search: {
         country: null,
         SKILL: null,
@@ -259,5 +268,8 @@ export default {
 <style >
 .v-data-table {
   border-top: "none";
+}
+.v-application--is-ltr .v-responsive__sizer~.v-responsive__content {
+    margin-left:3% !important;
 }
 </style>
