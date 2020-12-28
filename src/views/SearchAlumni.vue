@@ -57,7 +57,8 @@ export default {
   },
   methods: {
     openSearch() {
-      this.$store.commit("userModule/setSearchData", this.alumniList[0]);
+      this.selectedAlumni=[]
+      this.$store.commit("userModule/setSearchData", this.alumniList);
       this.$router.push({
         path: "/profile/search/" + this.alumniList[0].USER_ID,
       });

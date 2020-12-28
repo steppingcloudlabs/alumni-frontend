@@ -119,14 +119,14 @@ export default {
         this.$store.commit("userModule/setEventList", this.data);
       },
     },
-    showEvent: {
-      get() {
-        return this.$store.getters["adminModule/getshowEventDialog"];
-      },
-      set(data) {
-        this.$store.commit("adminModule/setShowEvent", data);
-      },
-    },
+    // showEvent: {
+    //   get() {
+    //     return this.$store.getters["adminModule/getshowEventDialog"];
+    //   },
+    //   set(data) {
+    //     this.$store.commit("adminModule/setShowEvent", data);
+    //   },
+    // },
   },
   methods: {
     pageClicked(data) {
@@ -137,41 +137,42 @@ export default {
       this.showMore = true;
     },
     getEvents(limit, offset) {
+      let vm=this
       this.$store
         .dispatch("userModule/getAllEvent", {
           payload: { limit: limit, offset: offset },
         })
         .then((response) => {
           if (response.data.result.length > 0) {
-            this.empty = false;
+            vm.empty = false;
            
-            for (var i = 0; i < this.getEventList.length; i++) {
-              this.getEventList[i].DATE = moment
+            for (var i = 0; i < vm.getEventList.length; i++) {
+              vm.getEventList[i].DATE = moment
                 .unix(this.getEventList[i].DATE / 1000)
                 .format("LL");
             }
-            this.pagination = response.data.pagination;
-            this.pagination = Object.assign( {}, this.someObject, response.data.pagination);
-            console.log(this.pagination)
+            vm.pagination = response.data.pagination;
+            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(vm.pagination)
           } else {
-            this.empty = true;
+            vm.empty = true;
           }
         });
     },
     next() {
       this.pagination.LIMIT += 3;
-      this.pagination.OFFSET += 1;
+      this.pagination.OFFSET += this.pagination.LIMIT;
       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
       this.pagination.LIMIT -= 3;
-      this.pagination.OFFSET -= 1;
+       this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },
   },
   beforeMount() {
-    this.getEvents(3, 0);
+    this.getEvents(2, 0);
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
     //   .then(response => {
@@ -193,7 +194,7 @@ export default {
     return {
       model: {},
       pagination: {
-        LIMIT: 3,
+        LIMIT: 2,
         OFFSET: 0,
         TOTALPAGES:0
       },

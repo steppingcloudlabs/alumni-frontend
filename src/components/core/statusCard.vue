@@ -106,12 +106,13 @@ export default {
         return this.$store.getters["userModule/getStatusData"];
       },
       set(data) {
-        this.$store.commit("userModule/setStatusData", this.data);
+        this.$store.commit("userModule/setStatusData",data);
       }
     }
   },
   methods: {
     getStatus() {
+      let vm=this
       let data = {
         payload: {
           userid: getAlumniId()
@@ -120,8 +121,8 @@ export default {
       this.$store.dispatch("userModule/getStatus", data).then(response => {
         if(response.status==200)
         {
-       this.DocumentStatus=response.data.result
-       console.log(this.DocumentStatus)
+       vm.DocumentStatus=response.data.result
+       console.log(vm.DocumentStatus)
         }
         
       });

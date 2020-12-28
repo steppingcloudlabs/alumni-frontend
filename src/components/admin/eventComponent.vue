@@ -3,12 +3,12 @@
     <div v-if="!this.empty">
       <v-layout row wrap mt-4 v-for="(item,i) in getEventList" :key="i">
         <v-flex xs4 class="px-5">
-          <v-img height="200px" v-if="getEventList[i].photo" :src="getEventList[i].photo"></v-img>
+          <v-img height="200px" v-if="getEventList[i].PHOTO" :src="getEventList[i].PHOTO"></v-img>
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title class="pt-0">{{getEventList[i].title}}</v-card-title>
-          <v-card-text style="font-size:15px">{{getEventList[i].content}}</v-card-text>
+          <v-card-title class="pt-0">{{getEventList[i].TITLE}}</v-card-title>
+          <v-card-text style="font-size:15px">{{getEventList[i].CONTENT}}</v-card-text>
         </v-flex>
         <v-flex xs12>
           <v-card-actions>
@@ -27,8 +27,12 @@
       </v-layout>
       <v-layout row wrap class="pb-5 pt-5">
         <v-flex xs12 class="mr-5 text-right">
-          <v-btn color="primary" dark v-if="showMore" @click="getMore()">View All</v-btn>
-          <v-btn color="primary" dark v-if="!showMore" @click="getLess()">Close All</v-btn>
+          <pagination
+        :next="next"
+        :prev="prev"
+        :totalLength="pagination.TOTALPAGES"
+        @pageClicked="pageClicked"
+      ></pagination>
         </v-flex>
       </v-layout>
     </div>
@@ -41,7 +45,12 @@
 </template>
 
 <script>
+import moment from "moment";
+import pagination from "@/components/material/CommonPagination.vue";
 export default {
+   components: {
+    pagination,
+  },
   computed: {
     getEventList: {
       get() {
@@ -76,50 +85,60 @@ export default {
   },
   data() {
     return {
-      limit: 1,
-      showMore: true,
-      count: 0,
+      pagination: {
+        LIMIT: 3,
+        OFFSET: 0,
+        
+      },
+      showMore: false,
       empty: false,
-      skip: 0
+      selectedEvent: {},
+      showEvents: false,
     };
   },
   methods: {
-    getLess() {
-      this.$store
-        .dispatch("adminModule/getAllEvent", {
-          payload: { limit: 1, skip: 0 }
-        })
-        .then(response => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
-          } else {
-            this.showMore = true;
-          }
-        });
+       pageClicked(data) {
+      this.getEvents(data);
+    },
+    setSelectedEvent(item) {
+      this.selectedEvent = item;
       this.showMore = true;
     },
-    getMore() {
-      this.limit = 1;
-      this.skip = this.skip + 1;
-      this.showMore = false;
-
+    getEvents(limit, offset) {
+      let vm=this
       this.$store
-        .dispatch("adminModule/getMoreEvent", {
-          payload: { limit: this.limit, skip: this.skip }
+        .dispatch("adminModule/getAllEvent", {
+          payload: { limit: limit, offset: offset },
         })
-        .then(response => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
+        .then((response) => {
+          if (response.data.result.length > 0) {
+            this.empty = false;
+                   vm.$store.commit("closeProgressBar", {});
+            for (var i = 0; i < vm.getEventList.length; i++) {
+              vm.getEventList[i].DATE = moment
+                .unix(vm.getEventList[i].DATE / 1000)
+                .format("LL");
+            }
+            vm.pagination = response.data.pagination;
+            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(vm.pagination)
           } else {
-            this.showMore = true;
+            vm.empty = true;
           }
         });
+    },
+    next() {
+      this.pagination.LIMIT += 0;
+      this.pagination.OFFSET += this.pagination.LIMIT;
+      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+     // this.pagination.OFFSET += 1;
+    },
+
+    prev() {
+      this.pagination.LIMIT -= 0;
+      this.pagination.OFFSET -=this.pagination.LIMIT;
+      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+    //  this.pagination.OFFSET -=1
     },
     showEventDialog(index) {
       this.$store.commit(
@@ -138,27 +157,7 @@ export default {
   beforeMount() {
     this.limit = 10;
     (this.showMore = true), this.$store.commit("showProgressBar", {});
-    this.$store
-      .dispatch("adminModule/getAllEvent", {
-        payload: { skip: 0, limit: this.limit }
-      })
-      .then(response => {
-        this.$store.commit("closeProgressBar", {});
-        if (response.data.result.length > 0) {
-          this.count = 1;
-          this.empty = false;
-        } else {
-          this.count = 0;
-          this.empty = true;
-        }
-        if (response.data.result.length < this.limit) {
-          this.empty = false;
-          this.showMore = false;
-        } else {
-          this.empty = false;
-          this.showMore = true;
-        }
-      });
+   this.getEvents(3,0)
   }
 };
 </script>

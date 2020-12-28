@@ -114,20 +114,20 @@ export default {
             if (
               (response &&
                 response.status == 200 &&
-                response.usertype == "admin") ||
-              response.usertype == "hr"
+                response.result[0].USERTYPE == "admin") ||
+              response.result[0].USERTYPE == "hr"
             ) {
               this.$router.push({ path: "/admin/dashboard" });
               this.$store.commit(
                 "userModule/savedUserObjectId",
-                response.result.USER_ID
+                response.result[0].USERNAME
               );
               this.$store.commit("closeProgressBar", {});
             } else if (response && response.status == 200 && response.result !="Incorrect Username") {
               this.$router.push({ path: "/profile/dashboard" });
               this.$store.commit(
                 "userModule/savedUserObjectId",
-                response.result.USER_ID
+                response.result[0].USER_ID
               );
               this.$store.commit("closeProgressBar", {});
             } else if (response.result == "Incorrect Username") {

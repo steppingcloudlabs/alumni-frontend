@@ -62,41 +62,42 @@ export default {
       ask: { subject: "", body: "" },
       email: "",
       emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
-      subjectRules: [v => !!v || "Subject is required"],
-      esclationList: [{}, {}, {}]
+      subjectRules: [(v) => !!v || "Subject is required"],
+      esclationList: [{}, {}, {}],
     };
   },
   props: {
     dialog: {
       type: Boolean,
-      default: false
+      default: false,
     },
     Showemail: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     userId() {
-      return this.$store.getters["userModule/getUserData"]._id;
-    }
+      return this.$store.getters["userModule/getUserData"].USER_ID;
+    },
   },
   watch: {
     dialog() {
       if (this.dialog) {
-        this.getAllEscaltionManager();
+        pass
+      //  this.getAllEscaltionManager();
       }
-    }
+    },
   },
   methods: {
     closeDialog() {
       this.$emit("closeAskHrDialog");
     },
     getAllEscaltionManager() {
-      this.$store.dispatch("adminModule/getMangerList", {}).then(response => {
+      this.$store.dispatch("adminModule/getMangerList", {}).then((response) => {
         if (response && response.status == 200) {
           for (let i = 0; i < response.data.result.length; i++) {
             let level = response.data.result[i].level.charAt(
@@ -112,32 +113,34 @@ export default {
       this.$emit("closeAskHrDialog");
       let data = {
         payload: {
-          participants: this.userId,
-          created_at: moment().unix(),
-          created_by: this.userId,
-          updated_by: this.userId,
-          title: this.ask.subject,
-          message: this.ask.body,
-          messagebody: this.ask.body,
-          esclation: false,
-          esclation_manager_1: this.esclationList[0].esclation_manager_id._id,
-          esclation_manager_2: this.esclationList[1].esclation_manager_id._id,
-          esclation_manager_3: this.esclationList[2].esclation_manager_id._id,
-          resolved_status: false
-        }
+          //participants: this.userId,
+          // created_at: moment().unix(),
+          //created_by: this.userId,
+          //updated_by: this.userId,
+          USERID: this.userId,
+          SUBJECT: this.ask.subject,
+          MESSAGE: this.ask.body,
+          USERTYPE:"user"
+          //messagebody: this.ask.body,
+          //esclation: false,
+          //esclation_manager_1: this.esclationList[0].esclation_manager_id._id,
+          //esclation_manager_2: this.esclationList[1].esclation_manager_id._id,
+          //esclation_manager_3: this.esclationList[2].esclation_manager_id._id,
+          //resolved_status: false
+        },
       };
-      this.$store.dispatch("userModule/createTicket", data).then(response => {
+      this.$store.dispatch("userModule/createTicket", data).then((response) => {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
             message: "We will come back to you shortly",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
           this.$emit("updateQueryList");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

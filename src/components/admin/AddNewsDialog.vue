@@ -4,27 +4,67 @@
       <v-dialog v-model="showNews" persistent max-width="600px">
         <v-card>
           <v-toolbar class="mb-5">
-          <v-toolbar-title class="ml-5">Add News</v-toolbar-title>
-          <div class="flex-grow-1"></div>
-        </v-toolbar>
-         
+            <v-toolbar-title class="ml-5">Add News</v-toolbar-title>
+            <div class="flex-grow-1"></div>
+          </v-toolbar>
+
           <v-card-text>
             <v-container>
               <v-form>
+                <v-row>
+                  <v-col cols="4">
+                    <img
+                      v-if="news.PHOTO"
+                      class="img"
+                      :src="news.PHOTO"
+                      style="
+                        border-radius: 50%;
+                        border: 3px solid white;
+                        width: 120px;
+                      "
+                    />
+                    <img
+                      v-else
+                      class="img"
+                      src="@/assets/news.png"
+                      style="
+                        border-radius: 50%;
+                        border: 3px solid white;
+                        width: 120px;
+                      "
+                    />
+                  </v-col>
+                  <v-col cols="8" class="mt-5">
+                    <v-file-input
+                      shaped
+                      outlined
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
+                      label="Upload Image"
+                      @change="getBase64Image"
+                    ></v-file-input>
+                  </v-col>
+                </v-row>
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
                       type="text"
                       shaped
                       outlined
-                      v-model="news.title"
+                      v-model="news.TITLE"
                       label="Headline*"
                       :rules="titleRules"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field shaped
-                      outlined v-model="news.content" label="Body*" required :rules="bodyRules"></v-text-field>
+                    <v-text-field
+                      shaped
+                      outlined
+                      v-model="news.CONTENT"
+                      label="Body*"
+                      required
+                      :rules="bodyRules"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-menu
@@ -54,16 +94,7 @@
                     </v-menu>
                   </v-col>
 
-                  <v-col cols="12">
-                    <v-file-input
-                     shaped
-                      outlined
-                      accept="image/*"
-                      prepend-icon="mdi-camera"
-                      label="Upload Image"
-                      @change="getBase64Image"
-                    ></v-file-input>
-                  </v-col>
+                  <v-col cols="12"> </v-col>
                 </v-row>
               </v-form>
             </v-container>
@@ -71,7 +102,9 @@
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="error darken-1" text @click="closeDialog">Close</v-btn>
+            <v-btn color="error darken-1" text @click="closeDialog"
+              >Close</v-btn
+            >
             <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -87,11 +120,11 @@ export default {
   data() {
     return {
       date: new Date().toISOString().substr(0, 10),
-      titleRules: [v => !!v || "Title is required"],
-      bodyRules: [v => !!v || "Body is required"],
+      titleRules: [(v) => !!v || "Title is required"],
+      bodyRules: [(v) => !!v || "Body is required"],
       imageBase64: "",
       showCalender: false,
-      menu2: false
+      menu2: false,
     };
   },
   mounted() {},
@@ -102,7 +135,7 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowNewsDialogData", data);
-      }
+      },
     },
     showNews: {
       get() {
@@ -110,14 +143,14 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowNews", data);
-      }
-    }
+      },
+    },
   },
   props: {
     dialog: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     getBase64Image(file) {
@@ -127,9 +160,9 @@ export default {
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.imageBase64 = str;
+        this.news.PHOTO = reader.result;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
     },
@@ -141,31 +174,35 @@ export default {
     },
     saveDialog() {
       let newData = JSON.parse(JSON.stringify(this.news));
-      this.$store.commit("adminModule/showNewsProgress", {});
+      this.$store.commit("showProgressBar", {});
 
       this.$store.commit("adminModule/closeNewsDialog");
       let currDate = parseInt(moment(this.Date).format("x"));
       console.log(currDate);
+      let vm = this;
       let data = {
-        payload:{
-        title: newData.title,
-        content: newData.content,
-        tag: newData.title,
-        date: currDate,
-        author: undefined,
-        id: newData._id ? newData._id : undefined,
-        photo: this.imageBase64
-        }
+        payload: {
+          TITLE: newData.TITLE,
+          CONTENT: newData.CONTENT,
+          tag: newData.title,
+          DATE: currDate.toString(),
+          AUTHOR: "admin",
+          ID: newData.ID ? newData.ID : undefined,
+          PHOTO: newData.PHOTO,
+        },
       };
-      this.$store.dispatch("adminModule/addNews", data).then(response => {
+      this.$store.dispatch("adminModule/addNews", data).then((response) => {
         if (data.id == null) {
-          this.$store.commit("adminModule/addNewsToList", response.data.result);
+          this.$store.commit(
+            "adminModule/addNewsToList",
+            response.data.result[0]
+          );
 
           this.$store.commit("showSnackbar", {
             message: "News Added successfully",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
         } else {
           //   this.$store.commit(
@@ -176,14 +213,14 @@ export default {
             message: "News updated successfully",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
-          this.$store.dispatch("adminModule/getAllNews", {payload:{}});
+         // this.$store.dispatch("adminModule/getAllNews", { payload: {} });
         }
 
-        this.$store.commit("adminModule/closeNewsProgress", {});
+        this.$store.commit("closeProgressBar", {});
       });
-    }
-  }
+    },
+  },
 };
 </script>

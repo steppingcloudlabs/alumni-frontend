@@ -61,14 +61,14 @@
             >
           </template>
         </v-data-table>
-        <p class="text-center text-white" v-if="getAlumniList.length">
-          <v-btn
-            v-if="showMore"
-            color="blue"
-            style="margin-top: 10px"
-            @click="getMore"
-            >Load More</v-btn
-          >
+        <p class="text-center text-white">
+          <pagination
+        :next="next"
+        :prev="prev"
+        :totalLength="pagination.TOTALPAGES"
+        @pageClicked="pageClicked"
+      ></pagination>
+         
         </p>
       </v-flex>
     </v-layout>
@@ -80,12 +80,14 @@
 <script>
 import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
+import pagination from "@/components/material/CommonPagination.vue";
 import moment from "moment";
 
 export default {
   components: {
     statCards,
     AddAlumni,
+    pagination
   },
   watch: {
     dialog() {
@@ -107,54 +109,54 @@ export default {
     this.limit = 10;
     this.skip = 0;
     this.loader = true;
-    this.$store
-      .dispatch("adminModule/getAllAlumni", {
-        payload: {
-          skip: 0,
-          limit: this.limit,
-        },
-      })
-      .then((response) => {
-        if (
-          response.data.status == 200 &&
-          response.data.result.length < this.limit
-        ) {
-          this.showMore = false;
-        } else {
-          this.showMore = true;
-        }
-
-        this.loader = false;
-      });
+    this.getAlumni(3,0)
   },
   destroyed() {
     this.$store.commit("adminModule/setAlumniList", []);
   },
   methods: {
-    getMore() {
-      this.limit = this.limit;
-      this.skip = this.skip + this.limit;
-      this.loader = true;
-      this.showMore = false;
-      let actionToCall = "getMoreAlumni";
+     pageClicked(data) {
+      this.getAlumni(data);
+    },
+    setSelectedAlumni(item) {
+      this.selectedAlumni = item;
+      this.showMore = true;
+    },
+    getAlumni(limit, offset) {
+      let vm=this
       this.$store
-        .dispatch("adminModule/getMoreData", {
-          actionToCall: actionToCall,
-          limit: this.limit,
-          skip: this.skip,
+        .dispatch("adminModule/getAllAlumni", {
+          payload: { limit: limit, offset: offset },
         })
         .then((response) => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
+          if (response.data.result.length > 0) {
+            this.empty = false;
+           vm.loader=false
+            for (var i = 0; i < this.getAlumniList.length; i++) {
+              this.getAlumniList[i].DATE = moment
+                .unix(this.getAlumniList[i].DATE / 1000)
+                .format("LL");
+            }
+            vm.pagination = response.data.pagination;
+            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(vm.pagination)
           } else {
-            this.showMore = true;
+            this.empty = true;
           }
-          this.loader = false;
         });
     },
+    next() {
+      this.pagination.LIMIT += 3;
+      this.pagination.OFFSET += this.pagination.LIMIT;
+      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+
+    prev() {
+      this.pagination.LIMIT -= 3;
+      this.pagination.OFFSET -= this.pagination.LIMIT;
+      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+   
     closeAlumniDialog() {
       this.$store.commit("adminModule/closeAlumniDialog");
     },
@@ -179,7 +181,7 @@ export default {
     viewAlumniDialog(data) {
       console.log(data);
       this.dialog = true;
-      // this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
+       this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
     },
     closeClearanceDialog() {
       this.dialog = false;

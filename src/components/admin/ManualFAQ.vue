@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <v-text-field
-        v-model="faq.question"
+        v-model="faq.QUESTION"
         prepend-icon="mdi-comment-question-outline"
         label="Question"
         shaped
@@ -12,7 +12,7 @@
     </v-col>
     <v-col cols="12">
       <v-text-field
-        v-model="faq.answer"
+        v-model="faq.ANSWER"
         prepend-icon="mdi-comment-check-outline"
         label="Answer"
         required
@@ -47,8 +47,8 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowFaqDialogData", data);
-      }
-    }
+      },
+    },
   },
   methods: {
     saveDialog() {
@@ -56,40 +56,27 @@ export default {
       // this.$store.commit("adminModule/showEventsProgress", {});
       this.$store.commit("adminModule/closeFaqDialog");
       let data = {
-        payload:{
-question: faqData.question,
-        answer: faqData.answer,
-        id: faqData._id ? faqData._id : null
-        }
-        
+        payload: {
+          QUESTION: faqData.QUESTION,
+          ANSWER: faqData.ANSWER,
+          ID: faqData.ID ? faqData.ID : null,
+        },
       };
-      this.$store.dispatch("adminModule/addFaq", data).then(response => {
-        if(data.payload.id==null)
-        {
+      this.$store.dispatch("adminModule/addFaq", data).then((response) => {
         this.$store.commit(
-          "adminModule/addNewFaqToList",
+          "adminModule/addFaqToList",
           JSON.parse(JSON.stringify(faqData))
         );
         this.$store.commit("showSnackbar", {
           message: "Faq Added successfully",
           color: "success",
           heading: "Success",
-          duration: 3000
-        });
-        }
-        else{
-          this.$store.dispatch("adminModule/getAllFaq",{payload:{}})
-          this.$store.commit("showSnackbar", {
-          message: "Faq updated successfully",
-          color: "success",
-          heading: "Success",
-          duration: 3000
+          duration: 3000,
         });
 
-        }
         // this.$store.commit("adminModule/closeEventsProgress", {});
       });
-    }
-  }
+    },
+  },
 };
 </script>

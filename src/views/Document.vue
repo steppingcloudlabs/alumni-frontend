@@ -13,11 +13,18 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-img
-            v-if="status[i] == 'Available'"
+            v-if="status[i] == 'Available' && i!=2"
             class="white--text align-end"
             height="200px"
             :src="images[0].back"
           ></v-img>
+           <v-img
+            v-else-if="(status[i] == 'Available' || status[5] == 'Available' ||status[6] == 'Available') && i == 2"
+            class="white--text align-end"
+            height="200px"
+            :src="images[0].back"
+          ></v-img>
+          
           <v-img
             v-else
             class="align-end"
@@ -25,7 +32,21 @@
             :src="images[1].back"
           ></v-img>
 
-          <v-card-text class="text--primary" v-if="status[i] == 'Available'">
+          <v-card-text
+            class="text--primary"
+            v-if="status[i] == 'Available' && i != 2"
+          >
+            <div>Your Document is ready for download</div>
+          </v-card-text>
+          <v-card-text
+            class="text--primary"
+            v-else-if="
+              (status[i] == 'Available' ||
+                status[5] == 'Available' ||
+                status[6] == 'Available') &&
+              i == 2
+            "
+          >
             <div>Your Document is ready for download</div>
           </v-card-text>
           <v-card-text class="text--primary" v-else>
@@ -35,29 +56,41 @@
             </div>
           </v-card-text>
 
-          <v-card-actions v-if="status[i] == 'Available' && item.code != 96">
+          <v-card-actions v-if="status[i] == 'Available' && i != 2">
             <v-btn color="orange" small text @click="download(item.code)"
               >Download</v-btn
             >
           </v-card-actions>
-          <v-card-actions v-if="status[i] == 'Available' && item.code == 96">
-            <v-btn color="orange" small text @click="download(item.code)"
+          <v-card-actions
+            v-if="
+              (status[i] == 'Available' ||
+                status[5] == 'Available' ||
+                status[6] == 'Available') &&
+              i == 2
+            "
+          >
+            <v-btn
+              v-if="status[5] == 'Available'"
+              color="orange"
+              small
+              text
+              @click="download('firstmonthsalary')"
               >Salary1</v-btn
             >
             <v-btn
               color="orange"
               small
-              v-if="DocumentStatus.salaryprevious == 'Available'"
+              v-if="status[6] == 'Available'"
               text
-              @click="download('97')"
+              @click="download('secondmonthsalary')"
               >Salary2</v-btn
             >
             <v-btn
               color="orange"
               small
-              v-if="DocumentStatus.salarylast == 'Available'"
+              v-if="status[i] == 'Available'"
               text
-              @click="download('98')"
+              @click="download('thirdmonthsalary')"
               >Salary3</v-btn
             >
           </v-card-actions>
@@ -169,8 +202,8 @@ export default {
   data() {
     return {
       cards: [
-        { title: "Form16", code:"form16" },
-        { title: "Full n Final", code: 95 },
+        { title: "Form16", code: "form16" },
+        { title: "Full n Final", code: "firstmonthsalary" },
         { title: "Salary Slips", code: 96 },
         { title: "Relieving Letter", code: 97 },
 
@@ -288,9 +321,11 @@ export default {
       console.log(this.DocumentStatus);
       this.status[0] = this.DocumentStatus.FORM16;
       this.status[1] = this.DocumentStatus.FIRSTMONTHSALARY;
-      this.status[2] = this.DocumentStatus.SECONDMONTHSALARY;
+      this.status[2] = this.DocumentStatus.THIRDMONTHSALARY;
       this.status[3] = this.DocumentStatus.THIRDMONTHSALARY;
       this.status[4] = this.DocumentStatus.THIRDMONTHSALARY;
+      this.status[5] = this.DocumentStatus.FIRSTMONTHSALARY;
+      this.status[6] = this.DocumentStatus.SECONDMONTHSALARY;
     },
   },
   // watch: {

@@ -10,11 +10,45 @@
         <v-card-text>
           <v-container>
             <v-row>
+              <v-col cols="4">
+                <img
+                  v-if="event.PHOTO"
+                  class="img"
+                  :src="event.PHOTO"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 120px;
+                  "
+                />
+                <img
+                  v-else
+                  class="img"
+                  src="@/assets/news.png"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 120px;
+                  "
+                />
+              </v-col>
+              <v-col cols="8" class="mt-5">
+                <v-file-input
+                  accept="image/*"
+                  prepend-icon="mdi-camera"
+                  label="Upload Image"
+                  @change="getBase64Image"
+                  shaped
+                  outlined
+                ></v-file-input>
+              </v-col>
+            </v-row>
+            <v-row>
               <v-col cols="12">
                 <v-text-field
                   shaped
                   outlined
-                  v-model="event.title"
+                  v-model="event.TITLE"
                   label="Title*"
                   required
                   :rules="titleRules"
@@ -24,14 +58,20 @@
                 <v-text-field
                   shaped
                   outlined
-                  v-model="event.content"
+                  v-model="event.CONTENT"
                   label="Description*"
                   required
                   :rules="bodyRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field shaped outlined v-model="event.location" label="Location" required></v-text-field>
+                <v-text-field
+                  shaped
+                  outlined
+                  v-model="event.LOCATION"
+                  label="Location"
+                  required
+                ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-menu
@@ -60,16 +100,7 @@
                   ></v-date-picker>
                 </v-menu>
               </v-col>
-              <v-col cols="12">
-                <v-file-input
-                  accept="image/*"
-                  prepend-icon="mdi-camera"
-                  label="Upload Image"
-                  @change="getBase64Image"
-                  shaped
-                  outlined
-                ></v-file-input>
-              </v-col>
+              <v-col cols="12"> </v-col>
             </v-row>
           </v-container>
           <small>*indicates required field</small>
@@ -94,7 +125,7 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowEventDialogData", data);
-      }
+      },
     },
     showEvent: {
       get() {
@@ -102,15 +133,15 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowEvent", data);
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      titleRules: [v => !!v || "Title is required"],
-      bodyRules: [v => !!v || "Body is required"],
+      titleRules: [(v) => !!v || "Title is required"],
+      bodyRules: [(v) => !!v || "Body is required"],
       date: new Date().toISOString().substr(0, 10),
-      menu2: false
+      menu2: false,
     };
   },
   methods: {
@@ -121,9 +152,9 @@ export default {
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.imageBase64 = str;
+        this.event.PHOTO = reader.result;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
     },
@@ -133,43 +164,43 @@ export default {
     },
     saveDialog() {
       let eventData = JSON.parse(JSON.stringify(this.event));
-      this.$store.commit("adminModule/showEventsProgress", {});
+      this.$store.commit("showProgressBar", {});
       this.$store.commit("adminModule/closeEventDialog");
       let currDate = parseInt(moment(this.Date).format("x"));
       let data = {
         payload: {
-          title: eventData.title,
-          content: eventData.content,
-          tag: eventData.title,
-          id: eventData._id ? eventData._id : null,
-          photo: this.imageBase64,
-          date: currDate
-        }
+          TITLE: eventData.TITLE,
+          CONTENT: eventData.CONTENT,
+          TAG: eventData.TITLE,
+          ID: eventData.ID? eventData.ID : null,
+          PHOTO:eventData.PHOTO,
+          date: currDate,
+        },
       };
-      this.$store.dispatch("adminModule/addEvents", data).then(response => {
-        if (data.id == null) {
+      this.$store.dispatch("adminModule/addEvents", data).then((response) => {
+        this.$store.commit("adminModule/showEventsProgress", {});
           this.$store.commit(
             "adminModule/addEventToList",
-            JSON.parse(JSON.stringify(response.data.result))
+            JSON.parse(JSON.stringify(response.data.result[0]))
           );
           this.$store.commit("showSnackbar", {
             message: "Event added successfully",
             color: "success",
             heading: "Success",
-            duration: 3000
+            duration: 3000,
           });
-        } else {
-          this.$store.dispatch("adminModule/getAllEvent", { payload: {} });
-          this.$store.commit("showSnackbar", {
-            message: "Event updated successfully",
-            color: "success",
-            heading: "Success",
-            duration: 3000
-          });
-        }
-        this.$store.commit("adminModule/closeEventsProgress", {});
+        // } else {
+        //   this.$store.dispatch("adminModule/getAllEvent", { payload: {} });
+        //   this.$store.commit("showSnackbar", {
+        //     message: "Event updated successfully",
+        //     color: "success",
+        //     heading: "Success",
+        //     duration: 3000,
+        //   });
+        // }
+        this.$store.commit("closeProgressBar", {});
       });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -69,7 +69,7 @@
 </template>
 <script>
 import FAQComponent from "@/components/admin/FaqComponent.vue";
-import QueryWindowWrapper from "@/components/core/QueryWindowWrapper";
+import QueryWindowWrapper from "@/components/admin/QueryWindowWrapper";
 export default {
   components: {
     FAQComponent,

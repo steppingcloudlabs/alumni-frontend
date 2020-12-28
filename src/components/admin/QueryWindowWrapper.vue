@@ -20,14 +20,14 @@
       </v-window>
     </v-flex>
     <v-flex xs12>
-      <Contact
+      <!-- <Contact
         :dialog="dialog"
         :Showemail="emailDailog"
         @closeAskHrDialog="closeAskHrDialog"
         @updateQueryList="getQueryList"
-      />
+      /> -->
     </v-flex>
-    <v-tooltip top>
+    <!-- <v-tooltip top>
       <template v-slot:activator="{}">
         <v-btn
           @click="dialog = true"
@@ -46,12 +46,12 @@
         </v-btn>
       </template>
       <span>Raise Concern</span>
-    </v-tooltip>
+    </v-tooltip> -->
   </v-layout>
 </template>
 <script>
-import UserQueryList from "@/components/core/UserQueryList";
-import QueryDescription from "@/components/core/QueryDescription";
+import UserQueryList from "@/components/admin/UserQueryList";
+import QueryDescription from "@/components/admin/QueryDescription";
 import Contact from "@/components/core/contactHR";
 import { getObjectId, getAlumniId } from "@/utils/utils";
 
@@ -89,7 +89,7 @@ export default {
         },
       };
       this.$store
-        .dispatch("userModule/getQueryMessage", message)
+        .dispatch("adminModule/getQueryMessage", message)
         .then((response) => {
           if (response.status == 200) {
             this.messages = response.result;
@@ -104,7 +104,7 @@ export default {
         },
       };
       this.$store
-        .dispatch("userModule/getAllUserQueries", data)
+        .dispatch("adminModule/getAllUserQueries", data)
         .then((response) => {
           this.queryList = response.result;
         });

@@ -29,33 +29,29 @@
                 fill-dot
               >
                 <template v-slot:icon>
-                  <v-avatar>
+                  <v-avatar >
                     <span class="white--text title">{{
-                        item.USERTYPE=='user'
+                      item.USERTYPE== "admin"
                         ? "Y"
-                        : "A"
+                        : "U"
+                       
                     }}</span>
                   </v-avatar>
                 </template>
-                <v-card class="elevation-2" v-if="item.USERTYPE=='user'" style="text-align:right">
-                  <v-card-title class="headline">{{
-                    item.USERTYPE=='user'
-                      ? "You"
-                      : "Admin"
-                  }}</v-card-title>
+                <v-card class="elevation-2" v-if="item.USERTYPE=='admin'" style="text-align:right">
+                  <v-card-title class="headline" style="text-align:right">{{item.USERTYPE=='admin'? "You":"User" }}</v-card-title>
                   <v-card-text>{{ item.MESSAGE }}</v-card-text>
                 </v-card>
-                 <v-card class="elevation-2" v-else>
-                  <v-card-title class="headline">{{
-                    item.USERTYPE=='user'
-                      ? "You"
-                      : "Admin"
-                  }}</v-card-title>
+                  <v-card class="elevation-2" v-else>
+                  <v-card-title class="headline">{{item.USERTYPE=='admin'? "You":"User" }}</v-card-title>
                   <v-card-text>{{ item.MESSAGE }}</v-card-text>
                 </v-card>
               </v-timeline-item>
             </v-timeline>
           </v-flex>
+          
+
+          
         </v-layout>
         <v-toolbar class="mb-3">
           <v-layout row wrap class="add-comment-wrapper" align-center>
@@ -109,6 +105,7 @@ export default {
   },
   beforeMount() {
   //  this.getAllMessages();
+  console.log(this.userType)
   },
   mounted()
   {
@@ -141,7 +138,7 @@ export default {
       let vm = this;
       let message = {
         payload: {
-          USERTYPE: "user",
+          USERTYPE:"admin",
           // created_at: "",use
           MESSAGE: this.addComment,
           TICKETID: this.selectedQueryItem.ID,
@@ -149,17 +146,17 @@ export default {
       };
       let newmsg = {
         CREATEDAT: moment.unix(),
-        CREATEDBY: "user",
+        CREATEDBY: "admin",
         MODIFIEDAT: moment.unix(),
-        MODIFIEDBY: "user",
+        MODIFIEDBY: "admin",
         ID: this.selectedQueryItem.ID,
-        USERTYPE: "user",
+        USERTYPE: "admin",
         MESSAGE: this.addComment,
         TICKETID: this.selectedQueryItem.ID,
       };
 
       this.$store
-        .dispatch("userModule/postQueryMessage", message)
+        .dispatch("adminModule/postQueryMessage", message)
         .then((response) => {
           if (response.status == 200) {
             vm.messages.push(newmsg);
@@ -173,11 +170,14 @@ export default {
     },
   },
   computed: {
-    currentUserId() {
-      return this.$store.getters["userModule/getUserData"].USERID;
+   userId() {
+      return this.$store.getters["userModule/getSavedUserObjectId"];
     },
     userType() {
       return sessionStorage.getItem("Type");
+    },
+     Type() {
+      return sessionStorage.getItem("userType");
     },
   },
 };

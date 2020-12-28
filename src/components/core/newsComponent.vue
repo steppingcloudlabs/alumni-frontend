@@ -45,6 +45,9 @@
           <v-img width="100" height="100" src="@/assets/waiting.gif"></v-img>
         </div>
       </v-col>
+
+
+      
     </v-row>
     <div v-if="!empty">
       <v-layout row wrap class="pb-5 pt-5">

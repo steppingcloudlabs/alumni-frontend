@@ -163,7 +163,18 @@ export default {
             state.newsList = state.newsList.concat(data)
         },
         addNewsToList: (state, data) => {
-            state.newsList.unshift(data)
+            var index = state.newsList.findIndex(i => i.ID === data.ID);
+            if(index>-1)
+              {
+                state.newsList[index]=data
+                state.newsList=JSON.parse(JSON.stringify(state.newsList))
+                
+              }
+              else
+              {
+                state.newsList.unshift(data)
+              }
+            
         },
 
         showNewsDialog: (state, data) => {
@@ -210,8 +221,21 @@ export default {
             state.EventList = state.EventList.concat(data)
         },
         addEventToList: (state, data) => {
-            state.EventList.unshift(data)
-        },
+            var index = state.EventList.findIndex(i => i.ID === data.ID);
+                if(index>-1)
+                  {
+                    state.EventList[index]=data
+                    state.EventList=JSON.parse(JSON.stringify(state.EventList))
+                    
+                  }
+                  else
+                  {
+                    state.EventList.unshift(data)
+                  }
+                
+            },
+           
+        
 
 
         showEventDialog: (state, data) => {
@@ -249,6 +273,25 @@ export default {
         },
 
         // FAQ Section
+
+        addFaqToList: (state, data) => {
+            var index = state.FaqList.findIndex(i => i.ID === data.ID);
+            
+                if(index>-1)
+                  {
+                    state.FaqList[index]=data
+                    state.FaqList=JSON.parse(JSON.stringify(state.FaqList))
+                    
+                  }
+                  else
+                  {
+                    state.FaqList.unshift(data)
+                  }
+                
+            },
+           
+        
+
         deleteSelectedFaq: (state, data) => {
             let index = state.FaqList.indexOf(data)
             if (index > -1) {
@@ -263,9 +306,9 @@ export default {
         setFaqList: (state, data) => {
             state.FaqList = data
         },
-        addNewFaqToList: (state, data) => {
-            state.FaqList.unshift(data)
-        },
+        // addNewFaqToList: (state, data) => {
+        //     state.FaqList.unshift(data)
+        // },
         showFaqDialog: (state, data) => {
             state.FaqDialogData = data
             state.showFaqDialog = true
@@ -376,13 +419,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/updatenews',
+                    url: baseurl()+'/admin/action/news/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -487,21 +532,22 @@ export default {
             dispatch
         }, data) => {
             let payload = {
-                id: data._id
+                ID: data.ID
             }
-            addTokenToPayload(data)
-            let token = data['token']
+           
+            let token =[]
+            addTokenToPayload(token)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'DELETE',
-                    url: 'https://api.steppingcloud.com/admin/action/deletenews',
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/news/delete',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + token.token
                     },
-                    data: {
-                        payload,
-                        token
-                    }
+                    data:{ payload:{
+                        ID: data.ID
+                    }}
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -511,9 +557,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllNews", {
-                            payload: {}
-                        })
+                        // dispatch("getAllNews", {
+                        //     payload: {}
+                        // })
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -528,14 +574,16 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 console.log("event data", data)
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/updateevent',
+                    url: baseurl()+'/admin/action/event/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -632,18 +680,22 @@ export default {
             let payload = {
                 id: data._id
             }
-            addTokenToPayload(data)
-            let token = data['token']
+            let token =[]
+            addTokenToPayload(token)
+           
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'DELETE',
-                    url: 'https://api.steppingcloud.com/admin/action/deleteevent',
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/event/delete',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + token.token
                     },
                     data: {
-                        payload,
-                        token
+                        payload:
+                        {
+                            ID:data.ID
+                        }
                     }
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
@@ -654,9 +706,9 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllEvent", {
-                            payload: {}
-                        })
+                        // dispatch("getAllEvent", {
+                        //     payload: {}
+                        // })
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -670,21 +722,25 @@ export default {
             commit,
             dispatch
         }, data) => {
-            let payload = {
-                userid: data.USER_ID
-            }
-            addTokenToPayload(data)
-            let token = data['token']
+            // let payload = {
+            //     userid: data.USER_ID
+            // }
+          
+            let token = []
+            addTokenToPayload(token)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'DELETE',
-                    url: 'https://api.steppingcloud.com/admin/action/deletealumni',
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/user/delete',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + token.token
                     },
                     data: {
-                        payload,
-                        token
+                        payload:{
+                         ID:data.ID
+                        }
+                       
                     }
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
@@ -695,9 +751,7 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        dispatch("getAllAlumni", {
-                            payload: {}
-                        })
+                      
                         console.log(response)
                     }
                 }).catch((error) => {
@@ -710,15 +764,50 @@ export default {
             state,
             commit
         }, data) => {
-
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
 
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/alumni',
+                    url: baseurl()+'/admin/action/user/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                        
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        updateAlumni: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/user/create',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -847,13 +936,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/admin/action/updatefaq',
+                    url: baseurl()+'/admin/action/faq/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
 
@@ -883,18 +974,20 @@ export default {
             let payload = {
                 id: data._id
             }
-            addTokenToPayload(data)
-            let token = data['token']
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'DELETE',
-                    url: 'https://api.steppingcloud.com/admin/action/deletefaq',
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/faq/delete',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: {
-                        payload,
-                        token
+                        payload:{
+                            ID:data.ID
+                        }
                     }
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
@@ -920,13 +1013,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/awsadmin/documentupload',
+                    url: baseurl()+'/admin/action/documents/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -1053,6 +1148,70 @@ export default {
                     reject(error)
                 })
             })
-        }
+        },
+
+        getAllUserQueries: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+'/admin/action/askhr/manager/profile/get?EMAIL='+data.payload.USERID,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        getQueryMessage: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+'/admin/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        postQueryMessage: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+'/admin/action/askhr/ticket/message/create',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
     }
 }

@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
-       <v-toolbar class="mb-5">
+        <v-toolbar class="mb-5">
           <v-toolbar-title class="ml-5">Upload Document</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
@@ -26,11 +26,13 @@
                 </v-file-input>
               </v-col>
               <v-col cols="12" md="2">
-                <v-icon style="margin-top: 28px;" @click="saveDialogForm()">fas fa-upload</v-icon>
+                <v-icon style="margin-top: 28px" @click="saveDialogForm()"
+                  >fas fa-upload</v-icon
+                >
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
-                shaped
+                  shaped
                   outlined
                   accept="application/pdf"
                   placeholder="Upload 1st Salary Slip"
@@ -46,13 +48,19 @@
               </v-col>
               <v-col cols="12" md="2">
                 <v-icon
-                  style="margin-top: 28px;"
-                  @click="saveDialogSalary({stream:salarySlipBase641st,code:'96'})"
-                >fas fa-upload</v-icon>
+                  style="margin-top: 28px"
+                  @click="
+                    saveDialogSalary({
+                      stream: salarySlipBase641st,
+                      code: 'firstmonthsalary',
+                    })
+                  "
+                  >fas fa-upload</v-icon
+                >
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
-                shaped
+                  shaped
                   outlined
                   accept="application/pdf"
                   placeholder="Upload 2nd Salary Slip"
@@ -68,13 +76,19 @@
               </v-col>
               <v-col cols="12" md="2">
                 <v-icon
-                  style="margin-top: 28px;"
-                  @click="saveDialogSalary({stream:salarySlipBase642nd,code:'97'})"
-                >fas fa-upload</v-icon>
+                  style="margin-top: 28px"
+                  @click="
+                    saveDialogSalary({
+                      stream: salarySlipBase642nd,
+                      code: 'secondmonthsalary',
+                    })
+                  "
+                  >fas fa-upload</v-icon
+                >
               </v-col>
               <v-col cols="12" md="10">
                 <v-file-input
-                 shaped
+                  shaped
                   outlined
                   accept="application/pdf"
                   placeholder="Upload 3rd Salary Slip "
@@ -90,9 +104,15 @@
               </v-col>
               <v-col cols="12" md="2">
                 <v-icon
-                  style="margin-top: 28px;"
-                  @click="saveDialogSalary({stream:salarySlipBase643rd, code:'98'})"
-                >fas fa-upload</v-icon>
+                  style="margin-top: 28px"
+                  @click="
+                    saveDialogSalary({
+                      stream: salarySlipBase643rd,
+                      code: 'thirdmonthsalary',
+                    })
+                  "
+                  >fas fa-upload</v-icon
+                >
               </v-col>
             </v-row>
           </v-container>
@@ -117,7 +137,7 @@ export default {
       salarySlipBase641st: "",
       salarySlipBase642nd: "",
       salarySlipBase643rd: "",
-      form16Base64: ""
+      form16Base64: "",
       // rules: [
       //   value =>
       //     !value ||
@@ -129,46 +149,46 @@ export default {
   props: {
     dialog: {
       type: Boolean,
-      default: false
+      default: false,
     },
     empId: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   methods: {
     saveDialogSalary(salaryinfo) {
       let data = {
-        userid: this.empId
+        userid: this.empId,
       };
       let salary = {
         payload: {
-          userid: data.userid,
-          stream: salaryinfo.stream,
-          filename: salaryinfo.code
-        }
+          USERID: data.userid,
+          FILE: salaryinfo.stream,
+          DOCUMENT: salaryinfo.code,
+        },
       };
 
       this.$store
         .dispatch("adminModule/uploadDocument", salary)
-        .then(response => {
+        .then((response) => {
           if (response.data.status == 200) {
             this.salaryupload = false;
             this.$store.commit("showSnackbar", {
               color: "green",
               duration: 3000,
               message: "File uploaded succesfully",
-              heading: "Success"
+              heading: "Success",
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
             color: "red",
             duration: 1000,
             message: error,
-            heading: "Error"
+            heading: "Error",
           });
         });
 
@@ -179,38 +199,38 @@ export default {
       // this.$emit("closeDocumentDialog");
       let data = {
         form16: this.form16Base64,
-        userid: this.empId
+        userid: this.empId,
       };
       console.log(data);
 
       let form16 = {
         payload: {
-          userid: data.userid,
-          stream: data.form16,
-          filename: "95"
-        }
+          USERID: data.userid,
+          FILE: data.form16,
+          DOCUMENT: "form16",
+        },
       };
       console.log(form16);
 
       this.$store
         .dispatch("adminModule/uploadDocument", form16)
-        .then(response => {
+        .then((response) => {
           if (response.data.status == 200) {
             this.$store.commit("showSnackbar", {
               color: "green",
               duration: 3000,
               message: "File uploaded succesfully",
-              heading: "Success"
+              heading: "Success",
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
             color: "red",
             duration: 1000,
             message: error,
-            heading: "Error"
+            heading: "Error",
           });
         });
 
@@ -229,7 +249,7 @@ export default {
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
         this.salarySlipBase641st = str;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
     },
@@ -240,9 +260,9 @@ export default {
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.salarySlipBase642nd = str;
+        this.salarySlipBase642nd = reader.result;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
     },
@@ -253,9 +273,9 @@ export default {
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.salarySlipBase643rd = str;
+        this.salarySlipBase643rd = reader.result;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
     },
@@ -266,12 +286,12 @@ export default {
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.form16Base64 = str;
+        this.form16Base64 = reader.result;
       };
-      reader.onerror = function(error) {
+      reader.onerror = function (error) {
         console.log("Error: ", error);
       };
-    }
+    },
 
     // fileInputSalarySlip(files) {
     //   // const pdf2base64 = require("pdf-to-base64");
@@ -312,6 +332,6 @@ export default {
     //     });
     //   console.log(files);
     // }
-  }
+  },
 };
 </script>

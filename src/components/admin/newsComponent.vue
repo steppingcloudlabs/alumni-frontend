@@ -3,12 +3,12 @@
     <div v-if="!empty">
       <v-layout row wrap mt-4 px-5 v-for="(item,i) in getNewsList" :key="i">
         <v-flex xs4 class="px-5">
-          <v-img height="200px" v-if="getNewsList[i].photo" :src="getNewsList[i].photo"></v-img>
+          <v-img height="200px" v-if="getNewsList[i].PHOTO" :src="getNewsList[i].PHOTO"></v-img>
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title class="pt-0">{{getNewsList[i].title}}</v-card-title>
-          <v-card-text style="font-size:15px">{{getNewsList[i].content}}</v-card-text>
+          <v-card-title class="pt-0">{{getNewsList[i].TITLE}}</v-card-title>
+          <v-card-text style="font-size:15px">{{getNewsList[i].CONTENT}}</v-card-text>
         </v-flex>
         <v-flex xs12>
           <v-card-actions>
@@ -26,9 +26,13 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap class="pb-5 pt-5">
-        <v-flex xs12 class="mr-5 text-right">
-          <v-btn color="primary" dark v-if="showMore" @click="getMore()">View All</v-btn>
-          <v-btn color="primary" dark v-if="!showMore" @click="getLess()">Close All</v-btn>
+        <v-flex xs12 class="mr-5 text-center">
+          <pagination
+        :next="next"
+        :prev="prev"
+        :totalLength="pagination.TOTALPAGES"
+        @pageClicked="pageClicked"
+      ></pagination>
         </v-flex>
       </v-layout>
     </div>
@@ -41,7 +45,12 @@
 </template>
 
 <script>
+import pagination from "@/components/material/CommonPagination.vue";
+import moment from "moment"
 export default {
+  components:{
+  pagination
+  },
   computed: {
     getNewsList: {
       get() {
@@ -60,28 +69,8 @@ export default {
     this.limit = 10;
     this.skip = 0
      this.$store.commit("showProgressBar", {});
-    this.$store
-      .dispatch("adminModule/getAllNews", {
-        payload: { offset: 0, limit: this.limit }
-      })
-      .then(response => {
-        this.$store.commit("closeProgressBar", {});
-        if (response.data.result.length > 0) {
-          this.count = 1;
-          this.empty = false;
-        } else {
-          this.count = 0;
-          this.empty = true;
-        }
-        if (response.data.result.length < this.limit) {
-          this.empty = false;
-          this.showMore = false;
-        }
-        else{
-          this.empty = false;
-          this.showMore = true;
-        }
-      });
+     this.getNews(3,0)
+   
   },
   watch: {
     newsListLength() {
@@ -97,9 +86,16 @@ export default {
 
   data() {
     return {
-      showMore: true,
-      limit: 1,
-      skip: 0,
+       pagination: {
+        LIMIT: 3,
+        OFFSET: 0,
+      
+      },
+      showMore: false,
+      empty: false,
+      selectedNews: {},
+      showNews: false,
+      
       dialog: false,
       count: 0,
       showAll: false,
@@ -107,43 +103,49 @@ export default {
     };
   },
   methods: {
-    getLess() {
-      this.$store
-        .dispatch("adminModule/getAllNews", {
-          payload: { limit: 1, skip: 0 }
-        })
-        .then(response => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
-          } else {
-            this.showMore = true;
-          }
-        });
+      pageClicked(data) {
+      this.getNews(data);
+    },
+    setSelectedNews(item) {
+      this.selectedNews = item;
       this.showMore = true;
     },
-    getMore() {
-      this.limit = this.limit;
-      this.skip = this.skip + this.limit;
-      this.showMore = false;
-      let actionToCall = "getAllNews";
+    getNews(limit, offset) {
+      let vm=this
       this.$store
-        .dispatch("adminModule/getMoreNews", {
-          payload: { limit: this.limit, skip: this.skip }
+        .dispatch("adminModule/getAllNews", {
+          payload: { limit: limit, offset: offset },
         })
-        .then(response => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
+        .then((response) => {
+          if (response.data.result.length > 0) {
+            vm.empty = false;
+              vm.$store.commit("closeProgressBar", {});
+            for (var i = 0; i < vm.getNewsList.length; i++) {
+              vm.getNewsList[i].DATE = moment
+                .unix(vm.getNewsList[i].DATE / 1000)
+                .format("LL");
+            }
+           vm.pagination = response.data.pagination;
+vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(this.pagination)
           } else {
-            this.showMore = true;
+            vm.empty = true;
           }
         });
     },
+    next() {
+      this.pagination.LIMIT += 3;
+      this.pagination.OFFSET += this.pagination.LIMIT;
+      this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+
+    prev() {
+      this.pagination.LIMIT -= 3;
+       this.pagination.OFFSET -= this.pagination.LIMIT;
+      this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+  
+  
     showNewsDialog(index) {
       this.$store.commit(
         "adminModule/showNewsDialog",

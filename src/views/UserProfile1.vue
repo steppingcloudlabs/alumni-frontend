@@ -1,12 +1,24 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card class="pt-5">
+      <v-card class="pt-5" style="margin-top: 15px!important">
         <v-layout row wrap ma-0>
           <v-flex xs6>
             <div>
               <p class="text-center">
                 <img
+                  v-if="user.PROFILEIMAGE"
+                  class="img"
+                  :src="user.PROFILEIMAGE"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 200px;
+                  "
+                  @click="openAvatarDialog()"
+                />
+                <img
+                  v-else
                   class="img"
                   src="@/assets/avatar/download.jpg"
                   style="
@@ -14,6 +26,7 @@
                     border: 3px solid white;
                     width: 200px;
                   "
+                  @click="openAvatarDialog()"
                 />
               </p>
             </div>
@@ -212,7 +225,7 @@
       </v-card>
     </v-flex>
     <v-flex xs12>
-      <v-card class="mt-2">
+      <v-card class="mt-2" style="margin-top: 25px!important">
         <v-layout row wrap>
           <v-flex xs6 pr-5>
             <v-card-title
@@ -368,11 +381,12 @@
               </v-flex>
             </v-layout>
             <updateContact></updateContact>
+            <updateAvatar></updateAvatar>
           </v-flex>
         </v-layout>
       </v-card>
     </v-flex>
-    <v-flex xs12>
+    <!-- <v-flex xs12>
       <v-card class="mt-2 pb-5">
         <v-card-title
           class="subtitle-1 pt-5 mb-1 user-profile-heading"
@@ -431,15 +445,16 @@
                 />
               </v-card-text>
             </v-card>
-          </v-flex>
-        </v-layout>
+          </v-flex> -->
+        <!-- </v-layout>
       </v-card>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 <script>
 import timeline from "@/components/material/Timeline.vue";
 import updateContact from "@/components/core/updatecontactDialog.vue";
+import updateAvatar from "@/components/core/updateAvatarDialog.vue";
 import AddEditlinkedInlink from "@/views/AddEditLinkedInLink";
 import moment from "moment";
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
@@ -449,6 +464,7 @@ export default {
     timeline,
     updateContact,
     AddEditlinkedInlink,
+    updateAvatar,
   },
   data() {
     return {
@@ -687,6 +703,9 @@ export default {
       this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
       this.userskills = this.userData.SKILL;
       this.user.LINKEDIN = this.userData.LINKEDIN;
+      this.user.PROFILEIMAGE = this.userData.PROFILEIMAGE;
+      this.user.state = this.userData.STATE;
+      this.user.country = this.userData.COUNTRY;
     },
     getAlumniData() {
       console.log(getAlumniId());
@@ -709,6 +728,14 @@ export default {
         state: this.user.state,
       };
       this.$store.commit("userModule/showContactDialog", contactData);
+    },
+
+    openAvatarDialog() {
+      let AvatarData = {
+        profile: this.user.PROFILEIMAGE,
+        userid: this.user.employeeId,
+      };
+      this.$store.commit("userModule/showAvatarDialog", AvatarData);
     },
 
     showskillinput() {
@@ -748,11 +775,11 @@ export default {
 .button:active {
   color: rgb(241, 135, 16) !important;
 }
-
+/* 
 .img:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
-}
+} */
 
 @keyframes shake {
   0% {

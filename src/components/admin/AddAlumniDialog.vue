@@ -175,7 +175,7 @@
                 <v-text-field
                   shaped
                   outlined
-                  v-model="alumni.address1"
+                  v-model="alumni.ADDRESS"
                   label="Flat No/LandMark"
                 ></v-text-field>
               </v-col>
@@ -192,7 +192,7 @@
                 <v-text-field
                   shaped
                   outlined
-                  v-model="alumni.state"
+                  v-model="alumni.STATE"
                   label="State"
                 ></v-text-field>
               </v-col>
@@ -227,7 +227,7 @@ export default {
   methods: {
     closeDialog() {
       console.log(this.GENDER);
-      console.log(parseInt(moment(this.date).format("x")));
+      console.log((moment(this.date).format("x").toString()));
 
       this.$store.commit("adminModule/closeAlumniDialog");
     },
@@ -244,13 +244,13 @@ export default {
         payload: {
           type: "admin",
           USER_ID: alumniData.USER_ID,
-
+          ID:alumniData.ID ? alumniData.ID : undefined,
           NATIONALITY_PERSONAL_INFORMATION: "IND",
           salutation_personal_information:
             alumniData.salutation_personal_information,
           CITY_ADDRESSES: alumniData.CITY_ADDRESSES,
-          address: alumniData.address1,
-          state: alumniData.state,
+          ADDRESS: alumniData.ADDRESS,
+          STATE: alumniData.STATE,
           PHONE_NUMBER_PHONE_INFORMATION:
             alumniData.PHONE_NUMBER_PHONE_INFORMATION,
           MANAGER_JOB_INFORMATION: alumniData.MANAGER_JOB_INFORMATION,
@@ -259,14 +259,14 @@ export default {
             alumniData.FIRST_NAME_PERSONAL_INFORMATION,
           LAST_NAME_PERSONAL_INFORMATION:
             alumniData.LAST_NAME_PERSONAL_INFORMATION,
-          DATE_OF_RESIGNATION: parseInt(
-            moment(alumniData.DATE_OF_RESIGNATION).format("x")
-          ),
+          DATE_OF_RESIGNATION: moment(alumniData.DATE_OF_RESIGNATION).format("x").toString(),
+         // DATE_OF_RESIGNATION: DATE_OF_RESIGNATION.toString(),
           PERSONAL_EMAIL_ID: alumniData.PERSONAL_EMAIL_ID,
-          date_of_relieving: parseInt(
-            moment(alumniData.date_of_relieving).format("x")
-          ),
-          DATE_OF_BIRTH: parseInt(moment(alumniData.DATE_OF_BIRTH).format("x")),
+         DATE_OF_RELIEVING:moment(alumniData.date_of_relieving).format("x").toString(),
+         
+         // DATE_OF_RELIEVING:DATE_OF_RELIEVING.toString(),
+          DATE_OF_BIRTH:moment(alumniData.DATE_OF_BIRTH).format("x").toString(),
+         // DATE_OF_BIRTH:DATE_OF_BIRTH.toString(),
           GENDER: alumniData.GENDER,
         },
       };
@@ -280,46 +280,48 @@ export default {
           alumniData.LAST_NAME_PERSONAL_INFORMATION,
       };
       console.log(data);
-      if (this.alumni.openFrom == "New") {
+     // if (this.alumni.openFrom == "New") {
         this.$store.dispatch("adminModule/addAlumni", data).then((response) => {
           if (response.data.status == 200) {
             this.$store.commit(
               "adminModule/addNewAlumniToList",
               JSON.parse(JSON.stringify(data))
             );
-            this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+          //  this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
             this.$store.commit("showSnackbar", {
               message: "Alumni Added successfully",
               color: "success",
               heading: "Success",
               duration: 3000,
             });
-          } else if (response.data.result == "User Id already exists") {
-            this.$store.commit("showSnackbar", {
-              message: "Alumni Already Exist",
-              color: "Warning",
-              heading: "Warning",
-              duration: 3000,
-            });
           }
+          // } else if (response.data.result == "User Id already exists") {
+          //   this.$store.commit("showSnackbar", {
+          //     message: "Alumni Already Exist",
+          //     color: "Warning",
+          //     heading: "Warning",
+          //     duration: 3000,
+          //   });
+          // }
         });
-      } else {
-        this.$store.dispatch("userModule/updateData", data).then((response) => {
-          if (response.data.status == 200) {
-            // this.$store.commit(
-            //   "adminModule/addNewAlumniToList",
-            //   JSON.parse(JSON.stringify(data))
-            // );
-            this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
-            this.$store.commit("showSnackbar", {
-              message: "Alumni updated successfully",
-              color: "success",
-              heading: "Success",
-              duration: 3000,
-            });
-          }
-        });
-      }
+     // }
+      // } else {
+      //   this.$store.dispatch("userModule/updateData", data).then((response) => {
+      //     if (response.data.status == 200) {
+      //       // this.$store.commit(
+      //       //   "adminModule/addNewAlumniToList",
+      //       //   JSON.parse(JSON.stringify(data))
+      //       // );
+      //       this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+      //       this.$store.commit("showSnackbar", {
+      //         message: "Alumni updated successfully",
+      //         color: "success",
+      //         heading: "Success",
+      //         duration: 3000,
+      //       });
+      //     }
+      //   });
+      // }
     },
   },
   computed: {

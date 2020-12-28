@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined dark style="border-radius: 0px;">
+  <v-card outlined  style="border-radius: 0px;">
     <p class="text-end mr-5 text-white">
       <v-btn left class="mt-3 ml-3" color="blue" dark @click="openAddFaqDialog">
         <i class="fas fa-plus-circle mr-2"></i> Add FAQ
@@ -10,7 +10,7 @@
         <v-list-item-content>
           <v-flex xs10>
             <v-list-item-title class="headline mb-2">
-              <p>{{item.question}}</p>
+              <p>{{item.QUESTION}}</p>
             </v-list-item-title>
           </v-flex>
           <v-flex xs2>
@@ -20,44 +20,72 @@
 
             <v-icon style="margin-left:10px" @click="showFaqDialog(i)">edit</v-icon>
           </v-flex>
-          <v-list-item-subtitle>{{item.answer}}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{item.ANSWER}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </div>
     <p class="text-center text-white">
-      <v-btn v-if="showMore" color="blue" style="margin-top:10px" @click="getMore(4)">Load More</v-btn>
+    <pagination
+        :next="next"
+        :prev="prev"
+        :totalLength="pagination.TOTALPAGES"
+        @pageClicked="pageClicked"
+      ></pagination>
     </p>
   </v-card>
 </template>
 <script>
 import FAQ from "@/components/admin/uploadFaq.vue";
+import pagination from "@/components/material/CommonPagination.vue";
 
 export default {
   components: {
-    FAQ
+    FAQ,
+    pagination
   },
   methods: {
-    getMore(data) {
-      this.limit = this.limit + data;
-
-      this.showMore = false;
-      let actionToCall = "getAllFaq";
+     pageClicked(data) {
+      this.getFAQs(data);
+    },
+    setSelectedFAQ(item) {
+      this.selectedFAQ = item;
+      this.showMore = true;
+    },
+    getFAQs(limit, offset) {
+     let vm=this
       this.$store
-        .dispatch("adminModule/getMoreData", {
-          actionToCall: actionToCall,
-          limit: this.limit
+        .dispatch("adminModule/getAllFaq", {
+          payload: { limit: limit, offset: offset },
         })
-        .then(response => {
-          if (
-            response.data.status == 200 &&
-            response.data.result.length < this.limit
-          ) {
-            this.showMore = false;
+        .then((response) => {
+          if (response.data.result.length > 0) {
+           vm.empty = false;
+           
+            // for (var i = 0; i < this.getFaqList.length; i++) {
+            //   this.getFList[i].DATE = moment
+            //     .unix(this.getFAQList[i].DATE / 1000)
+            //     .format("LL");
+            // }
+           vm.pagination = response.data.pagination;
+            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
+            console.log(this.pagination)
           } else {
-            this.showMore = true;
+            this.empty = true;
           }
         });
     },
+    next() {
+      this.pagination.LIMIT += 3;
+       this.pagination.OFFSET += this.pagination.LIMIT;
+      this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+
+    prev() {
+      this.pagination.LIMIT -= 3;
+      this.pagination.OFFSET -= this.pagination.LIMIT;
+      this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+    },
+   
     closeFaqDialog() {
       this.$store.commit("adminModule/closeFaqDialog");
     },
@@ -91,22 +119,7 @@ export default {
   },
   beforeMount() {
     this.showMore = false;
-    this.$store
-      .dispatch("adminModule/getAllFaq", {
-        payload: { offset: 0, limit: 5 }
-      })
-      .then(response => { 
-        if (
-          response.data.status == 200 &&
-          response.data.result.length < this.limit
-        ) {
-          this.limit = 5;
-          this.showMore = false;
-        } else {
-          this.limit = 5;
-          this.showMore = true;
-        }
-      });
+    this.getFAQs(3,0)
   },
   destroyed() {
     this.$store.commit("adminModule/setFaqList", {});
@@ -124,9 +137,16 @@ export default {
   },
   data() {
     return {
-      dialog: false,
-      limit: 2,
-      showMore: true,
+      model: {},
+      pagination: {
+        LIMIT: 3,
+        OFFSET: 0,
+        TOTALPAGES:0
+      },
+      showMore: false,
+      empty: false,
+      selectedFAQ: {},
+      showFAQs: false,
       tab: null
     };
   }

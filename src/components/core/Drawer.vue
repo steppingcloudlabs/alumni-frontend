@@ -27,7 +27,8 @@
       <div />
       <v-list-item two-line>
         <v-list-item-avatar>
-          <img src="@/assets/avatar/download.jpg" />
+          <img v-if="userimage" :src="userimage" />
+           <img v-else src="@/assets/avatar/download.jpg" />
         </v-list-item-avatar>
 
         <v-list-item-title
@@ -139,6 +140,12 @@ export default {
       return this.$store.getters["userModule/getUserData"]
         ? this.$store.getters["userModule/getUserData"]
             .FIRST_NAME_PERSONAL_INFORMATION
+        : null;
+    },
+     userimage() {
+      return this.$store.getters["userModule/getUserData"]
+        ? this.$store.getters["userModule/getUserData"]
+            .PROFILEIMAGE
         : null;
     },
   },

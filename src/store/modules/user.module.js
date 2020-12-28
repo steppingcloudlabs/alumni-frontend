@@ -17,7 +17,9 @@ export default {
         searchUser: undefined,
         statusData: {},
         showContactDialog: false,
+        showAvatarDialog: false,
         contactData: {},
+        avatarData:{},
         jobs: [],
         viewJobDialog: false,
         viewJobData: {},
@@ -90,11 +92,34 @@ export default {
         closeContactDialog: (state, data) => {
             state.showContactDialog = false
         },
+        
+
         setUpdateContactData: (state, data) => {
             state.userData.PHONE_NUMBER_PHONE_INFORMATION = data.PHONE_NUMBER_PHONE_INFORMATION
             state.userData.PERSONAL_EMAIL_ID = data.PERSONAL_EMAIL_ID
             state.userData.CITY_ADDRESSES = data.CITY_ADDRESSES
             state.userData = JSON.parse(JSON.stringify(state.userData))
+        },
+
+        setUpdateAvatarData: (state, data) => {
+            state.userData.PROFILEIMAGE = data.payload.PROFILEIMAGE   
+            state.userData = JSON.parse(JSON.stringify(state.userData))
+        },
+
+        showAvatarDialog: (state, data) => {
+            state.showAvatarDialog = true
+            state.avatarData = data
+        },
+        setShowAvatarDialog: (state, data) => {
+            state.showAvatarDialog = true
+            state.avatarData = data
+
+        },
+        setShowAvatarDialogData: (state, data) => {
+            state.avatarData = data
+        },
+        closeAvatarDialog: (state, data) => {
+            state.showAvatarDialog = false
         },
         updatelinkedinData:(state,data)=>
         {
@@ -127,6 +152,12 @@ export default {
         },
         getContactDialogData: (state) => {
             return state.contactData
+        },
+        getshowAvatarDialog: (state) => {
+            return state.showAvatarDialog
+        },
+        getAvatarDialogData: (state) => {
+            return state.avatarData
         },
         getTest: (state) => {
             return state.test;
@@ -161,7 +192,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: burl + '/user/auth/login',
+                    url: burl + '/auth/login',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -173,11 +204,24 @@ export default {
                     console.log('heya!')
                     if (response && response.data.status && response.data.status == 200 && response.data.result!="Incorrect Username") {
                         commit('setData', response.data.result[0])
-                        sessionStorage.setItem("UserId", response.data.result[0].USER_ID)
+                        if(response.data.result[0].USERTYPE=="admin")
+                        {
+                            sessionStorage.setItem("UserId", response.data.result[0].USERNAME)
+                            sessionStorage.setItem("AccessToken", response.data.token)
+                            var type = md5(response.data.result[0].USERTYPE).toString()
+                            sessionStorage.setItem("userType", response.data.result[0].USERTYPE)
+                            sessionStorage.setItem("Type", type)
+                           // sessionStorage.setItem("ObjectId", response.data.result[0].ID)
+                        }
+                        else{
+                            sessionStorage.setItem("UserId", response.data.result[0].USER_ID)
                         sessionStorage.setItem("AccessToken", response.data.token)
-                        var type = md5(response.data.usertype).toString()
+                        var type = md5(response.data.result[0].USERTYPE).toString()
+                        sessionStorage.setItem("userType", response.data.result[0].USERTYPE)
                         sessionStorage.setItem("Type", type)
                         sessionStorage.setItem("ObjectId", response.data.result[0].ID)
+                        }
+                       
                     }
                     // if (response && response.data.status && response.data.result) {
                     //     sessionStorage.setItem("UserId", response.data.result.USER_ID)
@@ -313,7 +357,7 @@ export default {
                     data: data
                 }).then((response) => {
                     if (response && response.data.status && response.data.status == 200) {
-                        commit('setData', response.data.result)
+                        commit('setData', response.data.result[0])
                         // commit('setSearchData', response.data.result)
                         resolve(response.data)
 
@@ -650,7 +694,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/admin/action/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&LOCATION='+data.payload.country,
+                    url: burl+'/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&COUNTRY='+data.payload.country,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -709,9 +753,10 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/postticket',
+                    url: baseurl()+'/user/action/askhr/ticket/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
                     },
                     data: data
                 }).then((response) => {
@@ -729,10 +774,11 @@ export default {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/getticket',
+                    method: 'GET',
+                    url: baseurl()+'/user/action/askhr/ticket/get?USERID='+data.payload.USERID,
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
                     },
                     data: data
                 }).then((response) => {
@@ -770,9 +816,31 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/postmessage',
+                    url: baseurl()+'/user/action/askhr/ticket/message/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        getQueryMessage: ({
+            state,
+            commit
+        }, data) => {
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+'/user/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
                     },
                     data: data
                 }).then((response) => {

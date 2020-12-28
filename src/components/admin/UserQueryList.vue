@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card class="mx-auto mb-3" min-height="250px"  >
+      <v-card class="mx-auto"  min-height="250px"  >
       <v-toolbar fixed >
           <v-toolbar-title class="ml-5" >
             <!-- <span class="mr-5">
