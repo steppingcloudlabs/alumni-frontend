@@ -116,7 +116,8 @@ export default {
   },
   methods: {
      pageClicked(data) {
-      this.getAlumni(data);
+       let lim=data*3
+      this.getAlumni(3,lim);
     },
     setSelectedAlumni(item) {
       this.selectedAlumni = item;
@@ -217,13 +218,11 @@ export default {
       this.loader = true;
       let body = {
         payload: {
-          skip: 0,
-          limit: 2,
           keyword: data,
         },
       };
       this.$store
-        .dispatch("adminModule/getAllAlumni", body)
+        .dispatch("adminModule/getSearchAlumniById", data)
         .then((response) => {
           this.loader = false;
         });

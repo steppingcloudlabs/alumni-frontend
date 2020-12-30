@@ -98,7 +98,9 @@ export default {
   },
   methods: {
        pageClicked(data) {
-      this.getEvents(data);
+            let lim=(data-1)*3
+      //this.getNews();
+      this.getEvents(3,lim);
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;

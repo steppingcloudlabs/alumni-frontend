@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import QueryWindowWrapper from "@/components/core/QueryWindowWrapper";
 import UserFAQList from "@/components/core/UserFAQList";
 export default {

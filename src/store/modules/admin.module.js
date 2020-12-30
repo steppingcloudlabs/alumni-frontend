@@ -836,12 +836,12 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/admin/action/user/get',
+                    url: burl+'/admin/action/user/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
-                    },
-                    data: data
+                    }
+                   
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
@@ -1068,10 +1068,11 @@ export default {
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/getManager',
+                    method: 'GET',
+                    url: baseurl()+'/admin/action/askhr/manager/get',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
                     },
                     data: data
                 }).then((response) => {
@@ -1095,13 +1096,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/updatemanager',
+                    url: baseurl()+'/admin/action/askhr/manager/create',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -1124,13 +1127,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/deleteManager',
+                    url: baseurl()+'/admin/action/askhr/manager/delete',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -1213,5 +1218,35 @@ export default {
                 })
             })
         },
+        getSearchAlumniById: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/search/userprofile?QUERY='+data,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                        commit('setAlumniList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
     }
 }

@@ -8,7 +8,7 @@
           </v-card-title>
           <v-card-text class="py-0">
             <v-col cols="12" class="pb-0">
-              <v-select
+              <!-- <v-select
                 :items="escalationList"
                 item-value="_id"
                 item-text="email"
@@ -17,13 +17,32 @@
                 outlined
                 @change="checks"
                 clearable
-              ></v-select>
+              ></v-select> -->
+                <v-text-field
+                          v-model="editEsclationData.EMAIL"
+                          label="Email"
+                          shaped
+                          outlined 
+                        ></v-text-field>
             </v-col>
+             <v-col cols="12" class="pb-0">
+                            <v-autocomplete
+                             v-model="editEsclationData.LEVELMANAGER"
+                            :items="level"
+                            label="Select Level"
+                            shaped
+                            outlined
+                            item-text="name"
+                            item-value="name"
+                           >
+                            </v-autocomplete>
+
+             </v-col>
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
             <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
-            <v-btn color="blue darken-1" :disabled="!selectedItem" text @click="saveDialog">Save</v-btn>
+            <v-btn color="blue darken-1"  text @click="saveDialog">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -38,7 +57,10 @@ export default {
       tempName: "",
       tempEmail: "",
       selectedItem: undefined,
-      escalationList: []
+      escalationList: [],
+      level:["1","2","3"],
+      selectedLevel:"Select",
+      email:""
     };
   },
   props: {
@@ -54,15 +76,15 @@ export default {
     // }
   },
   watch: {
-    showEmailDialog() {
-      if (this.showEmailDialog) {
-        this.$store
-          .dispatch("userModule/getAllEsclationManagers", {})
-          .then(response => {
-            this.escalationList = response.result;
-          });
-      }
-    }
+    // showEmailDialog() {
+    //   if (this.showEmailDialog) {
+    //   //   this.$store
+    //   //     .dispatch("userModule/getAllEsclationManagers", {})
+    //   //     .then(response => {
+    //   //       this.escalationList = response.result;
+    //   //     });
+    //   // }
+    // }
   },
   methods: {
     closeDialog() {
@@ -75,7 +97,7 @@ export default {
     saveDialog() {
       this.$emit(
         "saveEsclationData",
-        JSON.parse(JSON.stringify(this.selectedItem))
+        JSON.parse(JSON.stringify(this.editEsclationData))
       );
       setTimeout(() => {
         this.selectedItem = undefined;

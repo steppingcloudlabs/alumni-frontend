@@ -1,5 +1,5 @@
 <template>
-  <div class="events" style="width: 95%; overflow-y: auto; height: 450px">
+  <div class="events" style="width: 95%;  height: 550px">
     <v-card-title style="color: white; text-align: center"
       >Upcoming Events</v-card-title
     >
@@ -22,12 +22,14 @@
           </div>
         </v-card>
       </v-col>
+      <div style="margin-bottom:30px!important">
       <pagination
         :next="next"
         :prev="prev"
         :totalLength="pagination.TOTALPAGES"
         @pageClicked="pageClicked"
       ></pagination>
+      </div>
     </div>
     <div v-else>
       <p class="white--text text-center">
@@ -130,7 +132,8 @@ export default {
   },
   methods: {
     pageClicked(data) {
-      this.getEvents(data);
+      let lim=(data-1)*2
+      this.getEvents(2,lim);
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
@@ -160,13 +163,13 @@ export default {
         });
     },
     next() {
-      this.pagination.LIMIT += 3;
+      this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
-      this.pagination.LIMIT -= 3;
+      this.pagination.LIMIT -= 0;
        this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },

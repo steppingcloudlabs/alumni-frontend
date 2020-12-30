@@ -524,7 +524,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/user/action/search/maps/userids/get',
+                    url: burl+'/search/maps/userids/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -843,6 +843,50 @@ export default {
                         "Authorization":"Bearer " + data.token
                     },
                     data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        addSkill: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+"/user/action/skills/create",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        deleteSkill: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+"/user/action/skills/delete",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data:data
                 }).then((response) => {
                     resolve(response.data)
                 }).catch((error) => {

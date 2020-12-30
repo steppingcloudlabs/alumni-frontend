@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card class="mx-auto">
+      <v-card class="mx-auto" style="margin-top:25px!important">
         <v-toolbar class="mb-5">
           <v-toolbar-title class="ml-5">FAQs</v-toolbar-title>
           <div class="flex-grow-1"></div>

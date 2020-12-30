@@ -104,7 +104,8 @@ export default {
   },
   methods: {
       pageClicked(data) {
-      this.getNews(data);
+        let lim=(data-1)*3
+      this.getNews(3,lim);
     },
     setSelectedNews(item) {
       this.selectedNews = item;

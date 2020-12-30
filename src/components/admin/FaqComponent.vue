@@ -45,7 +45,8 @@ export default {
   },
   methods: {
      pageClicked(data) {
-      this.getFAQs(data);
+       let lim=(data-1)*3
+      this.getFAQs(3,lim);
     },
     setSelectedFAQ(item) {
       this.selectedFAQ = item;

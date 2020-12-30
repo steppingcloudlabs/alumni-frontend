@@ -153,8 +153,8 @@
                   class="body-1 mr-2 ml-2 mt-4"
                   style="margin-top: 10px"
                   close
-                  @click:close="deleteskill(i)"
-                  >{{ item }}</v-chip
+                  @click:close="deleteskill(item,i)"
+                  >{{ item.SKILL }}</v-chip
                 >
               </div>
               <div v-else>
@@ -293,7 +293,7 @@
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top: 2px !important; color: #181818"
-                  >{{ user.relieving }}</v-card-text
+                  >{{ user.lastworking}}</v-card-text
                 >
               </v-flex>
             </v-layout>
@@ -476,7 +476,7 @@ export default {
       status2: false,
       dialog: false,
       SKILL: "",
-      skilled: ["hello", "testing", "python", "ruby"],
+      skilled: [],
       skills: [],
       user: {
         username: "",
@@ -579,21 +579,22 @@ export default {
       });
       console.log(this.filteredArray);
     },
-    deleteskill(data) {
-      let tempskill = JSON.parse(JSON.stringify(this.userskills));
-      let vm = this;
-      tempskill.splice(data, 1);
-      let index = data;
+    deleteskill(data,i) {
+       let tempskill = JSON.parse(JSON.stringify(this.userskills));
+        
+         tempskill.splice(i, 1);
+     // let index = data;
       // this.user.skills.splice(data, 1);
       let datam = {
         payload: {
           USER_ID: this.user.employeeId,
-          SKILL: tempskill,
-        },
+          ID: data.ID,
+        }
       };
       console.log(data);
-      this.$store.dispatch("userModule/updateData", datam).then((response) => {
-        if (response.data.status == 200) {
+       let vm = this;
+      this.$store.dispatch("userModule/deleteSkill", datam).then((response) => {
+        if (response.status == 200) {
           // this.user.skills.splice(index, 1);
           this.$store.commit("showSnackbar", {
             message: "SKILL deleted successfully",
@@ -601,56 +602,37 @@ export default {
             heading: "Success",
             duration: 3000,
           });
-          this.userskills = tempskill;
+          vm.userskills = tempskill;
+         
         }
 
         this.SKILL = "";
       });
     },
 
-    addskill() {
-      if (this.userskills.length) {
-        this.recommendedskill();
-      }
-
-      console.log(this.SKILL);
-      this.showskill = true;
-      if (!this.SKILL.trim()) {
-        this.showskill = true;
-      } else {
-        let skillExists = this.userskills.filter((item) => {
-          if (item.toLowerCase() == this.SKILL.toLowerCase()) {
-            return true;
-          }
-          return false;
-        });
-        if (skillExists.length < 1) {
-          let tempskill = JSON.parse(JSON.stringify(this.userskills));
-          tempskill.push(this.SKILL);
+    addskill() { 
+       let vm = this;   
           let data = {
             payload: {
-              USER_ID: this.user.employeeId,
-              SKILL: tempskill,
+              USERID: this.user.employeeId,
+              SKILL: this.SKILL,
             },
           };
-          console.log(data);
-          this.$store
-            .dispatch("userModule/updateData", data)
-            .then((response) => {
-              if (response.data.status == 200) {
-                this.userskills.push(this.SKILL);
-                this.$store.commit("showSnackbar", {
-                  message: "SKILL added successfully",
-                  color: "success",
-                  heading: "Success",
-                  duration: 3000,
-                });
-              }
-
-              this.SKILL = "";
-            });
+        this.$store.dispatch("userModule/addSkill", data).then((response) => {
+        if (response.status == 200) {
+          vm.showskill=true
+           vm.userskills.push(response.result)
+          this.$store.commit("showSnackbar", {
+            message: "Skill updated successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+         
+          //this.user.linkedInlinkProfileLink = data;
         }
-      }
+      });
+
     },
     initializeUserData() {
       this.user.position = this.userData.DESIGNATION_JOB_INFORMATION;

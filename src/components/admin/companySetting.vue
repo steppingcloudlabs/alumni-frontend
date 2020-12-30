@@ -44,7 +44,7 @@ export default {
       showskill: true,
       showDialog: false,
       selectedEsclation: {},
-      escalationManagerList: [{}, {}, {}],
+      escalationManagerList: [],
       renderManagerComponent: false,
       selectedIndex: undefined,
       escalationList: [],
@@ -82,12 +82,12 @@ export default {
     },
     addManagerDialog(data) {
       this.showDialog = true;
-      this.selectedIndex = data;
+      this.selectedEsclation = data;
     },
     showDeleteDialog(index) {
       let data = {
         payload: {
-          level: this.escalationManagerList[index].level,
+          EMAIL: index.EMAIL,
         },
       };
       this.$store.commit("showDeleteDialog", {
@@ -95,19 +95,16 @@ export default {
         commitToCall: undefined,
         deleteActionToDispatch: "removeEscalationManager",
       });
+      let ind = this.escalationManagerList.findIndex(
+        (i) => i.EMAIL === index.EMAIL
+      );
+      this.escalationManagerList.splice(ind, 1);
     },
     getMangerList() {
       this.$store.dispatch("adminModule/getMangerList", {}).then((response) => {
         if (response && response.data && response.data.result) {
           for (let i = 0; i < response.data.result.length; i++) {
-            let level = response.data.result[i].level.charAt(
-              response.data.result[i].level.length - 1
-            );
-            this.escalationManagerList[parseInt(level) - 1] =
-              response.data.result[i];
-            this.escalationList.push(
-              response.data.result[i].esclation_manager_id
-            );
+            this.escalationManagerList[i] = response.data.result[i];
           }
         }
         this.escalationManagerList = JSON.parse(
@@ -120,8 +117,9 @@ export default {
     saveEsclationData(managerId) {
       let data = {
         payload: {
-          new_manager_obejctid: managerId,
-          level: "esclation_manager_" + (this.selectedIndex + 1),
+          EMAIL: managerId.EMAIL,
+          LEVELMANAGER: managerId.LEVELMANAGER,
+          ID: managerId.ID ? managerId.ID : undefined,
         },
       };
       this.$store

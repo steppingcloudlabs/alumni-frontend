@@ -154,7 +154,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
-                      v-model="alumni.date_of_relieving"
+                      v-model="alumni.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD"
                       label="Relieving Date"
                       prepend-icon="event"
                       readonly
@@ -165,7 +165,7 @@
                   </template>
                   <v-date-picker
                     class="picker"
-                    v-model="alumni.date_of_relieving"
+                    v-model="alumni.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD"
                     @input="menu_relieving = false"
                     :max="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
@@ -246,13 +246,12 @@ export default {
           USER_ID: alumniData.USER_ID,
           ID:alumniData.ID ? alumniData.ID : undefined,
           NATIONALITY_PERSONAL_INFORMATION: "IND",
-          salutation_personal_information:
-            alumniData.salutation_personal_information,
+          SALUTATION_PERSONAL_INFORMATION:
+            alumniData.SALUTATION_PERSONAL_INFORMATION,
           CITY_ADDRESSES: alumniData.CITY_ADDRESSES,
           ADDRESS: alumniData.ADDRESS,
           STATE: alumniData.STATE,
-          PHONE_NUMBER_PHONE_INFORMATION:
-            alumniData.PHONE_NUMBER_PHONE_INFORMATION,
+          PHONE_NUMBER_PHONE_INFORMATION:alumniData.PHONE_NUMBER_PHONE_INFORMATION,
           MANAGER_JOB_INFORMATION: alumniData.MANAGER_JOB_INFORMATION,
           DESIGNATION_JOB_INFORMATION: alumniData.DESIGNATION_JOB_INFORMATION,
           FIRST_NAME_PERSONAL_INFORMATION:
@@ -262,7 +261,7 @@ export default {
           DATE_OF_RESIGNATION: moment(alumniData.DATE_OF_RESIGNATION).format("x").toString(),
          // DATE_OF_RESIGNATION: DATE_OF_RESIGNATION.toString(),
           PERSONAL_EMAIL_ID: alumniData.PERSONAL_EMAIL_ID,
-         DATE_OF_RELIEVING:moment(alumniData.date_of_relieving).format("x").toString(),
+        LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD:moment(alumniData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD).format("x").toString(),
          
          // DATE_OF_RELIEVING:DATE_OF_RELIEVING.toString(),
           DATE_OF_BIRTH:moment(alumniData.DATE_OF_BIRTH).format("x").toString(),

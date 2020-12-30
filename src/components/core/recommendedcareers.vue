@@ -1,8 +1,8 @@
 <template>
   <v-layout row wrap style="margin-left: unset" v-if="getjobs.length">
-    <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
+    <v-flex xs12 class="pl-3 pt-5" v-for="(item, i) in getjobs" :key="i">
       <v-hover v-slot:default="{ hover }">
-        <v-card class="job_class" :elevation="hover ? 24 : 1" min-height="100px">
+        <v-card class="job_class" :elevation="hover ? 24 : 1" min-height="100px" style="margin-top:15px !important">
               <v-card-title style="color: #232b2b">{{item.JOBTITLE}}</v-card-title>
               <v-layout row wrap style="margin-left: unset">
                     <v-card-text>
@@ -49,7 +49,7 @@
         </v-card>
       </v-hover>
     </v-flex>
-    <v-flex xs12 >
+    <v-flex xs12  style="margin-top:35px!important">
        <p class="text-center">
           <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
        </p>
