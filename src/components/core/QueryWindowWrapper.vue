@@ -80,6 +80,7 @@ export default {
     },
   },
   beforeMount() {
+    this.getQueryList();
     var oNewElement = document.createElement("script");
     oNewElement.setAttribute("id", "cai-webchat");
     oNewElement.setAttribute(
@@ -96,7 +97,7 @@ export default {
     document.body.appendChild(oNewElement);
     let elem=document.getElementById("cai-webchat-div")
     elem.style.visibility="visible"
-    this.getQueryList();
+    
   },
 
   beforeDestroy() {
