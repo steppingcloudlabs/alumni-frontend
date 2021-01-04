@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-window v-model="queryModel" reverse >
+      <v-window v-model="queryModel" reverse>
         <v-window-item key="queryList">
           <UserQueryList
             :queryList="queryList"
@@ -19,17 +19,17 @@
         </v-window-item>
       </v-window>
     </v-flex>
-    <v-flex xs12>
+    <!-- <v-flex xs12>
       <Contact
         :dialog="dialog"
         :Showemail="emailDailog"
         @closeAskHrDialog="closeAskHrDialog"
         @updateQueryList="getQueryList"
       />
-    </v-flex>
+    </v-flex> -->
     <v-tooltip top>
       <template v-slot:activator="{}">
-        <v-btn
+        <!-- <v-btn
           @click="dialog = true"
           style="position: fixed; bottom: 20px"
           large
@@ -43,9 +43,9 @@
           class="mb-5"
         >
           <v-icon>mdi-wechat</v-icon>
-        </v-btn>
+        </v-btn> -->
       </template>
-      <span>Raise Concern</span>
+      <!-- <span>Raise Concern</span> -->
     </v-tooltip>
   </v-layout>
 </template>
@@ -53,7 +53,8 @@
 import UserQueryList from "@/components/core/UserQueryList";
 import QueryDescription from "@/components/core/QueryDescription";
 import Contact from "@/components/core/contactHR";
-import { getObjectId, getAlumniId } from "@/utils/utils";
+import { getObjectId, getAlumniId, addTokenToPayload } from "@/utils/utils";
+//import chatbot from "@/utils/chatbot.js"
 
 export default {
   name: "QueryWindowWrapper",
@@ -65,7 +66,7 @@ export default {
       queryList: [],
       dialog: false,
       emailDailog: false,
-      messages:[]
+      messages: [],
     };
   },
   components: {
@@ -79,8 +80,50 @@ export default {
     },
   },
   beforeMount() {
+    var oNewElement = document.createElement("script");
+    oNewElement.setAttribute("id", "cai-webchat");
+    oNewElement.setAttribute(
+      "src",
+      "https://cdn.cai.tools.sap/webchat/webchat.js"
+    );
+    oNewElement.setAttribute(
+      "channelId",
+      "4abb2532-7622-4d0c-810f-0af40d4c3400"
+    );
+    oNewElement.setAttribute("token", "1a464d7c4851cadce92db7604ab7fe65");
+    //	oNewElement.setAttribute("data-expander-type", "CAI");
+    //	oNewElement.setAttribute("data-expander-preferences", "JTdCJTIyZXhwYW5kZXJMb2dvJTIyJTNBJTIyaHR0cHMlM0ElMkYlMkZjZG4uY2FpLnRvb2xzLnNhcCUyRndlYmNoYXQlMkZ3ZWJjaGF0LWxvZ28uc3ZnJTIyJTJDJTIyZXhwYW5kZXJUaXRsZSUyMiUzQSUyMkNoYXQhISUyMiUyQyUyMm9uYm9hcmRpbmdNZXNzYWdlJTIyJTNBJTIyJTIyJTJDJTIyb3BlbmluZ1R5cGUlMjIlM0ElMjJuZXZlciUyMiUyQyUyMnRoZW1lJTIyJTNBJTIyREVGQVVMVCUyMiU3RA==");
+    document.body.appendChild(oNewElement);
+    let elem=document.getElementById("cai-webchat-div")
+    elem.style.visibility="visible"
     this.getQueryList();
   },
+
+  beforeDestroy() {
+    const recaptchaScripts = document.querySelectorAll(
+      'script[src^="https://cdn.cai.tools.sap/webchat/webchat.js"]'
+    );
+    for (let i = 0; i < recaptchaScripts.length; i += 1) {
+        recaptchaScripts[i].parentElement.removeChild(recaptchaScripts[i]);
+    }
+    let elem=document.getElementById("cai-webchat-div")
+    elem.style.visibility="Hidden"
+   // document.removeChild(recaptchaScripts[0]);
+  },
+
+  mounted() {
+    let tok = [];
+    addTokenToPayload(tok);
+    //window.sapcai = {};
+    //window.sapcai.webclientBridge = {};
+    window.webchatMethods = {
+      getMemory: (conversationId) => {
+        const memory = { userId: getAlumniId(), token: "Bearer " + tok.token };
+        return { memory, merge: true };
+      },
+    };
+  },
+
   methods: {
     getAllMessages(id) {
       let message = {
@@ -116,18 +159,17 @@ export default {
       this.queryModel = 1;
 
       this.selectedQueryItem = JSON.parse(JSON.stringify(data.messageObj));
-      this.getAllMessages(this.selectedQueryItem.ID)
+      this.getAllMessages(this.selectedQueryItem.ID);
       this.selectedIndex = data.messageIndex;
-      
     },
     backToList(item) {
       this.queryModel = 0;
     },
     newMessageAdded(messageObj) {
-      console.log("messageadded")
-    //  this.queryList[this.selectedIndex] = this.selectedQueryItem.message.push(
-     //   messageObj.messageObj
-     // );
+      console.log("messageadded");
+      //  this.queryList[this.selectedIndex] = this.selectedQueryItem.message.push(
+      //   messageObj.messageObj
+      // );
       this.$nextTick(() => {
         this.scrollBottom();
       });
