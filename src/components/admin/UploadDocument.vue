@@ -68,7 +68,7 @@ export default {
   beforeMount() {
     this.limit = 9;
     this.loader = true;
-    this.getAlumni(3,0)
+    this.getAlumni(10,0)
   },
   computed: {
     getAlumniList: {
@@ -82,7 +82,9 @@ export default {
   },
   methods: {
     pageClicked(data) {
-      this.getAlumni(data);
+         let lim=(data-1)*10
+      this.getAlumni(10,lim);
+     // this.getAlumni(data);
     },
     setSelectedAlumni(item) {
       this.selectedAlumni = item;
@@ -112,13 +114,13 @@ export default {
         });
     },
     next() {
-      this.pagination.LIMIT += 3;
+      this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
       this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
-      this.pagination.LIMIT -= 3;
+      this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
     },
@@ -153,7 +155,7 @@ export default {
   data() {
     return {
        pagination: {
-        LIMIT: 2,
+        LIMIT: 10,
         OFFSET: 0,
         TOTALPAGES:0
       },  

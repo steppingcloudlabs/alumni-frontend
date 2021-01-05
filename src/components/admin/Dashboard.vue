@@ -109,15 +109,15 @@ export default {
     this.limit = 10;
     this.skip = 0;
     this.loader = true;
-    this.getAlumni(3,0)
+    this.getAlumni(10,0)
   },
   destroyed() {
     this.$store.commit("adminModule/setAlumniList", []);
   },
   methods: {
      pageClicked(data) {
-       let lim=data*3
-      this.getAlumni(3,lim);
+       let lim=(data-1)*10
+      this.getAlumni(10,lim);
     },
     setSelectedAlumni(item) {
       this.selectedAlumni = item;
@@ -147,13 +147,13 @@ export default {
         });
     },
     next() {
-      this.pagination.LIMIT += 3;
+      this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
       this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
-      this.pagination.LIMIT -= 3;
+      this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
     },
@@ -230,6 +230,11 @@ export default {
   },
   data() {
     return {
+      pagination: {
+        LIMIT: 2,
+        OFFSET: 0,
+        TOTALPAGES:0
+      },
       initial: false,
       skip: 0,
       showMore: true,

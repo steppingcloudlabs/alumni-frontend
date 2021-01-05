@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card class="pt-5" style="margin-top: 15px!important">
+      <v-card class="pt-5" style="margin-top: 15px !important">
         <v-layout row wrap ma-0>
           <v-flex xs6>
             <div>
@@ -121,12 +121,11 @@
                 <v-combobox
                   v-if="!showskill"
                   v-model="SKILL"
-                  :items="skilled"
-                  append-icon="add"
+                 
                   style="margin-top: -15px"
-                  @keyup.enter.native="addskill()"
+                  @keyup.enter.native="addskill(SKILL)"
                   @keydown.esc="showskill = true"
-                  @click:append="addskill()"
+                 
                   label="Add SKILL"
                   hide-details
                   hide-selected
@@ -153,7 +152,7 @@
                   class="body-1 mr-2 ml-2 mt-4"
                   style="margin-top: 10px"
                   close
-                  @click:close="deleteskill(item,i)"
+                  @click:close="deleteskill(item, i)"
                   >{{ item.SKILL }}</v-chip
                 >
               </div>
@@ -225,7 +224,7 @@
       </v-card>
     </v-flex>
     <v-flex xs12>
-      <v-card class="mt-2" style="margin-top: 25px!important">
+      <v-card class="mt-2" style="margin-top: 25px !important">
         <v-layout row wrap>
           <v-flex xs6 pr-5>
             <v-card-title
@@ -293,7 +292,7 @@
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top: 2px !important; color: #181818"
-                  >{{ user.lastworking}}</v-card-text
+                  >{{ user.lastworking }}</v-card-text
                 >
               </v-flex>
             </v-layout>
@@ -446,7 +445,7 @@
               </v-card-text>
             </v-card>
           </v-flex> -->
-        <!-- </v-layout>
+    <!-- </v-layout>
       </v-card>
     </v-flex> -->
   </v-layout>
@@ -579,20 +578,20 @@ export default {
       });
       console.log(this.filteredArray);
     },
-    deleteskill(data,i) {
-       let tempskill = JSON.parse(JSON.stringify(this.userskills));
-        
-         tempskill.splice(i, 1);
-     // let index = data;
+    deleteskill(data, i) {
+      let tempskill = JSON.parse(JSON.stringify(this.userskills));
+
+      tempskill.splice(i, 1);
+      // let index = data;
       // this.user.skills.splice(data, 1);
       let datam = {
         payload: {
           USER_ID: this.user.employeeId,
           ID: data.ID,
-        }
+        },
       };
       console.log(data);
-       let vm = this;
+      let vm = this;
       this.$store.dispatch("userModule/deleteSkill", datam).then((response) => {
         if (response.status == 200) {
           // this.user.skills.splice(index, 1);
@@ -603,36 +602,35 @@ export default {
             duration: 3000,
           });
           vm.userskills = tempskill;
-         
+          this.$store.commit("userModule/updateskillData", tempskill);
         }
 
         this.SKILL = "";
       });
     },
 
-    addskill() { 
-       let vm = this;   
-          let data = {
-            payload: {
-              USERID: this.user.employeeId,
-              SKILL: this.SKILL,
-            },
-          };
-        this.$store.dispatch("userModule/addSkill", data).then((response) => {
+    addskill(item) {
+      let vm = this;
+      let data = {
+        payload: {
+          USERID: this.user.employeeId,
+          SKILL: this.SKILL,
+        },
+      };
+      this.$store.dispatch("userModule/addSkill", data).then((response) => {
         if (response.status == 200) {
-          vm.showskill=true
-           vm.userskills.push(response.result)
+          vm.showskill = true;
+          vm.userskills.push(response.result);
           this.$store.commit("showSnackbar", {
             message: "Skill updated successfully",
             color: "success",
             heading: "Success",
             duration: 3000,
           });
-         
+          this.$store.commit("userModule/updateskillData", vm.userskills);
           //this.user.linkedInlinkProfileLink = data;
         }
       });
-
     },
     initializeUserData() {
       this.user.position = this.userData.DESIGNATION_JOB_INFORMATION;

@@ -126,6 +126,13 @@ export default {
          state.userData.LINKEDIN=data
          state.userData = JSON.parse(JSON.stringify(state.userData))
         },
+        
+        updateskillData:(state,data)=>
+        {
+         state.userData.SKILL=data
+         state.userData = JSON.parse(JSON.stringify(state.userData))
+        },
+
         savedUserObjectId: (state, data) => {
             state.userObejctId = data
         }
@@ -356,7 +363,13 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    if (response && response.data.status && response.data.status == 200) {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else if (response && response.data.status && response.data.status == 200) {
                         commit('setData', response.data.result[0])
                         // commit('setSearchData', response.data.result)
                         resolve(response.data)
@@ -385,7 +398,13 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    if (response && response.data.status && response.data.status == 200) {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else if (response && response.data.status && response.data.status == 200) {
                         // commit('setData', response.data.result)
                         commit('setSearchData', response.data.result)
                         resolve(response.data)
@@ -760,7 +779,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -782,7 +809,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -823,7 +858,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -844,7 +887,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -866,7 +917,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -888,7 +947,15 @@ export default {
                     },
                     data:data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })

@@ -7,6 +7,19 @@
       class="mr-5 mb-2"
       style="background: rgb(241, 135, 16)"
     ></v-divider>
+    <div v-if="showeventBar==true" >
+      <v-layout style="margin-top:25%">
+        <v-flex xs5>
+        </v-flex>
+          <v-flex xs5>
+             <v-progress-circular class="text--center" color="orange" indeterminate size="44"></v-progress-circular>
+        </v-flex>
+   
+      <v-flex xs2>
+        </v-flex>
+      </v-layout>
+    </div>
+    <div v-else>
     <div v-if="getEventList.length">
       <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
         <v-card>
@@ -41,6 +54,7 @@
           src="@/assets/waiting.gif"
         ></v-img>
       </p>
+    </div>
     </div>
     <!--     
     <div class="events-group-container">
@@ -140,12 +154,16 @@ export default {
       this.showMore = true;
     },
     getEvents(limit, offset) {
+      // this.$store.commit("showProgressBar", {});
+      this.showeventBar=true
       let vm=this
       this.$store
         .dispatch("userModule/getAllEvent", {
           payload: { limit: limit, offset: offset },
         })
         .then((response) => {
+          // this.$store.commit("closeProgressBar", {});
+          this.showeventBar=false
           if (response.data.result.length > 0) {
             vm.empty = false;
            
@@ -195,6 +213,7 @@ export default {
 
   data() {
     return {
+      showeventBar:false,
       model: {},
       pagination: {
         LIMIT: 2,

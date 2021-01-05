@@ -25,7 +25,7 @@
       min-height="100%"
       width="100%"
       class="ma-0 pa-0"
-      style="margin-left: auto; margin-right: auto"
+     
     >
       <v-img
         height="200px"
@@ -37,7 +37,7 @@
           style="margin-left:3%; margin-top:1%; color:white"
           >Search Jobs</v-card-title>
         <p class="text--center">
-          <v-layout style="margin-left: auto; margin-right: auto">
+          <v-layout >
             <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
               <v-text-field
                 v-model="search.SKILL"
@@ -92,6 +92,7 @@
               class="job_class"
               :elevation="hover ? 24 : 1"
               min-height="150px"
+              style="margin-top:1%"
             >
               <v-card-title style="color: #232b2b">{{
                 item.JOBTITLE
@@ -269,7 +270,7 @@ export default {
 .v-data-table {
   border-top: "none";
 }
-.v-application--is-ltr .v-responsive__sizer~.v-responsive__content {
-    margin-left:3% !important;
-}
+/* .v-application--is-ltr .v-responsive__sizer~.v-responsive__content {
+    margin-left:0% !important;
+} */
 </style>

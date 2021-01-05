@@ -284,7 +284,7 @@ export default {
           if (response.data.status == 200) {
             this.$store.commit(
               "adminModule/addNewAlumniToList",
-              JSON.parse(JSON.stringify(data))
+              JSON.parse(JSON.stringify(data.payload))
             );
           //  this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
             this.$store.commit("showSnackbar", {

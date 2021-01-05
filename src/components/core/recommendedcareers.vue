@@ -1,4 +1,18 @@
 <template>
+ <div>
+     <div v-if="showjobBar==true" >
+      <v-layout style="margin-top:25%">
+        <v-flex xs5>
+        </v-flex>
+          <v-flex xs5>
+             <v-progress-circular class="text--center" color="orange" indeterminate size="44"></v-progress-circular>
+        </v-flex>
+   
+      <v-flex xs2>
+        </v-flex>
+      </v-layout>
+    </div>
+    <div v-else> 
   <v-layout row wrap style="margin-left: unset" v-if="getjobs.length">
     <v-flex xs12 class="pl-3 pt-5" v-for="(item, i) in getjobs" :key="i">
       <v-hover v-slot:default="{ hover }">
@@ -67,6 +81,8 @@
       ></v-img>
     </p>
   </div>
+    </div>
+ </div>
 </template>
 
 <script>
@@ -80,6 +96,7 @@ export default {
     pagination
   },
   beforeMount() { 
+    this.showjobBar=true
     this.jobData(3,0);
   },
   destroyed() {
@@ -118,6 +135,7 @@ export default {
       console.log(this.getjobs.length);
        this.$store.dispatch("userModule/recommendedJob", { payload: { limit:limit,offset:offset,userId:userId } }).then((response) => {
         if (response.status == 200) {
+          this.showjobBar=false
           this.showLoader = false;
           this.pagination=response.data.pagination 
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )
@@ -143,6 +161,7 @@ export default {
   },
   data() {
     return {
+      showjobBar:false,
        pagination:{
         LIMIT:3,
         OFFSET:0,

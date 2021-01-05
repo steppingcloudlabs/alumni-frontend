@@ -1054,7 +1054,15 @@ export default {
                         commitToCall: data.commitToCall
                     }
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -1170,7 +1178,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -1191,7 +1207,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -1212,7 +1236,15 @@ export default {
                     },
                     data: data
                 }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
                     resolve(response.data)
+                    }
                 }).catch((error) => {
                     reject(error)
                 })
@@ -1234,7 +1266,13 @@ export default {
                     },
                     data: data
                 }).then((response) => {
-                    if (response && response.data.status && response.data.status == 200) {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
                         // commit('setData', response.data.result)
                         commit('setAlumniList', response.data.result)
                         resolve(response.data)

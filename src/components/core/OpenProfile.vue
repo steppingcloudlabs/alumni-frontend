@@ -1,12 +1,21 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card class="pt-5">
+      <v-card class="pt-5" style="margin-top:20px!important">
         <v-layout row wrap ma-0>
           <v-flex xs12>
             <div>
               <p class="text-center">
-                <img
+                <img v-if="user.photo"
+                  class="img"
+                  :src="user.photo"
+                  style="
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    width: 200px;
+                  "
+                />
+                 <img v-else
                   class="img"
                   src="@/assets/avatar/download.jpg"
                   style="
@@ -255,6 +264,7 @@ export default {
     };
   },
   beforeMount() {
+    this.$store.commit("showProgressBar", {});
     console.log(this.$route.params.userId);
     if (!this.userData) {
       let data = {
@@ -265,6 +275,7 @@ export default {
       this.$store
         .dispatch("userModule/getSearchAlumniById", data)
         .then((response) => {
+          this.$store.commit("closeProgressBar", {});
           this.initializeUserData();
         });
     } else if (this.userData.USER_ID != this.$route.params.userId) {
@@ -276,9 +287,11 @@ export default {
       this.$store
         .dispatch("userModule/getSearchAlumniById", data)
         .then((response) => {
+           this.$store.commit("closeProgressBar", {});
           this.initializeUserData();
         });
     } else {
+       this.$store.commit("closeProgressBar", {});
       this.initializeUserData();
     }
   },
@@ -344,6 +357,7 @@ export default {
       // this.user.mobile = this.userData.PHONE_NUMBER_PHONE_INFORMATION;
       //  this.userskills = this.userData[0].SKILL;
       this.linkedInlinkProfileLink = this.userData[0].LINKEDIN;
+      this.user.photo=this.userData[0].PROFILEIMAGE
     },
   },
 };

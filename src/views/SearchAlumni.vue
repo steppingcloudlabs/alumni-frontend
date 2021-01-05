@@ -77,13 +77,13 @@ export default {
       this.isLoading = true;
       let data = {
         payload: {
-          keyword: val,
+          userid: val,
         },
       };
       this.$store
-        .dispatch("adminModule/getAllAlumni", data)
+        .dispatch("userModule/getSearchAlumniById", data)
         .then((response) => {
-          this.alumniList = response.data.result;
+          this.alumniList = response.result;
 
           console.log(this.alumniList);
         })

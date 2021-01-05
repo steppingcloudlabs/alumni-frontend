@@ -59,6 +59,7 @@ export default {
     };
   },
   beforeMount() {
+     this.$store.commit("showProgressBar", {});
     this.getAlumniData();
     this.getStatus();
   },
