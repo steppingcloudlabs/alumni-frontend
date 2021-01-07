@@ -74,6 +74,10 @@ export default {
       if (this.isLoading) {
         return;
       }
+      if(val.length<4)
+      {
+        return;
+      }
       this.isLoading = true;
       let data = {
         payload: {

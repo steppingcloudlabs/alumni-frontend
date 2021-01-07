@@ -115,19 +115,20 @@ export default {
   methods: {
     pageClicked(data)
     {
-      this.jobData(data)
+       let lim=(data-1)*3
+      this.jobData(3,lim)
     },
     next()
     {
-      this.pagination.LIMIT+=3
-      this.pagination.OFFSET+=1
+      this.pagination.LIMIT+=0
+      this.pagination.OFFSET+=this.pagination.LIMIT;
       this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
     },
 
      prev()
     {
-      this.pagination.LIMIT-=3
-      this.pagination.OFFSET-=1
+      this.pagination.LIMIT-=0
+      this.pagination.OFFSET-=this.pagination.LIMIT;
       this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
     },
     jobData(limit,offset) {

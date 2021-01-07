@@ -232,7 +232,7 @@ export default {
       (this.search.country = null), (this.search.SKILL = null);
     },
     jobMoreData(limit,offset) {
-      
+      this.showLoader=true
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getSearchJob", { payload: { limit:limit,offset:offset,skill:this.search.SKILL,country:this.search.country } }).then((response) => {
         if (response.status == 200) {

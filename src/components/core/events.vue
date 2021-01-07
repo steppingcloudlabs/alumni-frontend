@@ -155,7 +155,11 @@ export default {
     },
     getEvents(limit, offset) {
       // this.$store.commit("showProgressBar", {});
-      this.showeventBar=true
+      if(this.iteration==1)
+      {
+          this.showeventBar=true
+      }
+     
       let vm=this
       this.$store
         .dispatch("userModule/getAllEvent", {
@@ -179,6 +183,7 @@ export default {
             vm.empty = true;
           }
         });
+        this.iteration+=1
     },
     next() {
       this.pagination.LIMIT += 0;
@@ -214,6 +219,7 @@ export default {
   data() {
     return {
       showeventBar:false,
+      iteration:1,
       model: {},
       pagination: {
         LIMIT: 2,
