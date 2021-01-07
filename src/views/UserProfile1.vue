@@ -611,6 +611,19 @@ export default {
 
     addskill(item) {
       let vm = this;
+      let index=this.userskills.findIndex((i)=>i.SKILL.toLowerCase()==item.toLowerCase())
+      if(index>-1)
+      {
+           this.$store.commit("showSnackbar", {
+            message: "Skill Already exist",
+            color: "warning",
+            heading: "Warning",
+            duration: 3000,
+          });
+          this.SKILL=""
+          this.showskill=true
+          return
+      }
       let data = {
         payload: {
           USERID: this.user.employeeId,
