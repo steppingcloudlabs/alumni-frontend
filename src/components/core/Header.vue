@@ -8,7 +8,8 @@
       ml-0
       align-center
       class="header-wrapper"
-      style="background:#1A1A1D"
+      :class="hasScrolled ? '' : 'header-transparent'"
+      
     >
       <v-flex xs5>
         <img src="@/assets/alumx-logo-1.png" height="50" class="my-2" />
@@ -55,6 +56,8 @@ export default {
   },
   data() {
     return {
+      scrollValue:0,
+      eligible:true,
       companyData: data,
       paths: [
         {
@@ -72,10 +75,37 @@ export default {
       ]
     };
   },
+  computed:{
+ 
+    hasScrolled()
+    {
+      if(this.$route.path=="/home")
+      {
+            return this.scrollValue>0? true : false
+      }
+      else
+      {
+        return true
+      }
+   
+    }
+  },
   created() {
+    window.addEventListener('scroll', this.handleScroll);
+
     console.log(this.$route);
   },
+  destroyed()
+  {
+  window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
+    handleScroll()
+    {
+      
+     this.scrollValue=window.pageYOffset
+     
+    },
     navtologin() {
       this.$router.push({ path: "/login" });
     },
@@ -99,6 +129,11 @@ export default {
   top: 0;
   width: 100%;
   z-index: 1009;
+  background: #1A265C;
+  padding-top: 2px;
+}
+.header-transparent{
+  background: transparent !important;
 }
 .menu-wrapper {
   height: 100%;
