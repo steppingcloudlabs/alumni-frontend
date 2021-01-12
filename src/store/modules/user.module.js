@@ -195,7 +195,7 @@ export default {
             dispatch
         }, data) => {
             //let pass = md5(data.password).toString()
-            let burl = baseurl()
+           let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',

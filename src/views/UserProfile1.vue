@@ -121,11 +121,9 @@
                 <v-combobox
                   v-if="!showskill"
                   v-model="SKILL"
-                 
                   style="margin-top: -15px"
                   @keyup.enter.native="addskill(SKILL)"
                   @keydown.esc="showskill = true"
-                 
                   label="Add SKILL"
                   hide-details
                   hide-selected
@@ -191,7 +189,7 @@
                   <v-card-text
                     class="body-1 py-1"
                     style="margin-top: 2px !important"
-                    >GENDER</v-card-text
+                    >Gender</v-card-text
                   >
                 </v-flex>
                 <v-flex xs7>
@@ -611,18 +609,19 @@ export default {
 
     addskill(item) {
       let vm = this;
-      let index=this.userskills.findIndex((i)=>i.SKILL.toLowerCase()==item.toLowerCase())
-      if(index>-1)
-      {
-           this.$store.commit("showSnackbar", {
-            message: "Skill Already exist",
-            color: "warning",
-            heading: "Warning",
-            duration: 3000,
-          });
-          this.SKILL=""
-          this.showskill=true
-          return
+      let index = this.userskills.findIndex(
+        (i) => i.SKILL.toLowerCase() == item.toLowerCase()
+      );
+      if (index > -1) {
+        this.$store.commit("showSnackbar", {
+          message: "Skill Already exist",
+          color: "warning",
+          heading: "Warning",
+          duration: 3000,
+        });
+        this.SKILL = "";
+        this.showskill = true;
+        return;
       }
       let data = {
         payload: {

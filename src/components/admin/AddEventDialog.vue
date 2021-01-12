@@ -172,23 +172,23 @@ export default {
           TITLE: eventData.TITLE,
           CONTENT: eventData.CONTENT,
           TAG: eventData.TITLE,
-          ID: eventData.ID? eventData.ID : null,
-          PHOTO:eventData.PHOTO,
+          ID: eventData.ID ? eventData.ID : undefined,
+          PHOTO: eventData.PHOTO,
           date: currDate,
         },
       };
       this.$store.dispatch("adminModule/addEvents", data).then((response) => {
         this.$store.commit("adminModule/showEventsProgress", {});
-          this.$store.commit(
-            "adminModule/addEventToList",
-            JSON.parse(JSON.stringify(response.data.result[0]))
-          );
-          this.$store.commit("showSnackbar", {
-            message: "Event added successfully",
-            color: "success",
-            heading: "Success",
-            duration: 3000,
-          });
+        this.$store.commit(
+          "adminModule/addEventToList",
+          JSON.parse(JSON.stringify(response.data.result[0]))
+        );
+        this.$store.commit("showSnackbar", {
+          message: "Event added successfully",
+          color: "success",
+          heading: "Success",
+          duration: 3000,
+        });
         // } else {
         //   this.$store.dispatch("adminModule/getAllEvent", { payload: {} });
         //   this.$store.commit("showSnackbar", {

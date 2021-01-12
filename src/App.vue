@@ -1,5 +1,6 @@
 <template>
-  <v-app style="background: rgb(35, 43, 43)">
+  <!-- <v-app style="background: rgb(35, 43, 43)"> -->
+    <v-app >
     <router-view></router-view>
     <SnackbarComponent></SnackbarComponent>
     <CommonDialogComponent></CommonDialogComponent>

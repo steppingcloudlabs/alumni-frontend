@@ -83,7 +83,7 @@
       <v-layout
         row
         wrap
-        style="margin-left: unset"
+        style="margin-left: unset; margin-top:5%"
         v-if="getjobs.length && !showLoader"
       >
         <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">

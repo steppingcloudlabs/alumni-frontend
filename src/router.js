@@ -22,6 +22,7 @@ import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 import companySetting from './components/admin/companySetting.vue'
 import searchProfile from './components/core/OpenProfile.vue'
+import upHome from "./components/updatedDesign/updatedHomepage.vue"
 Vue.use(Router)
 
 const router = new Router({
@@ -46,6 +47,15 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: signin
+      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+    },
+    {
+      path: '/test',
+      name: 'testing',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: upHome
       //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
     },
     {

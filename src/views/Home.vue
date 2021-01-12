@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header/>
     <div id="core-login">
       <router-view></router-view>
     </div>
@@ -21,7 +21,8 @@ export default {
 </script>
 <style>
 #core-login {
-  background-image: url("../assets/shutterstock/login1.jpg");
+  /* background-image: url("../assets/shutterstock/login1.jpg"); */
+  background-image: white;
   width: 100%;
   height: calc(100vh - 70px);
   background-size: cover;

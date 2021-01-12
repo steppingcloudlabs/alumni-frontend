@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 70px">
+  <div>
     <v-layout
       row
       wrap
