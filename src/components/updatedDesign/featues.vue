@@ -5,7 +5,7 @@
       </v-flex>
     <v-flex
       style="margin-top:1%"
-      xs4
+      xs12 sm4 md4 lg4 xl4
       class="pa-5"
       v-for="(card, i) in cards"
       :key="i"
@@ -22,8 +22,8 @@
        </v-card>
       
     </v-flex>
-    <v-flex xs12 style="text-align:center">
-          <v-btn x-large tile  color="orange" @click="navtologin" >LOG IN TO ALUMNI DASHBOARD</v-btn>
+    <v-flex xs12 sm12 md12 lg12 xl12 style="text-align:center">
+          <v-btn x-large tile  color="#E4BA18" @click="navtologin" >LOG IN TO ALUMNI DASHBOARD</v-btn>
     </v-flex>
   </v-layout>
 </template>

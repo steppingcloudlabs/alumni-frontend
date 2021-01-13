@@ -10,13 +10,13 @@
       <p class=" font-weight-bold"  style="margin:auto; font-size:25px">Message from Director's Desk</p>
     </v-card-title>
     <v-layout row wrap style="padding-top:3%;">
-      <v-flex xs4>
+      <v-flex xs4 sm4 md4 lg4 xl4>
         <div style="margin-left:18%;">
         <v-img  height="350px" width="300px" src="@/assets/director.jpg"></v-img>
       </div>
       </v-flex>
       
-      <v-flex xs8>
+      <v-flex xs8 sm8 md8 lg8 xl8>
         <v-card max-width="100%" elevation="0" color="transparent" style="margin-left:3%;margin-right:6%">
           <v-card-title >
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>

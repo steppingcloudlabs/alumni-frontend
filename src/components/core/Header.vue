@@ -184,7 +184,7 @@ li a:hover {
 }
 .active {
   /* background-color:  rgb(241,135,16); */
-  color: rgb(241, 135, 16) !important;
+  color:#E4BA18 !important;
   font-weight: 600;
 }
 </style>

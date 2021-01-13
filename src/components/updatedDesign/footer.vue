@@ -17,11 +17,11 @@
 
       <v-card-text class=" pt-0" style="color:black">
         <v-layout row wrap>
-            <v-flex xs6>
+            <v-flex xs6 sm6 md6 lg6 xl6>
                  <v-subheader class="text--center"> WHY JOIN US</v-subheader>
               
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs6 sm6 md6 lg6 xl6>
                         
                 <v-subheader style="text-align:center" >ADDRESS</v-subheader>
                 <li class="mb-5 ml-5" v-for="(item, i) in items" :key="i" style="text-align:left;list-style-type: none;">
