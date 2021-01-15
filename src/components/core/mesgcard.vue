@@ -11,8 +11,8 @@
     </v-card-title>
     <v-layout row wrap style="padding-top:3%;">
       <v-flex xs4 sm4 md4 lg4 xl4>
-        <div style="margin-left:18%;">
-        <v-img  height="350px" width="300px" src="@/assets/director.jpg"></v-img>
+        <div style="margin-left:18%; ">
+        <v-img  style="border-radius:10%" height="350px" width="300px" src="@/assets/director.jpg"></v-img>
       </div>
       </v-flex>
       

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height " fluid  >
+  <v-container class="fill-height login" fluid  >
     <v-row align="center" justify="center" style="margin-top:4%">
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12 white--text" style="background: rgb(0, 0, 0, .5); ">
@@ -207,6 +207,10 @@ export default {
 };
 </script>
 <style  >
+.login{
+   background-image: url("../assets/shutterstock/login1.jpg")!important;
+   background-size: cover;
+}
 a {
   text-decoration: none;
 }
@@ -221,4 +225,5 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: white !important;
 }
+
 </style>

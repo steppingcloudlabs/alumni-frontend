@@ -195,11 +195,11 @@ export default {
             dispatch
         }, data) => {
             //let pass = md5(data.password).toString()
-           let burl = baseurl()
+           //let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: burl + '/auth/login',
+                    url: '/auth/login',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -252,11 +252,11 @@ export default {
             dispatch
         }, data) => {
             //let pass = md5(data.password).toString()
-            let burl = baseurl()
+           // let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: burl + '/user/auth/signup',
+                    url: '/user/auth/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -280,11 +280,11 @@ export default {
             dispatch
         }, data) => {
             addTokenToPayload(data)
-            let burl=baseurl()
+           // let burl=baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/user/action/documents/get?USERID='+data.payload.userid+'&FILENAME='+data.payload.filename,
+                    url: '/user/action/documents/get?USERID='+data.payload.userid+'&FILENAME='+data.payload.filename,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -318,12 +318,12 @@ export default {
             state,
             commit,
         }, data) => {
-            let burl=baseurl()
+           // let burl=baseurl()
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: burl+'/user/action/userprofile/update',
+                    url: '/user/action/userprofile/update',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -351,11 +351,11 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-            let burl = baseurl()
+           // let burl = baseurl()
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/user/action/userprofile/get?USERID='+data.payload.userid,
+                    url:'/user/action/userprofile/get?USERID='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -391,7 +391,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/search/userprofile?QUERY='+data.payload.userid,
+                    url:'/search/userprofile?QUERY='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -429,7 +429,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: baseurl() +"/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url: "/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -465,12 +465,12 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-            let burl = baseurl()
+           // let burl = baseurl()
 
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+"/user/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url: "/user/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -500,7 +500,7 @@ export default {
             commit
         }, data) => {
             addTokenToPayload(data)
-            let burl = baseurl()
+           // let burl = baseurl()
             return new Promise((resolve, reject) => {
                 let limitURL = ""
                 if (data.payload.limit) {
@@ -508,7 +508,7 @@ export default {
                 }
                 axios({
                     method: 'GET',
-                    url: burl+"/user/action/faq/get" + limitURL,
+                    url: "/user/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -538,12 +538,12 @@ export default {
             state,
             commit
         }, data) => {
-            let burl=baseurl()
+           // let burl=baseurl()
             addTokenToPayload(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/search/maps/userids/get',
+                    url:'/search/maps/userids/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -570,42 +570,42 @@ export default {
         },
 
 
-        forgotPassword: ({
-            state,
-            commit
-        }, data) => {
-            // addTokenToPayload(data)
-            return new Promise((resolve, reject) => {
-                axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/user/forgetpassword',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    data: data
-                }).then((response) => {
-                    resolve(response)
+        // forgotPassword: ({
+        //     state,
+        //     commit
+        // }, data) => {
+        //     // addTokenToPayload(data)
+        //     return new Promise((resolve, reject) => {
+        //         axios({
+        //             method: 'POST',
+        //             url: 'https://api.steppingcloud.com/user/forgetpassword',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             data: data
+        //         }).then((response) => {
+        //             resolve(response)
 
-                    console.log(response)
-                }).catch((error) => {
-                    reject(error)
-                })
+        //             console.log(response)
+        //         }).catch((error) => {
+        //             reject(error)
+        //         })
 
-            })
-        },
+        //     })
+        // },
 
         getStatus: ({
             state,
             commit,
         }, data) => {
-            let burl=baseurl()
+           // let burl=baseurl()
             addTokenToPayload(data)
             console.log(data)
 
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/admin/action/documents/status?USERID='+data.payload.userid,
+                    url:'/admin/action/documents/status?USERID='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -633,12 +633,12 @@ export default {
         }, data) => {
             var data1
             addTokenToPayload(data)
-            let burl=baseurl()
+            //let burl=baseurl()
             console.log(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/user/action/job/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,                    
+                    url:'/user/action/job/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,                    
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -670,13 +670,13 @@ export default {
             commit
         }, data) => {
             var data1
-            let burl=baseurl()
+           // let burl=baseurl()
             addTokenToPayload(data)
             console.log(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/user/action/job/recommendation/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,//+"&USERID="+data.payload.userId,                   
+                    url:'/user/action/job/recommendation/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,//+"&USERID="+data.payload.userId,                   
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -707,13 +707,13 @@ export default {
             state,
             commit
         }, data) => {
-            let burl=baseurl()
+           // let burl=baseurl()
             addTokenToPayload(data)
             console.log(data)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: burl+'/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&COUNTRY='+data.payload.country,
+                    url:'/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&COUNTRY='+data.payload.country,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -742,28 +742,28 @@ export default {
         },
         
        
-        resetPassword: ({
-            state,
-            commit
-        }, data) => {
-            // addTokenToPayload(data)
-            return new Promise((resolve, reject) => {
-                axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/user/reset/' + data.resettoken,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    data: data
-                }).then((response) => {
-                    resolve(response)
-                    console.log(response)
-                }).catch((error) => {
-                    reject(error)
-                })
+        // resetPassword: ({
+        //     state,
+        //     commit
+        // }, data) => {
+        //     // addTokenToPayload(data)
+        //     return new Promise((resolve, reject) => {
+        //         axios({
+        //             method: 'POST',
+        //             url: 'https://api.steppingcloud.com/user/reset/' + data.resettoken,
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             data: data
+        //         }).then((response) => {
+        //             resolve(response)
+        //             console.log(response)
+        //         }).catch((error) => {
+        //             reject(error)
+        //         })
 
-            })
-        },
+        //     })
+        // },
         createTicket: ({
             state,
             commit
@@ -772,7 +772,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: baseurl()+'/user/action/askhr/ticket/create',
+                    url:'/user/action/askhr/ticket/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -802,7 +802,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: baseurl()+'/user/action/askhr/ticket/get?USERID='+data.payload.USERID,
+                    url:'/user/action/askhr/ticket/get?USERID='+data.payload.USERID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -823,26 +823,26 @@ export default {
                 })
             })
         },
-        getAllEsclationManagers: ({
-            state,
-            commit
-        }, data) => {
-            addTokenToPayload(data)
-            return new Promise((resolve, reject) => {
-                axios({
-                    method: 'POST',
-                    url: 'https://api.steppingcloud.com/hrroutes/getescalationmanager',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    data: data
-                }).then((response) => {
-                    resolve(response.data)
-                }).catch((error) => {
-                    reject(error)
-                })
-            })
-        },
+        // getAllEsclationManagers: ({
+        //     state,
+        //     commit
+        // }, data) => {
+        //     addTokenToPayload(data)
+        //     return new Promise((resolve, reject) => {
+        //         axios({
+        //             method: 'POST',
+        //             url: 'https://api.steppingcloud.com/hrroutes/getescalationmanager',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             data: data
+        //         }).then((response) => {
+        //             resolve(response.data)
+        //         }).catch((error) => {
+        //             reject(error)
+        //         })
+        //     })
+        // },
         postQueryMessage: ({
             state,
             commit
@@ -851,7 +851,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: baseurl()+'/user/action/askhr/ticket/message/create',
+                    url: '/user/action/askhr/ticket/message/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -880,7 +880,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: baseurl()+'/user/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    url:'/user/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -910,7 +910,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: baseurl()+"/user/action/skills/create",
+                    url: "/user/action/skills/create",
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -940,7 +940,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: baseurl()+"/user/action/skills/delete",
+                    url: "/user/action/skills/delete",
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token

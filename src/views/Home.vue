@@ -21,8 +21,8 @@ export default {
 </script>
 <style>
 #core-login {
-  background-image: url("../assets/shutterstock/login1.jpg");
-  /* background-image: white; */
+ 
+  background-image: white;
   width: 100%;
   height: calc(100vh + 20px);
   background-size: cover;

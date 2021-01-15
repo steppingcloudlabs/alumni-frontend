@@ -12,17 +12,15 @@
       :src="items[i].src"
       
     >
-     <v-overlay :absolute="true" color="black">
+     <!-- <v-overlay :absolute="true" color="black"> -->
         <v-row
           class="fill-height"
           align="center"
           justify="center"
         >
-          <div class="display-3">
-            {{ slide.text }}
-          </div>
+        
         </v-row>
-     </v-overlay>
+     <!-- </v-overlay> -->
     
     </v-carousel-item>
   </v-carousel>
@@ -34,12 +32,12 @@
        
          items: [
         {
-          src: require("@/assets/shutterstock/landing1.jpg"),
+          src: require("@/assets/shutterstock/landingA.png"),
           text: "test"
         },
         {
-          src: require("@/assets/shutterstock/engagement.jpg"),
-          text: "testing"
+          src: require("@/assets/shutterstock/landingC.png"),
+          
         },
         {
           src: require("@/assets/shutterstock/landing1.jpg"),

@@ -4,7 +4,7 @@
     style="width: 100%"
     src="@/assets/shutterstock/parallax.jpg"
   >
-    <v-overlay :absolute="true" color="blue">
+    <v-overlay :absolute="true" color="black">
       <p class="text--center">
         <span style="font-size: 25px"
           >Don’t Miss Awesome Newsletter From Us!!

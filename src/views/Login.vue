@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container class="fill-height login" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12" style="background: rgb(0, 0, 0, 0.5)">
@@ -185,5 +185,9 @@ input:-webkit-autofill:active {
   background-size: cover;
   position: relative;
 } */
+.login
+{
+   background-image: url("../assets/shutterstock/login1.jpg") !important;
+}
 </style>
 
