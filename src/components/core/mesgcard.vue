@@ -18,11 +18,11 @@
       
       <v-flex xs8 sm8 md8 lg8 xl8>
         <v-card max-width="100%" elevation="0" color="transparent" style="margin-left:3%;margin-right:6%">
-          <v-card-title >
+          <!-- <v-card-title >
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>
-          </v-card-title>
+          </v-card-title> -->
 
-          <v-card-text style="margin-top:2%">
+          <v-card-text style="margin-top:5%;color:white;width:70%">
             
           {{message}}
           </v-card-text>

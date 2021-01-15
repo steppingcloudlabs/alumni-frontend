@@ -166,7 +166,7 @@ export default {
       let eventData = JSON.parse(JSON.stringify(this.event));
       this.$store.commit("showProgressBar", {});
       this.$store.commit("adminModule/closeEventDialog");
-      let currDate = parseInt(moment(this.Date).format("x"));
+      let currDate = parseInt(moment(this.date).format("x"));
       let data = {
         payload: {
           TITLE: eventData.TITLE,
@@ -174,7 +174,7 @@ export default {
           TAG: eventData.TITLE,
           ID: eventData.ID ? eventData.ID : undefined,
           PHOTO: eventData.PHOTO,
-          date: currDate,
+          DATE: currDate.toString(),
         },
       };
       this.$store.dispatch("adminModule/addEvents", data).then((response) => {

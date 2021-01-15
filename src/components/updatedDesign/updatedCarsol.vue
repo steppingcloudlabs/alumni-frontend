@@ -36,13 +36,21 @@
           text: "test"
         },
         {
-          src: require("@/assets/shutterstock/landingC.png"),
+          src: require("@/assets/shutterstock/landingI.png"),
           
         },
-        {
-          src: require("@/assets/shutterstock/landing1.jpg"),
-          text: "xyz"
-        }
+         {
+          src: require("@/assets/shutterstock/landingG.png"),
+          
+        },
+         {
+          src: require("@/assets/shutterstock/landingH.png"),
+          
+        },
+        // {
+        //   src: require("@/assets/shutterstock/landing1.jpg"),
+        //   text: "xyz"
+        // }
       ]
       }
     },

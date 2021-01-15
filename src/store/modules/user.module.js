@@ -543,7 +543,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/search/maps/userids/get',
+                    url:baseurl()+'/search/maps/userids/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token

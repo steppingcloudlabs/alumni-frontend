@@ -25,7 +25,7 @@
         <v-card>
           <div class="d-flex flex-no-wrap">
             <v-avatar class="ma-3" size="125" tile>
-              <v-img :src="item.PHOTO"></v-img>
+              <v-img  :src="item.PHOTO"></v-img>
             </v-avatar>
             <div>
               <v-card-title class="headline" v-text="item.TITLE"></v-card-title>

@@ -227,7 +227,7 @@ export default {
   methods: {
     closeDialog() {
       console.log(this.GENDER);
-      console.log((moment(this.date).format("x").toString()));
+      console.log(moment(this.date).format("x").toString());
 
       this.$store.commit("adminModule/closeAlumniDialog");
     },
@@ -244,28 +244,37 @@ export default {
         payload: {
           type: "admin",
           USER_ID: alumniData.USER_ID,
-          ID:alumniData.ID ? alumniData.ID : undefined,
+          ID: alumniData.ID ? alumniData.ID : undefined,
           NATIONALITY_PERSONAL_INFORMATION: "IND",
           SALUTATION_PERSONAL_INFORMATION:
             alumniData.SALUTATION_PERSONAL_INFORMATION,
           CITY_ADDRESSES: alumniData.CITY_ADDRESSES,
           ADDRESS: alumniData.ADDRESS,
           STATE: alumniData.STATE,
-          PHONE_NUMBER_PHONE_INFORMATION:alumniData.PHONE_NUMBER_PHONE_INFORMATION,
+          PHONE_NUMBER_PHONE_INFORMATION:
+            alumniData.PHONE_NUMBER_PHONE_INFORMATION,
           MANAGER_JOB_INFORMATION: alumniData.MANAGER_JOB_INFORMATION,
           DESIGNATION_JOB_INFORMATION: alumniData.DESIGNATION_JOB_INFORMATION,
           FIRST_NAME_PERSONAL_INFORMATION:
             alumniData.FIRST_NAME_PERSONAL_INFORMATION,
           LAST_NAME_PERSONAL_INFORMATION:
             alumniData.LAST_NAME_PERSONAL_INFORMATION,
-          DATE_OF_RESIGNATION: moment(alumniData.DATE_OF_RESIGNATION).format("x").toString(),
-         // DATE_OF_RESIGNATION: DATE_OF_RESIGNATION.toString(),
+          DATE_OF_RESIGNATION: moment(alumniData.DATE_OF_RESIGNATION)
+            .format("x")
+            .toString(),
+          // DATE_OF_RESIGNATION: DATE_OF_RESIGNATION.toString(),
           PERSONAL_EMAIL_ID: alumniData.PERSONAL_EMAIL_ID,
-        LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD:moment(alumniData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD).format("x").toString(),
-         
-         // DATE_OF_RELIEVING:DATE_OF_RELIEVING.toString(),
-          DATE_OF_BIRTH:moment(alumniData.DATE_OF_BIRTH).format("x").toString(),
-         // DATE_OF_BIRTH:DATE_OF_BIRTH.toString(),
+          LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD: moment(
+            alumniData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD
+          )
+            .format("x")
+            .toString(),
+
+          // DATE_OF_RELIEVING:DATE_OF_RELIEVING.toString(),
+          DATE_OF_BIRTH: moment(alumniData.DATE_OF_BIRTH)
+            .format("x")
+            .toString(),
+          // DATE_OF_BIRTH:DATE_OF_BIRTH.toString(),
           GENDER: alumniData.GENDER,
         },
       };
@@ -279,31 +288,39 @@ export default {
           alumniData.LAST_NAME_PERSONAL_INFORMATION,
       };
       console.log(data);
-     // if (this.alumni.openFrom == "New") {
-        this.$store.dispatch("adminModule/addAlumni", data).then((response) => {
-          if (response.data.status == 200) {
+      // if (this.alumni.openFrom == "New") {
+      this.$store.dispatch("adminModule/addAlumni", data).then((response) => {
+        if (response.data.status == 200) {
+          if (data.payload.ID == undefined) {
             this.$store.commit(
               "adminModule/addNewAlumniToList",
               JSON.parse(JSON.stringify(data.payload))
             );
-          //  this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
-            this.$store.commit("showSnackbar", {
-              message: "Alumni Added successfully",
-              color: "success",
-              heading: "Success",
-              duration: 3000,
-            });
+          } else {
+            this.$store.commit(
+              "adminModule/appendAlumniList",
+              JSON.parse(JSON.stringify(data.payload))
+            );
           }
-          // } else if (response.data.result == "User Id already exists") {
-          //   this.$store.commit("showSnackbar", {
-          //     message: "Alumni Already Exist",
-          //     color: "Warning",
-          //     heading: "Warning",
-          //     duration: 3000,
-          //   });
-          // }
-        });
-     // }
+
+          //  this.$store.dispatch("adminModule/getAllAlumni", { payload: {} });
+          this.$store.commit("showSnackbar", {
+            message: "Alumni Added successfully",
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+        }
+        // } else if (response.data.result == "User Id already exists") {
+        //   this.$store.commit("showSnackbar", {
+        //     message: "Alumni Already Exist",
+        //     color: "Warning",
+        //     heading: "Warning",
+        //     duration: 3000,
+        //   });
+        // }
+      });
+      // }
       // } else {
       //   this.$store.dispatch("userModule/updateData", data).then((response) => {
       //     if (response.data.status == 200) {

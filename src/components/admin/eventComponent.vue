@@ -113,9 +113,10 @@ export default {
           payload: { limit: limit, offset: offset },
         })
         .then((response) => {
+            vm.$store.commit("closeProgressBar", {});
           if (response.data.result.length > 0) {
             this.empty = false;
-                   vm.$store.commit("closeProgressBar", {});
+                 
             for (var i = 0; i < vm.getEventList.length; i++) {
               vm.getEventList[i].DATE = moment
                 .unix(vm.getEventList[i].DATE / 1000)

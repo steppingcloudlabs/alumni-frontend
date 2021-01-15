@@ -215,7 +215,7 @@ export default {
             heading: "Success",
             duration: 3000,
           });
-         // this.$store.dispatch("adminModule/getAllNews", { payload: {} });
+          // this.$store.dispatch("adminModule/getAllNews", { payload: {} });
         }
 
         this.$store.commit("closeProgressBar", {});
