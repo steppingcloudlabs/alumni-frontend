@@ -2,7 +2,7 @@
   <div>
     <v-toolbar style="position: fixed; z-index: 1009; width: 100%">
       <v-icon class="drawericon" large @click="getDrawer">mdi-menu</v-icon>
-      <img src="@/assets/alumx-logo-1.png" class="mb-2 ml-5 logo" />
+      <img src="@/assets/alumx-logo-1.png" class="mb-5 ml-5 logo" />
       <!-- <v-layout row wrap align-center>
         <v-flex xs12>
           <SearchAlumni />

@@ -20,21 +20,21 @@ export default {
     return {
       items: [
         {
-          src: require("@/assets/shutterstock/small/landingA.png"),
+          src: require("@/assets/compresspng/landingA-min.png"),
           text: "test",
         },
         {
-          src: require("@/assets/shutterstock/landingI.png"),
+          src: require("@/assets/compresspng/landingI-min.png"),
         },
         {
-          src: require("@/assets/shutterstock/landingG.png"),
+          src: require("@/assets/compresspng/landingG-min.png"),
         },
         {
-          src: require("@/assets/shutterstock/landingH.png"),
+          src: require("@/assets/compresspng/landingH-min.png"),
         },
         // {
         //   src: require("@/assets/shutterstock/landing1.jpg"),
-        //   text: "xyz"
+        // src: require("@/assets/compresspng/landingF-min.png"),
         // }
       ],
     };

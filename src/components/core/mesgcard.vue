@@ -2,7 +2,7 @@
   <v-parallax
     class="messageParallax"
     style="width: 100%"
-    src="@/assets/shutterstock/msg.jpg"
+    src="@/assets/compressjpeg/msg-min.jpg"
   >
     <v-overlay :absolute="true" color="black">
       <v-card
@@ -27,7 +27,7 @@
               <v-img
                 class="directorImage"
                 style="border-radius: 10%;margin:auto"
-                src="@/assets/director1.png"
+                src="@/assets/director1-min.png"
               ></v-img>
             </div>
           </v-flex>

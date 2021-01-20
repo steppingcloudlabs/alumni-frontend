@@ -5,7 +5,7 @@
         <v-card class="elevation-12" style="background: rgb(0, 0, 0, 0.5)">
           <v-toolbar
             flat
-            outlined="white"
+            outlined
             style="background: rgb(0, 0, 0, 0.5)"
           >
             <v-toolbar-title class="text-center" style="color: white"
@@ -51,7 +51,8 @@
           </v-card-actions>
           <v-card-text class="text-center">
             <router-link to="/forgotpassword" style="color: #66fcf1"
-              >Forgot Password</router-link>
+              >Forgot Password</router-link
+            >
           </v-card-text>
           <v-card-text style="color: white" class="text-center pt-0 mb-5">
             Not Registered?
@@ -122,14 +123,21 @@ export default {
                 response.result[0].USERNAME
               );
               this.$store.commit("closeProgressBar", {});
-            } else if (response && response.status == 200 && response.result !="Incorrect Username") {
+            } else if (
+              response &&
+              response.status == 200 &&
+              response.result != "Incorrect Username"
+            ) {
               this.$router.push({ path: "/profile/dashboard" });
               this.$store.commit(
                 "userModule/savedUserObjectId",
                 response.result[0].USER_ID
               );
               this.$store.commit("closeProgressBar", {});
-            } else if (response.result == "Incorrect Username" || response.result == "Incorrect password") {
+            } else if (
+              response.result == "Incorrect Username" ||
+              response.result == "Incorrect password"
+            ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
                 color: "red",
@@ -137,9 +145,7 @@ export default {
                 message: response.result,
                 heading: "Error",
               });
-            }
-            else
-            {
+            } else {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
                 color: "red",
@@ -194,9 +200,13 @@ input:-webkit-autofill:active {
   background-size: cover;
   position: relative;
 } */
-.login
-{
-   background-image: url("../assets/shutterstock/login1.jpg") !important;
+.login {
+  background-image: url("../assets/compressjpeg/login1-min.jpg") !important;
+}
+@media screen and (max-width: 640px) {
+  .login {
+    background-image: url("../assets/compressjpeg/loginS-min.jpg") !important;
+  }
 }
 </style>
 

@@ -343,12 +343,12 @@ margin-top: 0%;
 {
  margin-top: -20px;
  height: 30px  !important;
- width: 20px !important;
+ width: 100px !important;
  
 }
 .searchFlex
 {
-  text-align: right;
+  text-align: center;
   margin-right: 15px;
   padding-bottom: 2px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-content class="main-user-container">
+  <v-content class="main-user-container" style="margin-top:15vh !important">
     <core-drawer></core-drawer>
     <div id="core-view" style="margin-top: 20px">
       <v-fade-transition mode="out-in">
@@ -27,7 +27,7 @@ export default {
 <style>
 .main-user-container {
   margin: 10px 20px !important;
-  margin-top: 60px !important;
+ 
 }
 /* .main-user-container .v-content__wrap #core-view {
   height: 100%;

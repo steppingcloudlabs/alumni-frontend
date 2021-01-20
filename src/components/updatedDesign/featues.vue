@@ -1,10 +1,10 @@
 <template>
   <v-layout row wrap class="ma-0" style="min-height:600px; padding-bottom: 5%;background:#F5F5F5">
-    <v-flex xs12 style="text-align: center; margin-top: 8%">
+    <v-flex xs12 style="text-align: center; margin-top: 4%">
       <span class="headline font-weight-bold">Bring together and engage your community</span>
     </v-flex>
     <v-flex
-      style="margin-top: 1%"
+      style="margin-top: 0.5%"
       xs12
       sm4
       md4
@@ -21,7 +21,7 @@
           box-shadow: 15px 15px 40px -10px #d3d3d3;
           margin-top: 5px;
           background-color: white;
-          text-align: center
+          text-align: center;
           min-height:190px
         "
       >

@@ -1,7 +1,7 @@
 <template>
   <div class="events" style="width: 95%; min-height: 550px">
     <v-card-title
-      class="dashboard_header"
+      class="dashboard_header mt-3 "
       style=" text-align: center"
       >Upcoming Events</v-card-title
     >

@@ -2,7 +2,7 @@
   <v-parallax
     class="newsletterparallex"
     style="width:100%"
-   src="@/assets/shutterstock/parallax.jpg"
+   src="@/assets/compressjpeg/parallax-min.jpg"
     
     
   >

@@ -16,7 +16,7 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-card-title class="dashboard_header" >Recommended Job Opportunities</v-card-title>
+    <v-card-title class="dashboard_header mt-3" >Recommended Job Opportunities</v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div>
      <recommendedcareers></recommendedcareers>
