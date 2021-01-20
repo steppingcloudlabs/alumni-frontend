@@ -119,7 +119,10 @@ export default {
       },
     },
   },
-
+ beforeMount()
+ {
+ this.showDrawer=true
+ },
   methods: {
     logout() {
       deleteExpiredToken();

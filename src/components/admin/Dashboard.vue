@@ -1,6 +1,6 @@
 <template>
  
-    <v-layout row wrap class="ml-5 mr-5 mt-5" >
+    <v-layout row wrap class="ml-5 mr-5 mt-1" >
       <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
       <!-- <v-flex xs6 class="mt-3 mb-3">
       <statCards></statCards>
@@ -23,13 +23,13 @@
         >
           <template v-slot:top>
             <v-toolbar style="background-color: #1A265C;color:white">
-              <v-toolbar-title>Recent Resigned Employee</v-toolbar-title>
+              <v-toolbar-title class="d-none d-sm-flex">Recent Resigned Employee</v-toolbar-title>
               <v-btn
                 color="primary"
                 light
-                class="mb-2"
+                class="mb-2 newAlumni"
                 @click="openAddAlumniDialog"
-                style="margin-left: 20px; margin-top: 14px"
+               
                 >New Alumni</v-btn
               >
               <v-divider class="mx-4" inset vertical></v-divider>
@@ -262,3 +262,29 @@ export default {
   },
 };
 </script>
+<style >
+
+.newAlumni{
+   margin-left: 20px;
+    margin-top: 14px
+}
+@media screen and (max-width: 992px) {
+.newAlumni{
+   margin-left: 20px;
+    margin-top: 14px
+}
+  
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+ .newAlumni{
+   margin-left: 5px;
+    margin-top: 14px;
+    font-size: 8px !important;
+    width: 50px;
+}
+
+} 
+
+</style>

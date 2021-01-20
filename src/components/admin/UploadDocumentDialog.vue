@@ -11,8 +11,8 @@
             <v-row>
               <v-col cols="12" md="10">
                 <v-file-input
-                  placeholder="Upload Form16"
-                  label="Form 16"
+                  label="Upload Form16"
+                 
                   accept="application/pdf"
                   multiple
                   shaped
@@ -35,8 +35,8 @@
                   shaped
                   outlined
                   accept="application/pdf"
-                  placeholder="Upload 1st Salary Slip"
-                  label="Salary Slip"
+                 
+                  label="Upload 1st Salary Slip"
                   multiple
                   prepend-icon="mdi-paperclip"
                   @change="getBase64Salary1st"
@@ -63,8 +63,8 @@
                   shaped
                   outlined
                   accept="application/pdf"
-                  placeholder="Upload 2nd Salary Slip"
-                  label="Salary Slip"
+                  label="Upload 2nd Salary Slip"
+                 
                   multiple
                   prepend-icon="mdi-paperclip"
                   @change="getBase64Salary2nd"
@@ -91,8 +91,8 @@
                   shaped
                   outlined
                   accept="application/pdf"
-                  placeholder="Upload 3rd Salary Slip "
-                  label="Salary Slip"
+                  label="Upload 3rd Salary Slip "
+                 
                   multiple
                   prepend-icon="mdi-paperclip"
                   @change="getBase64Salary3rd"

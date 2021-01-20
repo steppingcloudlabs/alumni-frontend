@@ -67,9 +67,7 @@ export default {
         showDocumentDialog: false,
     },
     mutations: {
-        getshowDrawer:(state)=>{
-            return state.showDrawer
-          },
+       
         setshowDrawer: (state,data)=>{
             state.showDrawer=data
            },
@@ -358,6 +356,9 @@ export default {
 
     },
     getters: {
+        getshowDrawer:(state)=>{
+            return state.showDrawer
+          },
         getShowQueryDialog: (state) => {
             return state.showQueryDialog
         },

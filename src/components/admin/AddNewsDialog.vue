@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap >
     <v-flex xs12>
       <v-dialog v-model="showNews" persistent max-width="600px">
         <v-card>
@@ -225,3 +225,10 @@ export default {
   },
 };
 </script>
+<style >
+.v-dialog
+{
+  margin-top: 20vh !important;
+}
+
+</style>

@@ -154,6 +154,14 @@ export default {
             .PROFILEIMAGE
         : null;
     },
+      showDrawer: {
+      set(data) {
+        this.$store.commit("userModule/setshowDrawer", data);
+      },
+      get() {
+        return this.$store.getters["userModule/getshowDrawer"];
+      },
+    },
    
   },
 };

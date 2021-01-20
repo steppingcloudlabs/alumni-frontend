@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap >
     <v-dialog v-model="showAvatar" width="600px">
       <v-card>
         <v-toolbar class="mb-5">
@@ -25,9 +25,9 @@
           <v-file-input
             :rules="rules"
             accept="image/png, image/jpeg, image/bmp"
-            placeholder="Pick an avatar"
+           
             prepend-icon="mdi-camera"
-            label="Avatar"
+            label="Pick an avatar"
             @change="getBase64"
           ></v-file-input>
         </v-card-text>

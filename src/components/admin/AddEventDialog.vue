@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap style="margin-top:20vh">
+  <v-layout row wrap class="dialogClass">
     <v-dialog v-model="showEvent" persistent max-width="600px">
       <v-card>
         <v-toolbar class="mb-5">

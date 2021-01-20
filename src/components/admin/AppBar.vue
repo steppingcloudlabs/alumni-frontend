@@ -66,14 +66,6 @@ export default {
       this.title = val.name;
     },
   },
-
-  mounted() {
-    this.onResponsiveInverted();
-    window.addEventListener("resize", this.onResponsiveInverted);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResponsiveInverted);
-  },
   computed: {
     showDrawer: {
       set(data) {
@@ -84,6 +76,15 @@ export default {
       },
     },
   },
+
+  mounted() {
+    this.onResponsiveInverted();
+    window.addEventListener("resize", this.onResponsiveInverted);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResponsiveInverted);
+  },
+  
 
   methods: {
     getDrawer() {

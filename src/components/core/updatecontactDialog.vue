@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap >
     <v-dialog v-model="showContact" width="600px">
       <v-card>
         <v-toolbar class="mb-5">

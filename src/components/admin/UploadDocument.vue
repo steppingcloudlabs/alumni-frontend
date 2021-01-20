@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="ml-5 mr-5 mt-5" >
+  <v-layout row wrap class="ml-5 mr-5 mt-1" >
     <v-flex xs12>
     <v-data-table
       :headers="headers"

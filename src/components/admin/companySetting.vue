@@ -1,6 +1,6 @@
 <template>
   <div class="ml-5 mr-5">
-    <v-card min-height="150px" tile flat style="margin-top:10vh">
+    <v-card min-height="150px" tile flat >
       <v-toolbar elevation="0" color="#1A265C"  width="100%">
         <v-toolbar-title style="color:white" >Escalation Mails</v-toolbar-title>
       </v-toolbar>
