@@ -3,22 +3,22 @@
     id="app-drawer"
     v-model="showDrawer"
     app
-    color="rgb(35,43,43)"
     dark
+   
     floating
     mobile-break-point="991"
     persistent
     width="260"
-    style="margin-top:60px"
+    style="margin-top:60px;background-image: linear-gradient(to top, rgba(226, 198, 92, 0.7), rgba(26, 38, 92, 0.7));"
    
     
   >
-    <template v-slot:img="attrs">
+    <!-- <template v-slot:img="attrs">
       <v-img
         v-bind="attrs"
         gradient="to top, rgba(226, 198, 92, .7), rgba(26, 38, 92, .7)"
       />
-    </template>
+    </template> -->
 
     <!-- <v-list-item two-line style="height: 75px">
       <img width="150px" class="mx-auto" src="@/assets/logo.png" />

@@ -40,8 +40,8 @@
           style="margin-left:3%; margin-top:1%; color:white"
           >Search Jobs</v-card-title>
         <p class="text--center">
-          <v-layout >
-            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+          <v-layout row wrap >
+            <v-flex xs12 sm3 md3 lg3 xl3 class="searchField" >
               <v-text-field
                 v-model="search.SKILL"
                 label="Search By Keywords"
@@ -49,7 +49,7 @@
                 dense
               ></v-text-field>
             </v-flex>
-            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+            <v-flex xs12 sm3 md3 lg3 xl3 class="searchField" >
               <v-text-field
                 v-model="search.country"
                 label="Search By Location"
@@ -58,11 +58,12 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs4 style="margin-top: 0%; margin-left: 5%">
+            <v-flex class="searchFlex" xs12 sm3 md3 lg3 xl3 style="margin-top: 0%; margin-left: 5%">
               <v-btn
                 color="blue"
                 style="color: White"
                 large
+                type="text"
                 @click="jobMoreData(3,0)"
                 class="text-capitalize searchbtn"
                 >Search</v-btn
@@ -326,5 +327,30 @@ export default {
 .v-application--wrap {
     min-height: 100vh;
     justify-content: center;
+}
+.searchField{
+margin-top: 0%;
+ margin-left: 5%
+}
+
+@media screen and (max-width: 640px) {
+  .searchField{
+margin-top: 0%;
+ margin-left: 5%;
+ margin-right: 5%;
+}
+.searchbtn
+{
+ margin-top: -20px;
+ height: 30px  !important;
+ width: 20px !important;
+ 
+}
+.searchFlex
+{
+  text-align: right;
+  margin-right: 15px;
+  padding-bottom: 2px;
+}
 }
 </style>
