@@ -1,7 +1,99 @@
 <template>
   <v-layout row wrap>
-    <v-flex>
-      <v-card class="mx-auto" rounded>
+                <v-flex>
+                   <v-card
+                  flat
+                 class="mx-auto" rounded 
+                >
+                  <v-card-title>
+                     <span class="mr-5">
+              <i
+                class="fas fa-arrow-left"
+                style="cursor: pointer"
+                @click="backToList"
+              ></i>
+            </span>
+                    <span>{{ selectedQueryItem.TITLE }}</span>
+                  </v-card-title>
+               
+                  <v-divider class="my-0" />
+                  <v-card-text class="flex-grow-1 fill-height"  style="min-height:65vh">
+                 
+                    <template v-for="(msg,k) in messages" >
+                      <div
+                        :key="k"
+                        :class="{ 'd-flex flex-row-reverse': msg.USERTYPE=='user'? true : false }"
+                      >
+                        <v-menu offset-y>
+                          <template v-slot:activator="{ on }">
+                            <v-hover
+                              v-slot:default="{ hover }"
+                            >
+                              <v-chip
+                                :color="msg.USERTYPE=='user'? 'primary' : ''"
+                                dark
+                                style="height:auto;white-space: normal;"
+                                class="pa-4 mb-2"
+                                v-on="on"
+                              >
+                                {{ msg.MESSAGE }}
+                                <sub
+                                  class="ml-2"
+                                  style="font-size: 0.5rem;"
+                                >{{msg.CREATEDAT.substring(11,16)}},{{msg.CREATEDAT.substring(0,10)}}</sub>
+                               
+                              </v-chip>
+                            </v-hover>
+                          </template>
+                         
+                        </v-menu>
+                      </div>
+                    </template>
+                    <!-- <v-text-field
+                      v-model="messageForm.content"
+                      label="type_a_message"
+                      type="text"
+                      no-details
+                      outlined
+                      append-outer-icon="send"
+                      @keyup.enter="messages.push(messageForm)"
+                      @click:append-outer="messages.push(messageForm)"
+                    /> -->
+                 
+                 
+                  </v-card-text>
+                   <v-card-text>
+                       <v-text-field
+                     v-model="addComment"
+                      label="Add Comment"
+                      append-icon="send"
+                      type="text"
+                      outlined
+                      @click:append="updateMessage"
+                      @keyup.enter="updateMessage"
+                      solo
+                     rounded
+                      
+                   ></v-text-field>
+                   </v-card-text>
+                </v-card>
+
+                </v-flex>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <v-flex>
+      <v-card class="mx-auto" rounded min-height="90vh">
         <v-toolbar fixed class="mb-3">
           <v-toolbar-title class="ml-5">
             <span class="mr-5">
@@ -57,7 +149,7 @@
             </v-timeline>
           </v-flex>
         </v-layout>
-        <v-toolbar class="mb-3">
+        <v-toolbar fixed  class="mb-3" bottom style="position: sticky;top: 62em;z-index:1;" >
           <v-layout row wrap class="add-comment-wrapper" align-center>
             <v-flex xs1>
               <v-btn rounded fab small text color="primary">
@@ -79,7 +171,7 @@
           </v-layout>
         </v-toolbar>
       </v-card>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 

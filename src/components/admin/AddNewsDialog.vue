@@ -57,14 +57,15 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field
+                    <v-textarea
                       shaped
                       outlined
                       v-model="news.CONTENT"
                       label="Body*"
                       required
                       :rules="bodyRules"
-                    ></v-text-field>
+                       maxlength="1000"
+                    ></v-textarea>
                   </v-col>
                   <v-col cols="12">
                     <v-menu

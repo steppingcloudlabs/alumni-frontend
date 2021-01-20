@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="ma-0" style="height: 600px; padding-bottom: 5%;background:#F5F5F5">
+  <v-layout row wrap class="ma-0" style="min-height: 600px; padding-bottom: 5%;background:#F5F5F5">
     <v-flex xs12 style="text-align: center; margin-top: 8%">
       <span class="headline font-weight-bold" >Empower your Alumni Network</span>
     </v-flex>
@@ -17,15 +17,15 @@
     >
       <v-card
         style="
-          font-size: 20px;
+          font-size: 25px;
         "
         tile
         flat
         color="transparent"
       >
         <v-card-title>
-          <v-icon style="margin:auto"
-          large left color="#E4BA18"> {{ card.icon }}</v-icon>
+          <v-icon style="margin:auto;font-size:60px"
+          color="#E4BA18"> {{ card.icon }}</v-icon>
         </v-card-title>
         <v-card-text class="black--text title-headline" style="font-weight: 500;text-align: center;">
          {{card.text}}

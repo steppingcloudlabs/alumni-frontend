@@ -11,6 +11,7 @@ export default {
 
     namespaced: true,
     state: {
+        showDrawer:false,
         test: "Hello Test",
         userObejctId: undefined,
         userData: {},
@@ -29,7 +30,12 @@ export default {
         alumniList:[]
     },
     mutations: {
-        
+        setshowDrawer: (state,data)=>{
+         state.showDrawer=data
+        },
+        closeDrawer:(state)=>{
+            state.showDrawer=false
+           },
         setAlumniList: (state, data) => {
             state.alumniList = data
         },
@@ -139,6 +145,9 @@ export default {
 
     },
     getters: {
+        getshowDrawer:(state)=>{
+          return state.showDrawer
+        },
         getNewsList: (state) => {
             return state.newsList
         },
@@ -199,7 +208,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/auth/login',
+                    url: baseurl()+'/auth/login',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -256,7 +265,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/user/auth/signup',
+                    url: baseurl()+'/user/auth/signup',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -284,7 +293,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: '/user/action/documents/get?USERID='+data.payload.userid+'&FILENAME='+data.payload.filename,
+                    url: baseurl()+'/user/action/documents/get?USERID='+data.payload.userid+'&FILENAME='+data.payload.filename,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -323,7 +332,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/user/action/userprofile/update',
+                    url: baseurl()+'/user/action/userprofile/update',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -355,7 +364,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/user/action/userprofile/get?USERID='+data.payload.userid,
+                    url:baseurl()+'/user/action/userprofile/get?USERID='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -391,7 +400,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/search/userprofile?QUERY='+data.payload.userid,
+                    url:baseurl()+'/search/userprofile?QUERY='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -429,7 +438,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: "/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url: baseurl()+"/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -470,7 +479,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: "/user/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url:baseurl()+"/user/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -508,7 +517,7 @@ export default {
                 }
                 axios({
                     method: 'GET',
-                    url: "/user/action/faq/get" + limitURL,
+                    url: baseurl()+"/user/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -570,29 +579,29 @@ export default {
         },
 
 
-        // forgotPassword: ({
-        //     state,
-        //     commit
-        // }, data) => {
-        //     // addTokenToPayload(data)
-        //     return new Promise((resolve, reject) => {
-        //         axios({
-        //             method: 'POST',
-        //             url: 'https://api.steppingcloud.com/user/forgetpassword',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             data: data
-        //         }).then((response) => {
-        //             resolve(response)
+        forgotPassword: ({
+            state,
+            commit
+        }, data) => {
+            // addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+'/auth/forgetpassword',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
 
-        //             console.log(response)
-        //         }).catch((error) => {
-        //             reject(error)
-        //         })
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
 
-        //     })
-        // },
+            })
+        },
 
         getStatus: ({
             state,
@@ -605,7 +614,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/admin/action/documents/status?USERID='+data.payload.userid,
+                    url:baseurl()+'/admin/action/documents/status?USERID='+data.payload.userid,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -638,7 +647,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/user/action/job/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,                    
+                    url:baseurl()+'/user/action/job/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,                    
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -676,7 +685,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/user/action/job/recommendation/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,//+"&USERID="+data.payload.userId,                   
+                    url:baseurl()+'/user/action/job/recommendation/get?LIMIT='+data.payload.limit+"&OFFSET="+data.payload.offset,//+"&USERID="+data.payload.userId,                   
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -713,7 +722,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&COUNTRY='+data.payload.country,
+                    url:baseurl()+'/search/job?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset+'&QUERY='+data.payload.skill+'&COUNTRY='+data.payload.country,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -742,28 +751,57 @@ export default {
         },
         
        
-        // resetPassword: ({
-        //     state,
-        //     commit
-        // }, data) => {
-        //     // addTokenToPayload(data)
-        //     return new Promise((resolve, reject) => {
-        //         axios({
-        //             method: 'POST',
-        //             url: 'https://api.steppingcloud.com/user/reset/' + data.resettoken,
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             data: data
-        //         }).then((response) => {
-        //             resolve(response)
-        //             console.log(response)
-        //         }).catch((error) => {
-        //             reject(error)
-        //         })
+        resetPassword: ({
+            state,
+            commit
+        }, data) => {
+            // addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+'/auth/reset/?TOKEN='+data.resettoken,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
 
-        //     })
-        // },
+            })
+        },
+        
+       changePassword: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+'/auth/reset',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':"Bearer " +tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+
+
         createTicket: ({
             state,
             commit
@@ -772,7 +810,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/user/action/askhr/ticket/create',
+                    url:baseurl()+'/user/action/askhr/ticket/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -802,7 +840,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/user/action/askhr/ticket/get?USERID='+data.payload.USERID,
+                    url:baseurl()+'/user/action/askhr/ticket/get?USERID='+data.payload.USERID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -851,7 +889,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/user/action/askhr/ticket/message/create',
+                    url: baseurl()+'/user/action/askhr/ticket/message/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -880,7 +918,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/user/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    url:baseurl()+'/user/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -910,7 +948,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: "/user/action/skills/create",
+                    url: baseurl()+"/user/action/skills/create",
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -940,7 +978,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: "/user/action/skills/delete",
+                    url: baseurl()+"/user/action/skills/delete",
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token

@@ -1,6 +1,6 @@
 <template>
-  <v-card class="ml-3 pa-2" style="background-color: #232b2b">
-    <v-layout row wrap style="margin-left: unset">
+ 
+    <v-layout row wrap class="ml-5 mr-5 mt-5" >
       <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
       <!-- <v-flex xs6 class="mt-3 mb-3">
       <statCards></statCards>
@@ -19,28 +19,33 @@
           disable-pagination
           hide-default-footer
           :loading="loader"
-          dark
+          light
         >
           <template v-slot:top>
-            <v-toolbar>
+            <v-toolbar style="background-color: #1A265C;color:white">
               <v-toolbar-title>Recent Resigned Employee</v-toolbar-title>
               <v-btn
                 color="primary"
-                dark
+                light
                 class="mb-2"
                 @click="openAddAlumniDialog"
                 style="margin-left: 20px; margin-top: 14px"
                 >New Alumni</v-btn
               >
               <v-divider class="mx-4" inset vertical></v-divider>
-              <div class="flex-grow-1"></div>
+              <div class="flex-grow-1" ></div>
               <v-text-field
+              style="color:white"
                 v-model="search"
                 append-icon="search"
                 label="Search"
+                color="white"
+                background-color="white"
+              
                 single-line
                 hide-details
                 @keyup.enter.native="findData(search)"
+                
               ></v-text-field>
               <!-- <v-btn
               color="primary"
@@ -53,15 +58,15 @@
           </template>
           <template v-slot:item.action="{ item }">
             <!-- <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon> -->
-            <v-icon small class="mr-2" @click="editAlumniDialog(item)"
+            <v-icon small class="mr-2" color="#1A265C" @click="editAlumniDialog(item)"
               >edit</v-icon
             >
-            <v-icon small class="mr-2" @click="showDeleteDialog(item)"
+            <v-icon small class="mr-2" color="#1A265C" @click="showDeleteDialog(item)"
               >delete</v-icon
             >
           </template>
         </v-data-table>
-        <p class="text-center text-white">
+        <p class="text-center text-white" style="background-color:#1A265C">
           <pagination
         :next="next"
         :prev="prev"
@@ -72,7 +77,7 @@
         </p>
       </v-flex>
     </v-layout>
-  </v-card>
+  
 </template>
     
     

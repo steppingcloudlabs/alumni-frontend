@@ -5,8 +5,8 @@
     </v-img>
     <br />
     <br />
-    <v-layout row wrap mt-4 ml-5 mr-5 v-if="show">
-      <v-flex xs12 sm6 md6 lg4 pa-3 mt-4 v-for="(item, i) in cards" :key="i">
+    <v-layout row wrap mt-0 ml-5 mr-5 v-if="show">
+      <v-flex xs12 sm6 md6 lg4 pa-3 mt-2 v-for="(item, i) in cards" :key="i">
         <v-card class="mx-auto" max-width="350" min-height="380px">
           <v-toolbar dark color="#1DB0ED">
             <v-toolbar-title>{{ item.title }}</v-toolbar-title>

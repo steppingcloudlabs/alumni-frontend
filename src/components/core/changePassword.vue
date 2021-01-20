@@ -1,9 +1,9 @@
 <template>
-  <div class="fill-height">
-    <v-layout row wrap>
+  <div class="fill-height login"  fluid>
+    <v-layout row wrap >
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
-          <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
+        <v-col cols="12" sm="8" md="4" style="margin-top:2%">
+          <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5);margin-top:50%">
             <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
               <v-toolbar-title class="text-center" style="color:white">Change Password</v-toolbar-title>
               <div class="flex-grow-1"></div>
@@ -97,7 +97,7 @@ export default {
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
         this.$store
-      .dispatch("userModule/resetPassword", {resettoken:this.$route.params.token ,payloadbody:{newpassword:this.password }}) .then(response =>{
+      .dispatch("userModule/resetPassword", {resettoken:this.$route.params.token ,payload:{NEWPASSWORD:this.password }}) .then(response =>{
         this.$store.commit("closeProgressBar", {});
         this.$router.push({ path: "/login" });
       })

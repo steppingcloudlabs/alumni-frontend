@@ -1,11 +1,11 @@
 <template>
   <div class="status">
-    <v-card-title style="color:white; text-align:center">Document Status</v-card-title>
+    <v-card-title class="dashboard_header" style=" text-align:center">Document Status</v-card-title>
     <v-divider class="mr-5 mb-5" style="background:rgb(241, 135, 16);"></v-divider>
     <v-row class="alert">
       <v-alert
         min-width="100%"
-        min-height="50px"
+       
         dense
         outlined
         type="success"
@@ -14,7 +14,7 @@
         Form 16 is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%"  dense outlined type="error" v-else>
         Form 16 is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
@@ -22,8 +22,9 @@
 
     <v-row class="alert">
       <v-alert
+        class="alertdata"
         min-width="100%"
-        min-height="50px"
+       
         dense
         outlined
         type="success"
@@ -32,15 +33,16 @@
         Full n Final is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%"  dense outlined type="error" v-else>
         Full n Final is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>
     <v-row class="alert">
       <v-alert
+       class="alertdata"
         min-width="100%"
-        min-height="50px"
+       
         dense
         outlined
         type="success"
@@ -49,15 +51,16 @@
         Salary Slip is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" dense outlined type="error" v-else>
         Salary Slip is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>
     <v-row class="alert">
       <v-alert
+       class="alertdata"
         min-width="100%"
-        min-height="50px"
+       
         dense
         outlined
         type="success"
@@ -66,7 +69,7 @@
         pf Document is
         <strong>Available</strong> in Document Section
       </v-alert>
-      <v-alert min-width="100%" min-height="50px" dense outlined type="error" v-else>
+      <v-alert min-width="100%" dense outlined type="error" v-else>
         pf Clearance is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
@@ -138,6 +141,49 @@ export default {
 .alert {
   margin-left: 0px;
   margin-right: unset;
+ 
 }
+.v-alert {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 16px;
+    padding: 16px;
+    position: relative;
+    -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    min-height: 50px;
+}
+@media screen and (max-width: 992px) {
+
+.v-alert {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 16px;
+    padding: 16px;
+    position: relative;
+    -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    min-height: 50px;
+}
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+ 
+.v-alert {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
+    -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    min-height: 20px;
+}
+.dashboard_header
+{
+  font-size: 1.15rem;
+}
+} 
 
 </style>

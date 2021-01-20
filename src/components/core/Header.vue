@@ -11,10 +11,10 @@
       :class="hasScrolled ? '' : 'header-transparent'"
       
     >
-      <v-flex xs5>
-        <img src="@/assets/alumx-logo-1.png" height="50" class="my-2" />
+      <v-flex xs3>
+        <img src="@/assets/alumx-logo-1.png"  class="mb-2 logo" />
       </v-flex>
-      <v-flex xs7 class="text-right">
+      <v-flex xs9 class="text-right">
         <div class="menu-wrapper">
           <ul>
             <!-- <li>
@@ -131,6 +131,7 @@ export default {
   z-index: 1009;
   background: #1A265C;
   padding-top: 2px;
+  min-height: 50px;
 }
 .header-transparent{
   background: transparent !important;
@@ -187,4 +188,49 @@ li a:hover {
   color:#E4BA18 !important;
   font-weight: 600;
 }
+.logo{
+  height:50px;
+ margin-top: 20px !important;
+}
+
+@media screen and (max-width: 992px) {
+.logo{
+  height:20px;
+ margin-top: 15px !important;
+}
+li a {
+  display: block;
+  color: white !important;
+  text-align: center;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-family: "Lato";
+  font-weight: 200;
+  transition: 300ms ease-in;
+  font-size: 15px;
+}
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+.logo{
+  height:10px;
+ margin-top: 2px !important;
+}
+li a {
+  display: block;
+  color: white !important;
+  text-align: center;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-family: "Lato";
+  font-weight: 200;
+  transition: 300ms ease-in;
+  font-size: 10px;
+}
+} 
 </style>

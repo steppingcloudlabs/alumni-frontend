@@ -1,8 +1,8 @@
 <template>
-  <div id="core-login">
+  <div id="core-login"  class="login" >
     <v-layout row wrap>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="5">
+        <v-col cols="12" sm="8" md="5" style="margin-top:8%">
           <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
             <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
               <v-toolbar-title class="text-center" style="color:white">Change Password</v-toolbar-title>
@@ -50,6 +50,7 @@
                   v-on:
                   style="background: rgb(0, 0, 0, 0);color:white"
                   class="mr-2"
+                  @click="savePassword"
                 >Change password</v-btn>
                 <v-btn
                   outlined
@@ -103,12 +104,41 @@ export default {
       set(data) {
         this.$store.commit("userModule/setTest", data);
       }
-    }
+    },
+     userData() {
+      return this.$store.getters["userModule/getUserData"]
+        ? this.$store.getters["userModule/getUserData"]
+            .PERSONAL_EMAIL_ID
+        : null;
+    },
+
   },
   methods: {
     savePassword() {
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
+        this.$store.dispatch("userModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData}}).then(response=>{
+          if(response.status==200)
+          {
+            this.$store.commit("closeProgressBar",{})
+              this.$store.commit("showSnackbar", {
+          color: "green",
+          duration: 1000,
+          message: "Password Updated Sucessfully",
+          heading: "Success"
+        });
+          }
+          else
+          {
+             this.$store.commit("closeProgressBar",{})
+              this.$store.commit("showSnackbar", {
+          color: "red",
+          duration: 1000,
+          message: response.result,
+          heading: "Error"
+        });
+          }
+        })
       }
     }
   }

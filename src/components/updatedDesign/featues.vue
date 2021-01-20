@@ -1,7 +1,7 @@
 <template>
-  <v-layout row wrap class="ma-0" style="height: 600px; padding-bottom: 5%;background:#F5F5F5">
+  <v-layout row wrap class="ma-0" style="min-height:600px; padding-bottom: 5%;background:#F5F5F5">
     <v-flex xs12 style="text-align: center; margin-top: 8%">
-      <span class="headline font-weight-bold" >Bring together and engage your community</span>
+      <span class="headline font-weight-bold">Bring together and engage your community</span>
     </v-flex>
     <v-flex
       style="margin-top: 1%"
@@ -21,7 +21,7 @@
           box-shadow: 15px 15px 40px -10px #d3d3d3;
           margin-top: 5px;
           background-color: white;
-          text-align: center;
+          text-align: center
           min-height:190px
         "
       >
@@ -35,12 +35,12 @@
         </v-card-text>
       </v-card>
     </v-flex>
-    <v-flex xs12 sm12 md12 lg12 xl12 style="text-align: center">
+    <v-flex xs12 sm12 md12 lg12 xl12 style="text-align: center;padding-bottom:10px">
       <v-btn
         x-large
         tile
         color="#E4BA18"
-        style="margin-top: 20px"
+        style="margin-top: 10px;"
         @click="navtologin"
         >LOG IN TO ALUMNI DASHBOARD</v-btn
       >

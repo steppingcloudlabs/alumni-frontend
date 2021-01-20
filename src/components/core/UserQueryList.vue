@@ -1,13 +1,13 @@
 <template>
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
-      <v-card class="mx-auto mb-3" min-height="250px"  >
-      <v-toolbar fixed >
+      <v-card class="mx-auto mb-3" flat tile min-height="250px"  >
+      <v-toolbar fixed color="#1A265C" >
           <v-toolbar-title class="ml-5" >
             <!-- <span class="mr-5">
               <i class="fas fa-arrow-left" style="cursor:pointer" @click="backToList"></i>
             </span> -->
-            <span>Queries</span>
+            <span class="white--text">Queries</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-list shaped v-if="queryList.length" >

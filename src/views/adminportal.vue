@@ -1,17 +1,19 @@
 <template>
-  <v-app style="background: rgb(35, 43, 43)">
-    <core-drawer></core-drawer>
+  <v-app >
+    <AppBar></AppBar>
     <core-view></core-view>
   </v-app>
 </template>
 
 <script>
+import AppBar from "@/components/admin/AppBar";
 export default {
   components: {
+    AppBar,
     CoreDrawer: () => import("@/components/admin/admin.drawer"),
 
-    CoreAppBar: () => import("@/components/admin/AppBar"),
-    CoreView: () => import("@/components/core/View")
+   
+    CoreView: () => import("@/components/admin/View")
   }
 };
 </script>

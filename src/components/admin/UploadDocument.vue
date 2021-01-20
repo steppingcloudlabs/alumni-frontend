@@ -1,5 +1,6 @@
 <template>
-  <v-card class="ml-3 pa-2" style="background-color: #1a1a1d">
+  <v-layout row wrap class="ml-5 mr-5 mt-5" >
+    <v-flex xs12>
     <v-data-table
       :headers="headers"
       :items="getAlumniList"
@@ -9,11 +10,12 @@
       hide-default-footer
       multi-sort
       height="auto"
-      dark
-      style="background: #1a1a1d; border-bottom: none"
+      light
+      
+      style="background: white; border-bottom: none"
     >
       <template v-slot:top>
-        <v-toolbar color="#1A1A1D">
+        <v-toolbar style="background-color: #1A265C;color:white">
           <v-toolbar-title style="color: white"
             >Upload Pending Documents</v-toolbar-title
           >
@@ -25,6 +27,8 @@
             single-line
             hide-details
             @keyup.enter.native="findData(search)"
+            background-color="white"
+            
           ></v-text-field>
           <!-- <v-btn   color="primary"
               dark
@@ -33,7 +37,7 @@
       </template>
 
       <template v-slot:item.action="{ item }">
-        <v-icon small class="mr-2" @click="openDialog(item)"
+        <v-icon small class="mr-2" color="#1A265C" @click="openDialog(item)"
           >fas fa-upload</v-icon
         >
       </template>
@@ -44,7 +48,7 @@
       @closeDocumentDialog="closeDocumentDialog"
     />
 
-    <p class="text-center text-white mt-5" >
+    <p class="text-center text-white mt-5" style="background-color:#1A265C" >
      <pagination
         :next="next"
         :prev="prev"
@@ -52,7 +56,8 @@
         @pageClicked="pageClicked"
       ></pagination>
     </p>
-  </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

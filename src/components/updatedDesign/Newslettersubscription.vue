@@ -1,12 +1,14 @@
 <template>
   <v-parallax
-    height="600"
-    style="width: 100%"
-    src="@/assets/shutterstock/parallax.jpg"
+    class="newsletterparallex"
+    style="width:100%"
+   src="@/assets/shutterstock/parallax.jpg"
+    
+    
   >
     <v-overlay :absolute="true" color="black">
       <p class="text--center">
-        <span style="font-size: 25px"
+        <span class="newsletter"
           >Don’t Miss Awesome Newsletter From Us!!
         </span>
         <span style="font-size: 10px">
@@ -75,8 +77,16 @@ export default {
 .col-12 {
   width: 100%;
 }
+.newsletter{
+  font-size: 25px;
+}
+.v-parallax.newsletterparallex
+{
+  height: 600px;
+ 
+}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 640px) {
   /* For mobile phones: */
   [class*="col-"] {
     width: 100%;
@@ -84,5 +94,13 @@ export default {
   .span {
     font-size: 10px !important;
   }
+  
+  .newsletter{
+  font-size: 15px;
+}
+.v-parallax.newsletterparallex
+{
+  height: 200px !important;
+}
 }
 </style>

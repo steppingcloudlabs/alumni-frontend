@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/store'
 import vuetify from './plugins/vuetify';
 import Vuelidate from 'vuelidate'
+import VueResizeText from 'vue-resize-text';
 
 // Vue.use(VueGoogleMaps, {
 //   load: {
@@ -15,7 +16,7 @@ import Vuelidate from 'vuelidate'
 
 Vue.use(Vuelidate)
 
-
+Vue.use(VueResizeText)
 
 
 Vue.config.productionTip = false

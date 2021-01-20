@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-toolbar dark>
+  <div class="ml-5 mr-5">
+    <v-toolbar color="#1A265C" flat>
       <v-btn
         class="button ml-2 mt-2"
         fab
@@ -39,7 +39,7 @@
     </v-toolbar>
     <v-tabs-items v-model="tab">
       <v-tab-item :value="'tab-5-1'">
-        <v-card outlined dark style="border-radius: 0px;">
+        <v-card  flat tile style="border-radius: 0px;">
           <!-- <v-btn
             class="button"
             color="primary"
@@ -66,7 +66,7 @@
         </v-card>
       </v-tab-item>
       <v-tab-item :value="'tab-5-2'">
-        <v-card outlined dark style="border-radius: 0px;">
+        <v-card flat tile style="border-radius: 0px;">
           <!-- <v-btn
             class="button"
             :disabled="eventsProgress"

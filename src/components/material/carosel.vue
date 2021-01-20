@@ -25,7 +25,7 @@
           </v-card-title>
           <v-card-text>{{ item.DATE }}</v-card-text>
           <v-card-text
-            class="title font-weight-light"
+            class="title font-weight-light d-none d-sm-flex"
             style="
               font-family: Raleway !important;
               text-align: justify;
@@ -218,4 +218,23 @@ div.item {
 /* .news-carousel-wrapper .v-responsive__content {
   background: rgb(0, 0, 0, 0.5);
 } */
+.news-carousel-wrapper,.v-image
+{
+height: 700px;
+}
+
+@media screen and (max-width: 992px) {
+  .news-carousel-wrapper,.v-image
+{
+height: 600px !important;
+}
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+ .news-carousel-wrapper,.v-image
+{
+height: 200px !important;
+}
+} 
 </style>

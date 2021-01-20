@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container class="fill-height login" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12" color="#282828" dark style="background: rgb(0, 0, 0, .5);">
@@ -64,8 +64,7 @@ export default {
         this.$store.commit("showProgressBar", {});
         let data = {
           payload: {
-            email: this.email,
-            url: "sc-alumni.s3.ap-south-1.amazonaws.com"
+            EMAIL: this.email
           }
         };
         this.$store

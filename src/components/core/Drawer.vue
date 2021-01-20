@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     id="app-drawer"
-    v-model="inputValue"
+    v-model="showDrawer"
     app
     color="rgb(35,43,43)"
     dark
@@ -9,17 +9,20 @@
     mobile-break-point="991"
     persistent
     width="260"
+    style="margin-top:60px"
+   
+    
   >
     <template v-slot:img="attrs">
       <v-img
         v-bind="attrs"
-        gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
+        gradient="to top, rgba(226, 198, 92, .7), rgba(26, 38, 92, .7)"
       />
     </template>
 
-    <v-list-item two-line style="height: 75px">
+    <!-- <v-list-item two-line style="height: 75px">
       <img width="150px" class="mx-auto" src="@/assets/logo.png" />
-    </v-list-item>
+    </v-list-item> -->
     <v-divider class="mx-1 mb-1" />
 
     <v-list nav>
@@ -124,7 +127,10 @@ export default {
   }),
 
   watch: {},
-
+  beforeMount()
+  {
+  this.showDrawer=true
+  },
   methods: {
     logout() {
       deleteExpiredToken();
@@ -148,6 +154,7 @@ export default {
             .PROFILEIMAGE
         : null;
     },
+   
   },
 };
 </script>

@@ -8,15 +8,15 @@
     <v-row> </v-row>
     <v-row>
       <v-layout row wrap class="mt-5">
-        <v-flex xs8>
+        <v-flex xs12 sm8 md8 lg8 xl8>
           <events :dialog="read" @readMore="readMore" />
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs12 sm4 md4 lg4 xl4>
           <statusCard></statusCard>
         </v-flex>
       </v-layout>
     </v-row>
-    <v-card-title style="color: white">Recommended Job Opportunities</v-card-title>
+    <v-card-title class="dashboard_header" >Recommended Job Opportunities</v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div>
      <recommendedcareers></recommendedcareers>
@@ -121,4 +121,11 @@ export default {
   margin-left: 30px;
   margin-right: initial;
 }
+ @media screen and (max-width: 640px) {
+ 
+.dashboard_header
+{
+  font-size: 1.15rem !important;
+}
+} 
 </style>

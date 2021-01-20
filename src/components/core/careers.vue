@@ -1,5 +1,5 @@
-<template>
-  <div class="ma-0 pa-0">
+<template >
+  <div style="background-color:white" class="ma-0 pa-0">
     <!-- <v-img height="500px" src="@/assets/career_bg.jpg">
       <core-app-bar ></core-app-bar>
     </v-img>
@@ -25,12 +25,15 @@
       min-height="100%"
       width="100%"
       class="ma-0 pa-0"
+      flat
+      tile
      
     >
       <v-img
         height="200px"
         src="@/assets/pic1.jpg"
         gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)"
+       cover
       >
         <v-card-title
           class="title"
@@ -61,6 +64,7 @@
                 style="color: White"
                 large
                 @click="jobMoreData(3,0)"
+                class="text-capitalize searchbtn"
                 >Search</v-btn
               >
             </v-flex>
@@ -69,7 +73,7 @@
       </v-img>
     </v-card>
 
-    <v-card-title style="color: white">Current Openings</v-card-title>
+    <v-card-title style="color: black">Current Openings</v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div class="text-center" v-if="showLoader">
       <v-progress-circular
@@ -83,39 +87,74 @@
       <v-layout
         row
         wrap
-        style="margin-left: unset; margin-top:5%"
+        style="margin-left: unset; margin-top:2%"
         v-if="getjobs.length && !showLoader"
       >
-        <v-flex xs12 class="pl-3 pt-3" v-for="(item, i) in getjobs" :key="i">
+        <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in getjobs" :key="i">
+
           <v-hover v-slot:default="{ hover }">
-            <v-card
+             
+            <v-card 
               class="job_class"
               :elevation="hover ? 24 : 1"
               min-height="150px"
-              style="margin-top:1%"
+              style="margin-top:1%;margin-left:4%;width:90%;box-shadow:15px 15px 40px -10px;background-color:white;transition: all 0.5s ease-in"
+            
             >
-              <v-card-title style="color: #232b2b">{{
+            <v-expand-transition>
+              <div v-if="hover" class="d-flex transition-fast-in-fast-out black darken-2 v-card--reveal display-3 white--text" style="height: 100%"><div class="pa-5">
+                <p style="font-size: 15px;margin-top:15%">
+                  <!-- {{ item.JOBDESCRIPTION.substring(0,10) }}
+                  <span id="dots">
+                    ... -->
+                    <v-btn color="#E4BA18" class="text-capitalize"  @click="openJob(item)"
+                      >View Description</v-btn
+                    >
+                  <!-- </span> -->
+                </p>
+              </div></div>
+            </v-expand-transition>
+           
+              <v-card-title class="jobtitle" style="color:orange;background-color:#1A265C">{{
                 item.JOBTITLE
               }}</v-card-title>
+              
               <v-layout row wrap style="margin-left: unset">
-                <v-flex xs3 class="my-0">
-                  <v-card-text>
-                    <v-icon color="blue" v-if="item.LOCATION"
+                
+                <v-flex xs6 >
+                  <div class="black--text ml-4 pt-5 pb-3">
+                    <v-icon class="jobicon" color="blue" v-if="item.LOCATION"
                       >mdi-map-marker</v-icon
                     >
                     {{ item.LOCATION }}
-                  </v-card-text>
+                  </div>
                 </v-flex>
-                <v-flex xs5>
-                  <v-card-text>
-                    <v-icon color="blue" v-if="item.DEPARTMENT"
+                <v-flex xs6  >
+                  <div class="black--text ml-4 pt-5 pb-3">
+                    <v-icon class="jobicon" color="blue" v-if="item.DEPARTMENT"
                       >mdi-domain</v-icon
                     >
                     {{ item.DEPARTMENT }}
-                  </v-card-text>
+                  </div>
+                </v-flex>
+                 <v-flex xs6 >
+                  <div class="black--text ml-4 pb-3">
+                    <v-icon class="jobicon" color="blue" v-if="item.LOCATION"
+                      >mdi-calendar</v-icon
+                    >
+                    End Date:{{ item.POSTINGENDDATE.substring(0,10) }}
+                  </div>
+                </v-flex>
+                <v-flex xs6  >
+                  <div class="black--text ml-4 pb-3">
+                    <v-icon class="jobicon" color="blue" v-if="item.DEPARTMENT"
+                      >mdi-calendar</v-icon
+                    >
+                   Start Date {{ item.POSTINGSTARTDATE.substring(0,10) }}
+                  </div>
                 </v-flex>
               </v-layout>
-              <div class="pa-5">
+              <!--<div class="pa-5">
                 <p style="font-size: 15px">
                   {{ item.JOBDESCRIPTION.substring(0,10) }}
                   <span id="dots">
@@ -126,6 +165,7 @@
                   </span>
                 </p>
               </div>
+              -->
               <!-- <v-card-text>
                 <span
                   v-for="(SKILL,j) in jobs[i].compentency"
@@ -147,7 +187,7 @@
           </v-hover>
         </v-flex>
         <v-flex xs12>
-          <p class="text-center">
+          <p class="text-center" style="padding-top:40px">
            <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
           </p>
         </v-flex>
@@ -273,4 +313,18 @@ export default {
 /* .v-application--is-ltr .v-responsive__sizer~.v-responsive__content {
     margin-left:0% !important;
 } */
+.v-card--reveal {
+    align-items: center;
+    bottom: 0;
+    justify-content: center;
+    opacity: .6;
+    position: absolute;
+    width: 100%;
+    
+}
+
+.v-application--wrap {
+    min-height: 100vh;
+    justify-content: center;
+}
 </style>

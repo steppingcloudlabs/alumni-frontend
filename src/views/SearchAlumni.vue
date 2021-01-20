@@ -1,15 +1,15 @@
 <template>
   <v-layout row wrap class="search-alumni-wrapper">
-    <v-flex xs12>
+    <v-flex xs0 sm4 md4 lg4 xl4></v-flex>
+    <v-flex xs12 sm8 md8 lg8 xl8>
       <v-autocomplete
         v-model="selectedAlumni"
         :items="alumniList"
         :search-input.sync="searchAlumni"
         :loading="isLoading"
+        solo
         rounded
-        dark
-        filled
-        color="blue-grey lighten-2"
+        color="blue"
         label="Search Alumni"
         item-text="FIRST_NAME_PERSONAL_INFORMATION"
         item-value="FIRST_NAME_PERSONAL_INFORMATION"
@@ -101,4 +101,29 @@ export default {
 .search-alumni-wrapper .v-text-field__details {
   display: none;
 }
+.search-alumni-wrapper
+{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 992px) {
+.search-alumni-wrapper
+{
+ padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+ .search-alumni-wrapper
+{
+  padding-top: 10px;
+ padding-bottom: 5px;
+}
+
+} 
+
 </style>

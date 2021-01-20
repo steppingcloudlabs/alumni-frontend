@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap style="margin-top:20vh">
     <v-dialog v-model="showEvent" persistent max-width="600px">
       <v-card>
         <v-toolbar class="mb-5">
@@ -55,14 +55,15 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field
+                <v-textarea
                   shaped
                   outlined
                   v-model="event.CONTENT"
                   label="Description*"
                   required
                   :rules="bodyRules"
-                ></v-text-field>
+                   maxlength="1000"
+                ></v-textarea>
               </v-col>
               <v-col cols="12">
                 <v-text-field

@@ -1,6 +1,6 @@
 <template>
   <v-parallax
-    height="600"
+    class="messageParallax"
     style="width: 100%"
     src="@/assets/shutterstock/msg.jpg"
   >
@@ -13,23 +13,26 @@
         style="padding-top: 3%; padding-bottom: 5%"
       >
         <v-card-title>
-          <p class="font-weight-bold" style="margin: auto; font-size: 25px">
+          <p
+         
+            class="font-weight-bold Director_header"
+            style="margin: auto; "
+          >
             Message from Director's Desk
           </p>
         </v-card-title>
         <v-layout row wrap style="padding-top: 3%">
-          <v-flex xs4 sm4 md4 lg4 xl4>
-            <div style="margin-left: 18%">
+          <v-flex xs12 sm4 md4 lg4 xl4>
+            <div >
               <v-img
-                style="border-radius: 10%"
-                height="350px"
-                width="300px"
+                class="directorImage"
+                style="border-radius: 10%;margin:auto"
                 src="@/assets/director1.png"
               ></v-img>
             </div>
           </v-flex>
 
-          <v-flex xs8 sm8 md8 lg8 xl8>
+          <v-flex xs12 sm8 md8 lg8 xl8>
             <v-card
               max-width="100%"
               elevation="0"
@@ -40,7 +43,7 @@
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>
           </v-card-title> -->
 
-              <v-card-text style="margin-top: 5%; color: white; width: 70%">
+              <v-card-text class="Director_message" >
                 {{ message }}
               </v-card-text>
             </v-card>
@@ -93,4 +96,73 @@ div.item {
   /* background-image: url("/assets/login.jpg"); */
   background-size: cover;
 }
+
+.directorImage {
+  height: 250px !important;
+  width: 300px;
+}
+.Director_message {
+     margin-top: 1%;
+    color: white;
+    width: 80%;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: 'Roboto';
+
+}
+.Director_header
+{
+  font-size: 25px;
+  font-family: 'Roboto';
+}
+.messageParallax
+{
+  height: 600px;
+}
+
+@media screen and (max-width: 992px) {
+
+  .messageParallax
+{
+  height: 400px;
+}
+.Director_message {
+     margin-top: 1%;
+    color: white;
+    width: 80%;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: 'Roboto';
+
+}
+.Director_header
+{
+  font-size: 25px;
+  font-family: 'Roboto';
+}
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+ @media screen and (max-width: 640px) {
+ 
+  .messageParallax
+{
+  height: 300px;
+}
+.Director_message {
+     margin-top: 1%;
+    color: white;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 200;
+    font-family: 'Roboto';
+    text-align: center;
+
+}
+.Director_header
+{
+  font-size: 20px;
+  font-family: 'Roboto';
+}
+} 
 </style>

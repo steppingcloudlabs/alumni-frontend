@@ -1,60 +1,100 @@
 <template>
-  <div class="events" style="width: 95%;  height: 550px">
-    <v-card-title style="color: white; text-align: center"
+  <div class="events" style="width: 95%; min-height: 550px">
+    <v-card-title
+      class="dashboard_header"
+      style=" text-align: center"
       >Upcoming Events</v-card-title
     >
     <v-divider
       class="mr-5 mb-2"
       style="background: rgb(241, 135, 16)"
     ></v-divider>
-    <div v-if="showeventBar==true" >
-      <v-layout style="margin-top:25%">
+    <div v-if="showeventBar == true">
+      <v-layout style="margin-top: 25%">
+        <v-flex xs5> </v-flex>
         <v-flex xs5>
+          <v-progress-circular
+            class="text--center"
+            color="orange"
+            indeterminate
+            size="44"
+          ></v-progress-circular>
         </v-flex>
-          <v-flex xs5>
-             <v-progress-circular class="text--center" color="orange" indeterminate size="44"></v-progress-circular>
-        </v-flex>
-   
-      <v-flex xs2>
-        </v-flex>
+
+        <v-flex xs2> </v-flex>
       </v-layout>
     </div>
     <div v-else>
-    <div v-if="getEventList.length">
-      <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
-        <v-card>
-          <div class="d-flex flex-no-wrap">
-            <v-avatar class="ma-3" size="125" tile>
-              <v-img  :src="item.PHOTO"></v-img>
-            </v-avatar>
-            <div>
-              <v-card-title class="headline" v-text="item.TITLE"></v-card-title>
-              <v-card-text v-text="item.DATE"></v-card-text>
-              <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+      <div v-if="getEventList.length && windowsize>640">
+        <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
+          <v-card>
+            <div class="d-flex flex-no-wrap">
+              <v-avatar class="ma-3" size="125" tile>
+                <v-img :src="item.PHOTO"></v-img>
+              </v-avatar>
+              <div>
+                <v-card-title
+                  class="headline"
+                  style="color:#1A265C"
+                  v-text="item.TITLE"
+                ></v-card-title>
+                <v-card-text v-text="item.DATE"></v-card-text>
+                <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+              </div>
             </div>
-          </div>
-        </v-card>
-      </v-col>
-      <div style="margin-bottom:30px!important">
-      <pagination
-        :next="next"
-        :prev="prev"
-        :totalLength="pagination.TOTALPAGES"
-        @pageClicked="pageClicked"
-      ></pagination>
+          </v-card>
+        </v-col>
+        <div style="margin-bottom: 30px !important">
+          <pagination
+            :next="next"
+            :prev="prev"
+            :totalLength="pagination.TOTALPAGES"
+            @pageClicked="pageClicked"
+          ></pagination>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <p class="white--text text-center">
-        No Events Available
-        <v-img
-          style="margin-right: auto; margin-left: auto"
-          width="100"
-          height="100"
-          src="@/assets/waiting.gif"
-        ></v-img>
-      </p>
-    </div>
+       <div v-else-if="getEventList.length && windowsize<=640">
+        <v-row v-for="(item, i) in getEventList" :key="i" mb-2 style="margin-top:18px" >
+          <v-card style="padding-bottom:55px">
+            <v-layout row wrap style="margin-top:-16px;">
+              <v-flex xs12 class="text--center" style="margin-left: -1px;">
+                
+                <v-img contain :src="item.PHOTO"></v-img>
+             
+              </v-flex>
+              <v-flex xs12>
+                <v-card-title
+                  class="headline"
+                  v-text="item.TITLE"
+                ></v-card-title>
+              </v-flex>
+              <v-flex xs12>
+                 <v-card-text v-text="item.DATE"></v-card-text>
+                <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-row>
+        <v-flex xs12 style="margin-bottom: 30px !important;margin-top:14px">
+          <pagination
+            :next="next"
+            :prev="prev"
+            :totalLength="pagination.TOTALPAGES"
+            @pageClicked="pageClicked"
+          ></pagination>
+        </v-flex>
+       </div>
+      <div v-else>
+        <p class="white--text text-center">
+          No Events Available
+          <v-img
+            style="margin-right: auto; margin-left: auto"
+            width="100"
+            height="100"
+            src="@/assets/waiting.gif"
+          ></v-img>
+        </p>
+      </div>
     </div>
     <!--     
     <div class="events-group-container">
@@ -146,8 +186,8 @@ export default {
   },
   methods: {
     pageClicked(data) {
-      let lim=(data-1)*2
-      this.getEvents(2,lim);
+      let lim = (data - 1) * 2;
+      this.getEvents(2, lim);
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
@@ -155,35 +195,38 @@ export default {
     },
     getEvents(limit, offset) {
       // this.$store.commit("showProgressBar", {});
-      if(this.iteration==1)
-      {
-          this.showeventBar=true
+      if (this.iteration == 1) {
+        this.showeventBar = true;
       }
-     
-      let vm=this
+
+      let vm = this;
       this.$store
         .dispatch("userModule/getAllEvent", {
           payload: { limit: limit, offset: offset },
         })
         .then((response) => {
           // this.$store.commit("closeProgressBar", {});
-          this.showeventBar=false
+          this.showeventBar = false;
           if (response.data.result.length > 0) {
             vm.empty = false;
-           
+
             for (var i = 0; i < vm.getEventList.length; i++) {
               vm.getEventList[i].DATE = moment
                 .unix(this.getEventList[i].DATE / 1000)
                 .format("LL");
             }
             vm.pagination = response.data.pagination;
-            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
-            console.log(vm.pagination)
+            vm.pagination = Object.assign(
+              {},
+              this.someObject,
+              response.data.pagination
+            );
+            console.log(vm.pagination);
           } else {
             vm.empty = true;
           }
         });
-        this.iteration+=1
+      this.iteration += 1;
     },
     next() {
       this.pagination.LIMIT += 0;
@@ -193,11 +236,13 @@ export default {
 
     prev() {
       this.pagination.LIMIT -= 0;
-       this.pagination.OFFSET -= this.pagination.LIMIT;
+      this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
     },
   },
   beforeMount() {
+    this.windowsize=window.innerWidth
+    console.log(this.windowsize)
     this.getEvents(2, 0);
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
@@ -218,13 +263,14 @@ export default {
 
   data() {
     return {
-      showeventBar:false,
-      iteration:1,
+      windowsize:0,
+      showeventBar: false,
+      iteration: 1,
       model: {},
       pagination: {
         LIMIT: 2,
         OFFSET: 0,
-        TOTALPAGES:0
+        TOTALPAGES: 0,
       },
       showMore: false,
       empty: false,
@@ -289,4 +335,9 @@ div.item {
 .events-group-container .v-sheet .v-slide-group__next {
   display: flex !important; */
 /* } */
+@media screen and (max-width: 640px) {
+  .dashboard_header {
+    font-size: 1.15rem !important;
+  }
+}
 </style>

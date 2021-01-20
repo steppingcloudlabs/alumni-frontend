@@ -51,8 +51,7 @@
           </v-card-actions>
           <v-card-text class="text-center">
             <router-link to="/forgotpassword" style="color: #66fcf1"
-              >Forgot Password</router-link
-            >
+              >Forgot Password</router-link>
           </v-card-text>
           <v-card-text style="color: white" class="text-center pt-0 mb-5">
             Not Registered?
@@ -130,7 +129,17 @@ export default {
                 response.result[0].USER_ID
               );
               this.$store.commit("closeProgressBar", {});
-            } else if (response.result == "Incorrect Username") {
+            } else if (response.result == "Incorrect Username" || response.result == "Incorrect password") {
+              this.$store.commit("closeProgressBar", {});
+              this.$store.commit("showSnackbar", {
+                color: "red",
+                duration: 3000,
+                message: response.result,
+                heading: "Error",
+              });
+            }
+            else
+            {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
                 color: "red",

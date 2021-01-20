@@ -1,9 +1,9 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap style="margin-left:-1px!important;margin-top: 15px !important">
     <v-flex xs12>
-      <v-card class="pt-5" style="margin-top: 15px !important">
+      <v-card class="pt-5">
         <v-layout row wrap ma-0>
-          <v-flex xs6>
+          <v-flex xs12 sm6 md6 lg6 xl6>
             <div>
               <p class="text-center">
                 <img
@@ -34,30 +34,24 @@
               <v-layout row wrap>
                 <v-flex xs12>
                   <v-card-text
-                    class="headline py-1"
-                    style="
-                      line-height: 1px;
-                      margin-left: 0px !important;
-                      color: black;
-                      font-family: 'Raleway', sans-serif;
-                      font-weight: bolder;
-                    "
+                    class="headline py-1 displayName"
+                   
                     >{{ user.firstname }} {{ user.lastname }}</v-card-text
                   >
                 </v-flex>
                 <v-flex xs12 class="mt-2">
                   <v-card-text
-                    class="subtitle"
+                    class="subtitle postion_header"
                     style="
                       margin-left: 0px !important;
-                      line-height: 2px !important;
+                     
                     "
                   >
                     Worked As-
                     <span class="font-weight-bold">{{ user.position }}</span>
                   </v-card-text>
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 class="linkedinDiv">
                   <AddEditlinkedInlink
                     :linkedInlinkProfileLink="user.LINKEDIN"
                     @saveProfileLink="saveProfileLink"
@@ -104,19 +98,19 @@
               </v-card-text>-->
             </div>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs12 sm6 md6 lg6 xl6>
             <div>
               <v-card-title
                 class="subtitle-1 pt-0 user-profile-heading font-weight-bold"
               >
-                skills
+                Skills
                 <v-spacer></v-spacer>
                 <v-btn
                   v-if="showskill"
                   class="text-capitalize"
                   color="primary"
                   @click="showskillinput"
-                  >Add New SKILL</v-btn
+                  >Add New Skill</v-btn
                 >
                 <v-combobox
                   v-if="!showskill"
@@ -222,9 +216,9 @@
       </v-card>
     </v-flex>
     <v-flex xs12>
-      <v-card class="mt-2" style="margin-top: 25px !important">
-        <v-layout row wrap>
-          <v-flex xs6 pr-5>
+      <v-card  style="margin-top:25px!important;padding-bottom: 55px;!important">
+        <v-layout row wrap class="companydata">
+          <v-flex xs12  sm6 md6 lg6 xl6 pr-5>
             <v-card-title
               class="subtitle-1 font-weight-bold pt-5 pl-4 pb-3 user-profile-heading"
               >Company Information</v-card-title
@@ -311,7 +305,7 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs12  sm6 md6 lg6 xl6>
             <v-card-title
               class="subtitle-1 user-profile-heading"
               style="font-weight: bold"
@@ -320,7 +314,7 @@
               <v-spacer></v-spacer>
               <v-btn
                 color="primary"
-                class="text-capitalize"
+                class="text-capitalize contactbutton"
                 @click="openContactDialog"
                 >Update Contact</v-btn
               >
@@ -335,7 +329,7 @@
                   <v-icon class="mt-1" color="blue">mdi-cellphone</v-icon>
                 </v-card-text>
               </v-flex>
-              <v-flex xs7>
+              <v-flex xs11>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top: 8px !important; color: #181818"
@@ -352,7 +346,7 @@
                   <v-icon color="blue">mdi-email</v-icon>
                 </v-card-text>
               </v-flex>
-              <v-flex xs7>
+              <v-flex xs11>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top: 8px !important"
@@ -360,7 +354,7 @@
                 >
               </v-flex>
             </v-layout>
-            <v-layout>
+            <v-layout >
               <v-flex xs1>
                 <v-card-text
                   class="body-1 py-1"
@@ -369,7 +363,7 @@
                   <v-icon color="blue">mdi-home</v-icon>
                 </v-card-text>
               </v-flex>
-              <v-flex xs7>
+              <v-flex xs11>
                 <v-card-text
                   class="body-1 py-1 font-weight-bold"
                   style="margin-top: 5px !important; color: #181818"
@@ -383,69 +377,7 @@
         </v-layout>
       </v-card>
     </v-flex>
-    <!-- <v-flex xs12>
-      <v-card class="mt-2 pb-5">
-        <v-card-title
-          class="subtitle-1 pt-5 mb-1 user-profile-heading"
-          style="font-weight: bold"
-          >Document Status</v-card-title
-        >
-        <v-divider></v-divider>
-        <v-layout row wrap mt-4 ml-0>
-          <v-flex xs4>
-            <v-card class="mr-3 ml-3" height="100%">
-              <v-card-title
-                class="font-weight-medium"
-                style="font-family: Raleway; font-size: 15px"
-                >FnF Status</v-card-title
-              >
-              <v-card-text>
-                <timeline
-                  :status="DocumentStatus.FIRSTMONTHSALARY"
-                  :code="95"
-                  :userid="this.user.employeeId"
-                  :showLoader="progress"
-                />
-              </v-card-text>
-            </v-card>
-          </v-flex>
-          <v-flex xs4>
-            <v-card class="mr-3 ml-3" height="100%">
-              <v-card-title
-                class="font-weight-medium"
-                style="font-family: Raleway; font-size: 15px"
-                >Form16 Status</v-card-title
-              >
-              <v-card-text>
-                <timeline
-                  :status="DocumentStatus.FORM16"
-                  :code="95"
-                  :userid="this.user.employeeId"
-                  :showLoader="progress"
-                />
-              </v-card-text>
-            </v-card>
-          </v-flex>
-          <v-flex xs4>
-            <v-card class="mr-3 ml-3" style="margin-left: 20px" height="100%">
-              <v-card-title
-                class="font-weight-medium"
-                style="font-family: Raleway; font-size: 15px"
-                >Salary Slip Status</v-card-title
-              >
-              <v-card-text>
-                <timeline
-                  :status="DocumentStatus.THIRDMONTHSALARY"
-                  :code="96"
-                  :userid="this.user.employeeId"
-                  :showLoader="progress"
-                />
-              </v-card-text>
-            </v-card>
-          </v-flex> -->
-    <!-- </v-layout>
-      </v-card>
-    </v-flex> -->
+    
   </v-layout>
 </template>
 <script>
@@ -808,4 +740,46 @@ export default {
     transform: translate(1px, -2px) rotate(-1deg);
   }
 }
+
+.displayname
+{
+   
+     line-height: 1px;
+     margin-left: 0px !important;
+     color: black;
+     font-family: 'Raleway', sans-serif;
+     font-weight: bolder;
+                  
+}
+.postion_header{
+   line-height: 2px !important;
+}
+ @media screen and (max-width: 640px) {
+ .displayname
+{
+   
+     line-height: 1px;
+     margin-left: 0px !important;
+     color: black;
+     font-family: 'Raleway', sans-serif;
+     font-weight: bold;
+     font-size: 15px;
+                  
+}
+.postion_header
+{
+  line-height: 13px !important;
+}
+.contactbutton
+{
+  text-align: right;
+}
+.companydata{
+  margin-left: 0px!important;
+}
+.linkedinDiv
+{
+  margin-left: -14px;
+}
+} 
 </style>

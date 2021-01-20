@@ -1,11 +1,8 @@
 <template>
   <div>
-    <v-toolbar-title class="white--text font-weight-light align-self-center"></v-toolbar-title>
-
-    <v-spacer />
-
-    <v-toolbar-items>
-      <img src="@/assets/alumx-logo-1.png" style="height: 50px" class="my-2" />
+    <v-toolbar style="position: fixed; z-index: 1009; width: 100%">
+      <v-icon class="drawericon" large @click="getDrawer">mdi-menu</v-icon>
+      <img src="@/assets/alumx-logo-1.png" class="mb-2 ml-5 logo" />
       <v-layout row wrap align-center>
         <v-flex xs12>
           <SearchAlumni />
@@ -54,13 +51,17 @@
         </v-menu> -->
 
         <v-menu offset-y>
-          <template v-slot:activator="{ on,attrs }">
+          <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon color="white">mdi-account</v-icon>
+              <v-icon color="black">mdi-account</v-icon>
             </v-btn>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
+            <v-list-item
+              v-for="(item, index) in items"
+              :key="index"
+              :to="item.to"
+            >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -70,7 +71,7 @@
           <v-icon color="white">mdi-account</v-icon>
         </v-btn>-->
       </v-row>
-    </v-toolbar-items>
+    </v-toolbar>
   </div>
 </template>
 
@@ -83,7 +84,7 @@ export default {
   data: () => ({
     items: [
       { title: "Change Password", to: "/profile/changepassword" },
-      { title: "View Profile", to: "/profile/user-profile" }
+      { title: "View Profile", to: "/profile/user-profile" },
     ],
     search: "",
     notifications: [
@@ -91,18 +92,18 @@ export default {
       "You have 5 new tasks",
       "You're now a friend with Andrew",
       "Another Notification",
-      "Another One"
+      "Another One",
     ],
 
-    responsive: false
+    responsive: false,
   }),
   components: {
-    SearchAlumni
+    SearchAlumni,
   },
   watch: {
     $route(val) {
       this.title = val.name;
-    }
+    },
   },
 
   mounted() {
@@ -112,8 +113,21 @@ export default {
   beforeDestroy() {
     window.removeEventListener("resize", this.onResponsiveInverted);
   },
+  computed: {
+    showDrawer: {
+      set(data) {
+        this.$store.commit("userModule/setshowDrawer", data);
+      },
+      get() {
+        return this.$store.getters["userModule/getshowDrawer"];
+      },
+    },
+  },
 
   methods: {
+    getDrawer() {
+      this.showDrawer = !this.showDrawer;
+    },
     ...mapMutations("app", ["setDrawer", "toggleDrawer"]),
     onClick() {
       this.setDrawer(!this.$store.state.app.drawer);
@@ -124,8 +138,8 @@ export default {
       } else {
         this.responsive = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -137,5 +151,21 @@ export default {
 
 #core-app-bar a {
   text-decoration: none;
+}
+.drawericon {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 992px) {
+  .drawericon {
+    visibility: hidden;
+  }
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 640px) {
+  .drawericon {
+    visibility: visible;
+  }
 }
 </style>

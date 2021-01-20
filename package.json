@@ -22,6 +22,7 @@
     "vue": "^2.6.11",
     "vue-cookies": "^1.6.1",
     "vue-material": "^1.0.0-beta-15",
+    "vue-resize-text": "^0.1.1",
     "vue-router": "^3.1.5",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.12",

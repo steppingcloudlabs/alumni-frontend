@@ -1,17 +1,21 @@
 <template>
   <v-navigation-drawer
     id="app-drawer"
-    v-model="inputValue"
+    v-model="showDrawer"
     app
     color="rgb(35,43,43)"
     dark
     floating
     mobile-break-point="991"
     persistent
+    style="margin-top: 60px"
     width="260"
   >
     <template v-slot:img="attrs">
-      <v-img v-bind="attrs" gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)" />
+      <v-img
+        v-bind="attrs"
+        gradient="to top, rgba(226, 198, 92, .7), rgba(26, 38, 92, .7)"
+      />
     </template>
 
     <v-list-item two-line>
@@ -36,7 +40,7 @@
         active-class="primary white--text"
       >
         <v-list-item-action>
-          <v-icon>{{ link.icon }}</v-icon>
+          <v-icon color="white">{{ link.icon }}</v-icon>
         </v-list-item-action>
 
         <v-list-item-title v-text="link.text" />
@@ -58,53 +62,63 @@ export default {
   props: {
     opened: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({
     image: "",
     inputValue: true,
     user: {
-      firstname: "hello"
+      firstname: "hello",
     },
 
     links: [
       {
         to: "/admin/dashboard",
         icon: "mdi-view-dashboard",
-        text: "Dashboard"
+        text: "Dashboard",
       },
       {
         to: "/admin/newsupload",
         icon: "mdi-newspaper",
-        text: "Update News & events"
+        text: "Update News & events",
       },
 
       {
         to: "/admin/document",
         icon: "mdi-clipboard",
-        text: "Upload Documents"
+        text: "Upload Documents",
       },
 
       {
         to: "/admin/update",
         icon: "mdi-chart-bubble",
-        text: "FAQ Update"
+        text: "FAQ Update",
       },
 
       {
         to: "/admin/settings",
-        icon: "mdi-settings",
-        text: "Company Settings"
-      }
+        icon: "mdi-home-modern",
+        text: "Company Settings",
+      },
 
       // {
       //   to: "/home",
       //   icon: "mdi-logout",
       //   text: "Logout"
       // }
-    ]
+    ],
   }),
+  computed: {
+    showDrawer: {
+      set(data) {
+        this.$store.commit("adminModule/setshowDrawer", data);
+      },
+      get() {
+        return this.$store.getters["adminModule/getshowDrawer"];
+      },
+    },
+  },
 
   methods: {
     logout() {
@@ -113,8 +127,8 @@ export default {
       this.$router.push({ path: "/home" });
 
       console.log("session deleted");
-    }
-  }
+    },
+  },
 };
 </script>
 

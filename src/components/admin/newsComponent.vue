@@ -19,7 +19,7 @@
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title class="pt-0">{{ getNewsList[i].TITLE }}</v-card-title>
+          <v-card-title style="color:#1A265C" class="pt-0">{{ getNewsList[i].TITLE }}</v-card-title>
           <v-card-text style="font-size: 15px">{{
             getNewsList[i].CONTENT
           }}</v-card-text>
@@ -28,12 +28,12 @@
           <v-card-actions>
             <v-flex xs10></v-flex>
             <v-flex xs1>
-              <v-icon @click="showDeleteDialog(getNewsList[i])"
+              <v-icon color="#1A265C" @click="showDeleteDialog(getNewsList[i])"
                 >mdi-delete</v-icon
               >
             </v-flex>
             <v-flex xs1>
-              <v-icon @click="showNewsDialog(i)">edit</v-icon>
+              <v-icon color="#1A265C" @click="showNewsDialog(i)">edit</v-icon>
             </v-flex>
           </v-card-actions>
         </v-flex>
