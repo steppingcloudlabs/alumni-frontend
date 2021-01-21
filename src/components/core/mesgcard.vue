@@ -45,7 +45,11 @@
 
               <v-card-text class="Director_message" >
                 {{ message }}
+                <p class="mr-5" style="text-align:right;color:#E4BA18">
+                  (Tausifur Rahman)
+                </p>
               </v-card-text>
+              
             </v-card>
           </v-flex>
         </v-layout>
@@ -98,7 +102,7 @@ div.item {
 }
 
 .directorImage {
-  height: 250px !important;
+  height: 275px !important;
   width: 300px;
 }
 .Director_message {
@@ -163,6 +167,11 @@ div.item {
 {
   font-size: 20px;
   font-family: 'Roboto';
+}
+.directorImage {
+  height: 275px !important;
+  width: 250px;
+  padding-top: 10%;
 }
 } 
 </style>

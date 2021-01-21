@@ -1,7 +1,7 @@
 <template>
-  <v-content class="main-user-container" style="margin-top:15vh !important">
+  <v-content class="main-user-container" style="margin-top:10vh !important">
     <core-drawer></core-drawer>
-    <div id="core-view" style="margin-top: 20px">
+    <div id="core-view" style="margin-top: 15px">
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>

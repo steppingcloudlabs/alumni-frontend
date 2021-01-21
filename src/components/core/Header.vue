@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-layout
       row
       wrap
@@ -129,7 +129,7 @@ export default {
   top: 0;
   width: 100%;
   z-index: 1009;
-  background: #1A265C;
+  background-image: linear-gradient(to left, rgba(26, 38, 92, 0.7), rgba(226, 198, 92, 0.7));
   padding-top: 2px;
   min-height: 50px;
 }

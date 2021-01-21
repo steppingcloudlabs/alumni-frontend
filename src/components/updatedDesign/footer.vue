@@ -1,10 +1,10 @@
 <template>
-  <v-footer light width="100%">
+  <v-footer light width="100%" style="background-image: linear-gradient(to top, rgba(26, 38, 92, 0.7), rgba(226, 198, 92, 0.7))">
     <v-card
       flat
       tile
       class="black--text text-center"
-      img="@/assets/shutterstock/footer.jpg"
+      color="transparent"
       width="100%"
     >
       <v-card-text>

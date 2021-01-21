@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar style="position: fixed; z-index: 1009; width: 100%">
+    <v-toolbar  style="position: fixed; z-index: 1009; width: 100%;background-image: linear-gradient(to right, rgba(44, 51, 81, 0.9), rgba(226, 198, 92, 0.5))">
       <v-icon class="drawericon" large @click="getDrawer">mdi-menu</v-icon>
       <img src="@/assets/alumx-logo-1.png" class="mb-5 ml-5 logo" />
       <v-layout row wrap align-center>

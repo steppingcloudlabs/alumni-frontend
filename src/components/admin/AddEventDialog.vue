@@ -100,11 +100,12 @@
                     :min="new Date().toISOString().substr(0, 10)"
                   ></v-date-picker>
                 </v-menu>
+                 <small>*indicates required field</small>
               </v-col>
-              <v-col cols="12"> </v-col>
+             
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
+         
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>

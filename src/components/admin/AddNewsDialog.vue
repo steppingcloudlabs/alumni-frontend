@@ -93,15 +93,18 @@
                         :max="new Date().toISOString().substr(0, 10)"
                       ></v-date-picker>
                     </v-menu>
+                     <small>*indicates required field</small>
                   </v-col>
 
-                  <v-col cols="12"> </v-col>
+                  <!-- <v-col cols="12">
+                     
+                     </v-col> -->
                 </v-row>
+
               </v-form>
             </v-container>
-            <small>*indicates required field</small>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions style="margin-top:-20px">
             <div class="flex-grow-1"></div>
             <v-btn color="error darken-1" text @click="closeDialog"
               >Close</v-btn
@@ -228,7 +231,12 @@ export default {
 <style >
 .v-dialog
 {
-  margin-top: 20vh !important;
+  margin-top: 10vh !important;
+  
+}
+.v-dialog__content 
+{
+z-index: 9999 !important;
 }
 
 </style>
