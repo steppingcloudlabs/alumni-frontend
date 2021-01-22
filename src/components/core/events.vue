@@ -1,8 +1,6 @@
 <template>
   <div class="events" style="width: 95%; min-height: 550px">
-    <v-card-title
-      class="dashboard_header mt-3 "
-      style=" text-align: center"
+    <v-card-title class="dashboard_header mt-3" style="text-align: center"
       >Upcoming Events</v-card-title
     >
     <v-divider
@@ -25,7 +23,7 @@
       </v-layout>
     </div>
     <div v-else>
-      <div v-if="getEventList.length && windowsize>640">
+      <div v-if="getEventList.length && windowsize > 640">
         <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
           <v-card>
             <div class="d-flex flex-no-wrap">
@@ -35,7 +33,7 @@
               <div>
                 <v-card-title
                   class="headline"
-                  style="color:#1A265C"
+                  style="color: #1a265c"
                   v-text="item.TITLE"
                 ></v-card-title>
                 <v-card-text v-text="item.DATE"></v-card-text>
@@ -53,14 +51,17 @@
           ></pagination>
         </div>
       </div>
-       <div v-else-if="getEventList.length && windowsize<=640">
-        <v-row v-for="(item, i) in getEventList" :key="i" mb-2 style="margin-top:18px" >
-          <v-card style="padding-bottom:55px">
-            <v-layout row wrap style="margin-top:-16px;">
-              <v-flex xs12 class="text--center" style="margin-left: -1px;">
-                
+      <div v-else-if="getEventList.length && windowsize <= 640">
+        <v-row
+          v-for="(item, i) in getEventList"
+          :key="i"
+          mb-2
+          style="margin-top: 18px"
+        >
+          <v-card style="padding-bottom: 55px">
+            <v-layout row wrap style="margin-top: -16px">
+              <v-flex xs12 class="text--center" style="margin-left: -1px">
                 <v-img contain :src="item.PHOTO"></v-img>
-             
               </v-flex>
               <v-flex xs12>
                 <v-card-title
@@ -69,13 +70,16 @@
                 ></v-card-title>
               </v-flex>
               <v-flex xs12>
-                 <v-card-text v-text="item.DATE"></v-card-text>
-                <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+                <v-card-text v-text="item.DATE"></v-card-text>
+                <v-card-text
+                  class="py-0 mb-3"
+                  v-text="item.CONTENT"
+                ></v-card-text>
               </v-flex>
             </v-layout>
           </v-card>
         </v-row>
-        <v-flex xs12 style="margin-bottom: 30px !important;margin-top:14px">
+        <v-flex xs12 style="margin-bottom: 30px !important; margin-top: 14px">
           <pagination
             :next="next"
             :prev="prev"
@@ -83,7 +87,7 @@
             @pageClicked="pageClicked"
           ></pagination>
         </v-flex>
-       </div>
+      </div>
       <div v-else>
         <p class="white--text text-center">
           No Events Available
@@ -241,8 +245,8 @@ export default {
     },
   },
   beforeMount() {
-    this.windowsize=window.innerWidth
-    console.log(this.windowsize)
+    this.windowsize = window.innerWidth;
+    console.log(this.windowsize);
     this.getEvents(2, 0);
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
@@ -263,7 +267,7 @@ export default {
 
   data() {
     return {
-      windowsize:0,
+      windowsize: 0,
       showeventBar: false,
       iteration: 1,
       model: {},

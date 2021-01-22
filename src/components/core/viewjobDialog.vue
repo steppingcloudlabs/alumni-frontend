@@ -1,6 +1,6 @@
  <<template>
 
- <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition">
+ <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition" style="margin-top:2vh!important">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="closeDialog">
@@ -64,14 +64,11 @@
 </template>
 
 <script>
-
 export default {
-  
-   methods: {
+  methods: {
     closeDialog() {
       this.$store.commit("userModule/closeViewJob");
     },
-    
   },
   computed: {
     viewJob: {
@@ -80,7 +77,7 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setViewJob", data);
-      }
+      },
     },
     viewJobData: {
       get() {
@@ -88,10 +85,8 @@ export default {
       },
       set(data) {
         this.$store.commit("userModule/setViewJobData", data);
-      }
+      },
     },
-   
   },
-
 };
 </script>
