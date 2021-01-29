@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-toolbar  style="position: fixed; z-index: 1009; width: 100%;background-image: linear-gradient(to right, rgba(44, 51, 81, 0.9), rgba(226, 198, 92, 0.5))">
+    <v-toolbar style="position: fixed;z-index: 1009;width: 100%;background-image: linear-gradient(to right,rgba(44, 51, 81, 0.9),rgba(226, 198, 92, 0.5));"
+    >
       <v-icon class="drawericon" large @click="getDrawer">mdi-menu</v-icon>
       <img src="@/assets/alumx-logo-1.png" class="mb-5 ml-5 logo" />
       <v-layout row wrap align-center>
@@ -8,52 +9,13 @@
           <SearchAlumni />
         </v-flex>
       </v-layout>
-      <v-row align="center" class="mx-0">
-        <!-- <v-text-field
-          class="mb-2"
-          v-model="search"
-          append-icon="search"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-          label="Search"
-          dark
-          single-line
-          filled
-          rounded
-          dense
-          hide-details
-        ></v-text-field>-->
-        <v-spacer></v-spacer>
-
-        <!-- <v-btn icon to="/profile/dashboard" v-if="$route.path != '/profile/dashboard'">
-          <v-icon color="white">mdi-view-dashboard</v-icon>
-        </v-btn> -->
-
-        <!-- <v-menu bottom left offset-y transition="slide-y-transition">
-          <template v-slot:activator="{ attrs, on }">
-            <v-btn class="toolbar-items" icon v-bind="attrs" v-on="on">
-              <v-badge color="error" overlap>
-                <template slot="badge">{{ notifications.length }}</template>
-                <v-icon color="white">mdi-bell</v-icon>
-              </v-badge>
-            </v-btn>
-          </template>
-
-          <v-card>
-            <v-list dense>
-              <v-list-item
-                v-for="notification in notifications"
-                :key="notification"
-                @click="onClick"
-              >
-                <v-list-item-title v-text="notification" />
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-menu> -->
-
+      <v-row align="right" class="mx-0">
+        <v-col cols="12" sm="8">
+        </v-col>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon color="black">mdi-account</v-icon>
+            <v-btn icon class="account" v-bind="attrs" v-on="on" >
+              <v-icon  color="black">mdi-account</v-icon>
             </v-btn>
           </template>
           <v-list>
@@ -155,6 +117,10 @@ export default {
 .drawericon {
   visibility: hidden;
 }
+.account
+{
+  margin-top: -25px;
+}
 
 @media screen and (max-width: 992px) {
   .drawericon {
@@ -167,5 +133,9 @@ export default {
   .drawericon {
     visibility: visible;
   }
+  .account
+{
+  margin-top: -35px;
+}
 }
 </style>

@@ -37,7 +37,7 @@
                   v-text="item.TITLE"
                 ></v-card-title>
                 <v-card-text v-text="item.DATE"></v-card-text>
-                <v-card-text class="py-0" v-text="item.CONTENT"></v-card-text>
+                <v-card-text class="py-0 mb-3" v-text="item.CONTENT"></v-card-text>
               </div>
             </div>
           </v-card>
@@ -71,10 +71,7 @@
               </v-flex>
               <v-flex xs12>
                 <v-card-text v-text="item.DATE"></v-card-text>
-                <v-card-text
-                  class="py-0 mb-3"
-                  v-text="item.CONTENT"
-                ></v-card-text>
+                <v-card-text class="py-0 mb-3" v-text="item.CONTENT"></v-card-text>
               </v-flex>
             </v-layout>
           </v-card>
@@ -332,6 +329,9 @@ div.item {
 .events {
   margin-left: unset;
   margin-right: unset;
+}
+.contentclass {
+  margin-bottom: 20px;
 }
 /* .events-group-container .v-sheet .v-slide-group__prev {
   display: flex !important;

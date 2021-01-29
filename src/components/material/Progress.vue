@@ -1,6 +1,6 @@
 <template>
   <v-overlay :value="showProgressBar">
-    <v-progress-circular style="margin-left:15px" indeterminate size="64"></v-progress-circular>
+    <v-progress-circular style="margin-left: 50%;!important" indeterminate size="64"></v-progress-circular>
   </v-overlay>
 </template>
 <script>

@@ -9,6 +9,8 @@ import {
 export default {
     namespaced: true,
     state: {
+        showBulkAlumni:false,
+        showBulkDocument:false,
         showDrawer:false,
         showQueryDialog: false,
         queryDialogData: {},
@@ -74,6 +76,24 @@ export default {
            closeDrawer:(state)=>{
                state.showDrawer=false
               },
+
+        setshowBulkAlumni: (state,data)=>{
+                state.showBulkAlumni=data
+               },
+        closeBulkAlumni:(state)=>{
+                   state.showBulkAlumni=false
+                  },
+
+         setshowBulkDocument: (state,data)=>
+         {
+             state.showBulkDocument=data
+         },
+           
+         closeBulkDocument:(state)=>
+         {
+             state.showBulkDocument=false
+         },          
+          
 
         setShowQueryDialog: (state, data) => {
             state.showQueryDialog = data
@@ -356,6 +376,12 @@ export default {
 
     },
     getters: {
+        getshowBulkALumni:(state)=>{
+            return state.showBulkAlumni
+          },
+          getshowBulkDocument:(state)=>{
+            return state.showBulkDocument
+          },
         getshowDrawer:(state)=>{
             return state.showDrawer
           },

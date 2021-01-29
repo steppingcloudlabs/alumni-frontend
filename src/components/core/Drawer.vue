@@ -40,7 +40,7 @@
             font-family: 'Raleway', sans-serif;
             font-weight: bold;
           "
-          >Welcome {{ userData }}!!</v-list-item-title
+          >Welcome {{name }}!!</v-list-item-title
         >
       </v-list-item>
 
@@ -84,6 +84,7 @@ export default {
     user: {
       firstname: "hello",
     },
+    name:"",
 
     links: [
       {
@@ -130,6 +131,7 @@ export default {
   beforeMount()
   {
   this.showDrawer=true
+  this.name=this.userData
   },
   methods: {
     logout() {

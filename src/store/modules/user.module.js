@@ -208,7 +208,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/auth/login',
+                    url: '/auth/login',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -438,7 +438,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:"/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url: "/user/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -517,7 +517,7 @@ export default {
                 }
                 axios({
                     method: 'GET',
-                    url:"/user/action/faq/get" + limitURL,
+                    url: "/user/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token

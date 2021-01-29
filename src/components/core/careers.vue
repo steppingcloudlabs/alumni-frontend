@@ -88,72 +88,79 @@
       <v-layout
         row
         wrap
-        style="margin-left: unset; margin-top:2%"
+        style="margin-left: unset; "
         v-if="getjobs.length && !showLoader"
       >
-        <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in getjobs" :key="i">
+        <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-5 pt-5 " v-for="(item, i) in getjobs" :key="i">
 
           <v-hover v-slot:default="{ hover }">
              
-            <v-card 
-              class="job_class"
-              :elevation="hover ? 24 : 1"
-              min-height="150px"
-              style="margin-top:1%;margin-left:4%;width:90%;box-shadow:15px 15px 40px -10px;background-color:white;transition: all 0.5s ease-in"
+           <v-card class="job_class" :elevation="hover ? 24 : 1"
+        style="margin-top:15px !important;box-shadow:  15px 15px 40px -10px #808080;transition: all 0.5s ease-in;
+        ">
+        <v-img height="150px" src="@/assets/opportunities_bg.jpg"  class="img_transparent">
+             <v-overlay  absolute color="#2A3151">
+              <v-card-title  class="jobtitle" style="color: white;align:center;padding-top:35px">{{item.JOBTITLE}}</v-card-title>             
+                 <v-flex xs6 v-if="item.POSTINGSTARTDATE">
+                                  <div class="white--text ml-4 pb-3"> <v-icon class="jobicon" color="white" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
+                                </v-flex>       
+                                <v-flex xs6 v-if="item.POSTINGENDDATE">
+                                  <div class="white--text ml-4 pb-3" color="white"> <v-icon class="jobicon" color="white" >mdi-calendar</v-icon> End Date: {{item.POSTINGENDDATE.substring(0,10)}}</div>
+                                </v-flex>  
+                                <v-flex xs6 mb-5 v-if="item.LOCATION" > 
+                                  <div class="white--text ml-4  pb-3" ><v-icon class="jobicon" color="white" >mdi-map-marker</v-icon>{{item.LOCATION}}</div>
+                                </v-flex> 
+             </v-overlay>
+                           
+        </v-img> 
             
-            >
-            <v-expand-transition>
-              <div v-if="hover" class="d-flex transition-fast-in-fast-out black darken-2 v-card--reveal display-3 white--text" style="height: 100%"><div class="pa-5">
-                <p style="font-size: 15px;margin-top:15%">
-                  <!-- {{ item.JOBDESCRIPTION.substring(0,10) }}
-                  <span id="dots">
-                    ... -->
-                    <v-btn color="#E4BA18" class="text-capitalize"  @click="openJob(item)"
-                      >View Description</v-btn
-                    >
-                  <!-- </span> -->
-                </p>
-              </div></div>
-            </v-expand-transition>
            
-              <v-card-title class="jobtitle" style="color:orange;background-color:#1A265C">{{
-                item.JOBTITLE
-              }}</v-card-title>
               
-              <v-layout row wrap style="margin-left: unset">
+              
+              
+              <v-layout row wrap mt-0
+              class="jobdesc"
+              style="margin-left: unset;
+              background-color:white;
+              
+              width:100%;
+              
+              
+              " >
+              
+                   
+                                <!-- <v-flex xs6 v-if="item.LOCATION" > 
+                                  <div class="black--text ml-4 pt-3 pb-3" ><v-icon class="jobicon" color="blue" >mdi-map-marker</v-icon>{{item.LOCATION}}</div>
+                                </v-flex>
+                                <v-flex xs6 v-if="item.DEPARTMENT" >
+                                    <div class="black--text ml-4 pt-3 pb-3" ><v-icon class="jobicon" color="blue" >mdi-domain</v-icon>{{item.DEPARTMENT}}</div>
+                      
+                                </v-flex>
+                                <v-flex xs6 v-if="item.POSTINGENDDATE">
+                                  <div class="black--text ml-4 pb-3" color="white"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon> End Date: {{item.POSTINGENDDATE.substring(0,10)}}</div>
+                                </v-flex>
+                                <v-flex xs6 v-if="item.POSTINGSTARTDATE">
+                                  <div class="black--text ml-4 pb-3"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
+                                </v-flex> -->
+                                <v-flex xs12 ml-3 mr-3 mt-3 style="font-size:12px">
+                                    {{ item.JOBDESCRIPTION.substring(0,500) }}...
+                                   
+                                </v-flex>
+                                 <v-flex xs3 sm8 md8 lg8 xl8 >
+                                 </v-flex>
+                                <v-flex xs4 sm4 md4 lg4 xl4 style="margin:auto" >
+                               <v-btn text color="#E4BA18" class="text-capitalize"  @click="openJob(item)" >View Description</v-btn>
+                                </v-flex>
                 
-                <v-flex xs6 >
-                  <div class="black--text ml-4 pt-5 pb-3">
-                    <v-icon class="jobicon" color="blue" v-if="item.LOCATION"
-                      >mdi-map-marker</v-icon
-                    >
-                    {{ item.LOCATION }}
-                  </div>
-                </v-flex>
-                <v-flex xs6  >
+                <!-- <v-flex xs6  >
                   <div class="black--text ml-4 pt-5 pb-3">
                     <v-icon class="jobicon" color="blue" v-if="item.DEPARTMENT"
                       >mdi-domain</v-icon
                     >
                     {{ item.DEPARTMENT }}
                   </div>
-                </v-flex>
-                 <v-flex xs6 >
-                  <div class="black--text ml-4 pb-3">
-                    <v-icon class="jobicon" color="blue" v-if="item.LOCATION"
-                      >mdi-calendar</v-icon
-                    >
-                    End Date:{{ item.POSTINGENDDATE.substring(0,10) }}
-                  </div>
-                </v-flex>
-                <v-flex xs6  >
-                  <div class="black--text ml-4 pb-3">
-                    <v-icon class="jobicon" color="blue" v-if="item.DEPARTMENT"
-                      >mdi-calendar</v-icon
-                    >
-                   Start Date {{ item.POSTINGSTARTDATE.substring(0,10) }}
-                  </div>
-                </v-flex>
+                </v-flex> -->
+                 
               </v-layout>
               <!--<div class="pa-5">
                 <p style="font-size: 15px">

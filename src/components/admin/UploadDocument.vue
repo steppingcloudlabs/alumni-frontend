@@ -20,6 +20,14 @@
             >Upload Pending Documents</v-toolbar-title
           >
           <v-spacer></v-spacer>
+             <v-btn
+                color="primary"
+                light
+                class="mb-3 mr-4 newAlumni"
+                @click="openAddBulkDocumentDialog"
+               
+                >Bulk Upload</v-btn
+              >
           <v-text-field
             v-model="search"
             append-icon="search"
@@ -57,18 +65,21 @@
       ></pagination>
     </p>
     </v-flex>
+    <BulkDocument></BulkDocument>
   </v-layout>
 </template>
 
 <script>
 import UploadDialog from "@/components/admin/UploadDocumentDialog";
 import pagination from "@/components/material/CommonPagination.vue";
+import BulkDocument from "@/components/admin/AddBulkDocumentDialog.vue";
 import moment from "moment"
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
     UploadDialog,
-     pagination
+     pagination,
+     BulkDocument
   },
   beforeMount() {
     this.limit = 9;
@@ -152,6 +163,17 @@ export default {
         .then((response) => {
           this.loader = false;
         });
+    },
+     openAddBulkDocumentDialog() {
+      // let alumniData = {
+      //   USER_ID: null,
+      //   FIRST_NAME_PERSONAL_INFORMATION: "",
+      //   LAST_NAME_PERSONAL_INFORMATION: "",
+      //   paySlipStatus: "",
+      //   form16Status: "",
+      //   openFrom: "New",
+      // };
+      this.$store.commit("adminModule/setshowBulkDocument", true);
     },
   },
   destroyed() {

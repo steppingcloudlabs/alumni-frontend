@@ -22,7 +22,8 @@
           margin-top: 5px;
           background-color: white;
           text-align: center;
-          min-height:190px
+          min-height:190px;
+        
         "
       >
         <v-card-title>

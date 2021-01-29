@@ -89,6 +89,7 @@ export default {
       // console.log(this.test);
       (this.test = "My New Data");
     console.log(this.test);
+    
   },
 
   computed: {
@@ -203,6 +204,7 @@ input:-webkit-autofill:active {
 .login {
   background-image: url("../assets/compressjpeg/login1-min.jpg") !important;
 }
+
 @media screen and (max-width: 640px) {
   .login {
     background-image: url("../assets/compressjpeg/loginS-min.jpg") !important;

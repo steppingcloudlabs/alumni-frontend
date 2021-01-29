@@ -1,5 +1,9 @@
 <template>
-  <v-footer light width="100%" style="background-image: linear-gradient(to top, rgba(26, 38, 92, 0.7), rgba(226, 198, 92, 0.7))">
+  <v-footer
+    light
+    width="100%"
+    style="background-image: linear-gradient( to top,rgba(26, 38, 92, 0.7),rgba(226, 198, 92, 0.7));"
+  >
     <v-card
       flat
       tile
@@ -15,19 +19,22 @@
         </v-btn>
       </v-card-text>
 
-      <v-card-text class=" pt-0" style="color:black">
+      <v-card-text class="pt-0" style="color: black">
         <v-layout row wrap>
-            <v-flex xs6 sm6 md6 lg6 xl6>
-                 <v-subheader class="text--center"> WHY JOIN US</v-subheader>
-              
-            </v-flex>
-            <v-flex xs6 sm6 md6 lg6 xl6>
-                        
-                <v-subheader style="text-align:center" >ADDRESS</v-subheader>
-                <li class="mb-5 ml-5" v-for="(item, i) in items" :key="i" style="text-align:left;list-style-type: none;">
-                    <span><v-icon v-text="item.icon"></v-icon>{{item.text}}</span>
-                </li>   
-                            <!-- <v-list-item-group>
+          <v-flex xs6 sm6 md6 lg6 xl6>
+            <v-subheader class="text--center"> WHY JOIN US</v-subheader>
+          </v-flex>
+          <v-flex xs6 sm6 md6 lg6 xl6>
+            <v-subheader style="text-align: center">ADDRESS</v-subheader>
+            <li
+              class="mb-5 ml-5"
+              v-for="(item, i) in items"
+              :key="i"
+              style="text-align: left; list-style-type: none"
+            >
+              <span><v-icon v-text="item.icon"></v-icon>{{ item.text }}</span>
+            </li>
+            <!-- <v-list-item-group>
           
                             <v-list-item
                         v-for="(item, i) in items"
@@ -39,10 +46,8 @@
                         </v-list-item>
                     </v-list-item-group>
                     </v-list> -->
-            </v-flex>
-           
+          </v-flex>
         </v-layout>
-       
       </v-card-text>
 
       <v-divider></v-divider>
@@ -59,10 +64,23 @@ export default {
   data: () => ({
     icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     items: [
-        { text: '     Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044', icon: 'mdi-map-marker' },
-        { text: '     askme@steppingcloud.com', icon: 'mdi-email' },
-        { text: '     011 4132 6689', icon: 'mdi-phone' },
-      ],
+      {
+        text:
+          "     Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044",
+        icon: "mdi-map-marker",
+      },
+      {
+        text: "   114 Lavender Street, 11-88 CT Hub 2 Singapore - 387293",
+        icon: "mdi-map-marker",
+      },
+      {
+        text:
+          "     Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044",
+        icon: "mdi-map-marker",
+      },
+      { text: "     askme@steppingcloud.com", icon: "mdi-email" },
+      { text: "     011 4132 6689", icon: "mdi-phone" },
+    ],
   }),
 };
 </script>

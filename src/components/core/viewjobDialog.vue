@@ -1,6 +1,6 @@
  <<template>
 
- <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition" style="margin-top:2vh!important">
+ <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="closeDialog">
@@ -90,3 +90,8 @@ export default {
   },
 };
 </script>
+<style>
+.v-dialog--fullscreen {
+  margin-top: 0vh !important;
+}
+</style>

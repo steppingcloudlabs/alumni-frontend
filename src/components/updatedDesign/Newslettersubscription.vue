@@ -7,13 +7,14 @@
     
   >
     <v-overlay :absolute="true" color="black">
-      <p class="text--center">
+      <p class="text--center" style="text-align:center">
         <span class="newsletter"
           >Don’t Miss Awesome Newsletter From Us!!
         </span>
         <span style="font-size: 10px">
           <v-text-field
-            class="text--center"
+           
+            class="text--center newsletterEmail"
             v-model="email"
             single-line
             color="white"
@@ -85,6 +86,17 @@ export default {
   height: 600px;
  
 }
+.newsletterEmail
+{
+   width: 30%;
+  margin: auto;
+              
+}
+.newsletterEmail>.v-input__control>.v-input__slot>.v-text-field__slot>.v-label
+{
+ left: 30%  !important;
+   right: 30%!important;
+}
 
 @media only screen and (max-width: 640px) {
   /* For mobile phones: */
@@ -97,6 +109,16 @@ export default {
   
   .newsletter{
   font-size: 15px;
+}
+.newsletterEmail
+{
+   width: 60%;
+  margin: auto;
+              
+}
+.v-input .v-label
+{
+   margin-left: 27px!important;
 }
 .v-parallax.newsletterparallex
 {

@@ -1,10 +1,10 @@
 <template>
   <v-parallax
-    class="messageParallax"
+    class="messageParallax msg"
     style="width: 100%"
     src="@/assets/compressjpeg/msg-min.jpg"
   >
-    <v-overlay :absolute="true" color="black">
+    <v-overlay class="msgOverlay" :absolute="true" color="black">
       <v-card
         flat
         tile
@@ -13,20 +13,16 @@
         style="padding-top: 3%; padding-bottom: 5%"
       >
         <v-card-title>
-          <p
-         
-            class="font-weight-bold Director_header"
-            style="margin: auto; "
-          >
+          <p class="font-weight-bold Director_header" style="margin: auto">
             Message from Director's Desk
           </p>
         </v-card-title>
         <v-layout row wrap style="padding-top: 3%">
           <v-flex xs12 sm4 md4 lg4 xl4>
-            <div >
+            <div>
               <v-img
                 class="directorImage"
-                style="border-radius: 10%;margin:auto"
+                style="border-radius: 10%; margin: auto"
                 src="@/assets/director1-min.png"
               ></v-img>
             </div>
@@ -43,13 +39,12 @@
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>
           </v-card-title> -->
 
-              <v-card-text class="Director_message" >
+              <v-card-text class="Director_message" style="color: white">
                 {{ message }}
-                <p class="mr-5" style="text-align:right;color:#E4BA18">
+                <p class="mr-5" style="text-align: right; color: #e4ba18">
                   (Tausifur Rahman)
                 </p>
               </v-card-text>
-              
             </v-card>
           </v-flex>
         </v-layout>
@@ -88,6 +83,9 @@ export default {
 };
 </script>
 <style>
+.msg>.v-parallax__content >.msgOverlay>.v-overlay__scrim {
+  opacity: 0.9 !important;
+}
 div.item {
   vertical-align: top;
   display: inline-block;
@@ -106,72 +104,68 @@ div.item {
   width: 300px;
 }
 .Director_message {
-     margin-top: 1%;
-    color: white;
-    width: 80%;
-    font-size: 20px;
-    font-weight: 200;
-    font-family: 'Roboto';
-
+  margin-top: 1%;
+  color: white;
+  width: 80%;
+  font-size: 20px;
+  font-weight: 200;
+  font-family: "Roboto";
 }
-.Director_header
-{
+.Director_header {
   font-size: 25px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
+  margin-top: 10px !important;
 }
-.messageParallax
-{
+.messageParallax {
   height: 600px;
+}
+.msgOverlay {
+  opacity: 0.9 !important;
 }
 
 @media screen and (max-width: 992px) {
+  .messageParallax {
+    height: 400px;
+  }
 
-  .messageParallax
-{
-  height: 400px;
-}
-.Director_message {
-     margin-top: 1%;
+  .Director_message {
+    margin-top: 1%;
     color: white;
     width: 80%;
     font-size: 20px;
     font-weight: 200;
-    font-family: 'Roboto';
-
-}
-.Director_header
-{
-  font-size: 25px;
-  font-family: 'Roboto';
-}
+    font-family: "Roboto";
+  }
+  .Director_header {
+    font-size: 25px;
+    font-family: "Roboto";
+    margin-top: 20px !important;
+  }
 }
 
 /* On screens that are 600px or less, set the background color to olive */
- @media screen and (max-width: 640px) {
- 
-  .messageParallax
-{
-  height: 300px;
-}
-.Director_message {
-     margin-top: 1%;
+@media screen and (max-width: 640px) {
+  .messageParallax {
+    height: 300px;
+  }
+  .Director_message {
+    margin-top: 1%;
     color: white;
     width: 100%;
     font-size: 15px;
     font-weight: 200;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     text-align: center;
-
+  }
+  .Director_header {
+    font-size: 20px;
+    font-family: "Roboto";
+    margin-top: 30px !important;
+  }
+  .directorImage {
+    height: 275px !important;
+    width: 250px;
+    padding-top: 10%;
+  }
 }
-.Director_header
-{
-  font-size: 20px;
-  font-family: 'Roboto';
-}
-.directorImage {
-  height: 275px !important;
-  width: 250px;
-  padding-top: 10%;
-}
-} 
 </style>

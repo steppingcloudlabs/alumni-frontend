@@ -33,6 +33,14 @@
                 >New Alumni</v-btn
               >
               <v-divider class="mx-4" inset vertical></v-divider>
+               <v-btn
+                color="primary"
+                light
+                class="mb-2 newAlumni"
+                @click="openAddBulkAlumniDialog"
+               
+                >Bulk Upload</v-btn
+              >
               <div class="flex-grow-1" ></div>
               <v-text-field
               style="color:white"
@@ -76,6 +84,7 @@
          
         </p>
       </v-flex>
+      <BulkAlumni></BulkAlumni>
     </v-layout>
   
 </template>
@@ -86,13 +95,15 @@
 import statCards from "@/components/material/StatsCard.vue";
 import AddAlumni from "@/components/admin/AddAlumniDialog.vue";
 import pagination from "@/components/material/CommonPagination.vue";
+import BulkAlumni from "@/components/admin/AddAlumniBulkDialog.vue";
 import moment from "moment";
 
 export default {
   components: {
     statCards,
     AddAlumni,
-    pagination
+    pagination,
+    BulkAlumni
   },
   watch: {
     dialog() {
@@ -183,6 +194,17 @@ export default {
         openFrom: "New",
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
+    },
+     openAddBulkAlumniDialog() {
+      // let alumniData = {
+      //   USER_ID: null,
+      //   FIRST_NAME_PERSONAL_INFORMATION: "",
+      //   LAST_NAME_PERSONAL_INFORMATION: "",
+      //   paySlipStatus: "",
+      //   form16Status: "",
+      //   openFrom: "New",
+      // };
+      this.$store.commit("adminModule/setshowBulkAlumni", true);
     },
     viewAlumniDialog(data) {
       console.log(data);
