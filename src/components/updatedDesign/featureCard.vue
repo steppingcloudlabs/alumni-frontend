@@ -1,4 +1,5 @@
-<template >
+ 
+<!--<template >
   <v-layout row wrap class="ma-0" style="background: #f5f5f5;padding-left:45px;padding-bottom:40px">
     <v-flex xs12>
     <p
@@ -18,20 +19,64 @@
       class="pa-2"
       v-for="(card, i) in cards"
       :key="i"
+      style="text-align:center"
     >
-      <v-card class="featCard">
-        <img :src="card.pic" style="width: 100%; height: 200px" />
+     
+        <img :src="card.pic"  style="height:100px" />
 
         <v-card-text
-          class="black--text title-headline"
-          style="font-weight: 500; text-align: center;padding: 8px !important;"
+          class="black--text title-headline text-muted"
+         
         >
           {{ card.text }}
         </v-card-text>
-      </v-card>
+    
     </v-flex>
   </v-layout>
+</template>-->
+
+<template>
+<div class="text-center" style="width:100%">
+   <p
+      class="headline font-weight-bold"
+      style="text-align: center;color:black; margin-top: 2%;padding-right:45px"
+    >
+      Empower your Alumni Network
+    </p>
+  <div class="section-tube pt-4 bg-dotted-lines ">
+    <div class="container text-center ">
+     
+      <v-row class="text-center">
+        <v-col>
+          <img src="@/assets/icon/icon-achiever.png" class="icon-colorful">
+          <p class="text-sm text-muted mt-1 mb-1">Find talent through rehire and referrals from alumni</p>
+        </v-col>
+        <v-col>
+          <img src="@/assets/icon/icon-trophy.png" class="icon-colorful mt-md-5 pt-md-5 mt-4 pt-4">
+          <p class="text-sm text-muted mt-1 mb-1">Enhance employer branding by engaging your alumni</p>
+        </v-col>
+        <v-col>
+          <img src="@/assets/icon/icon-helpdesk.png" class="icon-colorful">
+          <p class="text-sm text-muted mt-1 mb-1">One-stop Exits Helpdesk for all the alumni queries</p>
+        </v-col>
+        <v-col>
+          <img src="@/assets/icon/icon-email.png" class="icon-colorful mt-md-5 pt-md-5 mt-4 pt-4">
+          <p class="text-sm text-muted mt-1 mb-1">Regular Updates about the Company To All Alumni</p>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
+</div>
 </template>
+
+
+
+
+
+
+
+
+
 
 <script>
 export default {
@@ -41,42 +86,42 @@ export default {
         {
           icon: "mdi-account-search",
           text: "Online Directory",
-          pic: require("@/assets/compressjpeg/F1-min.jpg"),
+          pic: require("@/assets/icondesign/searchDir.png"),
         },
         {
           icon: "mdi-home-modern",
           text: "Company Profile",
-          pic: require("@/assets/compressjpeg/F2-min.jpg"),
+          pic: require("@/assets/icondesign/CompanyProfile.png"),
         },
         {
           icon: "mdi-view-dashboard",
           text: "Job Board",
-          pic: require("@/assets/compressjpeg/F3-min.jpg"),
+          pic: require("@/assets/icondesign/job.png"),
         },
         {
           icon: "mdi-newspaper",
           text: "News & Event",
-          pic: require("@/assets/compressjpeg/F4-min.jpg"),
+          pic: require("@/assets/icondesign/news.png"),
         },
         {
           icon: "mdi-home-map-marker",
           text: "Maps",
-          pic: require("@/assets/compressjpeg/F5-min.jpg"),
+          pic: require("@/assets/icondesign/maps.png"),
         },
         {
           icon: "mdi-file-document",
           text: "Document Center",
-          pic: require("@/assets/compressjpeg/F6-min.jpg"),
+          pic: require("@/assets/icondesign/docs.png"),
         },
         {
           icon: "mdi-comment-question-outline",
           text: "Ask HR",
-          pic: require("@/assets/compressjpeg/F7-min.jpg"),
+          pic: require("@/assets/icondesign/AskHR.png"),
         },
         {
           icon: "mdi-account-check",
           text: "Recommended Job Oppurtunities",
-          pic: require("@/assets/compressjpeg/F8-min.jpg"),
+          pic: require("@/assets/icondesign/RecOpp.png"),
         },
       ],
     };
@@ -109,5 +154,23 @@ export default {
   height: 100%;
   width: 250px;
   box-shadow: 15px 15px 40px -10px #808080 !important;
+}
+.bg-dotted-lines {
+    background-image: url(https://www.vaave.com/media/dotted-lines.png);
+    background-position: center 0px;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+.icon-colorful {
+    width: 100%;
+    max-width: 85px;
+}
+.text-muted {
+    color: #aaaaaa !important;
+    font-size: 0.8em !important;
+}
+.section-tube {
+    padding: 80px 0;
+    position: relative;
 }
 </style>

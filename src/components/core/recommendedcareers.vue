@@ -131,7 +131,7 @@
                                   <div class="black--text ml-4 pb-3"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
                                 </v-flex> -->
                                 <v-flex xs12 ml-3 mr-3 mt-3 style="font-size:12px">
-                                    {{ item.JOBDESCRIPTION.substring(0,500) }}...
+                                    {{ item.JOBDESCRIPTION.substring(0,200) }}...
                                    
                                 </v-flex>
                                  <v-flex xs3 sm8 md8 lg8 xl8 >
@@ -303,7 +303,7 @@ export default {
 }
 .jobdesc
 {
-  height:200px;
+  
   box-shadow:  15px 15px 20px -15px #808080;
 }
 .job_class
