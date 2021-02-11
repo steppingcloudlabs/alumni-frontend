@@ -72,6 +72,7 @@ export default {
       //console.log(file);
       var reader = new FileReader();
       reader.readAsDataURL(file);
+      
       reader.onload = () => {
         console.log(reader.result);
         var str = reader.result.substring(reader.result.indexOf(",") + 1);

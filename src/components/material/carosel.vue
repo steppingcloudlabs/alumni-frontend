@@ -1,7 +1,7 @@
 <template>
   <v-carousel
     class="mr-5 news-carousel-wrapper"
-    
+    cycle
     hide-delimiter-background
     show-arrows-on-hover
     hide-delimiters

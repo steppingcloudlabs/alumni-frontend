@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap >
+  <v-layout row wrap>
     <v-dialog v-model="showBulk" width="600px">
       <v-card>
         <v-toolbar class="mb-5">
@@ -8,25 +8,44 @@
         </v-toolbar>
 
         <v-card-text>
-         
-            <v-subheader style="text-align: center">Special Instructions</v-subheader>
-            <li
-              class="mb-2 ml-5"
-              v-for="(item, i) in items"
-              :key="i"
-              style="text-align: left;font-size:10px"
-            >
-              <span>{{ item.text }}</span>
-            </li>
-         
+          <v-subheader style="text-align: center"
+            >Special Instructions</v-subheader
+          >
+          <li
+            class="mb-2 ml-5"
+            v-for="(item, i) in items"
+            :key="i"
+            style="text-align: left; font-size: 10px"
+          >
+            <span>{{ item.text }}</span>
+          </li>
+
           <v-file-input
-            :rules="rules"
-            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-           
+            ref="file"
+            accept=".csv"
             prepend-icon="mdi-attachment"
             label="Upload Csv"
-            @change="getBase64"
+            type="file"
+            @change="handleFileUpload"
           ></v-file-input>
+
+          <!-- <div class="container">
+            <div class="container">
+              <div class="large-12 medium-12 small-12 cell">
+                <label
+                  >File
+                  <input
+                    accept=".csv"
+                    type="file"
+                    id="file"
+                    ref="file"
+                    v-on:change="handleFileUpload()"
+                  />
+                </label>
+                <button v-on:click="submitFile()">Submit</button>
+              </div>
+            </div>
+          </div> -->
         </v-card-text>
 
         <v-card-actions>
@@ -40,40 +59,31 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-        items: [
-      {
-        text:" Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044"
-    
-      },
-      {
-        text: " 114 Lavender Street, 11-88 CT Hub 2 Singapore - 387293"
-        
-      },
-      {
-        text:" Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044"
-       
-      }
-    
-    ],
+      file: "",
+      items: [
+        {
+          text:"File should be in csv format with comma delimiter",
+        },
+        {
+          text: "Fields should not contain any comma as character",
+        },
+        {
+          text:
+            "You can upload upto 10,000 Alumni in one batch",
+        },
+      ],
 
       // phoneRules: [
       //   v =>
       //     (v.length > 9 && v.length < 11) || "Please Enter valid Phone number"
       // ],
-      employeeRules: [(v) => !!v || "Employee Id is required"],
-      rules: [
-        (value) =>
-          !value ||
-          value.size < 2000000 ||
-          "Avatar size should be less than 2 MB!",
-      ],
     };
   },
   computed: {
-   
     showBulk: {
       get() {
         return this.$store.getters["adminModule/getshowBulkALumni"];
@@ -87,52 +97,63 @@ export default {
     },
   },
   methods: {
-    getBase64(file) {
-      //console.log(file);
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        console.log(reader.result);
-        var str = reader.result.substring(reader.result.indexOf(",") + 1);
-        this.avatar.profile = reader.result;
-      };
-      reader.onerror = function (error) {
-        console.log("Error: ", error);
-      };
+    submitFile() {
+      /*
+                Initialize the form data
+        
+
+        */
+
+      let formData = new FormData();
+
+      /*
+                Add the form data we need to submit
+            */
+      formData.append("filename", this.file);
+
+      this.$store
+        .dispatch("adminModule/bulkUploadAlumni", formData)
+        .then((response) => {
+          if (response) {
+            console.log(response);
+            this.$store.commit("showSnackbar", {
+              message: "Upload Completed, Please Check Dashboard for status",
+              color: "success",
+              heading: "Success",
+              duration: 3000,
+            });
+          } else {
+            this.$store.commit("showSnackbar", {
+              color: "red",
+              duration: 1000,
+              message: "Correct Errors",
+              heading: "Error",
+            });
+          }
+        });
+      console.log(formData.get("filename"));
+    },
+
+    /*
+        Handles a change on the file upload
+      */
+    handleFileUpload(file) {
+      // this.file = this.$refs.file.files[0];
+      this.file=file
     },
     closeDialog() {
-      this.$store.commit("adminModule/setshowBulkAlumni",false);
+      this.$store.commit("adminModule/setshowBulkAlumni", false);
     },
     saveDialog() {
-      let avatarData = JSON.parse(JSON.stringify(this.avatar));
-      this.avatar.profile = "";
-     this.$store.commit("adminModule/setshowBulkAlumni",false);
-      let data = {
-        payload: {
-          USERID: this.userData.USER_ID,
-          PROFILEIMAGE: avatarData.profile,
-        },
-      };
-
-      console.log(data);
-      this.$store.dispatch("userModule/updateData", data).then((response) => {
-        if (response.data.status == 200) {
-          this.$store.commit("userModule/setUpdateAvatarData", data);
-          this.$store.commit("showSnackbar", {
-            message: "Avatar Updated successfully",
-            color: "success",
-            heading: "Success",
-            duration: 3000,
-          });
-        } else {
-          this.$store.commit("showSnackbar", {
-            color: "red",
-            duration: 1000,
-            message: "Correct Errors",
-            heading: "Error",
-          });
-        }
-      });
+                  this.$store.commit("showSnackbar", {
+              message: "Upload in progress",
+              color: "success",
+              heading: "Success",
+              duration: 3000,
+            });
+      this.submitFile();
+      this.$store.commit("adminModule/setshowBulkAlumni", false);
+      
     },
   },
 };

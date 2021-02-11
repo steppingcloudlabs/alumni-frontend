@@ -17,6 +17,7 @@ export default {
         showEmailDialog: false,
         emailDialogData: {},
         level: "",
+        statusList:{},
         level1Email: [{
 
             },
@@ -70,6 +71,10 @@ export default {
     },
     mutations: {
        
+        setStatusList:(state,data)=>
+        {
+           state.statusList=data
+        },
         setshowDrawer: (state,data)=>{
             state.showDrawer=data
            },
@@ -376,6 +381,10 @@ export default {
 
     },
     getters: {
+        getStatusList:(state)=>
+        {
+          return state.statusList
+        },
         getshowBulkALumni:(state)=>{
             return state.showBulkAlumni
           },
@@ -461,7 +470,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/admin/action/news/create',
+                    url:baseurl()+'/admin/action/news/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -474,7 +483,10 @@ export default {
                         commit('showSessionExpiredError', {}, {
                             root: true
                         })
-                    } else {
+                    }
+                   
+                    
+                    else {
                         resolve(response)
                         console.log(response)
                     }
@@ -494,7 +506,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: "/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url:baseurl()+ "/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -509,6 +521,7 @@ export default {
                             root: true
                         })
                     } else {
+                      
                         resolve(response)
 
                         commit("setNewsList", response.data.result)
@@ -534,7 +547,7 @@ export default {
         //     return new Promise((resolve, reject) => {
         //         axios({
         //             method: 'POST',
-        //             url: 'https://api.steppingcloud.com/admin/action/allnews',
+        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allnews',
         //             headers: {
         //                 'Content-Type': 'application/json',
         //             },
@@ -577,7 +590,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/admin/action/news/delete',
+                    url:baseurl()+'/admin/action/news/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -617,7 +630,7 @@ export default {
                 console.log("event data", data)
                 axios({
                     method: 'POST',
-                    url: '/admin/action/event/create',
+                    url:baseurl()+ '/admin/action/event/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -651,7 +664,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url:baseurl()+"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -686,7 +699,7 @@ export default {
         //     return new Promise((resolve, reject) => {
         //         axios({
         //             method: 'POST',
-        //             url: 'https://api.steppingcloud.com/admin/action/allevent',
+        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allevent',
         //             headers: {
         //                 'Content-Type': 'application/json',
         //             },
@@ -723,7 +736,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/event/delete',
+                    url:baseurl()+ '/admin/action/event/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -768,7 +781,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/user/delete',
+                    url:baseurl()+ '/admin/action/user/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -807,7 +820,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/user/create',
+                    url:baseurl()+ '/admin/action/user/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -841,7 +854,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/admin/action/user/create',
+                    url:baseurl()+'/admin/action/user/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -873,7 +886,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/admin/action/user/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
+                    url:baseurl()+'/admin/action/user/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -906,7 +919,7 @@ export default {
         //     return new Promise((resolve, reject) => {
         //         axios({
         //             method: 'POST',
-        //             url: 'https://api.steppingcloud.com/admin/action/allalumni',
+        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allalumni',
         //             headers: {
         //                 'Content-Type': 'application/json',
         //             },
@@ -944,7 +957,7 @@ export default {
                 }
                 axios({
                     method: 'GET',
-                    url: "/admin/action/faq/get" + limitURL,
+                    url:baseurl()+ "/admin/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -978,7 +991,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/admin/action/faq/create',
+                    url:baseurl()+'/admin/action/faq/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1016,7 +1029,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:'/admin/action/faq/delete',
+                    url:baseurl()+'/admin/action/faq/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1055,7 +1068,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/documents/create',
+                    url:baseurl()+ '/admin/action/documents/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1114,7 +1127,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: '/admin/action/askhr/manager/get',
+                    url:baseurl()+ '/admin/action/askhr/manager/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1146,7 +1159,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/askhr/manager/create',
+                    url:baseurl()+ '/admin/action/askhr/manager/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1177,7 +1190,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/askhr/manager/delete',
+                    url:baseurl()+ '/admin/action/askhr/manager/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1208,7 +1221,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url: '/admin/action/askhr/manager/profile/get?EMAIL='+data.payload.USERID,
+                    url:baseurl()+ '/admin/action/askhr/manager/profile/get?EMAIL='+data.payload.USERID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1237,7 +1250,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/admin/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    url:baseurl()+'/admin/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1266,7 +1279,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: '/admin/action/askhr/ticket/message/create',
+                    url:baseurl()+ '/admin/action/askhr/ticket/message/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1296,7 +1309,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:'/admin/action/search/userprofile?QUERY='+data,
+                    url:baseurl()+'/admin/action/search/userprofile?QUERY='+data,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1322,6 +1335,43 @@ export default {
 
             })
         },
+
+        bulkUploadAlumni: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+'/admin/action/user/create/_bulk',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                        commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        }
 
     }
 }

@@ -18,6 +18,7 @@ import admin from './views/adminportal.vue'
 import newsupload from './components/admin/newsupload.vue'
 import document from './components/admin/UploadDocument.vue'
 import dashboard from './components/admin/Dashboard.vue'
+import addalumni from './components/admin/addAlumni.vue'
 import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 import companySetting from './components/admin/companySetting.vue'
@@ -146,6 +147,11 @@ const router = new Router({
       // Relative to /src/views
       component: dashboard
     },
+    {
+    path: 'Add',
+    // Relative to /src/views
+    component: addalumni
+  },
     {
       path: 'newsupload',
       name: '',

@@ -10,7 +10,7 @@
           <v-toolbar-title>Job Description</v-toolbar-title>
            <v-spacer></v-spacer>
            <v-toolbar-items>
-            <v-btn dark text >Apply</v-btn>
+            <v-btn dark text @click="openJob" >Apply</v-btn>
           </v-toolbar-items>
          </v-toolbar>
           <v-card-title>{{viewJobData.JOBTITLE}}</v-card-title>
@@ -21,7 +21,7 @@
         class="mx-0"
       >
       <v-col cols="12" sm="2"> 
-        <div class="grey--text ml-4"><v-icon color="blue" v-if="viewJobData.LOCATION">mdi-map-marker</v-icon> {{viewJobData.LOCATION}}</div>
+        <div class="grey--text ml-4"><v-icon color="blue" v-if="viewJobData.LOCATION">mdi-map-marker</v-icon> {{viewJobData.COUNTRY}}</div>
       </v-col>
        <v-col cols="12" sm="2">
         <div class="grey--text ml-4">Posting ID:{{viewJobData.JOBPOSTINGID}}</div>
@@ -43,7 +43,7 @@
       <div class="my-4 subtitle-1 black--text">
         <v-icon color="blue" v-if="viewJobData.DEPARTMENT">mdi-domain</v-icon>{{viewJobData.DEPARTMENT}}
       </div>
-      <div>{{viewJobData.JOBDESCRIPTION}}</div>
+      <div>{{unescape(viewJobData.JOBDESCRIPTION)}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -51,9 +51,10 @@
    
     <v-card-actions>
       <v-btn
+      @click="openJob"
         color="deep-purple accent-4"
         text
-      
+       
       >
        Apply
       </v-btn>
@@ -68,6 +69,9 @@ export default {
   methods: {
     closeDialog() {
       this.$store.commit("userModule/closeViewJob");
+    },
+     openJob() {
+      window.open(this.viewJobData.APPLYLINK, "_blank");
     },
   },
   computed: {

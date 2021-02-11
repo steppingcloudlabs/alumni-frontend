@@ -78,6 +78,11 @@ export default {
         icon: "mdi-view-dashboard",
         text: "Dashboard",
       },
+       {
+        to: "/admin/Add",
+        icon: "mdi-account",
+        text: "Add Alumni",
+      },
       {
         to: "/admin/newsupload",
         icon: "mdi-newspaper",
