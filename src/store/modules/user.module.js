@@ -664,6 +664,7 @@ export default {
                             root: true
                         })
                     } else {
+                        
                         commit('setJobs', response.data.result)
                         resolve(response)
                         console.log(response)

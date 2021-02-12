@@ -96,7 +96,7 @@
           <v-hover v-slot:default="{ hover }">
              
             <v-card 
-             
+              class="jobcard"
               :elevation="hover ? 24 : 1"
               
               style="margin-top:15px !important;margin-left:4%;width:90%;box-shadow:15px 15px 40px -10px !important;background-color:white;transition: all 0.5s ease-in"
@@ -113,7 +113,7 @@
                   </div>
             </v-flex>
             <v-flex xs9>
-            <v-card-title class="jobtitle" style="color:black">
+            <v-card-title class="jobtitle" style="color:black;font-size:15px">
               
               {{
                 item.JOBTITLE
@@ -121,7 +121,7 @@
               <v-layout row wrap>
               <v-flex xs12 >
                   <div class="black--text pl-2 pb-3">
-                    <v-icon class="jobicon" color="black" v-if="item.DEPARTMENT"
+                    <v-icon class="jobicon" color="black" 
                       >mdi-calendar</v-icon
                     >
                    Start Date {{ item.POSTINGSTARTDATE.substring(0,10) }}
@@ -129,7 +129,7 @@
                 </v-flex>
                 <v-flex xs5 >
                   <div class="black--text pl-2">
-                    <v-icon class="jobicon" color="black" v-if="item.LOCATION"
+                    <v-icon class="jobicon" color="black" 
                       >mdi-calendar</v-icon
                     >
                     End Date:{{ item.POSTINGENDDATE.substring(0,10) }}
@@ -251,7 +251,7 @@ export default {
       country: this.country,
       SKILL: this.SKILL,
     };
-    this.jobData(3,0);
+    this.jobData(10,0);
   },
   destroyed() {
     this.$store.commit("userModule/setJobs", {});
@@ -269,19 +269,20 @@ export default {
   methods: {
     pageClicked(data)
     {
-      this.jobData(data)
+        let lim=(data-1)*10
+        this.jobData(10,lim)
     },
     next()
     {
-      this.pagination.LIMIT+=3
-      this.pagination.OFFSET+=1
+      this.pagination.LIMIT+=0
+      this.pagination.OFFSET+=this.pagination.LIMIT
       this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
     },
 
      prev()
     {
-      this.pagination.LIMIT-=3
-      this.pagination.OFFSET-=1
+      this.pagination.LIMIT-=0
+      this.pagination.OFFSET-=this.pagination.LIMIT
       this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
     },
     jobData(limit,offset) {
@@ -317,7 +318,7 @@ export default {
     return {
       showLoader: false,
       pagination:{
-        LIMIT:3,
+        LIMIT:10,
         OFFSET:0,
         TOTALPAGES:0
       },
@@ -339,6 +340,11 @@ export default {
 /* .v-application--is-ltr .v-responsive__sizer~.v-responsive__content {
     margin-left:0% !important;
 } */
+.jobcard
+{
+  height: 132px;
+}
+
 .v-card--reveal {
     align-items: center;
     bottom: 0;
