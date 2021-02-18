@@ -807,14 +807,15 @@ export default {
             state,
             commit
         }, data) => {
-            addTokenToPayload(data)
+            let tok=[]
+            addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
                     url:baseurl()+'/user/action/askhr/ticket/create',
                     headers: {
                         'Content-Type': 'application/json',
-                        "Authorization":"Bearer " + data.token
+                        "Authorization":"Bearer " + tok.token
                     },
                     data: data
                 }).then((response) => {
@@ -833,6 +834,39 @@ export default {
 
             })
         },
+
+        updateTicket: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+'/user/action/askhr/ticket/update',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
         getAllUserQueries: ({
             state,
             commit

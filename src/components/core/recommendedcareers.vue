@@ -169,8 +169,8 @@
                                 <v-flex xs6 v-if="item.POSTINGSTARTDATE">
                                   <div class="black--text ml-4 pb-3"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
                                 </v-flex> -->
-                <v-flex xs12 ml-3 mr-3 mt-3 style="font-size: 12px">
-                  {{ item.JOBDESCRIPTION.substring(0, 200) }}...
+                <v-flex xs12 ml-3 mr-3 mt-3 style="font-size: 12px" v-html="item.JOBDESCRIPTION.substring(0, 200)">
+                
                 </v-flex>
                 <v-flex xs3 sm8 md8 lg8 xl8> </v-flex>
                 <v-flex xs4 sm4 md4 lg4 xl4 style="margin: auto">

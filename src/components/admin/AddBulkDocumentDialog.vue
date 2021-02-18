@@ -19,20 +19,16 @@
               <span>{{ item.text }}</span>
             </li>
          
-          <v-file-input
-            :rules="rules"
-            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-           
-            prepend-icon="mdi-attachment"
-            label="Upload Csv"
-            @change="getBase64"
-          ></v-file-input>
+         <v-checkbox
+         v-model="checkbox"
+      :label="`Please tick if you have uploaded documents in SFTP server`"
+    ></v-checkbox>
         </v-card-text>
 
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
+          <v-btn :disabled="!checkbox" color="blue darken-1" text @click="saveDialog">Upload</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -43,14 +39,10 @@
 export default {
   data() {
     return {
+      items:[{text:"Upload the files in SFTP Server"},{text:"File name should be fileType_UserId. For example:firstmonthsalary_1234"}],
+      checkbox:"",
+     
     
-      employeeRules: [(v) => !!v || "Employee Id is required"],
-      rules: [
-        (value) =>
-          !value ||
-          value.size < 2000000 ||
-          "Avatar size should be less than 2 MB!",
-      ],
     };
   },
   computed: {
@@ -86,26 +78,31 @@ export default {
       this.$store.commit("adminModule/setshowBulkDocument",false);
     },
     saveDialog() {
-      let avatarData = JSON.parse(JSON.stringify(this.avatar));
-      this.avatar.profile = "";
-     this.$store.commit("adminModule/setshowBulkDocument",false);
-      let data = {
-        payload: {
-          USERID: this.userData.USER_ID,
-          PROFILEIMAGE: avatarData.profile,
-        },
-      };
-
-      console.log(data);
-      this.$store.dispatch("userModule/updateData", data).then((response) => {
-        if (response.data.status == 200) {
-          this.$store.commit("userModule/setUpdateAvatarData", data);
+      this.$store.commit("showProgressBar", {});
+       this.$store.commit("adminModule/setshowBulkDocument",false);
+      let data=""
+      this.$store.dispatch("adminModule/bulkUploadADocumentCount", data).then((response) => {
+        if (response.status == 200) {
+           this.$store.commit("closeProgressBar", {});
           this.$store.commit("showSnackbar", {
-            message: "Avatar Updated successfully",
+            message: response.result,
             color: "success",
             heading: "Success",
             duration: 3000,
           });
+          this.$store.dispatch("adminModule/bulkUploadTrigger",data).then((response)=>
+          {
+              if (response.status == 200) 
+              {
+         
+             this.$store.commit("showSnackbar", {
+                     message: "Upload Succesfully",
+                     color: "success",
+                    heading: "Success",
+                    duration: 3000,
+                     })
+              }
+          })
         } else {
           this.$store.commit("showSnackbar", {
             color: "red",

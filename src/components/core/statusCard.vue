@@ -2,7 +2,7 @@
   <div class="status">
     <v-card-title class="dashboard_header mt-3" style=" text-align:center">Document Status</v-card-title>
     <v-divider class="mr-5 mb-5" style="background:rgb(241, 135, 16);"></v-divider>
-    <v-row class="alert">
+    <v-row class="alert mt-3">
       <v-alert
         min-width="100%"
        
@@ -30,11 +30,11 @@
         type="success"
         v-if="DocumentStatus.FIRSTMONTHSALARY=='Available'"
       >
-        Full n Final is
+        Relieving Letter is
         <strong>Available</strong> in Document Section
       </v-alert>
       <v-alert min-width="100%"  dense outlined type="error" v-else>
-        Full n Final is
+        Relieving Letter is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>
@@ -46,7 +46,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.SECONDMONTHSALARY=='Available'"
+        v-if="DocumentStatus.FIRSTMONTHSALARY=='Available'"
       >
         Salary Slip is
         <strong>Available</strong> in Document Section
@@ -66,11 +66,11 @@
         type="success"
         v-if="DocumentStatus.THIRDMONTHSALARY=='Available'"
       >
-        pf Document is
+        Experience Letter is
         <strong>Available</strong> in Document Section
       </v-alert>
       <v-alert min-width="100%" dense outlined type="error" v-else>
-        pf Clearance is
+       Experience Letter is
         <strong>Pending</strong> from Company.Not Available Yet
       </v-alert>
     </v-row>

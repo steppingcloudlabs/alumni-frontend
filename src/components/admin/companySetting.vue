@@ -18,6 +18,9 @@
             @showDeleteDialog="showDeleteDialog"
           />
         </v-flex>
+        <v-flex xs12 >
+          <sftpForm style="text-align:center"></sftpForm>
+        </v-flex>
       </v-layout>
     </v-card>
     <AddEmail
@@ -33,11 +36,15 @@
 <script>
 import AddEmail from "@/components/material/AddEmail";
 import EscalationManagerCard from "@/components/admin/EscalationManagerCard";
+import sftpForm from "@/components/admin/sftpForm"
+import SftpForm from './sftpForm.vue';
 
 export default {
   components: {
     AddEmail,
     EscalationManagerCard,
+    sftpForm
+    
   },
   data() {
     return {

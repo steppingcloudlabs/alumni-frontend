@@ -23,7 +23,7 @@
       <div class="title font-weight-light mb-2 mt-2 ml-5">
        {{titleHead}}
       </div>
-      <div class="subheading font-weight-light grey--text" v-if="getStatusList.length">
+      <div class="subheading font-weight-light grey--text" v-if="getList.length">
         <v-btn
         block
         text
@@ -31,6 +31,9 @@
       >
         Download Report
       </v-btn>
+      </div>
+      <div class="subheading font-weight-light grey--text ml-5" v-else>
+       No Report Available
       </div>
       
     </v-card-text>
@@ -91,23 +94,28 @@ import IconsVue from '../../views/Icons.vue'
     icon:{
       type:String,
       default: undefined
+    },
+    getList:
+    {
+    type:Array,
+    default:[]
     }
   }, 
-  computed:{
-      getStatusList: {
-      get() {
-        return this.$store.getters["adminModule/getStatusList"];
-      },
-      set(data) {
-        this.$store.commit("adminModule/setStatusList", this.data);
-      },
-    },
+  // computed:{
+  //     getStatusList: {
+  //     get() {
+  //       return this.$store.getters["adminModule/getStatusList"];
+  //     },
+  //     set(data) {
+  //       this.$store.commit("adminModule/setStatusList", this.data);
+  //     },
+  //   },
  
-  },
+  // },
   methods:{
       download()
       {
-          this.$emit("download",this.getStatusList)
+          this.$emit("download",this.getList)
       }
   } 
   }

@@ -266,6 +266,7 @@ export default {
 
   methods: {
     download(data) {
+      this.$store.commit("showProgressBar",{})
       let body = {
         payload: {
           userid: getAlumniId(),
@@ -279,6 +280,7 @@ export default {
         .dispatch("userModule/downloadDocument", body)
         .then((response) => {
           if (response.data.status == 200) {
+              this.$store.commit("closeProgressBar",{})
             this.$store.commit("showSnackbar", {
               color: "green",
               duration: 3000,

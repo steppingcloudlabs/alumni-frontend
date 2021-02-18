@@ -17,7 +17,7 @@ export default {
         showEmailDialog: false,
         emailDialogData: {},
         level: "",
-        statusList:{},
+        statusList:[],
         level1Email: [{
 
             },
@@ -1362,6 +1362,115 @@ export default {
                     } else  if (response && response.data.status && response.data.status == 200) {
                         // commit('setData', response.data.result)
                         commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        bulkUploadADocumentCount: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/documents/create/sftp/count',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                   
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                      //  commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        bulkUploadTrigger: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/documents/create/sftp/trigger',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                   
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        bulkUploadDocumentStatus: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/documents/create/sftp/status',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
                         resolve(response.data)
 
                         console.log(response)

@@ -14,6 +14,16 @@
               ></i>
             </span>
                     <span>{{ selectedQueryItem.TITLE }}</span>
+                    <v-spacer></v-spacer>
+                    
+              <v-btn v-if="selectedQueryItem.ESCLATION==true"
+                color="blue"
+                style="cursor: pointer;font-size:15px;color:white"
+                class="text-capitalize"
+                @click="escalation"
+              > Escalate</v-btn>
+         
+                    
                   </v-card-title>
                
                   <v-divider class="my-0" />
@@ -225,6 +235,34 @@ export default {
     //     });
     //   this.addComment = "";
     // },
+    escalation()
+    {
+      let date=new Date()
+    
+       let data={
+          ID: this.selectedQueryItem.ID,
+            USERID:this.selectedQueryItem.USERID,
+            TITLE:this.selectedQueryItem.TITLE,
+          ESCLATION:true,
+            RESOLVED: false,
+            ESCLATATIONMANAGER:(parseInt(this.selectedQueryItem.ESCLATATIONMANAGER)+1).toString(),
+            DATE: moment(date).format("x").toString(),
+            CREATEDBY: "user"
+       }
+       this.$store
+        .dispatch("userModule/updateTicket", data)
+        .then((response) => {
+          if (response.status == 200) {
+           this.$store.commit("showSnackbar", {
+            message: "Your Ticket is Escalated to Manager..We will get back to you soon",
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+          }
+        });
+       console.log(data)
+    },
     backToList() {
      
       this.$emit("backToList", {});

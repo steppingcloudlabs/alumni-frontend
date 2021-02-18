@@ -1,15 +1,25 @@
 <template>
- 
-    <v-layout row wrap class="ml-5 mr-5" style="margin-top:100px!important" >
-     
-       <v-flex xs6 class="mt-3 mb-3">
-      <viewCard :titleHead="titleHead[0]" :lastStatus="lastStatus[0]" :icon="icon[0]" @download="download"></viewCard>
-      </v-flex>
-      <v-flex xs6 class="mt-3 mb-3">
-      <viewCard :titleHead="titleHead[1]" :lastStatus="lastStatus[1]" :icon="icon[1]" @download="download"></viewCard>
-      </v-flex>
-      
-      <!-- <v-flex xs12>
+  <v-layout row wrap class="ml-5 mr-5" style="margin-top: 100px !important">
+    <v-flex xs6 class="mt-3 mb-3">
+      <viewCard
+        :titleHead="titleHead[0]"
+        :lastStatus="lastStatus[0]"
+        :icon="icon[0]"
+        :getList="getStatusList"
+        @download="download"
+      ></viewCard>
+    </v-flex>
+    <v-flex xs6 class="mt-3 mb-3">
+      <viewCard
+        :titleHead="titleHead[1]"
+        :lastStatus="lastStatus[1]"
+        :icon="icon[1]"
+         :getList="getDocument"
+        @download="download"
+      ></viewCard>
+    </v-flex>
+
+    <!-- <v-flex xs12>
         <v-data-table
           :headers="headers"
           :items="getAlumniList"
@@ -76,12 +86,16 @@
          
         </p>
       </v-flex> -->
-      <v-flex xs12>
-        <graph></graph>
-      </v-flex>
-     
-    </v-layout>
-  
+    <v-flex xs8>
+      <graph></graph>
+    </v-flex>
+    <v-flex xs4>
+      <v-card class="pl-5 pr-5">
+          <p class="display-1 font-weight-thin pt-2" style="text-align:center">User Status</p>
+          <donut></donut>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
     
     
@@ -93,14 +107,16 @@ import pagination from "@/components/material/CommonPagination.vue";
 import BulkAlumni from "@/components/admin/AddAlumniBulkDialog.vue";
 import viewCard from "@/components/admin/dasboardCards.vue";
 import moment from "moment";
+import donut from "@/components/admin/donutChartDash.vue";
 
 export default {
   components: {
-  graph,
+    graph,
     AddAlumni,
     pagination,
     BulkAlumni,
-    viewCard
+    viewCard,
+    donut,
   },
   watch: {
     dialog() {
@@ -117,63 +133,41 @@ export default {
         this.$store.commit("adminModule/setAlumniList", this.data);
       },
     },
+     getStatusList: {
+      get() {
+        return this.$store.getters["adminModule/getStatusList"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setStatusList", this.data);
+      },
+    },
   },
   beforeMount() {
     this.limit = 10;
     this.skip = 0;
     this.loader = true;
-    this.getAlumni(10,0)
+    this.getDocumentStat();
   },
   destroyed() {
     this.$store.commit("adminModule/setAlumniList", []);
   },
   methods: {
-     pageClicked(data) {
-       let lim=(data-1)*10
-      this.getAlumni(10,lim);
-    },
-    setSelectedAlumni(item) {
-      this.selectedAlumni = item;
-      this.showMore = true;
-    },
-    getAlumni(limit, offset) {
-      let vm=this
+  
+    getDocumentStat() {
+      let vm = this;
       this.$store
-        .dispatch("adminModule/getAllAlumni", {
-          payload: { limit: limit, offset: offset },
+        .dispatch("adminModule/bulkUploadDocumentStatus", {
+         
         })
         .then((response) => {
-          if (response.data.result.length > 0) {
-            this.empty = false;
-           vm.loader=false
-            for (var i = 0; i < this.getAlumniList.length; i++) {
-              this.getAlumniList[i].DATE = moment
-                .unix(this.getAlumniList[i].DATE / 1000)
-                .format("LL");
-            }
-            vm.pagination = response.data.pagination;
-            vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
-            console.log(vm.pagination)
-          } else {
-            this.empty = true;
-          }
+          if (response.result.length > 0) {
+            this.getDocument=response.result
+          } 
         });
     },
-    next() {
-      this.pagination.LIMIT += 0;
-      this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
-    },
+  
 
-    prev() {
-      this.pagination.LIMIT -= 0;
-      this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
-    },
    
-    closeAlumniDialog() {
-      this.$store.commit("adminModule/closeAlumniDialog");
-    },
     showDeleteDialog(data) {
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
@@ -192,7 +186,7 @@ export default {
       };
       this.$store.commit("adminModule/showAlumniDialog", alumniData);
     },
-     openAddBulkAlumniDialog() {
+    openAddBulkAlumniDialog() {
       // let alumniData = {
       //   USER_ID: null,
       //   FIRST_NAME_PERSONAL_INFORMATION: "",
@@ -206,7 +200,10 @@ export default {
     viewAlumniDialog(data) {
       console.log(data);
       this.dialog = true;
-       this.$store.commit("adminModule/showAlumniDialog", JSON.parse(JSON.stringify(data)));
+      this.$store.commit(
+        "adminModule/showAlumniDialog",
+        JSON.parse(JSON.stringify(data))
+      );
     },
     closeClearanceDialog() {
       this.dialog = false;
@@ -251,36 +248,56 @@ export default {
           this.loader = false;
         });
     },
-    download(arrayData)
-    {
-      let arrayHeader = ["USER_ID","GENDER","DATE_OF_BIRTH","DATE_OF_RELIEVING","DATE_OF_RESIGNATION","LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD","PERSONAL_EMAIL_ID","FIRST_NAME_PERSONAL_INFORMATION","LAST_NAME_PERSONAL_INFORMATION","	MIDDLE_NAME_PERSONAL_INFORMATION","NATIONALITY_PERSONAL_INFORMATION","SALUTATION_PERSONAL_INFORMATION","CITY_ADDRESSES","PHONE_NUMBER_PHONE_INFORMATION",	"MANAGER_JOB_INFORMATION","DESIGNATION_JOB_INFORMATION","STATE","COUNTRY","Status"];
-      let header = arrayHeader.join(",") + '\n';
-            let csv = header;
-           arrayData.forEach( obj => {
-                let row = [];
-              
-                for (const [key, value] of Object.entries(obj)) {
-                   row.push(value)
-                    }
-                csv += row.join(",")+"\n";
-            });
- 
-            let csvData = new Blob([csv], { type: 'text/csv' });  
-            let csvUrl = URL.createObjectURL(csvData);
- 
-            let hiddenElement = document.createElement('a');
-            hiddenElement.href = csvUrl;
-            hiddenElement.target = '_blank';
-            hiddenElement.download = "report" + '.csv';
-            hiddenElement.click();
-    }
+    download(arrayData) {
+      let arrayHeader = [
+        "USER_ID",
+        "GENDER",
+        "DATE_OF_BIRTH",
+        "DATE_OF_RELIEVING",
+        "DATE_OF_RESIGNATION",
+        "LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD",
+        "PERSONAL_EMAIL_ID",
+        "FIRST_NAME_PERSONAL_INFORMATION",
+        "LAST_NAME_PERSONAL_INFORMATION",
+        "	MIDDLE_NAME_PERSONAL_INFORMATION",
+        "NATIONALITY_PERSONAL_INFORMATION",
+        "SALUTATION_PERSONAL_INFORMATION",
+        "CITY_ADDRESSES",
+        "PHONE_NUMBER_PHONE_INFORMATION",
+        "MANAGER_JOB_INFORMATION",
+        "DESIGNATION_JOB_INFORMATION",
+        "STATE",
+        "COUNTRY",
+        "Status",
+      ];
+      let header = arrayHeader.join(",") + "\n";
+      let csv = header;
+      arrayData.forEach((obj) => {
+        let row = [];
+
+        for (const [key, value] of Object.entries(obj)) {
+          row.push(value);
+        }
+        csv += row.join(",") + "\n";
+      });
+
+      let csvData = new Blob([csv], { type: "text/csv" });
+      let csvUrl = URL.createObjectURL(csvData);
+
+      let hiddenElement = document.createElement("a");
+      hiddenElement.href = csvUrl;
+      hiddenElement.target = "_blank";
+      hiddenElement.download = "report" + ".csv";
+      hiddenElement.click();
+    },
   },
   data() {
     return {
+      getDocument:[],
       pagination: {
         LIMIT: 2,
         OFFSET: 0,
-        TOTALPAGES:0
+        TOTALPAGES: 0,
       },
       initial: false,
       skip: 0,
@@ -300,36 +317,32 @@ export default {
         { text: "LastName", value: "LAST_NAME_PERSONAL_INFORMATION" },
         { text: "Action", value: "action" },
       ],
-      titleHead:["Alumni Upload Status","Document Status"],
-      lastStatus:["26 min Ago","Yet to upload"],
-      icon:["mdi-account","mdi-clipboard"]
+      titleHead: ["Alumni Upload Status", "Document Status"],
+      lastStatus: ["Yet to upload", "Yet to upload"],
+      icon: ["mdi-account", "mdi-clipboard"],
     };
   },
 };
 </script>
 <style >
-
-.newAlumni{
-   margin-left: 20px;
-    margin-top: 14px
+.newAlumni {
+  margin-left: 20px;
+  margin-top: 14px;
 }
 @media screen and (max-width: 992px) {
-.newAlumni{
-   margin-left: 20px;
-    margin-top: 14px
-}
-  
+  .newAlumni {
+    margin-left: 20px;
+    margin-top: 14px;
+  }
 }
 
 /* On screens that are 600px or less, set the background color to olive */
- @media screen and (max-width: 640px) {
- .newAlumni{
-   margin-left: 5px;
+@media screen and (max-width: 640px) {
+  .newAlumni {
+    margin-left: 5px;
     margin-top: 14px;
     font-size: 8px !important;
     width: 50px;
+  }
 }
-
-} 
-
 </style>

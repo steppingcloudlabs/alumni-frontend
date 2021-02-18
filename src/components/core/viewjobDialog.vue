@@ -43,7 +43,7 @@
       <div class="my-4 subtitle-1 black--text">
         <v-icon color="blue" v-if="viewJobData.DEPARTMENT">mdi-domain</v-icon>{{viewJobData.DEPARTMENT}}
       </div>
-      <div>{{viewJobData.JOBDESCRIPTION}}</div>
+      <div v-html="viewJobData.JOBDESCRIPTION"></div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
