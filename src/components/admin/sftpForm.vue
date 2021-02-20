@@ -7,7 +7,7 @@
          
           
        
-          <v-form v-model="valid" class="mb-5">
+          <v-form  class="mb-5" v-model="valid"  ref="form" lazy-validation>
     <v-container >
       <v-row>
         <v-col
@@ -16,6 +16,8 @@
         >
           <v-text-field
             label="Add URL"
+            v-model="url"
+            :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -26,6 +28,8 @@
         >
           <v-text-field
             label="Username"
+            v-model="username"
+             :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -38,6 +42,8 @@
             
             type="password"
             label="Password"
+            v-model="password"
+             :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -48,6 +54,8 @@
         >
           <v-text-field
             label="Port"
+            v-model="port"
+             :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -60,6 +68,8 @@
             
             
             label="Path"
+            v-model="path"
+             :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -71,7 +81,7 @@
       color="#1A265C"
       dark
      class="mr-5 mb-5"
-      
+      @click="updateSFTP"
     >
       Submit
     </v-btn>
@@ -81,7 +91,7 @@
       dark
       class="ml-5 mb-5"
    
-      
+      @click="cancel"
     >
       Cancel
     </v-btn>
@@ -93,6 +103,68 @@
 
 <script>
 export default {
+ 
+  methods:{
+    cancel()
+    { this.url="",
+       this.username="",
+        this.password="",
+       this.path="",
+        this.port=""
+        this.$refs.form.reset()
+
+    },
+    updateSFTP()
+    {
+      if(this.$refs.form.validate())
+      {
+            this.$store.commit("showProgressBar",{})
+
+    let data=
+    {
+      payload:{
+        URL:this.url,
+        USERNAME:this.username,
+        PASSWORD:this.password,
+        PATH:this.path,
+        PORT:this.port
+
+      }
+    }
+    this.$store.dispatch("adminModule/createSFTP",data).then((response)=>
+    {
+      this.$store.commit("closeProgressBar",{})
+      if(response.status=="200")
+      {
+        this.$store.commit("showSnackbar",{message:"SFTP Credentials Stored Succesfully",color:"success",heading:"Sucess",duration:3000})
+      }
+      else
+      {
+         this.$store.commit("showSnackbar",{message:response.result,color:"success",heading:"Sucess",duration:3000})
+      }
+    })
+    this.cancel()
+    }
+      }
+     
+   
+  },
+     data() {
+    return {
+       valid: true,
+        nameRules: [
+        v => !!v || 'Field is required',
+       
+      ],
+      url:"",
+      path:"",
+      username:"",
+      port:"",
+      password:"",
+
+  };
+     }
+
 
 }
 </script>

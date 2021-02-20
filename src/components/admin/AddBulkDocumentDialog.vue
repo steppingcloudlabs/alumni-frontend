@@ -11,14 +11,24 @@
          
             <v-subheader style="text-align: center">Special Instructions</v-subheader>
             <li
-              class="mb-2 ml-5"
+              class=" ml-5"
               v-for="(item, i) in items"
               :key="i"
-              style="text-align: left;font-size:10px"
+              style="text-align: left;font-size:10px;color:red"
             >
               <span>{{ item.text }}</span>
             </li>
-         
+           <v-file-input
+           :disabled="checkbox"
+           class="mt-5"
+            ref="file"
+            accept=".zip"
+            prepend-icon="mdi-attachment"
+            label="Upload Zip Folder"
+            type="file"
+            @change="handleFileUpload"
+          ></v-file-input>
+
          <v-checkbox
          v-model="checkbox"
       :label="`Please tick if you have uploaded documents in SFTP server`"
@@ -28,7 +38,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn :disabled="!checkbox" color="blue darken-1" text @click="saveDialog">Upload</v-btn>
+          <v-btn color="blue darken-1" text @click="saveDialog">Upload</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -39,7 +49,7 @@
 export default {
   data() {
     return {
-      items:[{text:"Upload the files in SFTP Server"},{text:"File name should be fileType_UserId. For example:firstmonthsalary_1234"}],
+      items:[{text:"Upload the files in SFTP Server or Upload Zip Folder in the dialog"},{text:"File name should be UserId_fileType_. For example:1234_FIRSTMONTHSALARY"},{text:"There are 5 types of file that can be uploaded(Name should be in CAPS)"},{text:"FIRSTMONTHSALARY,SECONDMONTHSALARY,THIRDMONTHSALARY,EXPERIENCELETTER,RELIEVINGLETTER"}],
       checkbox:"",
      
     
@@ -60,6 +70,10 @@ export default {
     },
   },
   methods: {
+    handleFileUpload(file) {
+      // this.file = this.$refs.file.files[0];
+      this.file=file
+    },
     getBase64(file) {
       //console.log(file);
       var reader = new FileReader();

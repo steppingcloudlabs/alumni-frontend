@@ -5,6 +5,7 @@
         <v-toolbar class="mb-5">
           <v-toolbar-title class="ml-5">Upload Alumni List </v-toolbar-title>
           <div class="flex-grow-1"></div>
+          <v-btn class="text-capitalize white--text" color="#1A265C" @click="downloadTemplate">Download Template</v-btn>
         </v-toolbar>
 
         <v-card-text>
@@ -97,6 +98,50 @@ export default {
     },
   },
   methods: {
+    downloadTemplate()
+    {
+       let arrayHeader = [
+        "USER_ID",
+        "GENDER",
+        "DATE_OF_BIRTH",
+        "DATE_OF_RELIEVING",
+        "DATE_OF_RESIGNATION",
+        "LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD",
+        "PERSONAL_EMAIL_ID",
+        "FIRST_NAME_PERSONAL_INFORMATION",
+        "LAST_NAME_PERSONAL_INFORMATION",
+        "	MIDDLE_NAME_PERSONAL_INFORMATION",
+        "NATIONALITY_PERSONAL_INFORMATION",
+        "SALUTATION_PERSONAL_INFORMATION",
+        "CITY_ADDRESSES",
+        "PHONE_NUMBER_PHONE_INFORMATION",
+        "MANAGER_JOB_INFORMATION",
+        "DESIGNATION_JOB_INFORMATION",
+        "STATE",
+        "COUNTRY",
+       
+      ];
+      let header = arrayHeader.join(",") + "\n";
+      let csv = header;
+      // arrayData.forEach((obj) => {
+      //   let row = [];
+
+      //   for (const [key, value] of Object.entries(obj)) {
+      //     row.push(value);
+      //   }
+      //   csv += row.join(",") + "\n";
+      // });
+
+      let csvData = new Blob([csv], { type: "text/csv" });
+      let csvUrl = URL.createObjectURL(csvData);
+
+      let hiddenElement = document.createElement("a");
+      hiddenElement.href = csvUrl;
+      hiddenElement.target = "_blank";
+      hiddenElement.download = "AlumniUploadTemplate" + ".csv";
+      hiddenElement.click();
+    },
+
     submitFile() {
       /*
                 Initialize the form data

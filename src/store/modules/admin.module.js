@@ -1386,7 +1386,7 @@ export default {
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
-                        'Content-Type': 'multipart/form-data'
+                        'Content-Type': 'application/json',
                     },
                    
                 }).then((response) => {
@@ -1422,7 +1422,7 @@ export default {
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
-                        'Content-Type': 'multipart/form-data'
+                        'Content-Type': 'application/json',
                     },
                    
                 }).then((response) => {
@@ -1458,7 +1458,43 @@ export default {
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
-                        'Content-Type': 'multipart/form-data'
+                        'Content-Type': 'application/json',
+                    },
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        createSFTP: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+'/admin/action/sftp/credentials/create',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'application/json',
                     },
                     data:data
                 }).then((response) => {
