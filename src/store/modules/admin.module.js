@@ -1516,7 +1516,156 @@ export default {
                 })
 
             })
+        },
+
+
+        startUpload: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/documents/create/_bulk/getuploadid?filename='+data.fileName+'&filetype='+data.fileType,
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'application/json',
+                    },
+                   // data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        partUpload: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/documents/create/_bulk/getuploadurl?filename='+data.fileName+'&partnumber='+data.partNumber+'&uploadid='+data.uploadId+'&type='+data.type,
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'application/json',
+                    },
+                  //  data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        completeUpload: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+'/admin/action/documents/create/_bulk/complete',
+                    headers: {
+                       
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'application/json',
+                    },
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        signedUrl: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method:'PUT',
+                    url:baseurl()+'/admin/action/documents/create/_bulk/uploadsignedurl',
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                        'Content-Type': 'application/json',
+                    },
+                   
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response.data)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
         }
+
 
     }
 }

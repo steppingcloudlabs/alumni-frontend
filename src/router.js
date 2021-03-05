@@ -31,15 +31,17 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'home',
-    component: Home,
-    children: [{
-      path: '/home',
+   // component:Home,
+  component: () => import(/* webpackChunkName: "home" */ './views/Home.vue'),
+    children: [
+      {
+      path: '/',
       name: 'hompage',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: HomePage
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+     // component: HomePage
+      component: () => import(/* webpackChunkName: "homepage" */ '@/components/base/HomePage')
     },
     {
       path: '/login',
@@ -47,8 +49,8 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: signin
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+     // component: signin
+      component: () => import(/* webpackChunkName: "Login" */ './views/Login.vue')
     },
     {
       path: '/test',
@@ -65,18 +67,22 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: signup
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+     // component: signup
+      component: () => import(/* webpackChunkName: "Signup" */ './views/signup.vue')
     },
     {
       path: '/forgotpassword',
       name: 'resetpassword',
-      component: resetpassword
+     // component: resetpassword 
+      component: () => import(/* webpackChunkName: "resetpassword" */ './views/forgot.vue')
     },
     {
       path: '/resetpassword/:token',
       name: 'changepassword',
-      component: changepassword
+      //component: changepassword
+
+      component: () => import(/* webpackChunkName: "changepassword" */ './components/core/changePassword.vue')
+      
     }
     ]
   },

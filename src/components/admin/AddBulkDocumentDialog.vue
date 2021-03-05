@@ -19,6 +19,7 @@
               <span>{{ item.text }}</span>
             </li>
            <v-file-input
+           :rules="rules"
            :disabled="checkbox"
            class="mt-5"
             ref="file"
@@ -46,11 +47,17 @@
 </template>
 
 <script>
+//import axios from "axios";
 export default {
   data() {
     return {
       items:[{text:"Upload the files in SFTP Server or Upload Zip Folder in the dialog"},{text:"File name should be UserId_fileType_. For example:1234_FIRSTMONTHSALARY"},{text:"There are 5 types of file that can be uploaded(Name should be in CAPS)"},{text:"FIRSTMONTHSALARY,SECONDMONTHSALARY,THIRDMONTHSALARY,EXPERIENCELETTER,RELIEVINGLETTER"}],
-      checkbox:"",
+      checkbox:false,
+      uploadId:"",
+      uploadArray:[],
+      rules: [
+        value => !value || value.size < 500000000 || 'Zip File size should be less than 5 gB!',
+      ],
      
     
     };
@@ -73,6 +80,8 @@ export default {
     handleFileUpload(file) {
       // this.file = this.$refs.file.files[0];
       this.file=file
+      console.log(this.file)
+      console.log(file.fileType)
     },
     getBase64(file) {
       //console.log(file);
@@ -92,41 +101,158 @@ export default {
       this.$store.commit("adminModule/setshowBulkDocument",false);
     },
     saveDialog() {
-      this.$store.commit("showProgressBar", {});
-       this.$store.commit("adminModule/setshowBulkDocument",false);
-      let data=""
-      this.$store.dispatch("adminModule/bulkUploadADocumentCount", data).then((response) => {
-        if (response.status == 200) {
-           this.$store.commit("closeProgressBar", {});
+     let data={
+       fileName:this.file.name,
+       fileType:this.file.type
+     }
+     this.$store.commit("showProgressBar", {});
+
+     this.$store.dispatch("adminModule/startUpload",data).then((response)=>
+     {
+       this.$store.commit("closeProgressBar",{})
+       if(response.status=="200")
+       {
           this.$store.commit("showSnackbar", {
-            message: response.result,
+            message:"Uploading...",
             color: "success",
             heading: "Success",
             duration: 3000,
           });
-          this.$store.dispatch("adminModule/bulkUploadTrigger",data).then((response)=>
-          {
-              if (response.status == 200) 
-              {
+          this.uploadId=response.result.UPLOADID
+          this.uploadMultiPart()
+       }
+       else{
+          this.$store.commit("showSnackbar", {
+            message:response.result,
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+       }
+     })
+
+
+
+
+      // this.$store.commit("showProgressBar", {});
+      //  this.$store.commit("adminModule/setshowBulkDocument",false);
+      // let data=""
+      // this.$store.dispatch("adminModule/bulkUploadADocumentCount", data).then((response) => {
+      //   if (response.status == 200) {
+      //      this.$store.commit("closeProgressBar", {});
+      //     this.$store.commit("showSnackbar", {
+      //       message: response.result,
+      //       color: "success",
+      //       heading: "Success",
+      //       duration: 3000,
+      //     });
+      //     this.$store.dispatch("adminModule/bulkUploadTrigger",data).then((response)=>
+      //     {
+      //         if (response.status == 200) 
+      //         {
          
+      //        this.$store.commit("showSnackbar", {
+      //                message: "Upload Succesfully",
+      //                color: "success",
+      //               heading: "Success",
+      //               duration: 3000,
+      //                })
+      //         }
+      //     })
+      //   } else {
+      //     this.$store.commit("showSnackbar", {
+      //       color: "red",
+      //       duration: 1000,
+      //       message: "Correct Errors",
+      //       heading: "Error",
+      //     });
+      //   }
+      // });
+    },
+
+ async uploadMultiPart()
+    {
+      const CHUNK_SIZE=6000000 //10MB
+      const fileSize=this.file.size
+      const CHUNK_COUNT=Math.floor(fileSize/CHUNK_SIZE)+1
+      let promiseArray
+      let final=[]
+      let start,end,blob
+
+      for(let index=1;index<CHUNK_COUNT+1;index++)
+      {
+        //let preSignedUrl
+        start=(index-1)*CHUNK_SIZE
+        end=(index)*CHUNK_SIZE
+        blob=(index<CHUNK_COUNT)?this.file.slice(start,end):this.file.slice(start)
+        console.log(blob)
+        let data={
+          fileName:this.file.name,
+          partNumber:index,
+          uploadId:this.uploadId,
+          type:this.file.type
+
+        }
+        let x= await this.$store.dispatch("adminModule/partUpload",data)
+        
+        let preSignedUrl=x.result.URL
+           
+        let request= await this.$store.dispatch("adminModule/signedUrl",{payload:{url:preSignedUrl,chunk:blob}})
+                
+      //  console.log(x)
+        final.push(request.result)
+
+      
+        
+    
+      }
+    
+      let resolvedArray = await Promise.all(final)
+      
+       console.log(resolvedArray, ' resolvedAr')
+
+      let uploadPartsArray = []
+      resolvedArray.forEach((resolvedPromise, index) => {
+        uploadPartsArray.push({
+          ETag: resolvedPromise.etag,
+          PartNumber: index + 1
+        })
+      })
+
+      // CompleteMultipartUpload in the backend server
+       let dat={
+         payload:{
+            filename:this.file.name,
+         parts:uploadPartsArray,
+         uploadid:this.uploadId
+         }
+        
+       }
+      this.$store.dispatch("adminModule/completeUpload",dat).then((response)=>{
+         if(response.status="200")
+         {
              this.$store.commit("showSnackbar", {
-                     message: "Upload Succesfully",
+                     message: " File Uploaded Succesfully",
                      color: "success",
                     heading: "Success",
                     duration: 3000,
                      })
-              }
-          })
-        } else {
-          this.$store.commit("showSnackbar", {
-            color: "red",
-            duration: 1000,
-            message: "Correct Errors",
-            heading: "Error",
-          });
-        }
-      });
-    },
+         }
+         else{
+            this.$store.commit("showSnackbar", {
+                     message: response.result,
+                     color: "Error",
+                    heading: "Error",
+                    duration: 3000,
+                     })
+         }
+      })
+    
+      
+    
+      
+         
+    }
   },
 };
 </script>

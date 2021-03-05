@@ -23,19 +23,19 @@
             <li>
               <a
                 :class="$route.path == '/signup' ? 'active' : ''"
-                v-if="$route.path == '/home'"
+                v-if="$route.path == '/'"
                 @click="navtosignup"
               >SignUp</a>
             </li>
             <li>
               <a
                 :class="$route.path == '/login' ? 'active' : ''"
-                v-if="$route.path == '/home'"
+                v-if="$route.path == '/'"
                 @click="navtologin"
               >Login</a>
             </li>
             <li>
-              <a :class="$route.path == '/home' ? 'active' : ''" @click="navtoHome">Home</a>
+              <a :class="$route.path == '/' ? 'active' : ''" @click="navtoHome">Home</a>
             </li>
           </ul>
         </div>
