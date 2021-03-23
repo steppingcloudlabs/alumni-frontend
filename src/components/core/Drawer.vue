@@ -137,7 +137,7 @@ export default {
     logout() {
       deleteExpiredToken();
       this.$store.commit("userModule/setData", {});
-      this.$router.push({ path: "/home" });
+      this.$router.push({ path: "/" });
 
       console.log("session deleted");
     },

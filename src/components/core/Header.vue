@@ -8,7 +8,7 @@
       ml-0
       align-center
       class="header-wrapper"
-      :class="hasScrolled ? '' : 'header-transparent'"
+      :class="hasScrolled ? '' :'header-transparent'"
       
     >
       <v-flex xs3>
@@ -79,7 +79,7 @@ export default {
  
     hasScrolled()
     {
-      if(this.$route.path=="/home")
+      if(this.$route.path=="/")
       {
             return this.scrollValue>0? true : false
       }
@@ -99,6 +99,7 @@ export default {
   {
   window.removeEventListener('scroll', this.handleScroll);
   },
+  
   methods: {
     handleScroll()
     {
@@ -114,7 +115,7 @@ export default {
       this.$router.push({ path: "/signup" });
     },
     navtoHome() {
-      this.$router.push({ path: "/home" });
+      this.$router.push({ path: "/" });
     },
     navtocareers() {
       this.$router.push({ path: "/careers" });
@@ -134,7 +135,7 @@ export default {
   min-height: 50px;
 }
 .header-transparent{
-  background: transparent !important;
+  background: transparent!important;
 }
 .menu-wrapper {
   height: 100%;

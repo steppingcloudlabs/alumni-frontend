@@ -1631,20 +1631,22 @@ export default {
         signedUrl: ({
             state,
             commit
-        }, data) => {
+        }, dat) => {
             let tok=[]
             addTokenToPayload(tok)
             return new Promise((resolve, reject) => {
+               
                 axios({
                     method:'PUT',
                     url:baseurl()+'/admin/action/documents/create/_bulk/uploadsignedurl',
+                    // url:data.preSignedUrl,
                     headers:
                     {
                         "Authorization":"Bearer " + tok.token,
-                        'Content-Type': 'application/json',
+                       
                     },
                    
-                    data:data
+                    data:dat
                 }).then((response) => {
                     if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
                         deleteExpiredToken()
