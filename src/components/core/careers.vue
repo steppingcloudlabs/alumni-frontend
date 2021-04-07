@@ -106,18 +106,22 @@
            <v-layout row wrap>
             <v-flex xs3 style="background-color:#1A265C;">
             <div class="white--text pt-5 pb-5 pl-5 pr-5 mt-5" style="text-align:center" >
-                    <v-icon  x-large class="jobicon" color="white" v-if="item.LOCATION"
+                    <v-icon  x-large class="jobicon" color="white" 
                       >mdi-map-marker</v-icon
                     >
-                    <p>{{ item.LOCATION }}</p>
+                    <p v-if="item.LOCATION">{{ item.LOCATION }}</p>
+                    <p v-else>Not Available</p>
                   </div>
             </v-flex>
             <v-flex xs9>
-            <v-card-title class="jobtitle" style="color:black;font-size:15px">
+            <v-card-title v-if="item.JOBTITLE" class="jobtitle" style="color:black;font-size:15px">
               
               {{
                 item.JOBTITLE
               }}</v-card-title>
+              <v-card-title v-else class="jobtitle" style="color:black;font-size:15px">
+               Software Developer
+             </v-card-title>
               <v-layout row wrap>
               <v-flex xs12 >
                   <div class="black--text pl-2 pb-3">

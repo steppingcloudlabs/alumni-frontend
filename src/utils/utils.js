@@ -10,7 +10,7 @@ let deleteExpiredToken = () => {
 
 let navigateToHome = () => {
     router.push({
-        path: '/home'
+        path: '/'
     }).catch(err => {})
 }
 

@@ -264,6 +264,7 @@ export default {
               heading: "Success",
               duration: 3000,
             });
+            this.$store.dispatch("adminModule/startSchedular",this.file.name)
           } else {
             this.$store.commit("showSnackbar", {
               message: response.result,

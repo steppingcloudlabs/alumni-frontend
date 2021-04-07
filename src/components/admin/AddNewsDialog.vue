@@ -223,7 +223,17 @@ export default {
         }
 
         this.$store.commit("closeProgressBar", {});
-      });
+      }).catch((error) => {
+        this.$store.commit("closeProgressBar", {});
+          console.log(error); //Exepection error....
+          this.$store.commit("showSnackbar", {
+            color: "red",
+            duration: 1000,
+            message: error,
+            heading: "Error",
+          });
+        });
+      ;
     },
   },
 };

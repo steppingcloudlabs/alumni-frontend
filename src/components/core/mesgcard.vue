@@ -152,13 +152,13 @@ div.item {
     margin-top: 1%;
     color: white;
     width: 100%;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 200;
     font-family: "Roboto";
     text-align: center;
   }
   .Director_header {
-    font-size: 20px;
+    font-size: 15px;
     font-family: "Roboto";
     margin-top: 30px !important;
   }

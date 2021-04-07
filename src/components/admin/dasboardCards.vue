@@ -2,6 +2,7 @@
   <v-card
     class="mt-5 mb-4 mx-auto"
     max-width="400"
+    min-height="150"
   >
   <v-layout row wrap>
       <v-flex xs4>
@@ -19,18 +20,19 @@
       </v-flex>
 
       <v-flex xs8>
-           <v-card-text class="pt-0">
+           <v-card-text class="pt-0" style="height:100px">
       <div class="title font-weight-light mb-2 mt-2 ml-5">
        {{titleHead}}
       </div>
       <div class="subheading font-weight-light grey--text" v-if="getList.length">
-        <v-btn
+        <p
         block
         text
         @click="download"
+        class="link"
       >
-        Download Report
-      </v-btn>
+       Report_{{getList[0].ID}}
+        </p>
       </div>
       <div class="subheading font-weight-light grey--text ml-5" v-else>
        No Report Available
@@ -39,15 +41,18 @@
     </v-card-text>
       </v-flex>
       <v-flex xs12 >
-          <v-card-text>
+          <v-card-text style="text-align:right;color:white">
               <v-divider class="my-2"></v-divider>
-                <v-icon
+             
+                <v-btn v-if="getList.length" color="#172151"  class="text-capitalize white--text" @click="complete">Previous Logs</v-btn>
+                 <v-btn v-else disabled color="#172151"  class="text-capitalize white--text" >No Logs</v-btn>
+                <!-- <v-icon
                     class="mr-2"
                     small
                 >
                     mdi-clock
                 </v-icon>
-                <span class="caption grey--text font-weight-light">last Uploaded:{{lastStatus}}</span>
+                <span v-if="getList.length" class="caption grey--text font-weight-light">last Uploaded:{{getList[0].CREATEDAT}}</span> -->
                     </v-card-text>
       </v-flex>
   </v-layout>
@@ -116,6 +121,10 @@ import IconsVue from '../../views/Icons.vue'
       download()
       {
           this.$emit("download",this.getList)
+      },
+      complete()
+      {
+        this.$emit("download","nodata")
       }
   } 
   }
@@ -124,5 +133,8 @@ import IconsVue from '../../views/Icons.vue'
   .v-sheet--offset {
     top: -24px;
     position: relative;
+  }
+  .link:hover{
+   cursor: pointer;
   }
 </style>

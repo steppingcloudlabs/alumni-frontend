@@ -145,7 +145,6 @@ export default {
   beforeMount() {
     this.limit = 10;
     this.skip = 0;
-    this.loader = true;
     this.getDocumentStat();
   },
   destroyed() {
@@ -156,12 +155,12 @@ export default {
     getDocumentStat() {
       let vm = this;
       this.$store
-        .dispatch("adminModule/bulkUploadDocumentStatus", {
+        .dispatch("adminModule/getSchedularJobs", {
          
         })
         .then((response) => {
-          if (response.result.length > 0) {
-            this.getDocument=response.result
+          if (response.data.result.length > 0) {
+            this.getDocument=response.data.result
           } 
         });
     },
@@ -249,30 +248,28 @@ export default {
         });
     },
     download(arrayData) {
+      let id
+      if(arrayData=="nodata")
+      {
+        id=""
+      }
+      else{
+        id= arrayData[0].ID
+      }
+        this.$store
+        .dispatch("adminModule/getSchedularJobsLogs",id)
+        .then((response) => {
+         
       let arrayHeader = [
-        "USER_ID",
-        "GENDER",
-        "DATE_OF_BIRTH",
-        "DATE_OF_RELIEVING",
-        "DATE_OF_RESIGNATION",
-        "LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD",
-        "PERSONAL_EMAIL_ID",
-        "FIRST_NAME_PERSONAL_INFORMATION",
-        "LAST_NAME_PERSONAL_INFORMATION",
-        "	MIDDLE_NAME_PERSONAL_INFORMATION",
-        "NATIONALITY_PERSONAL_INFORMATION",
-        "SALUTATION_PERSONAL_INFORMATION",
-        "CITY_ADDRESSES",
-        "PHONE_NUMBER_PHONE_INFORMATION",
-        "MANAGER_JOB_INFORMATION",
-        "DESIGNATION_JOB_INFORMATION",
-        "STATE",
-        "COUNTRY",
-        "Status",
+        "ID",
+        "JOBID",
+        "USERID",
+        "DOCUMENTID",
+        "STATUS"
       ];
       let header = arrayHeader.join(",") + "\n";
       let csv = header;
-      arrayData.forEach((obj) => {
+      response.data.result.forEach((obj) => {
         let row = [];
 
         for (const [key, value] of Object.entries(obj)) {
@@ -289,6 +286,7 @@ export default {
       hiddenElement.target = "_blank";
       hiddenElement.download = "report" + ".csv";
       hiddenElement.click();
+       });
     },
   },
   data() {

@@ -12,7 +12,7 @@
       width="100%"
     >
       <v-card-text>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4 black--text" icon>
+        <v-btn v-for="(icon,i) in icons" :key="i" :href="links[i]" target="_blank" class="mx-4 black--text" icon>
           <v-icon size="24px">
             {{ icon }}
           </v-icon>
@@ -32,7 +32,7 @@
               :key="i"
               style="text-align: left; list-style-type: none"
             >
-              <span><v-icon v-text="item.icon"></v-icon>{{ item.text }}</span>
+              <span><v-icon v-text="item.icon" ></v-icon>{{ item.text }}</span>
             </li>
             <!-- <v-list-item-group>
           
@@ -63,6 +63,7 @@
 export default {
   data: () => ({
     icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
+    links:[" https://www.facebook.com/steppingcloudconsulting/?ref=bookmarks", "https://twitter.com/SteppingCloud","https://www.linkedin.com/company/stepping-cloud-consulting-private-limited/?viewAsMember=true",""],
     items: [
       {
         text:

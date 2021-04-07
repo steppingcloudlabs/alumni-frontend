@@ -689,39 +689,159 @@ export default {
 
             })
         },
-        // getMoreEvent: ({
-        //     state,
-        //     commit
-        // }, data) => {
-        //     addTokenToPayload(data)
+        startSchedular: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            
 
 
-        //     return new Promise((resolve, reject) => {
-        //         axios({
-        //             method: 'POST',
-        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allevent',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             data: data
-        //         }).then((response) => {
-        //             if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
-        //                 deleteExpiredToken()
-        //                 navigateToHome()
-        //                 commit('showSessionExpiredError', {}, {
-        //                     root: true
-        //                 })
-        //             } else {
-        //                 resolve(response)
-        //                 commit('appendEventList', response.data.result)
-        //             }
-        //             console.log(response)
-        //         }).catch((error) => {
-        //             reject(error)
-        //         })
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+ '/admin/action/documents/create/jobs/trigger',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
 
-        //     })
-        // },
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                       
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+           
+
+        getSchedularJobs: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            
+
+
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+ '/admin/action/documents/create/jobs/get',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                       
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+        
+        getSchedularJobsLogs: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+ '/admin/action/documents/create/jobs/logs?jobid='+data,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                       
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        getUserStatus: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+ '/admin/reports/user/registered',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                       
+                    }
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+
         deleteEvents: ({
             state,
             commit,

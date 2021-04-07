@@ -155,13 +155,13 @@ export default {
         });
     },
     next() {
-      this.pagination.LIMIT += 3;
+      this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
       this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
-      this.pagination.LIMIT -= 3;
+      this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
     },
