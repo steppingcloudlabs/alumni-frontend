@@ -88,6 +88,10 @@ export default {
     this.$store.commit("showProgressBar", {});
     this.getNews(3, 0);
   },
+   destroyed()
+  {
+      this.$store.commit("closeProgressBar", {});
+  },
   watch: {
     newsListLength() {
       if (this.newsListLength == 0) {
@@ -152,7 +156,17 @@ export default {
           } else {
             vm.empty = true;
           }
+        }).catch((error) => {
+           vm.$store.commit("closeProgressBar", {});
+          console.log(error); //Exepection error....
+          this.$store.commit("showSnackbar", {
+            color: "red",
+            duration: 1000,
+            message: error,
+            heading: "Error",
+          });
         });
+;
     },
     next() {
       this.pagination.LIMIT += 0;

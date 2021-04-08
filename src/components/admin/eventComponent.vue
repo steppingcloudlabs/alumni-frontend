@@ -96,6 +96,10 @@ export default {
       showEvents: false,
     };
   },
+  destroyed()
+  {
+      this.$store.commit("closeProgressBar", {});
+  },
   methods: {
        pageClicked(data) {
             let lim=(data-1)*3
@@ -128,7 +132,16 @@ export default {
           } else {
             vm.empty = true;
           }
-        });
+        }).catch((error) => {
+           vm.$store.commit("closeProgressBar", {});
+          console.log(error); //Exepection error....
+          this.$store.commit("showSnackbar", {
+            color: "red",
+            duration: 1000,
+            message: error,
+            heading: "Error",
+          });
+        });;
     },
     next() {
       this.pagination.LIMIT += 0;
