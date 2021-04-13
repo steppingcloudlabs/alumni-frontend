@@ -12,7 +12,7 @@ import updatepassword from './components/core/updatePassword.vue'
 import Dashboard from './views/Dashboard.vue'
 import UserProfile from './views/UserProfile1.vue'
 import Maps from './views/Maps.vue'
-import notification from './views/Notifications.vue'
+// import notification from './views/Notifications.vue'
 import Document from './views/Document.vue'
 import admin from './views/adminportal.vue'
 import newsupload from './components/admin/newsupload.vue'
@@ -23,7 +23,7 @@ import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 import companySetting from './components/admin/companySetting.vue'
 import searchProfile from './components/core/OpenProfile.vue'
-import upHome from "./components/updatedDesign/updatedHomepage.vue"
+// import upHome from "./components/updatedDesign/updatedHomepage.vue"
 Vue.use(Router)
 
 const router = new Router({
@@ -52,15 +52,7 @@ const router = new Router({
      // component: signin
       component: () => import(/* webpackChunkName: "Login" */ './views/Login.vue')
     },
-    {
-      path: '/test',
-      name: 'testing',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: upHome
-      //component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-    },
+   
     {
       path: '/signup',
       name: 'signup',
@@ -125,11 +117,11 @@ const router = new Router({
       name: 'careers',
       component: careers
     },
-    {
-      path: 'notification',
-      name: 'notification',
-      component: notification
-    },
+    // {
+    //   path: 'notification',
+    //   name: 'notification',
+    //   component: notification
+    // },
     {
       path: 'dashboard',
       name: 'dashboard',
@@ -172,11 +164,11 @@ const router = new Router({
 
       component: document
     },
-    {
-      path: 'notification',
+    // {
+    //   path: 'notification',
 
-      component: notification
-    },
+    //   component: notification
+    // },
     {
       path: 'dashboard',
 

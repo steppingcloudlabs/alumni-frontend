@@ -39,16 +39,16 @@ import footter from "@/components/updatedDesign/footer.vue";
 import features from "@/components/updatedDesign/featues.vue";
 import featureCard from "@/components/updatedDesign/featureCard.vue";
 import Ceo from "@/components/core/mesgcard";
-import landingimage from "@/components/core/landingimage";
-import cards from "@/components/core/cards";
+
+
 import Featues from "../updatedDesign/featues.vue";
 
 export default {
   name: "HomePage",
   components: {
     Ceo,
-    landingimage,
-    cards,
+   
+   
     updatedcarousel,
     newsletter,
     features,

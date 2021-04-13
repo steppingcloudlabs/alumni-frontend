@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import IconsVue from '../../views/Icons.vue'
+
   export default {
     data: () => ({
       labels: [

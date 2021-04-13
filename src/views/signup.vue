@@ -196,13 +196,7 @@ export default {
       }
     }
 
-    // signup() {
-    //     this.$store.dispatch('signup', { 'email':this.email, 'password': this.password ,'companyname':this.Companyname,'userid':this.EmployeeId}).then((response) => {
-    //       if (response && response.token) {
-    //         this.$router.push({ path:'/signin' })
-    //       }
-    //     })
-    // }
+  
   }
 };
 </script>

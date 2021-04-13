@@ -2,7 +2,7 @@
   <v-parallax
     class="messageParallax msg"
     style="width: 100%"
-    src="@/assets/compressjpeg/msg-min.jpg"
+    src="@/assets/assets/msg.jpg"
   >
     <v-overlay class="msgOverlay" :absolute="true" color="black">
       <v-card
@@ -23,7 +23,7 @@
               <v-img
                 class="directorImage"
                 style="border-radius: 10%; margin: auto"
-                src="@/assets/director1-min.png"
+                src="@/assets/assets/director.jpg"
               ></v-img>
             </div>
           </v-flex>
@@ -134,11 +134,11 @@ div.item {
     width: 80%;
     font-size: 20px;
     font-weight: 200;
-    font-family: "Roboto";
+    font-family: "Roboto", "sans-serif";
   }
   .Director_header {
     font-size: 25px;
-    font-family: "Roboto";
+    font-family: "Roboto", "sans-serif";
     margin-top: 20px !important;
   }
 }
@@ -154,12 +154,12 @@ div.item {
     width: 100%;
     font-size: 10px;
     font-weight: 200;
-    font-family: "Roboto";
+    font-family: "Roboto", "sans-serif";
     text-align: center;
   }
   .Director_header {
     font-size: 15px;
-    font-family: "Roboto";
+    font-family:"Roboto", "sans-serif";
     margin-top: 30px !important;
   }
   .directorImage {

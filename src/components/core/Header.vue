@@ -48,11 +48,11 @@
 
 <script>
 import data from "@/assets/data";
-import landingimage from "@/components/core/landingimage";
+
 
 export default {
   components: {
-    landingimage
+    
   },
   data() {
     return {
@@ -175,7 +175,7 @@ li a {
   text-decoration: none;
   border-radius: 5px;
   margin-right: 20px;
-  font-family: "Lato";
+  font-family: "Roboto", sans-serif !important;
   font-weight: 400;
   transition: 300ms ease-in;
 }
@@ -191,12 +191,14 @@ li a:hover {
 }
 .logo{
   height:50px;
+  width: auto;
  margin-top: 20px !important;
 }
 
 @media screen and (max-width: 992px) {
 .logo{
   height:20px;
+   width: auto;
  margin-top: 15px !important;
 }
 li a {
@@ -218,6 +220,7 @@ li a {
  @media screen and (max-width: 640px) {
 .logo{
   height:10px;
+   width: auto;
  margin-top: 2px !important;
 }
 li a {
@@ -228,7 +231,7 @@ li a {
   text-decoration: none;
   border-radius: 5px;
   margin-right: 10px;
-  font-family: "Lato";
+  font-family: "Roboto", sans-serif !important;
   font-weight: 200;
   transition: 300ms ease-in;
   font-size: 10px;

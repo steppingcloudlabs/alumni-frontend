@@ -90,10 +90,7 @@ export default {
     getDrawer() {
       this.showDrawer = !this.showDrawer;
     },
-    ...mapMutations("app", ["setDrawer", "toggleDrawer"]),
-    onClick() {
-      this.setDrawer(!this.$store.state.app.drawer);
-    },
+  
     onResponsiveInverted() {
       if (window.innerWidth < 991) {
         this.responsive = true;

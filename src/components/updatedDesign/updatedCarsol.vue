@@ -20,17 +20,17 @@ export default {
     return {
       items: [
         {
-          src: require("@/assets/compresspng/landingA-min.png"),
+          src: require("@/assets/assets/landingA.jpg"),
           text: "test",
         },
         {
-          src: require("@/assets/compresspng/landingI-min.png"),
+          src: require("@/assets/assets/landingI.jpg"),
         },
         {
-          src: require("@/assets/compresspng/landingG-min.png"),
+          src: require("@/assets/assets/landingG.jpg"),
         },
         {
-          src: require("@/assets/compresspng/landingH-min.png"),
+          src: require("@/assets/assets/landingH.jpg"),
         },
         // {
         //   src: require("@/assets/shutterstock/landing1.jpg"),

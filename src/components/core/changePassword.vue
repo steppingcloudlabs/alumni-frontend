@@ -73,16 +73,7 @@ export default {
     };
   },
 
-  computed: {
-    test: {
-      get() {
-        return this.$store.getters["userModule/getTest"];
-      },
-      set(data) {
-        this.$store.commit("userModule/setTest", data);
-      }
-    }
-  },
+ 
   methods: {
     savePassword() {
        if (this.password != this.Cnfpassword) {

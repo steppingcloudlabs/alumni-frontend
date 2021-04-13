@@ -1,39 +1,3 @@
- 
-<!--<template >
-  <v-layout row wrap class="ma-0" style="background: #f5f5f5;padding-left:45px;padding-bottom:40px">
-    <v-flex xs12>
-    <p
-      class="headline font-weight-bold"
-      style="text-align: center; margin-top: 2%;padding-right:45px"
-    >
-      Empower your Alumni Network
-    </p>
-    </v-flex>
-
-    <v-flex
-      xs12
-      sm3
-      md3
-      lg3
-      xl3
-      class="pa-2"
-      v-for="(card, i) in cards"
-      :key="i"
-      style="text-align:center"
-    >
-     
-        <img :src="card.pic"  style="height:100px" />
-
-        <v-card-text
-          class="black--text title-headline text-muted"
-         
-        >
-          {{ card.text }}
-        </v-card-text>
-    
-    </v-flex>
-  </v-layout>
-</template>-->
 
 <template>
 <div class="text-center" style="width:100%">
@@ -82,48 +46,7 @@
 export default {
   data() {
     return {
-      cards: [
-        {
-          icon: "mdi-account-search",
-          text: "Online Directory",
-          pic: require("@/assets/icondesign/searchDir.png"),
-        },
-        {
-          icon: "mdi-home-modern",
-          text: "Company Profile",
-          pic: require("@/assets/icondesign/CompanyProfile.png"),
-        },
-        {
-          icon: "mdi-view-dashboard",
-          text: "Job Board",
-          pic: require("@/assets/icondesign/job.png"),
-        },
-        {
-          icon: "mdi-newspaper",
-          text: "News & Event",
-          pic: require("@/assets/icondesign/news.png"),
-        },
-        {
-          icon: "mdi-home-map-marker",
-          text: "Maps",
-          pic: require("@/assets/icondesign/maps.png"),
-        },
-        {
-          icon: "mdi-file-document",
-          text: "Document Center",
-          pic: require("@/assets/icondesign/docs.png"),
-        },
-        {
-          icon: "mdi-comment-question-outline",
-          text: "Ask HR",
-          pic: require("@/assets/icondesign/AskHR.png"),
-        },
-        {
-          icon: "mdi-account-check",
-          text: "Recommended Job Oppurtunities",
-          pic: require("@/assets/icondesign/RecOpp.png"),
-        },
-      ],
+    
     };
   },
   methods: {

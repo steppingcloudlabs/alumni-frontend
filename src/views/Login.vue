@@ -169,14 +169,7 @@ export default {
         });
       }
     },
-    onblur() {
-      // this.$store.commit("showSnackbar", {
-      //   color: "red",
-      //   duration: 3000,
-      //   message: "Password must have at least 6 letters.",
-      //   heading: "Error"
-      // });
-    },
+   
   },
 };
 </script>
