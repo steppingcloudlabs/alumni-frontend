@@ -196,10 +196,10 @@ export default {
         },
       };
       this.$store.dispatch("adminModule/addNews", data).then((response) => {
-        if (data.id == null) {
+        if (data.payload.ID == undefined) {
           this.$store.commit(
             "adminModule/addNewsToList",
-            response.data.result[0]
+            response.data.result
           );
 
           this.$store.commit("showSnackbar", {
