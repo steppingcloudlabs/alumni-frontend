@@ -3,9 +3,9 @@
     <v-flex xs12>
       <QueryWindowWrapper />
     </v-flex>
-    <!-- <v-flex xs12>
+    <v-flex xs12>
       <UserFAQList></UserFAQList>
-    </v-flex> -->
+    </v-flex>
   </v-layout>
 </template>
 

@@ -28,7 +28,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.FIRSTMONTHSALARY=='Available'"
+        v-if="DocumentStatus.RELIEVINGLETTER=='Available'"
       >
         Relieving Letter is
         <strong>Available</strong> in Document Section
@@ -64,7 +64,7 @@
         dense
         outlined
         type="success"
-        v-if="DocumentStatus.THIRDMONTHSALARY=='Available'"
+        v-if="DocumentStatus.EXPERIENCELETTER=='Available'"
       >
         Experience Letter is
         <strong>Available</strong> in Document Section

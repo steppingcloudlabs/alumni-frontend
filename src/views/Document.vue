@@ -324,8 +324,8 @@ export default {
       this.status[0] = this.DocumentStatus.FORM16;
       this.status[1] = this.DocumentStatus.FIRSTMONTHSALARY;
       this.status[2] = this.DocumentStatus.THIRDMONTHSALARY;
-      this.status[3] = this.DocumentStatus.THIRDMONTHSALARY;
-      this.status[4] = this.DocumentStatus.THIRDMONTHSALARY;
+      this.status[3] = this.DocumentStatus.RELIEVINGLETTER;
+      this.status[4] = this.DocumentStatus.EXPERIENCELETTER;
       this.status[5] = this.DocumentStatus.FIRSTMONTHSALARY;
       this.status[6] = this.DocumentStatus.SECONDMONTHSALARY;
     },

@@ -26,6 +26,7 @@
 <script>
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import GoogleMap from "@/components/core/googlemaps";
+import * as VueGoogleMaps from "vue2-google-maps";
 function myfunction() {
   console.log("hello");
 }
@@ -172,8 +173,7 @@ export default {
     },
 
     initMap() {
-      // var AlumniList = alumniList();
-      // console.log(AlumniList);
+       this.$gmapApiPromiseLazy().then(() => {
       var uluru = { lat: -25.344, lng: 131.036 };
       // The map, centered at Uluru
 
@@ -336,6 +336,7 @@ export default {
         }
         resolve("hello");
       }).then((response) => {});
+       })
     },
   },
 

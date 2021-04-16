@@ -8,6 +8,22 @@
     @change="resetHeight()"
     cover
   >
+      <div v-if="shownewsBar == true">
+      <v-layout style="margin-top: 25%">
+        <v-flex xs6> </v-flex>
+        <v-flex xs6>
+          <v-progress-circular
+            class="text--center"
+            color="orange"
+            indeterminate
+            size="44"
+          ></v-progress-circular>
+        </v-flex>
+
+        <v-flex xs2> </v-flex>
+      </v-layout>
+    </div>
+    <div v-else>
     <div v-if="!this.empty">
       
       <v-carousel-item
@@ -23,8 +39,8 @@
           <v-card-text class="news-card"  style="text-align:center;color:black;padding:0px">{{ item.DATE }}</v-card-text>
           
           <v-img :src="getNewsList[i].PHOTO" height="250px">
-            <div style="width:100%;height:35px;background-color:white;opacity:0.5"></div>
-             <div style="width:100%;height:35px;background-color:white;opacity:0.5;position:absolute;bottom:0"></div>
+            <!-- <div style="width:100%;height:35px;background-color:white;opacity:0.5"></div>
+             <div style="width:100%;height:35px;background-color:white;opacity:0.5;position:absolute;bottom:0"></div> -->
           </v-img>
           
           <v-card-text
@@ -74,6 +90,7 @@
           </v-row>
         </v-sheet>
       </v-carousel-item>
+    </div>
     </div>
   </v-carousel>
 </template>
@@ -167,10 +184,13 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.commit("showProgressBar", {});
+    
+        this.shownewsBar = true;
+      
     this.$store
       .dispatch("userModule/getAllNews", { payload: { offset: 0, limit: 10 } })
       .then((response) => {
+        this.shownewsBar=false
         this.len = 390;
         (this.limit = 1), (this.skip = 0), (this.heightCarousel = 350);
         if (response.data.result.length > 0) {
@@ -208,68 +228,18 @@ export default {
 
   data() {
     return {
+      shownewsBar: false,
+      iteration: 1,
       limit: 1,
       skip: 0,
       heightCarousel: 550,
       len: 390,
       showMore: false,
       empty: false,
-      colors: [
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-      ],
+      
 
-      event: [
-        {
-          id: 1,
-          eventTitle: "Alumni Meet",
-          eventDescription:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-
-          eventLocation: "New Delhi",
-        },
-        {
-          id: 2,
-          eventTitle: "Annual Sports News",
-          eventDescription:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          eventLocation: "USA",
-        },
-        //  {
-        //     id: 3,
-        //     eventTitle: "Hello asdf",
-        //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-        //     eventLocation: "USA",
-        // },
-        // {
-        //     id: 4,
-        //     eventTitle: "Hello asdf",
-        //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-
-        //     eventLocation: "USA",
-        // },
-        // {
-        //     id: 5,
-        //     eventTitle: "Hello asdf",
-        //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-
-        //     eventLocation: "USA",
-        // },
-      ],
+     
+       
     };
   },
 };

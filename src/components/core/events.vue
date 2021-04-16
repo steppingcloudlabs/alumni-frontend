@@ -24,7 +24,22 @@
     </div>
     <div v-else>
       <div v-if="getEventList.length && windowsize > 640">
-        <v-col v-for="(item, i) in getEventList" :key="i" cols="12">
+        <div v-if="showBar == true">
+      <v-layout style="margin-top: 25%">
+        <v-flex xs5> </v-flex>
+        <v-flex xs5>
+          <v-progress-circular
+            class="text--center"
+            color="orange"
+            indeterminate
+            size="44"
+          ></v-progress-circular>
+        </v-flex>
+
+        <v-flex xs2> </v-flex>
+      </v-layout>
+    </div>
+        <v-col v-for="(item, i) in getEventList" :key="i" cols="12" v-else>
           <v-card>
             <div class="d-flex flex-no-wrap">
               <v-avatar class="ma-3" size="125" tile>
@@ -52,11 +67,27 @@
         </div>
       </div>
       <div v-else-if="getEventList.length && windowsize <= 640">
+          <div v-if="showBar == true">
+      <v-layout style="margin-top: 25%">
+        <v-flex xs5> </v-flex>
+        <v-flex xs5>
+          <v-progress-circular
+            class="text--center"
+            color="orange"
+            indeterminate
+            size="44"
+          ></v-progress-circular>
+        </v-flex>
+
+        <v-flex xs2> </v-flex>
+      </v-layout>
+    </div>
         <v-row
           v-for="(item, i) in getEventList"
           :key="i"
           mb-2
           style="margin-top: 18px"
+          v-else
         >
           <v-card style="padding-bottom: 55px">
             <v-layout row wrap style="margin-top: -16px">
@@ -173,7 +204,7 @@ export default {
         return this.$store.getters["userModule/getEventList"];
       },
       set(data) {
-        this.$store.commit("userModule/setEventList", this.data);
+        this.$store.commit("userModule/setEventList", data);
       },
     },
     // showEvent: {
@@ -199,6 +230,10 @@ export default {
       if (this.iteration == 1) {
         this.showeventBar = true;
       }
+      else
+      {
+        this.showBar=true;
+      }
 
       let vm = this;
       this.$store
@@ -208,6 +243,7 @@ export default {
         .then((response) => {
           // this.$store.commit("closeProgressBar", {});
           this.showeventBar = false;
+          this.showBar=false;
           if (response.data.result.length > 0) {
             vm.empty = false;
 
@@ -266,6 +302,7 @@ export default {
     return {
       windowsize: 0,
       showeventBar: false,
+      showBar:false,
       iteration: 1,
       model: {},
       pagination: {
@@ -277,45 +314,8 @@ export default {
       empty: false,
       selectedEvent: {},
       showEvents: false,
-      colors: [
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-        "indigo",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
-      ],
-
-      //  {
-      //     id: 3,
-      //     eventTitle: "Hello asdf",
-      //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-      //     eventLocation: "USA",
-      // },
-      // {
-      //     id: 4,
-      //     eventTitle: "Hello asdf",
-      //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-
-      //     eventLocation: "USA",
-      // },
-      // {
-      //     id: 5,
-      //     eventTitle: "Hello asdf",
-      //     eventDescription: "AFGdnbvfbfjnbmkvmvckmdfvnfjvnjvjvnjcjjf",
-
-      //     eventLocation: "USA",
-      // },
+     
+     
     };
   },
 };
