@@ -64,7 +64,7 @@
                       label="Body*"
                       required
                       :rules="bodyRules"
-                       maxlength="1000"
+                       maxlength="5000"
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12">
