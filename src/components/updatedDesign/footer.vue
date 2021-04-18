@@ -62,8 +62,8 @@
 <script>
 export default {
   data: () => ({
-    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-    links:[" https://www.facebook.com/steppingcloudconsulting/?ref=bookmarks", "https://twitter.com/SteppingCloud","https://www.linkedin.com/company/stepping-cloud-consulting-private-limited/?viewAsMember=true",""],
+    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin"],
+    links:[" https://www.facebook.com/steppingcloudconsulting/?ref=bookmarks", "https://twitter.com/SteppingCloud","https://www.linkedin.com/company/stepping-cloud-consulting-private-limited/?viewAsMember=true"],
     items: [
       {
         text:
@@ -74,11 +74,7 @@ export default {
         text: "   114 Lavender Street, 11-88 CT Hub 2 Singapore - 387293",
         icon: "mdi-map-marker",
       },
-      {
-        text:
-          "     Mohan Cooperative Industrial Estate, Badarpur, New Delhi - 110044",
-        icon: "mdi-map-marker",
-      },
+    
       { text: "     askme@steppingcloud.com", icon: "mdi-email" },
       { text: "     011 4132 6689", icon: "mdi-phone" },
     ],

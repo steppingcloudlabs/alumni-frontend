@@ -81,6 +81,20 @@
 </template>
 <script>
 export default {
+    beforeMount()
+    {
+         if(this.getNewsList.length<=0)
+         {
+             this.$store
+      .dispatch("userModule/getAllNews", { payload: { offset: 0, limit: 10 } })
+      .then((response) => {
+       
+        if (response.data.result.length > 0) {
+          this.empty = false;
+        }
+      });
+         }
+    },
     computed:{
     getNewsList: {
       get() {
