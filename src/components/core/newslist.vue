@@ -3,7 +3,7 @@
       <img
       alt=""
       class="mainimg"
-      src="@/assets/do.jpg"
+      src="@/assets/newstag.jpg"
       style="box-shadow: 0 4px 4px 0 black;width: 270px;
   height: 120px"/>
       <v-list style="font-size:15px;background-color:white">
