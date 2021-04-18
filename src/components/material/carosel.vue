@@ -38,13 +38,13 @@
           </v-card-text>
           <v-card-text class="news-card"  style="text-align:center;color:black;padding:0px">{{ item.DATE }}</v-card-text>
           
-          <v-img :src="getNewsList[i].PHOTO" height="250px">
+          <v-img :src="getNewsList[i].PHOTO" height="350px" style="background-size:cover">
             <!-- <div style="width:100%;height:35px;background-color:white;opacity:0.5"></div>
              <div style="width:100%;height:35px;background-color:white;opacity:0.5;position:absolute;bottom:0"></div> -->
           </v-img>
           
           <v-card-text
-            class="title font-weight-light d-none d-sm-flex news-card"
+            class="title font-weight-light  d-sm-flex news-card"
             style="
               font-family: Raleway !important;
               text-align: center;  
@@ -54,7 +54,7 @@
             v-if="item.CONTENT"
           >
             <p style="text-align: center;width: 100%;">
-              {{item.CONTENT.substring(0, 200)}}
+             <v-btn color="blue" text @click="newsdetail(item)">Read More</v-btn>
             </p>
             <!-- <button
               v-if="!showMore && item.CONTENT.length > len"
@@ -91,7 +91,7 @@
         </v-sheet>
       </v-carousel-item>
     </div>
-    </div>
+    </div>  
   </v-carousel>
 </template>
 <!--<template>
@@ -173,6 +173,15 @@ export default {
       set(data) {
         this.$store.commit("userModule/setNewsList", this.data);
       },
+
+    },
+     getRenderNews: {
+      get() {
+        return this.$store.getters["userModule/getRenderNews"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setRenderNews", data);
+      },
     },
     showNews: {
       get() {
@@ -208,17 +217,13 @@ export default {
     this.$store.commit("closeProgressBar", {});
   },
   methods: {
-    myFunction(data) {
-      if (!this.showMore) {
-        this.showMore = true;
-        this.len = this.getNewsList[data].content.length;
-        this.heightCarousel = 150 + this.len / 2;
-      } else {
-        this.showMore = false;
-        this.len = 390;
-        this.heightCarousel = 350;
-      }
+     newsdetail(item) {
+      this.getRenderNews =item;
+      // console.log("before route")
+        localStorage.setItem("render", JSON.stringify(this.getRenderNews));
+      this.$router.push({path:"newsdetail"});
     },
+  
     resetHeight() {
       this.heightCarousel = 350;
       this.showMore = false;
@@ -261,13 +266,13 @@ div.item {
 /* .news-carousel-wrapper .v-responsive__content {
   background: rgb(0, 0, 0, 0.5);
 } */
-.news-carousel-wrapper,.v-image
+.news-carousel-wrapper
 {
 height: 700px;
 }
 
 @media screen and (max-width: 992px) {
-  .news-carousel-wrapper,.v-image
+  .news-carousel-wrapper
 {
 height: 600px !important;
 }
@@ -275,9 +280,13 @@ height: 600px !important;
 
 /* On screens that are 600px or less, set the background color to olive */
  @media screen and (max-width: 640px) {
- .news-carousel-wrapper,.v-image
+ .news-carousel-wrapper
 {
-height: 200px !important;
+min-height: 500px !important;
+}
+.v-image.v-responsive.v-carousel__item.theme--dark
+{
+  height: auto!important;
 }
 } 
 </style>

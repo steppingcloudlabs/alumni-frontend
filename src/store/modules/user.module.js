@@ -27,9 +27,14 @@ export default {
         newsList:[],
         FaqList:[],
         EventList:[],
-        alumniList:[]
+        alumniList:[],
+        renderNews: {}
     },
     mutations: {
+
+        setRenderNews: (state, data) => {
+            state.renderNews = data;
+        },
         setshowDrawer: (state,data)=>{
          state.showDrawer=data
         },
@@ -145,6 +150,10 @@ export default {
 
     },
     getters: {
+
+        getRenderNews: (state) =>  {
+            return state.renderNews
+        },
         getshowDrawer:(state)=>{
           return state.showDrawer
         },

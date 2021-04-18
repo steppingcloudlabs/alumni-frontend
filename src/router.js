@@ -23,7 +23,7 @@ import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
 import companySetting from './components/admin/companySetting.vue'
 import searchProfile from './components/core/OpenProfile.vue'
-// import upHome from "./components/updatedDesign/updatedHomepage.vue"
+import parentNews from './components/core/parentNews.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -82,7 +82,14 @@ const router = new Router({
     path: '/profile',
     name: 'profile',
     component: portal,
-    children: [{
+    children: [
+      {
+        path: 'newsdetail',
+        name: 'newsdetail',
+        component: parentNews
+      },
+  
+      {
       path: 'changepassword',
       // Relative to /src/views
       component: updatepassword

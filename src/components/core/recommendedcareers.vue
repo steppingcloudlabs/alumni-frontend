@@ -385,8 +385,8 @@ export default {
     height: 250px;
     box-shadow: 15px 15px 20px -15px #808080;
   }
-  .job_class {
+  /* .job_class {
     min-height: 260px;
-  }
+  } */
 }
 </style>
