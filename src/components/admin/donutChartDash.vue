@@ -9,7 +9,7 @@ export default {
         {
           labels: ["Active", "Inactive"],
           backgroundColor: ["#172151", "#f87879"],
-          data: [20, 80],
+          data: [60,40],
         },
       ],
     },
@@ -46,7 +46,7 @@ export default {
 
 <style>
 #doughnut-chart {
-  height: 315px !important;
+  height: 335px !important;
 }
 </style>
 

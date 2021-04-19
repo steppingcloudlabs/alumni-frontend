@@ -98,7 +98,7 @@ export default {
       {
         to: "/admin/update",
         icon: "mdi-chart-bubble",
-        text: "FAQ Update",
+        text: "Ticket/FAQs",
       },
 
       {

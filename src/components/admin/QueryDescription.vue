@@ -28,7 +28,7 @@
                         <v-menu offset-y>
                           <template v-slot:activator="{ on }">
                             <v-hover
-                              v-slot:default="{ hover }"
+                              v-slot:default="{  }"
                             >
                               <v-chip
                                 :color="msg.USERTYPE=='admin'? 'primary' : ''"
@@ -38,10 +38,17 @@
                                 v-on="on"
                               >
                                 {{ msg.MESSAGE }}
-                                <sub
+                                 <sub
                                   class="ml-2"
                                   style="font-size: 0.5rem;"
-                                >{{msg.CREATEDAT.substring(11,16)}},{{msg.CREATEDAT.substring(0,10)}}</sub>
+                                  v-if="msg.CREATEDAT=='now'"
+                                >{{msg.CREATEDAT}}</sub>
+                                <sub
+                                 class="ml-2"
+                                  style="font-size: 0.5rem;"
+                                  v-else>
+                                  {{msg.CREATEDAT.substring(11,16)}},{{msg.CREATEDAT.substring(0,10)}}
+                                </sub>
                                
                               </v-chip>
                             </v-hover>
@@ -229,7 +236,7 @@ export default {
         },
       };
       let newmsg = {
-        CREATEDAT: moment.unix(),
+        CREATEDAT: "now",
         CREATEDBY: "admin",
         MODIFIEDAT: moment.unix(),
         MODIFIEDBY: "admin",

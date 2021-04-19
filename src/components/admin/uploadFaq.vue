@@ -14,11 +14,10 @@
 
            
 
-            <p bold class="text-center">OR</p>
-
+         
             
 
-            <FileFAQ />
+          
           </v-container>
           <small style="margin-left: 52px;">*Required Fields are mandatory</small>
         </v-card-text>
@@ -35,11 +34,11 @@
 
 <script>
 import ManualFaq from "@/components/admin/ManualFAQ.vue";
-import FileFAQ from "@/components/admin/FileFAQ.vue";
+// import FileFAQ from "@/components/admin/FileFAQ.vue";
 export default {
   components: {
     ManualFaq,
-    FileFAQ
+    // FileFAQ
   },
   props: {
     dialog: {

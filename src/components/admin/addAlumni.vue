@@ -270,6 +270,7 @@ export default {
       );
     },
     findData(data) {
+      let vm=this
       this.loader = true;
       let body = {
         payload: {
@@ -279,7 +280,17 @@ export default {
       this.$store
         .dispatch("adminModule/getSearchAlumniById", data)
         .then((response) => {
-          this.loader = false;
+          this.loader=false
+          if(response.result.length>0)
+          {
+           // vm.getAlumniList=response.result
+            vm.pagination = response.pagination;
+            vm.pagination = Object.assign(
+              {},
+              this.someObject,
+              response.pagination
+            );
+          }
         });
     },
   },

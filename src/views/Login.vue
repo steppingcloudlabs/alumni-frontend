@@ -36,6 +36,7 @@
                 v-model="password"
                 :rules="passwordRules"
                 dark
+                 @keyup.enter.native="login"
               ></v-text-field>
             </v-form>
           </v-card-text>

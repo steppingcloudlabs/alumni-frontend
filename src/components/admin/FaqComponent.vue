@@ -9,7 +9,7 @@
       <v-list-item three-line>
         <v-list-item-content>
           <v-flex xs10>
-            <v-list-item-title class="headline mb-2">
+            <v-list-item-title class=" mb-2">
               <p>{{item.QUESTION}}</p>
             </v-list-item-title>
           </v-flex>
@@ -45,8 +45,8 @@ export default {
   },
   methods: {
      pageClicked(data) {
-       let lim=(data-1)*3
-      this.getFAQs(3,lim);
+       let lim=(data-1)*10
+      this.getFAQs(10,lim);
     },
     setSelectedFAQ(item) {
       this.selectedFAQ = item;
@@ -76,13 +76,13 @@ export default {
         });
     },
     next() {
-      this.pagination.LIMIT += 3;
+      this.pagination.LIMIT += 0;
        this.pagination.OFFSET += this.pagination.LIMIT;
       this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
     },
 
     prev() {
-      this.pagination.LIMIT -= 3;
+      this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
       this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
     },
@@ -120,7 +120,7 @@ export default {
   },
   beforeMount() {
     this.showMore = false;
-    this.getFAQs(3,0)
+    this.getFAQs(10,0)
   },
   destroyed() {
     this.$store.commit("adminModule/setFaqList", {});
@@ -140,7 +140,7 @@ export default {
     return {
       model: {},
       pagination: {
-        LIMIT: 3,
+        LIMIT: 10,
         OFFSET: 0,
         TOTALPAGES:0
       },

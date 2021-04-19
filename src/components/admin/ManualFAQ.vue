@@ -63,7 +63,9 @@ export default {
         },
       };
       this.$store.dispatch("adminModule/addFaq", data).then((response) => {
-        this.$store.commit(
+        if(response.data.status==200)
+        {
+           this.$store.commit(
           "adminModule/addFaqToList",
           JSON.parse(JSON.stringify(faqData))
         );
@@ -72,10 +74,32 @@ export default {
           color: "success",
           heading: "Success",
           duration: 3000,
-        });
+        })
+        }
+        else
+        {
+           this.$store.commit("showSnackbar", {
+          message: "Error Occured",
+          color: "red",
+          heading: "Error",
+          duration: 3000,
+        })
+        }
+        }).catch((error) => {
+         
+          console.log(error); //Exepection error....
+          this.$store.commit("showSnackbar", {
+            color: "red",
+            duration: 1000,
+            message: error,
+            heading: "Error",
+          });
+        });;
 
+        
+       
         // this.$store.commit("adminModule/closeEventsProgress", {});
-      });
+     
     },
   },
 };

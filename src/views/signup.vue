@@ -62,7 +62,9 @@
                 prepend-icon="lock"
                 type="password"
                 v-model="Cnfpassword"
+                 @keyup.enter.native="signup"
               ></v-text-field>
+              <span style="color:red;font-size:12px;margin-left:9%;" v-if="msg.password">{{msg.password}}</span>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -99,8 +101,18 @@ export default {
   components: {
     Contact
   },
+  watch:
+  {
+    Cnfpassword(value)
+    {
+      this.Cnfpassword=value
+      this.matchpass(value)
+    }
+      
+  },
   data() {
     return {
+      msg: [],
       show1: false,
       dialog: false,
       valid: true,
@@ -134,6 +146,18 @@ export default {
   methods: {
     closeAskHrDialog() {
       this.dialog = false;
+    },
+
+    matchpass(value)
+    {
+      if(this.password!=value)
+      {
+          this.msg['password'] = '*Password doesnot match';
+      }
+      else
+      {
+         this.msg['password'] = '';
+      }
     },
 
     signup() {
