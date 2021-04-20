@@ -36,6 +36,7 @@
             hide-details
             @keyup.enter.native="findData(search)"
             background-color="white"
+            @input="findData(search)"
             
           ></v-text-field>
           <!-- <v-btn   color="primary"
@@ -44,7 +45,7 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:item.action="{ item }">
+      <template v-slot:item.action="{}">
         <v-icon small class="mr-2" color="#1A265C" @click="openDialog(item)"
           >fas fa-upload</v-icon
         >
@@ -150,18 +151,27 @@ export default {
       this.dialog = false;
     },
     findData(data) {
+      let vm=this
       this.loader = true;
       let body = {
         payload: {
-          skip: 0,
-          limit: 9,
           keyword: data,
         },
       };
       this.$store
-        .dispatch("adminModule/getAllAlumni", body)
+        .dispatch("adminModule/getSearchAlumniById", data)
         .then((response) => {
-          this.loader = false;
+          this.loader=false
+          if(response.result.length>0)
+          {
+           // vm.getAlumniList=response.result
+            vm.pagination = response.pagination;
+            vm.pagination = Object.assign(
+              {},
+              this.someObject,
+              response.pagination
+            );
+          }
         });
     },
      openAddBulkDocumentDialog() {

@@ -59,6 +59,7 @@
               single-line
               hide-details
               @keyup.enter.native="findData(search)"
+                @input="findData(search)"
             ></v-text-field>
             <!-- <v-btn
               color="primary"
