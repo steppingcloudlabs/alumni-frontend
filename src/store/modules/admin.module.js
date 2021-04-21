@@ -160,7 +160,14 @@ export default {
         },
 
         appendAlumniList: (state, data) => {
-            state.alumniList = state.alumniList.concat(data)
+            var index = state.alumniList.findIndex(i => i.ID === data.ID);
+            if(index>-1)
+              {
+                state.alumniList[index]=data
+                state.alumniList=JSON.parse(JSON.stringify(state.alumniList))
+                
+              }
+           
         },
 
         addNewAlumniToList: (state, data) => {

@@ -87,7 +87,7 @@
         row
         wrap
         style="margin-left: 10px; width: 98%"
-        v-if="getjobs.length"
+        v-if="recentData.length"
       >
         <v-flex
           xs12
@@ -96,7 +96,7 @@
           lg6
           xl6
           class="pl-3 pt-5"
-          v-for="(item, i) in getjobs"
+          v-for="(item, i) in recentData"
           :key="i"
         >
           <v-hover v-slot:default="{ hover }">
@@ -231,8 +231,8 @@
         <viewjob />
       </v-layout>
       <div v-else class="subtitle-1 mt-5">
-        <p class="white--text text-center">
-          NoJobs Available
+        <p class=" text-center">
+          No Jobs Available
           <v-img
             style="margin-right: auto; margin-left: auto"
             width="100"
@@ -258,45 +258,91 @@ export default {
   beforeMount() {
     this.showjobBar = true;
     this.jobData(6, 0);
+    
   },
   destroyed() {
-    this.$store.commit("userModule/setJobs", {});
+    this.$store.commit("userModule/setrecomJobs", {});
   },
   computed: {
     getjobs: {
       get() {
-        return this.$store.getters["userModule/getJobs"];
+        return this.$store.getters["userModule/getrecomJobs"];
       },
       set(data) {
-        this.$store.commit("userModule/setJobs", this.data);
+        this.$store.commit("userModule/setrecomJobs", data);
       },
     },
   },
+  watch:{
+      getjobs()
+      {
+        console.log(this.getjobs.length)
+      }
+  },
   methods: {
     pageClicked(data) {
+    
       let lim = (data - 1) * 6;
-      this.jobData(6, lim);
+        if(this.getjobs.length<=lim)
+           {
+               this.jobData(6, lim);
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice(lim)
+          }
+
     },
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-      this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getjobs.length<=this.pagination.OFFSET)
+           {
+              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+      
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getjobs.length<=this.pagination.OFFSET)
+           {
+              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
     },
     jobData(limit, offset) {
       let userId = getAlumniId();
-      console.log(this.getjobs.length);
+      let listlen=this.getjobs.length
       this.$store
         .dispatch("userModule/recommendedJob", {
           payload: { limit: limit, offset: offset, userId: userId },
         })
         .then((response) => {
           if (response.status == 200) {
+            // Array.prototype.push.apply(this.getjobs, response.data.result);
+          
+             console.log(this.getjobs)
+              console.log("hiieelo"+this.getjobs.length);
+              if(this.getjobs.length<offset)
+              {
+                  this.recentData=this.getjobs.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getjobs.slice(offset-limit)
+              }
+            
+              console.log("hiieelo"+this.getjobs.length);
+             console.log(this.recentData)
             this.showjobBar = false;
             this.showLoader = false;
             this.pagination = response.data.pagination;
@@ -306,7 +352,9 @@ export default {
               response.data.pagination
             );
           }
+          
         });
+      
     },
     jobMoreData(data) {
       this.skip = this.skip + 1;
@@ -326,6 +374,7 @@ export default {
   },
   data() {
     return {
+      recentData:[],
       showjobBar: false,
       pagination: {
         LIMIT: 6,

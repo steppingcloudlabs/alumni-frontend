@@ -22,6 +22,7 @@ export default {
         contactData: {},
         avatarData:{},
         jobs: [],
+        recomjobs:[],
         viewJobDialog: false,
         viewJobData: {},
         newsList:[],
@@ -48,8 +49,8 @@ export default {
             state.FaqList = data
         },
         setEventList: (state, data) => {
-            state.EventList = data
-            console.log(EventList)
+            Array.prototype.push.apply( state.EventList, data);
+            
 
         },
         setNewsList: (state, data) => {
@@ -72,7 +73,13 @@ export default {
             state.viewJobDialog = false
         },
         setJobs: (state, data) => {
-            state.jobs = data;
+            Array.prototype.push.apply(state.jobs, data);
+          
+        },
+        setrecomJobs: (state, data) => {
+            Array.prototype.push.apply(state.recomjobs, data);
+            state.recomjobs = JSON.parse(JSON.stringify(state.recomjobs))
+          
         },
         appendJobList: (state, data) => {
             state.jobs = state.jobs.concat(data)
@@ -195,6 +202,9 @@ export default {
         },
         getJobs: (state) => {
             return state.jobs;
+        },
+        getrecomJobs: (state) => {
+            return state.recomjobs;
         },
         getUserData: (state) => {
             return state.userData
@@ -712,7 +722,7 @@ export default {
                             root: true
                         })
                     } else {
-                        commit('setJobs', response.data.result)
+                        commit('setrecomJobs', response.data.result)
                         resolve(response)
                         console.log(response)
                     }

@@ -83,7 +83,7 @@
       </v-layout>
     </div>
         <v-row
-          v-for="(item, i) in getEventList"
+          v-for="(item, i) in recentData"
           :key="i"
           mb-2
           style="margin-top: 18px"
@@ -219,7 +219,15 @@ export default {
   methods: {
     pageClicked(data) {
       let lim = (data - 1) * 2;
-      this.getEvents(2, lim);
+        if(this.getEventList.length<=lim)
+           {
+              this.getEvents(2, lim);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice(lim)
+          }
+      
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
@@ -227,6 +235,7 @@ export default {
     },
     getEvents(limit, offset) {
       // this.$store.commit("showProgressBar", {});
+        let listlen=this.getEventList.length
       if (this.iteration == 1) {
         this.showeventBar = true;
       }
@@ -242,6 +251,7 @@ export default {
         })
         .then((response) => {
           // this.$store.commit("closeProgressBar", {});
+
           this.showeventBar = false;
           this.showBar=false;
           if (response.data.result.length > 0) {
@@ -252,6 +262,15 @@ export default {
                 .unix(this.getEventList[i].DATE / 1000)
                 .format("LL");
             }
+
+              if(this.getEventList.length<offset)
+              {
+                  this.recentData=this.getEventList.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getEventList.slice(offset-limit)
+              }
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
               {},
@@ -268,13 +287,30 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getEventList.length<=this.pagination.OFFSET)
+           {
+              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
+     
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+        if(this.getEventList.length<=this.pagination.OFFSET)
+           {
+              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
     },
   },
   beforeMount() {
@@ -300,6 +336,7 @@ export default {
 
   data() {
     return {
+      recentData:[],
       windowsize: 0,
       showeventBar: false,
       showBar:false,
