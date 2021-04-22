@@ -106,7 +106,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getAlumniList.slice(lim)
+              this.recentData=this.getAlumniList.slice(lim,lim+10)
           }
      
      // this.getAlumni(data);
@@ -131,14 +131,9 @@ export default {
                 .unix(vm.getAlumniList[i].DATE / 1000)
                 .format("LL");
             }
-             if(this.getAlumniList.length<offset)
-              {
-                  this.recentData=this.getAlumniList.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getAlumniList.slice(offset-limit)
-              }
+            
+                  this.recentData=this.getAlumniList.slice(listlen,listlen+10)
+            
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
             console.log(vm.pagination)

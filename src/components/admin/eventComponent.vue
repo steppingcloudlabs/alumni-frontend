@@ -110,7 +110,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getEventList.slice(lim)
+              this.recentData=this.getEventList.slice(lim,lim+3)
           }
       //this.getNews();
     
@@ -136,14 +136,9 @@ export default {
                 .unix(vm.getEventList[i].DATE / 1000)
                 .format("LL");
             }
-             if(this.getEventList.length<offset)
-              {
-                  this.recentData=this.getEventList.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getEventList.slice(offset-limit)
-              }
+            
+                  this.recentData=this.getEventList.slice(listlen,listlen+3)
+            
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
             console.log(vm.pagination)

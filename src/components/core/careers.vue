@@ -91,7 +91,7 @@
         style="margin-left: unset; "
         v-if="getjobs.length && !showLoader"
       >
-        <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in getjobs" :key="i">
+        <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in recentData" :key="i">
 
           <v-hover v-slot:default="{ hover }">
              
@@ -274,27 +274,52 @@ export default {
     pageClicked(data)
     {
         let lim=(data-1)*10
-        this.jobData(10,lim)
+          if(this.getjobs.length<=lim)
+           {
+               this.jobData(10,lim)
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice(lim,lim+10)
+          }
+
+        
     },
     next()
     {
       this.pagination.LIMIT+=0
       this.pagination.OFFSET+=this.pagination.LIMIT
-      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+      if(this.getjobs.length<=this.pagination.OFFSET)
+           {
+              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+      
     },
 
      prev()
     {
       this.pagination.LIMIT-=0
       this.pagination.OFFSET-=this.pagination.LIMIT
-      this.jobData(this.pagination.LIMIT,this.pagination.OFFSET)
+     if(this.getjobs.length<=this.pagination.OFFSET)
+           {
+              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
     },
     jobData(limit,offset) {
-     
+      let listlen=this.getjobs.length
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
         if (response.status == 200) {
           this.showLoader = false;
+            this.recentData=this.getjobs.slice(listlen,listlen+10)
           this.pagination=response.data.pagination 
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )
         }
@@ -320,6 +345,7 @@ export default {
   },
   data() {
     return {
+      recentData:[],
       showLoader: false,
       pagination:{
         LIMIT:10,

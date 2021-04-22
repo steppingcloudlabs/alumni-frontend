@@ -225,7 +225,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getEventList.slice(lim)
+              this.recentData=this.getEventList.slice(lim,lim+2)
           }
       
     },
@@ -263,14 +263,8 @@ export default {
                 .format("LL");
             }
 
-              if(this.getEventList.length<offset)
-              {
-                  this.recentData=this.getEventList.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getEventList.slice(offset-limit)
-              }
+               this.recentData=this.getEventList.slice(listlen,listlen+2)
+             
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
               {},

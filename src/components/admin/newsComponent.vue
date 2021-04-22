@@ -131,7 +131,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getNewsList.slice(lim)
+              this.recentData=this.getNewsList.slice(lim,lim+3)
           }
       
     },
@@ -156,14 +156,10 @@ export default {
                 .unix(vm.getNewsList[i].DATE / 1000)
                 .format("LL");
             }
-            if(this.getNewsList.length<offset)
-              {
-                  this.recentData=this.getNewsList.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getNewsList.slice(offset-limit)
-              }
+           
+                  this.recentData=this.getNewsList.slice(listlen,listlen+3)
+             
+             
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
               {},

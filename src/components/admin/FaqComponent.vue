@@ -52,7 +52,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getFaqList.slice(lim)
+              this.recentData=this.getFaqList.slice(lim,lim+10)
           }
     
     },
@@ -76,14 +76,9 @@ export default {
             //     .unix(this.getFAQList[i].DATE / 1000)
             //     .format("LL");
             // }
-              if(this.getFaqList.length<offset)
-              {
-                  this.recentData=this.getFaqList.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getFaqList.slice(offset-limit)
-              }
+             
+                  this.recentData=this.getFaqList.slice(listlen,listlen+10)
+             
            vm.pagination = response.data.pagination;
             vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
             console.log(this.pagination)

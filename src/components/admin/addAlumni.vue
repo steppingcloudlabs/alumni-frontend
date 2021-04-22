@@ -161,7 +161,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getAlumniList.slice(lim)
+              this.recentData=this.getAlumniList.slice(lim,lim+10)
           }
      
     },
@@ -187,7 +187,7 @@ export default {
             }
              if(this.getAlumniList.length<offset)
               {
-                  this.recentData=this.getAlumniList.slice(listlen)
+                  this.recentData=this.getAlumniList.slice(listlen,listlen+10)
               }
               else
               {
