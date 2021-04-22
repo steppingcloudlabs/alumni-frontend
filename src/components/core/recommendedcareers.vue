@@ -257,7 +257,7 @@ export default {
   },
   beforeMount() {
     this.showjobBar = true;
-    this.jobData(6, 0);
+    this.jobData(6, 0,0);
     
   },
   destroyed() {
@@ -283,43 +283,44 @@ export default {
     pageClicked(data) {
     
       let lim = (data - 1) * 6;
-        if(this.getjobs.length<=lim)
+        if(!this.getjobs[data-1])
            {
-               this.jobData(6, lim);
+               this.jobData(6, lim,data-1);
            }
         else
            {
-              this.recentData=this.getjobs.slice(lim,lim+6)
+              this.recentData=this.getjobs[data-1]
           }
-
+       console.log(this.getjobs)
+        console.log( this.recentData)
     },
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-       if(this.getjobs.length<=this.pagination.OFFSET)
-           {
-              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+      //  if(this.getjobs.length<=this.pagination.OFFSET)
+      //      {
+      //         this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+      //      }
+      //   else
+      //      {
+      //         this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+      //     }
       
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-       if(this.getjobs.length<=this.pagination.OFFSET)
-           {
-              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+      //  if(this.getjobs.length<=this.pagination.OFFSET)
+      //      {
+      //         this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+      //      }
+      //   else
+      //      {
+      //         this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+      //     }
     },
-    jobData(limit, offset) {
+    jobData(limit, offset,page) {
       let userId = getAlumniId();
       let listlen=this.getjobs.length
       this.$store
@@ -329,12 +330,13 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             // Array.prototype.push.apply(this.getjobs, response.data.result);
-          
+             let dat={page:page,data:response.data.result}
+             this.getjobs=dat
              console.log(this.getjobs)
               console.log("hiieelo"+this.getjobs.length);
               // if(this.getjobs.length<offset)
               // {
-                  this.recentData=this.getjobs.slice(listlen,listlen+6)
+                  this.recentData=this.getjobs[page]
               // }
               // else
               // {

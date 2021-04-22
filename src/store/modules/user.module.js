@@ -73,12 +73,12 @@ export default {
             state.viewJobDialog = false
         },
         setJobs: (state, data) => {
-            Array.prototype.push.apply(state.jobs, data);
+            state.jobs[data.page] = data.data
           
         },
         setrecomJobs: (state, data) => {
-            Array.prototype.push.apply(state.recomjobs, data);
-            state.recomjobs = JSON.parse(JSON.stringify(state.recomjobs))
+            
+            state.recomjobs[data.page] = data.data
           
         },
         appendJobList: (state, data) => {
@@ -684,7 +684,7 @@ export default {
                         })
                     } else {
                         
-                        commit('setJobs', response.data.result)
+                        // commit('setJobs', response.data.result)
                         resolve(response)
                         console.log(response)
                     }
@@ -722,7 +722,7 @@ export default {
                             root: true
                         })
                     } else {
-                        commit('setrecomJobs', response.data.result)
+                     //   commit('setrecomJobs', response.data.result)
                         resolve(response)
                         console.log(response)
                     }
@@ -759,7 +759,8 @@ export default {
                             root: true
                         })
                     } else {
-                        commit('setJobs', response.data.result)
+                        commit('setJobs', [])
+                        commit('setJobs', {page:0,data:response.data.result})
                         resolve(response)
                         console.log(response)
                     }

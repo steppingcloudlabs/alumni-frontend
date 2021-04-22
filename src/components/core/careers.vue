@@ -64,7 +64,7 @@
                 style="color: White"
                 large
                 type="text"
-                @click="jobMoreData(3,0)"
+                @click="jobMoreData(10,0)"
                 class="text-capitalize searchbtn"
                 >Search</v-btn
               >
@@ -255,7 +255,7 @@ export default {
       country: this.country,
       SKILL: this.SKILL,
     };
-    this.jobData(10,0);
+    this.jobData(10,0,0);
   },
   destroyed() {
     this.$store.commit("userModule/setJobs", {});
@@ -266,7 +266,7 @@ export default {
         return this.$store.getters["userModule/getJobs"];
       },
       set(data) {
-        this.$store.commit("userModule/setJobs", this.data);
+        this.$store.commit("userModule/setJobs",data);
       },
     },
   },
@@ -274,13 +274,13 @@ export default {
     pageClicked(data)
     {
         let lim=(data-1)*10
-          if(this.getjobs.length<=lim)
+          if(!this.getjobs[data-1])
            {
-               this.jobData(10,lim)
+               this.jobData(10, lim,data-1);
            }
         else
            {
-              this.recentData=this.getjobs.slice(lim,lim+10)
+              this.recentData=this.getjobs[data-1]
           }
 
         
@@ -289,14 +289,14 @@ export default {
     {
       this.pagination.LIMIT+=0
       this.pagination.OFFSET+=this.pagination.LIMIT
-      if(this.getjobs.length<=this.pagination.OFFSET)
-           {
-              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+      // if(this.getjobs.length<=this.pagination.OFFSET)
+      //      {
+      //         this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+      //      }
+      //   else
+      //      {
+      //         this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+      //     }
       
     },
 
@@ -304,22 +304,29 @@ export default {
     {
       this.pagination.LIMIT-=0
       this.pagination.OFFSET-=this.pagination.LIMIT
-     if(this.getjobs.length<=this.pagination.OFFSET)
-           {
-              this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+    //  if(this.getjobs.length<=this.pagination.OFFSET)
+    //        {
+    //           this.jobData(this.pagination.LIMIT, this.pagination.OFFSET);
+    //        }
+    //     else
+    //        {
+    //           this.recentData=this.getjobs.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+    //       }
     },
-    jobData(limit,offset) {
+    jobData(limit,offset,page) {
       let listlen=this.getjobs.length
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
         if (response.status == 200) {
           this.showLoader = false;
-            this.recentData=this.getjobs.slice(listlen,listlen+10)
+            let dat={page:page,data:response.data.result}
+             this.getjobs=dat
+             console.log(this.getjobs)
+              console.log("hiieelo"+this.getjobs.length);
+              // if(this.getjobs.length<offset)
+              // {
+                  this.recentData=this.getjobs[page]
+              // }
           this.pagination=response.data.pagination 
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )
         }
@@ -332,6 +339,7 @@ export default {
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getSearchJob", { payload: { limit:limit,offset:offset,skill:this.search.SKILL,country:this.search.country } }).then((response) => {
         if (response.status == 200) {
+          this.recentData=this.getjobs[0]
           this.showLoader = false;
           this.pagination=response.data.pagination 
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )

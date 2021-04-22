@@ -39,7 +39,7 @@
         <v-flex xs2> </v-flex>
       </v-layout>
     </div>
-        <v-col v-for="(item, i) in getEventList" :key="i" cols="12" v-else>
+        <v-col v-for="(item, i) in recentData" :key="i" cols="12" v-else>
           <v-card>
             <div class="d-flex flex-no-wrap">
               <v-avatar class="ma-3" size="125" tile>
