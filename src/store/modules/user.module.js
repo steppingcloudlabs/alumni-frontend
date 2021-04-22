@@ -49,7 +49,8 @@ export default {
             state.FaqList = data
         },
         setEventList: (state, data) => {
-            Array.prototype.push.apply( state.EventList, data);
+           
+            state.EventList[data.page] = data.data
             
 
         },
@@ -514,7 +515,7 @@ export default {
                         })
                     } else {
                         resolve(response)
-                        commit('setEventList', response.data.result)
+                      //  commit('setEventList', response.data.result)
                     }
                     console.log(response)
                 }).catch((error) => {

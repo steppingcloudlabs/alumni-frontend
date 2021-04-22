@@ -219,21 +219,22 @@ export default {
   methods: {
     pageClicked(data) {
       let lim = (data - 1) * 2;
-        if(this.getEventList.length<=lim)
+       if(!this.getEventList[data-1])
            {
-              this.getEvents(2, lim);
+                this.getEvents(2, lim,data-1);
            }
         else
            {
-              this.recentData=this.getEventList.slice(lim,lim+2)
+              this.recentData=this.getEventList[data-1]
           }
+       
       
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
       this.showMore = true;
     },
-    getEvents(limit, offset) {
+    getEvents(limit, offset,page) {
       // this.$store.commit("showProgressBar", {});
         let listlen=this.getEventList.length
       if (this.iteration == 1) {
@@ -256,14 +257,15 @@ export default {
           this.showBar=false;
           if (response.data.result.length > 0) {
             vm.empty = false;
-
-            for (var i = 0; i < vm.getEventList.length; i++) {
-              vm.getEventList[i].DATE = moment
-                .unix(this.getEventList[i].DATE / 1000)
+              let dat={page:page,data:response.data.result}
+             this.getEventList=dat
+            for (var i = 0; i < vm.getEventList[page].length; i++) {
+              vm.getEventList[page][i].DATE = moment
+                .unix(this.getEventList[page][i].DATE / 1000)
                 .format("LL");
             }
 
-               this.recentData=this.getEventList.slice(listlen,listlen+2)
+               this.recentData=this.getEventList[page]
              
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
@@ -310,7 +312,7 @@ export default {
   beforeMount() {
     this.windowsize = window.innerWidth;
     console.log(this.windowsize);
-    this.getEvents(2, 0);
+    this.getEvents(2, 0,0);
     // this.$store
     //   .dispatch("adminModule/getAllEvent", { payload: {} })
     //   .then(response => {
