@@ -289,7 +289,7 @@ export default {
            }
         else
            {
-              this.recentData=this.getjobs.slice(lim)
+              this.recentData=this.getjobs.slice(lim,lim+6)
           }
 
     },
@@ -332,14 +332,14 @@ export default {
           
              console.log(this.getjobs)
               console.log("hiieelo"+this.getjobs.length);
-              if(this.getjobs.length<offset)
-              {
-                  this.recentData=this.getjobs.slice(listlen)
-              }
-              else
-              {
-                this.recentData=this.getjobs.slice(offset-limit)
-              }
+              // if(this.getjobs.length<offset)
+              // {
+                  this.recentData=this.getjobs.slice(listlen,listlen+6)
+              // }
+              // else
+              // {
+              //   this.recentData=this.getjobs.slice(offset-limit)
+              // }
             
               console.log("hiieelo"+this.getjobs.length);
              console.log(this.recentData)

@@ -5,7 +5,7 @@
         <i class="fas fa-plus-circle mr-2"></i> Add FAQ
       </v-btn>
     </p>
-    <div v-for="(item,i) in getFaqList" :key="i">
+    <div v-for="(item,i) in recentData" :key="i">
       <v-list-item three-line>
         <v-list-item-content>
           <v-flex xs10>
@@ -16,7 +16,7 @@
           <v-flex xs2>
             <div class="flex-grow-1"></div>
 
-            <v-icon style="margin:10px" @click="showDeleteDialog(getFaqList[i])">delete</v-icon>
+            <v-icon style="margin:10px" @click="showDeleteDialog(item)">delete</v-icon>
 
             <v-icon style="margin-left:10px" @click="showFaqDialog(i)">edit</v-icon>
           </v-flex>
@@ -46,13 +46,22 @@ export default {
   methods: {
      pageClicked(data) {
        let lim=(data-1)*10
-      this.getFAQs(10,lim);
+         if(this.getFaqList.length<=lim)
+           {
+                  this.getFAQs(10,lim);
+           }
+        else
+           {
+              this.recentData=this.getFaqList.slice(lim)
+          }
+    
     },
     setSelectedFAQ(item) {
       this.selectedFAQ = item;
       this.showMore = true;
     },
     getFAQs(limit, offset) {
+      let listlen=this.getFaqList.length
      let vm=this
       this.$store
         .dispatch("adminModule/getAllFaq", {
@@ -67,6 +76,14 @@ export default {
             //     .unix(this.getFAQList[i].DATE / 1000)
             //     .format("LL");
             // }
+              if(this.getFaqList.length<offset)
+              {
+                  this.recentData=this.getFaqList.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getFaqList.slice(offset-limit)
+              }
            vm.pagination = response.data.pagination;
             vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
             console.log(this.pagination)
@@ -78,13 +95,28 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
        this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+        if(this.getFaqList<=this.pagination.OFFSET)
+           {
+               this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getFaqList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getFaqList<=this.pagination.OFFSET)
+           {
+               this.getFAQs(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getFaqList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
     },
    
     closeFaqDialog() {
@@ -138,6 +170,7 @@ export default {
   },
   data() {
     return {
+       recentData:[],
       model: {},
       pagination: {
         LIMIT: 10,

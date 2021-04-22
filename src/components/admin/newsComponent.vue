@@ -6,29 +6,29 @@
         wrap
         mt-4
         px-5
-        v-for="(item, i) in getNewsList"
+        v-for="(item, i) in recentData"
         :key="i"
         style="min-height: 250px"
       >
         <v-flex xs4 class="px-5">
           <v-img
             height="200px"
-            v-if="getNewsList[i].PHOTO"
-            :src="getNewsList[i].PHOTO"
+            v-if="item.PHOTO"
+            :src="item.PHOTO"
           ></v-img>
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title style="color:#1A265C" class="pt-0">{{ getNewsList[i].TITLE }}</v-card-title>
+          <v-card-title style="color:#1A265C" class="pt-0">{{ item.TITLE }}</v-card-title>
           <v-card-text style="font-size: 15px">{{
-            getNewsList[i].CONTENT
+            item.CONTENT
           }}</v-card-text>
         </v-flex>
         <v-flex xs12>
           <v-card-actions>
             <v-flex xs10></v-flex>
             <v-flex xs1>
-              <v-icon color="#1A265C" @click="showDeleteDialog(getNewsList[i])"
+              <v-icon color="#1A265C" @click="showDeleteDialog(item)"
                 >mdi-delete</v-icon
               >
             </v-flex>
@@ -140,7 +140,7 @@ export default {
       this.showMore = true;
     },
     getNews(limit, offset) {
-       let listlen=this.getEventList.length
+       let listlen=this.getNewsList.length
       let vm = this;
       this.$store
         .dispatch("adminModule/getAllNews", {
