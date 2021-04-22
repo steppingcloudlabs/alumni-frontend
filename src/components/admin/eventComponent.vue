@@ -1,20 +1,20 @@
 <template>
   <div>
     <div v-if="!this.empty">
-      <v-layout row wrap mt-4 v-for="(item,i) in getEventList" :key="i">
+      <v-layout row wrap mt-4 v-for="(item,i) in recentData" :key="i">
         <v-flex xs4 class="px-5">
-          <v-img height="200px" v-if="getEventList[i].PHOTO" :src="getEventList[i].PHOTO"></v-img>
+          <v-img height="200px" v-if="recentData[i].PHOTO" :src="recentData[i].PHOTO"></v-img>
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title style="color:#1A265C" class="pt-0">{{getEventList[i].TITLE}}</v-card-title>
-          <v-card-text style="font-size:15px">{{getEventList[i].CONTENT}}</v-card-text>
+          <v-card-title style="color:#1A265C" class="pt-0">{{recentData[i].TITLE}}</v-card-title>
+          <v-card-text style="font-size:15px">{{recentData[i].CONTENT}}</v-card-text>
         </v-flex>
         <v-flex xs12>
           <v-card-actions>
             <v-flex xs10></v-flex>
             <v-flex xs1>
-              <v-icon color="#1A265C" @click="showDeleteDialog(getEventList[i])">mdi-delete</v-icon>
+              <v-icon color="#1A265C" @click="showDeleteDialog(recentData[i])">mdi-delete</v-icon>
             </v-flex>
             <v-flex xs1>
               <v-icon color="#1A265C" @click="showEventDialog(i)">edit</v-icon>
@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+       recentData:[],
       pagination: {
         LIMIT: 3,
         OFFSET: 0,
@@ -102,15 +103,24 @@ export default {
   },
   methods: {
        pageClicked(data) {
-            let lim=(data-1)*3
+            let lim=(data-1)*3 
+            if(this.getEventList.length<=lim)
+           {
+                  this.getEvents(3,lim);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice(lim)
+          }
       //this.getNews();
-      this.getEvents(3,lim);
+    
     },
     setSelectedEvent(item) {
       this.selectedEvent = item;
       this.showMore = true;
     },
     getEvents(limit, offset) {
+       let listlen=this.getEventList.length
       let vm=this
       this.$store
         .dispatch("adminModule/getAllEvent", {
@@ -126,6 +136,14 @@ export default {
                 .unix(vm.getEventList[i].DATE / 1000)
                 .format("LL");
             }
+             if(this.getEventList.length<offset)
+              {
+                  this.recentData=this.getEventList.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getEventList.slice(offset-limit)
+              }
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign( {}, this.someObject, response.data.pagination);
             console.log(vm.pagination)
@@ -146,14 +164,29 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getEventList<=this.pagination.OFFSET)
+           {
+              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
      // this.pagination.OFFSET += 1;
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -=this.pagination.LIMIT;
-      this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+      if(this.getEventList<=this.pagination.OFFSET)
+           {
+              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
     //  this.pagination.OFFSET -=1
     },
     showEventDialog(index) {

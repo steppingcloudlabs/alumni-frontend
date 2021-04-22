@@ -21,7 +21,7 @@
     <v-flex xs12>
       <v-data-table
         :headers="headers"
-        :items="getAlumniList"
+        :items="recentData"
         class="elevation-1"
         disable-pagination
         hide-default-footer
@@ -155,13 +155,22 @@ export default {
   methods: {
     pageClicked(data) {
       let lim = (data - 1) * 10;
-      this.getAlumni(10, lim);
+         if(this.getAlumniList.length<=lim)
+           {
+                this.getAlumni(10,lim);
+           }
+        else
+           {
+              this.recentData=this.getAlumniList.slice(lim)
+          }
+     
     },
     setSelectedAlumni(item) {
       this.selectedAlumni = item;
       this.showMore = true;
     },
     getAlumni(limit, offset) {
+       let listlen=this.getAlumniList.length
       let vm = this;
       this.$store
         .dispatch("adminModule/getAllAlumni", {
@@ -176,6 +185,14 @@ export default {
                 .unix(this.getAlumniList[i].DATE / 1000)
                 .format("LL");
             }
+             if(this.getAlumniList.length<offset)
+              {
+                  this.recentData=this.getAlumniList.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getAlumniList.slice(offset-limit)
+              }
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
               {},
@@ -191,13 +208,29 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getAlumniList<=this.pagination.OFFSET)
+           {
+              this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getAlumniList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getAlumniList<=this.pagination.OFFSET)
+           {
+              this.getAlumni(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getAlumniList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+     
     },
 
     closeAlumniDialog() {
@@ -282,9 +315,10 @@ export default {
         .dispatch("adminModule/getSearchAlumniById", data)
         .then((response) => {
           this.loader=false
-          if(response.result.length>0)
+          if(response.result.length>=0)
           {
            // vm.getAlumniList=response.result
+            this.recentData=response.result
             vm.pagination = response.pagination;
             vm.pagination = Object.assign(
               {},
@@ -297,6 +331,7 @@ export default {
   },
   data() {
     return {
+      recentData:[],
       pagination: {
         LIMIT: 2,
         OFFSET: 0,

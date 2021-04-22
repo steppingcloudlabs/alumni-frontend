@@ -60,7 +60,7 @@ export default {
       this.selectedAlumni=[]
       this.$store.commit("userModule/setSearchData", this.alumniList);
       this.$router.push({
-        path: "/profile/search/" + this.alumniList[0].USER_ID,
+        path: "/profile/search/" + this.alumniList[0].USER_ID +" "+this.alumniList[0].FIRST_NAME_PERSONAL_INFORMATION,
       });
     },
   },

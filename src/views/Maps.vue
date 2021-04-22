@@ -302,7 +302,7 @@ export default {
                 });
                 var infowincontent =
                   "<a href='/index.html#/profile/search/" +
-                  vm.getAlumniList[i].USER_ID +
+                  vm.getAlumniList[i].USER_ID +" "+vm.getAlumniList[i].FIRST_NAME_PERSONAL_INFORMATION+
                   "'>" +
                   vm.getAlumniList[i].FIRST_NAME_PERSONAL_INFORMATION +
                   " " +

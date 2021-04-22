@@ -156,7 +156,9 @@ export default {
 
 
         setAlumniList: (state, data) => {
-            state.alumniList = data
+            Array.prototype.push.apply(state.alumniList, data);
+            state.alumniList= JSON.parse(JSON.stringify(state.alumniList))
+
         },
 
         appendAlumniList: (state, data) => {
@@ -197,7 +199,10 @@ export default {
         // NEWS SECTION
 
         setNewsList: (state, data) => {
-            state.newsList = data
+           
+            Array.prototype.push.apply(state.newsList, data);
+            state.newsList = JSON.parse(JSON.stringify(state.newsList))
+
         },
         appendNewsList: (state, data) => {
             state.newsList = state.newsList.concat(data)
@@ -253,8 +258,8 @@ export default {
 
         // Event Section
         setEventList: (state, data) => {
-            state.EventList = data
-            console.log(EventList)
+            Array.prototype.push.apply(state.EventList, data);
+            state.EventList = JSON.parse(JSON.stringify(state.EventList))
 
         },
         appendEventList: (state, data) => {
@@ -1436,7 +1441,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/search/userprofile?QUERY='+data,
+                    url:baseurl()+'/admin/action/search/masterdata?LIMIT=&OFFSET=0&QUERY='+data,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token

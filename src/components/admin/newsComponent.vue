@@ -106,6 +106,7 @@ export default {
 
   data() {
     return {
+      recentData:[],
       pagination: {
         LIMIT: 3,
         OFFSET: 0,
@@ -124,13 +125,22 @@ export default {
   methods: {
     pageClicked(data) {
       let lim = (data - 1) * 3;
-      this.getNews(3, lim);
+        if(this.getNewsList.length<=lim)
+           {
+                 this.getNews(3, lim);
+           }
+        else
+           {
+              this.recentData=this.getNewsList.slice(lim)
+          }
+      
     },
     setSelectedNews(item) {
       this.selectedNews = item;
       this.showMore = true;
     },
     getNews(limit, offset) {
+       let listlen=this.getEventList.length
       let vm = this;
       this.$store
         .dispatch("adminModule/getAllNews", {
@@ -146,6 +156,14 @@ export default {
                 .unix(vm.getNewsList[i].DATE / 1000)
                 .format("LL");
             }
+            if(this.getNewsList.length<offset)
+              {
+                  this.recentData=this.getNewsList.slice(listlen)
+              }
+              else
+              {
+                this.recentData=this.getNewsList.slice(offset-limit)
+              }
             vm.pagination = response.data.pagination;
             vm.pagination = Object.assign(
               {},
@@ -171,13 +189,28 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-      this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+       if(this.getNewsList<=this.pagination.OFFSET)
+           {
+              this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getNewsList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
+      
     },
 
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-      this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+      if(this.getNewsList<=this.pagination.OFFSET)
+           {
+              this.getNews(this.pagination.LIMIT, this.pagination.OFFSET);
+           }
+        else
+           {
+              this.recentData=this.getNewsList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+          }
     },
 
     showNewsDialog(index) {
