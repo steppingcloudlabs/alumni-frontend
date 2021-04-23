@@ -216,16 +216,28 @@ export default {
     //   },
     // },
   },
+  watch:
+  {
+     recentData()
+     {
+       console.log(this.recentData)
+     }
+  },
   methods: {
     pageClicked(data) {
       let lim = (data - 1) * 2;
-       if(!this.getEventList[data-1])
+      let page=data-1
+       if(!this.getEventList[page])
            {
                 this.getEvents(2, lim,data-1);
            }
-        else
+        else  
            {
-              this.recentData=this.getEventList[data-1]
+             
+                  this.recentData=this.getEventList[page]
+                  
+            
+            
           }
        
       
@@ -283,14 +295,14 @@ export default {
     next() {
       this.pagination.LIMIT += 0;
       this.pagination.OFFSET += this.pagination.LIMIT;
-       if(this.getEventList.length<=this.pagination.OFFSET)
-           {
-              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+      //  if(this.getEventList.length<=this.pagination.OFFSET)
+      //      {
+      //         this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+      //      }
+      //   else
+      //      {
+      //         this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+      //     }
      
      
     },
@@ -298,14 +310,14 @@ export default {
     prev() {
       this.pagination.LIMIT -= 0;
       this.pagination.OFFSET -= this.pagination.LIMIT;
-        if(this.getEventList.length<=this.pagination.OFFSET)
-           {
-              this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
-           }
-        else
-           {
-              this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
-          }
+        // if(this.getEventList.length<=this.pagination.OFFSET)
+        //    {
+        //       this.getEvents(this.pagination.LIMIT, this.pagination.OFFSET);
+        //    }
+        // else
+        //    {
+        //       this.recentData=this.getEventList.slice((this.pagination.OFFSET-this.pagination.LIMIT))
+        //   }
      
     },
   },
