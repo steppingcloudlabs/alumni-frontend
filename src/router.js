@@ -88,6 +88,12 @@ const router = new Router({
         name: 'newsdetail',
         component: parentNews
       },
+
+      {
+        path: 'faq',
+        name: 'faq',
+        component: () => import(/* webpackChunkName: "changepassword" */ './components/core/UserFAQList.vue')
+      },
   
       {
       path: 'changepassword',

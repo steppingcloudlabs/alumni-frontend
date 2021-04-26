@@ -3,20 +3,20 @@
     <v-flex xs12>
       <QueryWindowWrapper />
     </v-flex>
-    <v-flex xs12>
+    <!-- <v-flex xs12>
       <UserFAQList></UserFAQList>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 
 <script>
 
 import QueryWindowWrapper from "@/components/core/QueryWindowWrapper";
-import UserFAQList from "@/components/core/UserFAQList";
+//import UserFAQList from "@/components/core/UserFAQList";
 export default {
   components: {
     QueryWindowWrapper,
-    UserFAQList
+ // UserFAQList
   }
 };
 </script>

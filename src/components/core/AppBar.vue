@@ -26,6 +26,11 @@
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
+             <v-list-item
+             @click="logout"
+            >
+              <v-list-item-title> Log Out </v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
 
@@ -39,7 +44,7 @@
 
 <script>
 // Utilities
-import { mapMutations } from "vuex";
+import { addTokenToPayload, deleteExpiredToken } from "@/utils/utils";
 import SearchAlumni from "@/views/SearchAlumni";
 
 export default {
@@ -47,6 +52,8 @@ export default {
     items: [
       { title: "Change Password", to: "/profile/changepassword" },
       { title: "View Profile", to: "/profile/user-profile" },
+      
+     
     ],
     search: "",
     notifications: [
@@ -87,6 +94,13 @@ export default {
   },
 
   methods: {
+      logout() {
+      deleteExpiredToken();
+      this.$store.commit("userModule/setData", {});
+      this.$router.push({ path: "/" });
+
+      console.log("session deleted");
+    },
     getDrawer() {
       this.showDrawer = !this.showDrawer;
     },

@@ -71,7 +71,7 @@ export default {
       ],
       subjectRules: [(v) => !!v || "Subject is required"],
        bodyRules: [(v) => !!v || "Body is required",
-       v.length > 100 || "Body must be greater than 100 characters"],
+       (v) => v.length > 100 || "Body must be greater than 100 characters"],
       esclationList: [{}, {}, {}],
     };
   },

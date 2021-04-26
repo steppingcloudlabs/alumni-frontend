@@ -57,12 +57,12 @@
 
         <v-list-item-title v-text="link.text" />
       </v-list-item>
-      <v-list-item @click="logout">
+      <!-- <v-list-item @click="logout">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-action>
         <v-list-item-title>Logout</v-list-item-title>
-      </v-list-item>
+      </v-list-item> -->
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -92,11 +92,11 @@ export default {
         icon: "mdi-view-dashboard",
         text: "Dashboard",
       },
-      {
-        to: "/profile/user-profile",
-        icon: "mdi-account",
-        text: "My Profile",
-      },
+      // {
+      //   to: "/profile/user-profile",
+      //   icon: "mdi-account",
+      //   text: "My Profile",
+      // },
 
       {
         to: "/profile/document",
@@ -118,12 +118,12 @@ export default {
         icon: "mdi-wechat",
         text: "Ask HR",
       },
-      // {
-      //   to: "/home",
-      //   icon: "mdi-logout",
-      //   text: "Logout",
-      //   click: "logout"
-      // }
+      {
+        to: "/profile/faq",
+        icon: "mdi-comment-question-outline",
+        text: "FAQs",
+       
+      }
     ],
   }),
 
