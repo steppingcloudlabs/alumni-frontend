@@ -74,7 +74,9 @@
       </v-img>
     </v-card>
 
-    <v-card-title style="color: black">Current Openings</v-card-title>
+    <v-card-title style="color: black">Current Openings 
+      <v-spacer></v-spacer>
+      <v-icon  style="float:right" @click="jobData(10,0,0)">mdi-filter-remove</v-icon></v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div class="text-center" v-if="showLoader">
       <v-progress-circular
@@ -314,6 +316,7 @@ export default {
     //       }
     },
     jobData(limit,offset,page) {
+       this.showLoader = true;
       let listlen=this.getjobs.length
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
