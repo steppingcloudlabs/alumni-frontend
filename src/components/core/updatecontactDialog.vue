@@ -15,8 +15,9 @@
                   <v-text-field
                     outlined
                     shaped
+                    :rules="phoneRules"
                     v-model="contact.phone"
-                    label="Phone No"
+                    label="Phone Number"
                     prepend-icon="mdi-cellphone"
                   ></v-text-field>
                 </v-col>
@@ -76,10 +77,7 @@ export default {
   data() {
     return {
       emailRules: [(v) => /.+@.+/.test(v) || "E-mail must be valid"],
-      // phoneRules: [
-      //   v =>
-      //     (v.length > 9 && v.length < 11) || "Please Enter valid Phone number"
-      // ],
+      phoneRules: [v =>/.[0-9]{9}$/.test(v) || "Please Enter valid Phone number",],
       employeeRules: [(v) => !!v || "Employee Id is required"],
       user: {
         phone: "",

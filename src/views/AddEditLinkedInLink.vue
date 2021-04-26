@@ -51,7 +51,9 @@ export default {
       validForm: "",
       showLoading: false,
       showlinkedInlinkInput: false,
-      profileRule: [(v) => !!v || "Profile Link is required"],
+      profileRule: [(v) => !!v || "Profile Link is required",
+       v =>/.((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^\/]+\/(([\w|\d-&#?=])+\/?){1,}))$/.test(v) ||
+          "Invalid LinkedIn Profile",],
     };
   },
   props: {
@@ -73,9 +75,14 @@ export default {
       window.open(this.linkedInlinkProfileLink, "_blank");
     },
     savelinkedInlink() {
-      this.showLoading = true;
+      if(this.$refs.form.validate())
+      {
+         this.showLoading = true;
       this.showlinkedInlinkInput = false;
+       this.showLoading = false;
       this.$emit("saveProfileLink", this.templinkedInlinkProfileLink);
+      }
+    
     },
   },
 };

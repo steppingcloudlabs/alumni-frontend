@@ -108,6 +108,7 @@
                 box-shadow: 15px 15px 40px -10px #808080;
                 transition: all 0.5s ease-in;
               "
+               @click="openJob(item)"
             >
               <v-img
                 height="200px"
@@ -151,7 +152,7 @@
                     </div>
                   </v-flex>
                   
-                   <v-flex xs12 class="pb-5 ">
+                   <!-- <v-flex xs12 class="pb-5 ">
                           <v-btn
                           text
                           color="#E4BA18"
@@ -160,7 +161,7 @@
                           @click="openJob(item)"
                           >View Description</v-btn
                         >
-                  </v-flex>
+                  </v-flex> -->
                  
                 </v-overlay>
               </v-img>

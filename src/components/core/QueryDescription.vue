@@ -49,12 +49,12 @@
                                 {{ msg.MESSAGE }}
                                 <sub
                                   class="ml-2"
-                                  style="font-size: 0.5rem;"
+                                  style="font-size: 0.8rem;"
                                   v-if="msg.CREATEDAT=='now'"
                                 >{{msg.CREATEDAT}}</sub>
                                 <sub
                                  class="ml-2"
-                                  style="font-size: 0.5rem;"
+                                  style="font-size: 0.7rem;"
                                   v-else>
                                   {{msg.CREATEDAT.substring(11,16)}},{{msg.CREATEDAT.substring(0,10)}}
                                 </sub>
@@ -80,16 +80,19 @@
                   </v-card-text>
                    <v-card-text>
                        <v-text-field
+                       ref="comments"
                      v-model="addComment"
                       label="Add Comment"
                       append-icon="send"
                       type="text"
                       outlined
+                      :rules="commentRules"
                       @click:append="updateMessage"
                       @keyup.enter="updateMessage"
                       solo
                      rounded
-                      
+                      style="width:90%"
+                    
                    ></v-text-field>
                    </v-card-text>
                 </v-card>
@@ -198,6 +201,7 @@ export default {
   data() {
     return {
       addComment: "",
+      commentRules: [(v) => !!v || "Comment is required"],
      
     };
   },
@@ -274,6 +278,10 @@ export default {
       this.$emit("backToList", {});
     },
     updateMessage() {
+       if (this.$refs.comments.validate())
+       {
+
+      
       let vm = this;
       let message = {
         payload: {
@@ -306,6 +314,7 @@ export default {
           }
         });
       this.addComment = "";
+    }
     },
   },
   computed: {

@@ -9,15 +9,17 @@
         <v-card-text class="mt-3">
           <v-form ref="contact" lazy-validation>
             <v-row>
-              <!-- <v-col cols="12">
+              <v-col cols="12">
                 <v-text-field
                   v-if="Showemail"
                   v-model="email"
+                  outlined
+                  shaped
                   :rules="emailRules"
                   prepend-icon="mdi-email"
                   label="Email*"
                 ></v-text-field>
-              </v-col>-->
+              </v-col>
               <v-col cols="12">
                 <v-text-field
                   v-model="ask.subject"
@@ -33,16 +35,17 @@
               <v-col cols="12">
                 <v-textarea
                   v-model="ask.body"
-                  maxlength="200"
+                  maxlength="500"
+                   :rules="bodyRules"
                   outlined
                   shaped
                   prepend-icon="mdi-comment-text"
-                  label="Body"
+                  label="Body*"
                 ></v-textarea>
               </v-col>
             </v-row>
           </v-form>
-          <small>*indicates required field</small>
+          <small id="error">*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
@@ -56,6 +59,7 @@
 
 <script>
 import moment from "moment";
+import {  getAlumniId } from "@/utils/utils";
 export default {
   data() {
     return {
@@ -66,6 +70,8 @@ export default {
         (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
       subjectRules: [(v) => !!v || "Subject is required"],
+       bodyRules: [(v) => !!v || "Body is required",
+       v.length > 100 || "Body must be greater than 100 characters"],
       esclationList: [{}, {}, {}],
     };
   },
@@ -85,15 +91,23 @@ export default {
     },
   },
   watch: {
-    dialog() {
-      if (this.dialog) {
-        pass
-      //  this.getAllEscaltionManager();
-      }
-    },
+    // dialog() {
+    //   if (this.dialog) {
+    //     pass
+    //   //  this.getAllEscaltionManager();
+    //   }
+    // },
+  },
+  beforeMount()
+  {
+    if(getAlumniId())
+    {
+      console.log(getAlumniId())
+    }
   },
   methods: {
     closeDialog() {
+      this.$refs.contact.reset()
       this.$emit("closeAskHrDialog");
     },
     getAllEscaltionManager() {
@@ -110,7 +124,9 @@ export default {
       });
     },
     sendDialog() {
-      this.$emit("closeAskHrDialog");
+      if (this.$refs.contact.validate())
+      {
+     
       let data = {
         payload: {
           //participants: this.userId,
@@ -129,6 +145,7 @@ export default {
           //resolved_status: false
         },
       };
+      this.closeDialog()
       this.$store.dispatch("userModule/createTicket", data).then((response) => {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
@@ -140,6 +157,11 @@ export default {
           this.$emit("updateQueryList");
         }
       });
+      }
+      else
+      {
+
+      }
     },
   },
 };
