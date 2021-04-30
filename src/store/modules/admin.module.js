@@ -852,7 +852,37 @@ export default {
             })
         },
 
+        updateTicket: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+'/admin/action/askhr/ticket/update',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
 
+            })
+        },
 
         deleteEvents: ({
             state,

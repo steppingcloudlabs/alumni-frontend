@@ -11,8 +11,9 @@
             <v-row>
               <v-col cols="12" md="10">
                 <v-file-input
+                show-size
                   label="Upload Form16"
-                 :rules="rules"
+                 
                   accept="application/pdf"
                   multiple
                   shaped
@@ -33,7 +34,7 @@
               <v-col cols="12" md="10">
                 <v-file-input
                   shaped
-                  :rules="rules"
+                  
                   outlined
                   accept="application/pdf"
                  
@@ -62,7 +63,7 @@
               <v-col cols="12" md="10">
                 <v-file-input
                   shaped
-                  :rules="rules"
+                 
                   outlined
                   accept="application/pdf"
                   label="Upload 2nd Salary Slip"
@@ -91,7 +92,7 @@
               <v-col cols="12" md="10">
                 <v-file-input
                   shaped
-                  :rules="rules"
+                 
                   outlined
                   accept="application/pdf"
                   label="Upload 3rd Salary Slip "
@@ -141,15 +142,10 @@ export default {
       salarySlipBase642nd: "",
       salarySlipBase643rd: "",
       form16Base64: "",
+     
       // rules: [
-      //   value =>
-      //     !value ||
-      //     value.size < 5000000 ||
-      //     "File size should be less than 5 MB!"
-      // ]
-      rules: [
-        value => !value || value.size < 500000 || 'file size should be less than 500 KB!',
-      ],
+      //   value => !value  || 'file size should be less than 500 KB!',
+      // ],
     };
   },
   props: {

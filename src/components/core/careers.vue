@@ -91,7 +91,7 @@
         row
         wrap
         style="margin-left: unset; "
-        v-if="getjobs.length && !showLoader"
+        v-if="recentData.length && !showLoader"
       >
         <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in recentData" :key="i">
 
@@ -224,9 +224,9 @@
           </p>
         </v-flex>
       </v-layout>
-      <div v-if="!getjobs.length && !showLoader" class="subtitle-1 mt-5">
-        <p class="white--text text-center">
-          NoJobs Available
+      <div v-if="!recentData.length && !showLoader" class="subtitle-1 mt-5">
+        <p class=" text-center">
+          No Jobs Available
           <v-img
             style="margin-right: auto; margin-left: auto"
             width="100"

@@ -19,12 +19,38 @@
               @click="queryItemClicked(item, i)"
             >
               <v-list-item-content>
-                <v-list-item-title v-text="item.TITLE"></v-list-item-title>
+                <v-list-item-title v-text="item.TITLE">
+                 
+                </v-list-item-title>
                 <v-list-item-subtitle
                   style="font-size: 12px"
-                  v-text="getDateFromTimeStamp(item.DATE)"
+                  v-text="getDateFromTimeStamp(item.LASTMODIFIEDAT)"
                 ></v-list-item-subtitle>
               </v-list-item-content>
+               <v-list-item-icon v-if="item.RESOLVED">
+                            <v-chip
+                      
+                      color="green"
+                      text-color="white" >
+                      <v-avatar left>
+                        <v-icon>mdi-checkbox-marked-circle</v-icon>
+                      </v-avatar>
+                      Closed
+                    </v-chip>
+            </v-list-item-icon>
+              <v-list-item-icon v-else>
+                            <v-chip
+                          
+                     
+                      color="red"
+                      text-color="white"
+                      label >
+                      <v-avatar left>
+                        <v-icon>mdi-information</v-icon>
+                      </v-avatar>
+                      Open
+                    </v-chip>
+            </v-list-item-icon>
             </v-list-item>
           </v-list-item-group>
         </v-list>

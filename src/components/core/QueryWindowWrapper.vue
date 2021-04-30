@@ -15,6 +15,7 @@
             :messages="messages"
             @backToList="backToList"
             @newMessageAdded="newMessageAdded"
+            @updateStatus="updateStatus"
           />
         </v-window-item>
       </v-window>
@@ -69,6 +70,15 @@ export default {
       messages: [],
     };
   },
+  //  watch:
+  // {
+  //   selectedQueryItem()
+  //   {
+  //        this.selectedQueryItem.RESOLVED=JSON.parse(JSON.stringify(this.selectedQueryItem))
+  //        this.queryList[this.selectedIndex]=this.selectedQueryItem
+  //         this.queryList=JSON.parse(JSON.stringify(this.queryList))
+  //   }
+  // },
   components: {
     UserQueryList,
     QueryDescription,
@@ -81,22 +91,7 @@ export default {
   },
   beforeMount() {
     this.getQueryList();
-    // var oNewElement = document.createElement("script");
-    // oNewElement.setAttribute("id", "cai-webchat");
-    // oNewElement.setAttribute(
-    //   "src",
-    //   "https://cdn.cai.tools.sap/webchat/webchat.js"
-    // );
-    // oNewElement.setAttribute(
-    //   "channelId",
-    //   "4abb2532-7622-4d0c-810f-0af40d4c3400"
-    // );
-    // oNewElement.setAttribute("token", "1a464d7c4851cadce92db7604ab7fe65");
-    // //	oNewElement.setAttribute("data-expander-type", "CAI");
-    // //	oNewElement.setAttribute("data-expander-preferences", "JTdCJTIyZXhwYW5kZXJMb2dvJTIyJTNBJTIyaHR0cHMlM0ElMkYlMkZjZG4uY2FpLnRvb2xzLnNhcCUyRndlYmNoYXQlMkZ3ZWJjaGF0LWxvZ28uc3ZnJTIyJTJDJTIyZXhwYW5kZXJUaXRsZSUyMiUzQSUyMkNoYXQhISUyMiUyQyUyMm9uYm9hcmRpbmdNZXNzYWdlJTIyJTNBJTIyJTIyJTJDJTIyb3BlbmluZ1R5cGUlMjIlM0ElMjJuZXZlciUyMiUyQyUyMnRoZW1lJTIyJTNBJTIyREVGQVVMVCUyMiU3RA==");
-    // document.body.appendChild(oNewElement);
-    // let elem=document.getElementById("cai-webchat-div")
-    // elem.style.visibility="visible"
+  
     
   },
 
@@ -126,6 +121,12 @@ export default {
   },
 
   methods: {
+    updateStatus(data)
+    {
+       this.selectedQueryItem=JSON.parse(JSON.stringify(data))
+        this.getQueryList();
+  
+    },
     getAllMessages(id) {
       let message = {
         payload: {
@@ -165,6 +166,9 @@ export default {
     },
     backToList(item) {
       this.queryModel = 0;
+      this.queryList[this.selectedIndex]=this.selectedQueryItem
+      this.queryList=JSON.parse(JSON.stringify(this.queryList))
+
     },
     newMessageAdded(messageObj) {
       console.log("messageadded");

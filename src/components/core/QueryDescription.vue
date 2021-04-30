@@ -16,14 +16,14 @@
                     <span>{{ selectedQueryItem.TITLE }}</span>
                     <v-spacer></v-spacer>
                     
-              <v-btn v-if="selectedQueryItem.ESCLATION==true"
+              <!-- <v-btn v-if="selectedQueryItem.ESCLATION==true"
                 color="blue"
                 style="cursor: pointer;font-size:15px;color:white"
                 class="text-capitalize"
                 @click="escalation"
-              > Escalate</v-btn>
-         
-                    
+              > Escalate</v-btn> -->
+                    <v-btn color="#1A265C" v-if="selectedQueryItem.ESCLATION" class="mt-2 white--text text-capitalize mr-2" @click="escalation">Escalate</v-btn>     
+                  <v-btn color="#1A265C" v-if="selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Reject Solution</v-btn>     
                   </v-card-title>
                
                   <v-divider class="my-0" />
@@ -219,6 +219,13 @@ export default {
       default:[]
     }
   },
+  // watch:
+  // {
+  //   selectedQueryItem()
+  //   {
+  //        this.selectedQueryItem=this.selectedQueryItem
+  //   }
+  // },
   beforeMount() {
   //  this.getAllMessages();
   },
@@ -245,12 +252,48 @@ export default {
     //     });
     //   this.addComment = "";
     // },
+    resolved()
+    {
+      let date=new Date()
+    
+       let data={
+         payload:
+         {
+             ID: this.selectedQueryItem.ID,
+            USERID:this.selectedQueryItem.USERID,
+            TITLE:this.selectedQueryItem.TITLE,
+            ESCLATION:this.selectedQueryItem.ESCLATION,
+            RESOLVED: false,
+            ESCLATATIONMANAGER:this.selectedQueryItem.ESCLATATIONMANAGER,
+            DATE: moment(date).format("x").toString(),
+            CREATEDBY: "user"
+         }
+        
+       }
+       this.$store
+        .dispatch("userModule/updateTicket", data)
+        .then((response) => {
+          if (response.status == 200) {
+            this.selectedQueryItem.RESOLVED=false
+           this.$store.commit("showSnackbar", {
+            message: "Your Ticket is Open.We will get back to you soon",
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+           this.updateStatus()
+          }
+        });
+       console.log(data)
+    },
     escalation()
     {
       let date=new Date()
     
        let data={
-          ID: this.selectedQueryItem.ID,
+         payload:
+         {
+             ID: this.selectedQueryItem.ID,
             USERID:this.selectedQueryItem.USERID,
             TITLE:this.selectedQueryItem.TITLE,
           ESCLATION:true,
@@ -258,17 +301,22 @@ export default {
             ESCLATATIONMANAGER:(parseInt(this.selectedQueryItem.ESCLATATIONMANAGER)+1).toString(),
             DATE: moment(date).format("x").toString(),
             CREATEDBY: "user"
+         }
+        
        }
        this.$store
         .dispatch("userModule/updateTicket", data)
         .then((response) => {
           if (response.status == 200) {
+            this.selectedQueryItem.ESCLATION=true
+            this.selectedQueryItem.ESCLATATIONMANAGER=data.payload.ESCLATATIONMANAGER
            this.$store.commit("showSnackbar", {
             message: "Your Ticket is Escalated to Manager..We will get back to you soon",
             color: "success",
             heading: "Success",
             duration: 3000,
           });
+          this.updateStatus()
           }
         });
        console.log(data)
@@ -276,6 +324,10 @@ export default {
     backToList() {
      
       this.$emit("backToList", {});
+    },
+    updateStatus() {
+     
+      this.$emit("updateStatus", this.selectedQueryItem);
     },
     updateMessage() {
        if (this.$refs.comments.validate())

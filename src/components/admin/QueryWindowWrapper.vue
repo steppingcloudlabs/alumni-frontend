@@ -15,6 +15,7 @@
             :messages="messages"
             @backToList="backToList"
             @newMessageAdded="newMessageAdded"
+             @updateStatus="updateStatus"
           />
         </v-window-item>
       </v-window>
@@ -82,6 +83,12 @@ export default {
     this.getQueryList();
   },
   methods: {
+    updateStatus(data)
+    {
+       this.selectedQueryItem=JSON.parse(JSON.stringify(data))
+        this.getQueryList();
+  
+    },
     getAllMessages(id) {
       let message = {
         payload: {

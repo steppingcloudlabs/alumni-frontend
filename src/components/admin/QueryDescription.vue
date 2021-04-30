@@ -15,6 +15,8 @@
               ></i>
             </span>
                     <span>{{ selectedQueryItem.TITLE }}</span>
+                     <v-spacer></v-spacer>
+                  <v-btn color="#1A265C" v-if="!selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Mark as Resolved</v-btn>
                   </v-card-title>
                
                   <v-divider class="my-0" />
@@ -194,6 +196,13 @@ export default {
       default:[]
     }
   },
+  // watch:
+  // {
+  //   selectedQueryItem()
+  //   {
+  //        this.selectedQueryItem=this.selectedQueryItem
+  //   }
+  // },
   beforeMount() {
   //  this.getAllMessages();
   console.log(this.userType)
@@ -206,6 +215,40 @@ export default {
     //this.messages = [];
   },
   methods: {
+     resolved()
+    {
+      let date=new Date()
+    
+       let data={
+         payload:
+         {
+             ID: this.selectedQueryItem.ID,
+            USERID:this.selectedQueryItem.USERID,
+            TITLE:this.selectedQueryItem.TITLE,
+            ESCLATION:false,
+            RESOLVED: true,
+             ESCLATATIONMANAGER:this.selectedQueryItem.ESCLATATIONMANAGER,
+            DATE: moment(date).format("x").toString(),
+            CREATEDBY: "user"
+         }
+         
+       }
+       this.$store
+        .dispatch("adminModule/updateTicket", data)
+        .then((response) => {
+          if (response.status == 200) {
+            this.selectedQueryItem.RESOLVED=true
+           this.$store.commit("showSnackbar", {
+            message: "Ticket is marked as resolved",
+            color: "success",
+            heading: "Success",
+            duration: 3000,
+          });
+            this.updateStatus()
+          }
+        });
+       console.log(data)
+    },
     // getAllMessages() {
     //   let message = {
     //     payload: {
@@ -224,6 +267,10 @@ export default {
     backToList() {
      
       this.$emit("backToList", {});
+    },
+     updateStatus() {
+     
+      this.$emit("updateStatus", this.selectedQueryItem);
     },
     updateMessage() {
       let vm = this;
