@@ -76,17 +76,21 @@
 
     <v-card-title style="color: black">Current Openings 
       <v-spacer></v-spacer>
-       <v-icon  id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
-       <v-icon id= "filter"  class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
+       <v-icon  v-if="!changeview" id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
+        <v-icon v-else  color="#1A265C" id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
+       <v-icon v-if="!filter"   class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
+        <v-icon v-else  color="#1A265C" class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
       </v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div class="text-center" v-if="showLoader">
-      <v-progress-circular
-        style="margin-top: 100px"
-        :size="50"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
+      <v-overlay>
+          <v-progress-circular
+            style="margin-top: 100px"
+            :size="50"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+      </v-overlay>
     </div>
     <div>
       <v-layout
@@ -285,6 +289,9 @@ export default {
     //       }
     },
     jobData(limit,offset,page) {
+      this.search.SKILL=""
+      this.search.country=""
+      this.filter=false
        this.showLoader = true;
       let listlen=this.getjobs.length
       console.log(this.getjobs.length);
@@ -305,30 +312,12 @@ export default {
       });     
     },
 
-     jobDatawithoutpage(limit,offset,page) {
-       this.showLoader = true;
-      let listlen=this.getjobs.length
-      console.log(this.getjobs.length);
-      this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
-        if (response.status == 200) {
-          this.showLoader = false;
-            let dat={page:page,data:response.data.result}
-             this.getjobs=dat
-             console.log(this.getjobs)
-              console.log("hiieelo"+this.getjobs.length);
-              // if(this.getjobs.length<offset)
-              // {
-                  this.recentData=this.getjobs[page]
-              // }
-        //   this.pagination=response.data.pagination 
-        //  this.pagination = Object.assign({}, this.someObject, response.data.pagination )
-        }
-      });     
-    },
+     
 
 
     
     jobMoreData(limit,offset) {
+      this.filter=true
       this.showLoader=true
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getSearchJob", { payload: { limit:limit,offset:offset,skill:this.search.SKILL,country:this.search.country } }).then((response) => {
@@ -348,6 +337,7 @@ export default {
   data() {
     return {
       changeview:false,
+      filter:false,
       recentData:[],
       showLoader: false,
       pagination:{
@@ -367,6 +357,10 @@ export default {
 };
 </script>
 <style >
+.theme--light.v-icon:active
+{
+  color: #1A265C;
+}
 .v-data-table {
   border-top: "none";
 }
