@@ -26,12 +26,12 @@
         
         "
       >
-        <v-card-title>
-          <v-icon large left color="#E4BA18"> {{ card.icon }}</v-icon>
+        <v-card-title style="background-color:#1A265C">
+          <v-icon large left color="white"> {{ card.icon }}</v-icon>
           <br />
-          <span class="title font-weight-light" style="color:#E4BA18">{{ card.text}}</span>
+          <span class="title font-weight-light" style="color:white">{{ card.text}}</span>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="mt-3">
          {{card.body}}
         </v-card-text>
       </v-card>
@@ -41,9 +41,10 @@
         x-large
         tile
         color="#E4BA18"
-        style="margin-top: 10px;"
+        style="margin-top: 10px; color:#1A265C"
+        class="text-capitalize"
         @click="navtologin"
-        >LOG IN TO ALUMNI DASHBOARD</v-btn
+        >Log In To Alumni Dashboard</v-btn
       >
     </v-flex>
   </v-layout>

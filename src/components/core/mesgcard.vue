@@ -13,7 +13,7 @@
         style="padding-top: 3%; padding-bottom: 5%"
       >
         <v-card-title>
-          <p class="font-weight-bold Director_header" style="margin: auto">
+          <p class=" Director_header" style="margin: auto">
             Message from Director's Desk
           </p>
         </v-card-title>
@@ -39,7 +39,7 @@
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>
           </v-card-title> -->
 
-              <v-card-text class="Director_message" style="color: white">
+              <v-card-text  style="color: white">
                 {{ message }}
                 <p class="mr-5" style="text-align: right; color: #e4ba18">
                   (Tausifur Rahman)
@@ -133,11 +133,11 @@ div.item {
     color: white;
     width: 80%;
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 100;
     font-family: "Roboto", "sans-serif";
   }
   .Director_header {
-    font-size: 25px;
+    font-size: 24px;
     font-family: "Roboto", "sans-serif";
     margin-top: 20px !important;
   }
@@ -153,7 +153,7 @@ div.item {
     color: white;
     width: 100%;
     font-size: 10px;
-    font-weight: 200;
+    font-weight: 100;
     font-family: "Roboto", "sans-serif";
     text-align: center;
   }
