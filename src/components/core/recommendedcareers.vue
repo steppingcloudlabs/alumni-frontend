@@ -152,70 +152,12 @@
                     </div>
                   </v-flex>
                   
-                   <!-- <v-flex xs12 class="pb-5 ">
-                          <v-btn
-                          text
-                          color="#E4BA18"
-                          class="text-capitalize"
-                          style="float:right"
-                          @click="openJob(item)"
-                          >View Description</v-btn
-                        >
-                  </v-flex> -->
+                  
                  
                 </v-overlay>
               </v-img>
 
-              <!-- <v-layout
-                row
-                wrap
-                mt-0
-                class="jobdesc"
-                style="
-                  margin-left: unset;
-                  background-color: white;
-
-                  width: 100%;
-                "
-              > -->
-                <!-- <v-flex xs6 v-if="item.LOCATION" > 
-                                  <div class="black--text ml-4 pt-3 pb-3" ><v-icon class="jobicon" color="blue" >mdi-map-marker</v-icon>{{item.LOCATION}}</div>
-                                </v-flex>
-                                <v-flex xs6 v-if="item.DEPARTMENT" >
-                                    <div class="black--text ml-4 pt-3 pb-3" ><v-icon class="jobicon" color="blue" >mdi-domain</v-icon>{{item.DEPARTMENT}}</div>
-                      
-                                </v-flex>
-                                <v-flex xs6 v-if="item.POSTINGENDDATE">
-                                  <div class="black--text ml-4 pb-3" color="white"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon> End Date: {{item.POSTINGENDDATE.substring(0,10)}}</div>
-                                </v-flex>
-                                <v-flex xs6 v-if="item.POSTINGSTARTDATE">
-                                  <div class="black--text ml-4 pb-3"> <v-icon class="jobicon" color="blue" >mdi-calendar</v-icon>Start Date: {{item.POSTINGSTARTDATE.substring(0,10)}}</div>
-                                </v-flex> -->
-                <!-- <v-flex xs12 ml-3 mr-3 mt-3 style="font-size: 12px" v-html="item.JOBDESCRIPTION.substring(0, 200)">
-                
-                </v-flex>
-                <v-flex xs3 sm8 md8 lg8 xl8> </v-flex>
-                <v-flex xs4 sm4 md4 lg4 xl4 style="margin: auto">
-                  <v-btn
-                    text
-                    color="#E4BA18"
-                    class="text-capitalize"
-                    @click="openJob(item)"
-                    >View Description</v-btn
-                  >
-                </v-flex> -->
-                <!--
-                                <v-col cols="12" sm="4">
-                                    {{ item.JOBDESCRIPTION.substring(0,10) }}
-                              <span id="dots">
-                                ...
-                              
-                              </span> 
-                                      <v-btn color="primary" text @click="openJob(item)">View More</v-btn>
-                                
-                                </v-col>
-                                -->
-              <!-- </v-layout> -->
+            
             </v-card>
           </v-hover>
         </v-flex>

@@ -76,7 +76,9 @@
 
     <v-card-title style="color: black">Current Openings 
       <v-spacer></v-spacer>
-      <v-icon  style="float:right" @click="jobData(10,0,0)">mdi-filter-remove</v-icon></v-card-title>
+       <v-icon  id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
+       <v-icon id= "filter"  class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
+      </v-card-title>
     <v-divider style="background: rgb(241, 135, 16)"></v-divider>
     <div class="text-center" v-if="showLoader">
       <v-progress-circular
@@ -91,8 +93,9 @@
         row
         wrap
         style="margin-left: unset; "
-        v-if="recentData.length && !showLoader"
+        v-if="recentData.length && !changeview "
       >
+        
         <v-flex  xs12 sm6 md6 lg6 xl6  class="pl-0 pt-5" v-for="(item, i) in recentData" :key="i">
 
           <v-hover v-slot:default="{ hover }">
@@ -152,78 +155,35 @@
            </v-layout>
                  
           
-            <!-- </v-img> -->
-           
-              
-              
-              <!-- <v-layout mt-0 row wrap style="margin-left: unset;
-              background-color:white;
-              box-shadow:  15px 15px 20px -15px #808080;
-              width:100%;
-              height:200px
-              "> -->
-
-
-              <!-- <v-col cols="12" sm="12" style="font-size:12px">
-                                    {{ item.JOBDESCRIPTION.substring(0,500) }}
-                              <span id="dots">
-                                ...
-                              
-                              </span> 
-                                
-                      
-                      
-                    </v-col> -->
-               
-                
-                <!-- <v-flex xs6  >
-                  <div class="black--text ml-4 pt-5 pb-3">
-                    <v-icon class="jobicon" color="blue" v-if="item.DEPARTMENT"
-                      >mdi-domain</v-icon
-                    >
-                    {{ item.DEPARTMENT }}
-                  </div>
-                </v-flex> -->
-                 
-              <!-- </v-layout> -->
-              <!--<div class="pa-5">
-                <p style="font-size: 15px">
-                  {{ item.JOBDESCRIPTION.substring(0,10) }}
-                  <span id="dots">
-                    ...
-                    <v-btn color="primary" text @click="openJob(item)"
-                      >View More</v-btn
-                    >
-                  </span>
-                </p>
-              </div>
-              -->
-              <!-- <v-card-text>
-                <span
-                  v-for="(SKILL,j) in jobs[i].compentency"
-                  :key="j"
-                >{{jobs[i].compentency[j]}},&nbsp;</span>
-              </v-card-text>-->
-
-              <!-- <v-flex xs2>
-                  <v-card-actions>
-                    <v-btn color="primary" outlined @click="openJob(item)">View</v-btn>
-                  </v-card-actions>
-              </v-flex>-->
-              <!-- <v-flex xs2>
-                  <v-card-actions>
-                   <v-btn color="primary">Refer</v-btn>
-                  </v-card-actions>
-              </v-flex>-->
+          
             </v-card>
           </v-hover>
         </v-flex>
+        
+        
+       
+      
         <v-flex xs12>
           <p class="text-center" style="padding-top:40px">
            <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
           </p>
         </v-flex>
       </v-layout>
+       
+       <tabularView  v-if="recentData.length && changeview " :recentData="recentData" @openJob="openJob"> </tabularView>
+        <p class="text-center" style="padding-top:40px" v-if="recentData.length && changeview ">
+           <pagination :next="next" :prev="prev" :totalLength="pagination.TOTALPAGES" @pageClicked="pageClicked"></pagination>
+          </p>
+        
+  
+   
+     
+
+
+
+
+
+
       <div v-if="!recentData.length && !showLoader" class="subtitle-1 mt-5">
         <p class=" text-center">
           No Jobs Available
@@ -242,14 +202,19 @@
 
 <script>
 import viewjob from "@/components/core/viewjobDialog.vue";
+import tabularView from "@/components/core/tabularView.vue";
 import pagination from "@/components/material/CommonPagination.vue"
+
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
     viewjob,
-    pagination
+    pagination,
+    tabularView
+   
   },
   beforeMount() {
+   
     this.showLoader = true;
     this.country = "null";
     this.SKILL = "null";
@@ -273,6 +238,10 @@ export default {
     },
   },
   methods: {
+    tableView()
+    {
+      this.changeview=!this.changeview
+    },
     pageClicked(data)
     {
         let lim=(data-1)*10
@@ -333,10 +302,32 @@ export default {
           this.pagination=response.data.pagination 
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )
         }
-      });
-
-      (this.search.country = null), (this.search.SKILL = null);
+      });     
     },
+
+     jobDatawithoutpage(limit,offset,page) {
+       this.showLoader = true;
+      let listlen=this.getjobs.length
+      console.log(this.getjobs.length);
+      this.$store.dispatch("userModule/getJob", { payload: { limit:limit,offset:offset } }).then((response) => {
+        if (response.status == 200) {
+          this.showLoader = false;
+            let dat={page:page,data:response.data.result}
+             this.getjobs=dat
+             console.log(this.getjobs)
+              console.log("hiieelo"+this.getjobs.length);
+              // if(this.getjobs.length<offset)
+              // {
+                  this.recentData=this.getjobs[page]
+              // }
+        //   this.pagination=response.data.pagination 
+        //  this.pagination = Object.assign({}, this.someObject, response.data.pagination )
+        }
+      });     
+    },
+
+
+    
     jobMoreData(limit,offset) {
       this.showLoader=true
       console.log(this.getjobs.length);
@@ -348,7 +339,7 @@ export default {
          this.pagination = Object.assign({}, this.someObject, response.data.pagination )
         }
       });
-      (this.search.country = null), (this.search.SKILL = null);
+     
     },
     openJob(data) {
       this.$store.commit("userModule/showViewJob", data);
@@ -356,6 +347,7 @@ export default {
   },
   data() {
     return {
+      changeview:false,
       recentData:[],
       showLoader: false,
       pagination:{
