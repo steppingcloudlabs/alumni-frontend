@@ -223,6 +223,7 @@ export default {
   },
 
   beforeMount() {
+     this.$store.commit("showProgressBar", {});
     this.getAlumniData();
     this.getStatus();
     // this.getDocumentStatus();
@@ -314,6 +315,7 @@ export default {
         },
       };
       this.$store.dispatch("userModule/getStatus", data).then((response) => {
+         this.$store.commit("closeProgressBar", {});
         this.progress = false;
         this.getDocumentStatus();
         this.show = true;

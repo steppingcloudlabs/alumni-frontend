@@ -53,7 +53,7 @@
             "
             v-if="item.CONTENT"
           >
-            <p style="text-align: center;width: 100%;">
+            <p style="text-align: center;width: 100%;font-family:Roboto,sans serif">
              <v-btn color="blue" text @click="newsdetail(item)">Read More</v-btn>
             </p>
             <!-- <button

@@ -35,12 +35,14 @@
                 ></v-text-field>
                 <v-text-field
                   label="Confirm Password"
-                  name="cnfpassword"
+                  name="Cnfpassword"
                   prepend-icon="person"
                   type="password"
-                  v-model="cnfpassword"
+                 :rules="confirmPasswordRules.concat(passwordConfirmationRule)"
+                  v-model="Cnfpassword"
                   dark
                 ></v-text-field>
+                
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -56,7 +58,7 @@
                   outlined
                   v-on:
                   style="background: rgb(0, 0, 0, 0);color:white"
-                  @click="$router.go(-1)"
+                  @click="reset"
                 >Cancel</v-btn>
               </p>
             </v-card-actions>
@@ -74,13 +76,14 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
+      msg: [],
       show2: false,
       show1: false,
       valid: true,
-      cnfpassword: null,
+      Cnfpassword: null,
       password: null,
       oldpassword: null,
-
+       confirmPasswordRules: [v => !!v || "Password is required"],
       passwordRules: [
         v => !!v || "Password is required",
         v =>
@@ -111,9 +114,20 @@ export default {
             .PERSONAL_EMAIL_ID
         : null;
     },
+    passwordConfirmationRule() {
+      return () =>
+        this.password === this.Cnfpassword || "Password must match";
+    }
 
   },
+  
+ 
   methods: {
+    reset()
+    {
+       this.$refs.passwordChange.reset();
+    },
+    
     savePassword() {
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});

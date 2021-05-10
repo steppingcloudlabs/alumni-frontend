@@ -341,12 +341,14 @@ export default {
   },
 
   beforeMount() {
+     this.$store.commit("showProgressBar", {});
     this.getAlumniData();
     this.$store
       .dispatch("userModule/getAllAlumni", {
         payload: {},
       })
       .then((response) => {
+         this.$store.commit("closeProgressBar", {});
         this.initMap();
       });
   },

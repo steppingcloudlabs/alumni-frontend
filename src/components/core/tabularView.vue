@@ -8,13 +8,13 @@
         <template v-slot:default>
                 <thead>
                         <tr>
-                        <th class="text-left">
+                        <th class="text-left" style="font-weight:bold">
                         Title
                         </th>
-                            <th class="text-left">
+                            <th class="text-left" style="font-weight:bold">
                             Location
                         </th>
-                         <th class="text-left">
+                         <th class="text-left" style="font-weight:bold">
                             Open Till
                         </th>
                         </tr>

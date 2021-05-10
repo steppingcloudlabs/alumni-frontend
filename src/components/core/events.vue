@@ -45,7 +45,7 @@
               <v-avatar class="ma-3" size="125" tile>
                 <v-img :src="item.PHOTO"></v-img>
               </v-avatar>
-              <div>
+              <div style="width:100%">
                 <v-card-title
                   class="headline"
                   style="color: #1a265c"
@@ -53,6 +53,16 @@
                 ></v-card-title>
                 <v-card-text v-text="item.DATE"></v-card-text>
                 <v-card-text class="py-0 mb-3" v-text="item.CONTENT"></v-card-text>
+                <v-card-actions>
+                                <v-row
+                                      align="center"
+                                      justify="end"
+                                      class="mb-2"
+                                    >
+                                     <v-btn text color="#F18810" @click="enrollEvent" >Enroll</v-btn>
+                                </v-row>
+                
+                </v-card-actions>
               </div>
             </div>
           </v-card>
@@ -103,6 +113,9 @@
               <v-flex xs12>
                 <v-card-text v-text="item.DATE"></v-card-text>
                 <v-card-text class="py-0 mb-3" v-text="item.CONTENT"></v-card-text>
+              </v-flex>
+              <v-flex xs12>
+                  <v-btn class="primary">Register</v-btn>
               </v-flex>
             </v-layout>
           </v-card>
@@ -224,6 +237,10 @@ export default {
      }
   },
   methods: {
+    enrollEvent()
+    {
+       console.log("hi")
+    },
     pageClicked(data) {
       let lim = (data - 1) * 2;
       let page=data-1

@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4" style="margin-top:2%">
           <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5);margin-top:50%">
-            <v-toolbar flat outlined="white" style="background: rgb(0, 0, 0, .5)">
+            <v-toolbar flat outlined style="background: rgb(0, 0, 0, .5)">
               <v-toolbar-title class="text-center" style="color:white">Change Password</v-toolbar-title>
               <div class="flex-grow-1"></div>
             </v-toolbar>
@@ -24,12 +24,14 @@
                 ></v-text-field>
                 <v-text-field
                   label="Confirm Password"
-                  name="cnfpassword"
+                  name="Cnfpassword"
                   prepend-icon="person"
                   type="password"
-                  v-model="cnfpassword"
+                  v-model="Cnfpassword"
+                   :rules="confirmPasswordRules.concat(passwordConfirmationRule)"
                   dark
                 ></v-text-field>
+                
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -56,11 +58,12 @@ import { constants } from "crypto";
 export default {
   data() {
     return {
+
       show1: false,
       valid: true,
-      cnfpassword:"",
+      Cnfpassword:"",
       password:"",
-
+       confirmPasswordRules: [v => !!v || "Password is required"],
       passwordRules: [
         v => !!v || "Password is required",
          v =>/.(?=.*[A-Z]*)/.test(v) ||
@@ -73,8 +76,15 @@ export default {
     };
   },
 
- 
+  computed:
+  {
+     passwordConfirmationRule() {
+      return () =>
+        this.password === this.Cnfpassword || "Password must match";
+    }
+  },
   methods: {
+   
     savePassword() {
        if (this.password != this.Cnfpassword) {
         this.$store.commit("closeProgressBar", {});

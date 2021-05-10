@@ -57,6 +57,7 @@
               <v-text-field
                 dark
                 id="Cnfpassword"
+                 :rules="confirmPasswordRules.concat(passwordConfirmationRule)"
                 label="Confirm Password"
                 name="Cnfpassword"
                 prepend-icon="lock"
@@ -64,7 +65,7 @@
                 v-model="Cnfpassword"
                  @keyup.enter.native="signup"
               ></v-text-field>
-              <span style="color:red;font-size:12px;margin-left:9%;" v-if="msg.password">{{msg.password}}</span>
+             
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -120,6 +121,7 @@ export default {
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
+      confirmPasswordRules: [v => !!v || "Password is required"],
       passwordRules: [
         v => !!v || "Password is required",
          v => v.length > 6 || "Password must be greater than 6 characters",
@@ -143,22 +145,19 @@ export default {
   beforeMount() {
     this.length = 6;
   },
+  computed:
+  {
+     passwordConfirmationRule() {
+      return () =>
+        this.password === this.Cnfpassword || "Password must match";
+    }
+  },
   methods: {
     closeAskHrDialog() {
       this.dialog = false;
     },
 
-    matchpass(value)
-    {
-      if(this.password!=value)
-      {
-          this.msg['password'] = '*Password doesnot match';
-      }
-      else
-      {
-         this.msg['password'] = '';
-      }
-    },
+  
 
     signup() {
       if (this.password != this.Cnfpassword) {
