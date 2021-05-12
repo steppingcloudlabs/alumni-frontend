@@ -35,11 +35,12 @@ export default {
         level2Email: {},
         level3Email: {},
 
-        alumniDialogData: {
-
-        },
+        alumniDialogData: {},
         showAlumniDialog: false,
+        adminDialogData:{},
+        showAdminDialog: false,
         alumniList: [],
+        adminList: [],
         newsDialogData: {
             title: "",
             content: "",
@@ -176,6 +177,46 @@ export default {
             state.alumniList.unshift(data)
 
         },
+
+        
+        setAdminList: (state, data) => {
+            state.adminList=data
+            // Array.prototype.push.apply(state.adminList, data);
+            // state.adminList= JSON.parse(JSON.stringify(state.adminList))
+
+        },
+
+        appendAdminList: (state, data) => {
+            var index = state.adminList.findIndex(i => i.EMAIL === data.EMAIL);
+            if(index>-1)
+              {
+                state.adminList[index]=data
+                state.adminList=JSON.parse(JSON.stringify(state.adminList))
+                
+              }
+           
+        },
+
+        addNewAdminToList: (state, data) => {
+            state.adminList.unshift(data)
+            state.adminList=JSON.parse(JSON.stringify(state.adminList))
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         showAlumniDialog: (state, data) => {
             state.alumniDialogData = data
             state.showAlumniDialog = true
@@ -184,6 +225,20 @@ export default {
         setShowAlumniDialog: (state, data) => {
             state.showAlumniDialog = data
         },
+
+        setShowAdminDialog: (state, data) => {
+            state.showAdminDialog = data
+        },
+
+        setShowAdminDialogData: (state, data) => {
+            state.adminDialogData = data
+        },
+        showAdminDialog: (state, data) => {
+            state.adminDialogData = data
+            state.showAdminDialog = true
+
+        },
+
         setShowAlumniDialogData: (state, data) => {
             state.alumniDialogData = data
         },
@@ -194,6 +249,12 @@ export default {
             state.alumniDialogData.paySlipStatus = ""
             state.alumniDialogData.form16Status = ""
             state.showAlumniDialog = false
+        },
+
+        closeAdminDialog: (state) => {
+            state.adminDialogData = {}
+            
+            state.showAdminDialog = false
         },
 
         // NEWS SECTION
@@ -317,6 +378,17 @@ export default {
             console.log(state.alumniList)
         },
 
+
+        deleteSelectedAdmin: (state, data) => {
+            let index = state.adminList.indexOf(data)
+            if (index > -1) {
+                state.adminList.splice(index, 1)
+
+            }
+
+            console.log(state.adminList)
+        },
+
         // FAQ Section
 
         addFaqToList: (state, data) => {
@@ -432,8 +504,21 @@ export default {
         getshowAlumniDialog: (state) => {
             return state.showAlumniDialog
         },
+
+        getAdminDialogData: (state) => {
+            return state.adminDialogData
+        },
+        getshowAdminDialog: (state) => {
+            return state.showAdminDialog
+        },
+
+
         getAlumniList: (state) => {
             return state.alumniList
+        },
+
+        getAdminList: (state) => {
+            return state.adminList
         },
         // NEWS SECTION
         getNewsDialogData: (state) => {
@@ -1065,6 +1150,121 @@ export default {
                         resolve(response)
                         // commit('appendAlumniList', response.data.result)
                         commit('setAlumniList', response.data.result)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+
+        getAllAdmin: ({
+            state,
+            commit
+        }, data) => {
+           // let burl=baseurl()
+            addTokenToPayload(data)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url:baseurl()+'/admin/action/admin/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + data.token
+                    }
+                   
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        // commit('appendAlumniList', response.data.result)
+                        commit('setAdminList', response.data.result)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+      
+        addAdmin: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+ '/admin/action/admin/create',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                        
+                    },
+                    data: data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        deleteAdmin: ({
+            state,
+            commit,
+            dispatch
+        }, data) => {
+            // let payload = {
+            //     userid: data.USER_ID
+            // }
+          
+            let token = []
+            addTokenToPayload(token)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+ '/admin/action/admin/delete',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + token.token
+                    },
+                    data: {
+                        payload:{
+                         ID:data.ID
+                        }
+                       
+                    }
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                        resolve(response)
+                      
                         console.log(response)
                     }
                 }).catch((error) => {

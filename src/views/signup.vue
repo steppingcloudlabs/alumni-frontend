@@ -102,15 +102,7 @@ export default {
   components: {
     Contact
   },
-  watch:
-  {
-    Cnfpassword(value)
-    {
-      this.Cnfpassword=value
-      this.matchpass(value)
-    }
-      
-  },
+ 
   data() {
     return {
       msg: [],

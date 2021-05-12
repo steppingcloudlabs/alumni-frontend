@@ -21,7 +21,7 @@ import dashboard from './components/admin/Dashboard.vue'
 import addalumni from './components/admin/addAlumni.vue'
 import FaQ from './components/admin/FaqUpdate.vue'
 import AskHr from './components/core/askHr.vue'
-import companySetting from './components/admin/companySetting.vue'
+import settings from './components/admin/settings.vue'
 import searchProfile from './components/core/OpenProfile.vue'
 import parentNews from './components/core/parentNews.vue'
 Vue.use(Router)
@@ -195,7 +195,7 @@ const router = new Router({
     {
       path: 'settings',
 
-      component: companySetting
+      component: settings
     }
 
 

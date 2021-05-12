@@ -1,9 +1,7 @@
 <template>
-  <div class="ml-5 mr-5">
-    <v-card min-height="150px" tile flat >
-      <v-toolbar elevation="0" color="#1A265C"  width="100%">
-        <v-toolbar-title style="color:white" >Escalation Mails</v-toolbar-title>
-      </v-toolbar>
+  <div class="ml-5 mr-5 mb-5">
+    <v-card min-height="250px" tile flat >
+    
       <v-layout row wrap>
         <v-flex xs4 v-for="item in 3" :key="'escalationManager' + item">
           <EscalationManagerCard

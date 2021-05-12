@@ -1,22 +1,6 @@
 <template>
   <v-layout row wrap class="ml-5 mr-5 mt-1">
-    <!-- <v-img height="500px" src="@/assets/back5.jpg"></v-img> -->
-    <!-- <v-flex xs6 class="mt-3 mb-3">
-      <statCards></statCards>
-    </v-flex>
-    <v-flex xs6 class="mt-3 mb-3">
-      <statCards></statCards>
-      </v-flex>-->
-    <!-- <v-flex xs4 class="mt-3 mb-3">
-      <statCards></statCards>
-      </v-flex>-->
-
-    <!-- <v-flex xs6 class="mt-3 mb-3">
-      <viewCard :titleHead="titleHead[0]" :lastStatus="lastStatus[0]"></viewCard>
-      </v-flex>
-      <v-flex xs6 class="mt-3 mb-3">
-      <viewCard :titleHead="titleHead[1]" :lastStatus="lastStatus[1]"></viewCard>
-      </v-flex> -->
+  
 
     <v-flex xs12>
       <v-data-table
