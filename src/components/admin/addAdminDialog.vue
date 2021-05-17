@@ -11,7 +11,14 @@
           <v-container>
             <v-row>
              
-            
+               <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="alumni.USERID"
+                  shaped
+                  outlined
+                  label="First Name"
+                ></v-text-field>
+              </v-col>
              
               <v-col cols="12" md="6">
                 <v-text-field
@@ -30,7 +37,7 @@
                 ></v-text-field>
               </v-col>
              
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="12">
                 <v-text-field
                   shaped
                   outlined
@@ -86,6 +93,7 @@ export default {
           FIRSTNAME:alumniData.FIRSTNAME,
           LASTNAME:alumniData.LASTNAME,
           EMAIL: alumniData.EMAIL,
+          USERID:alumniData.USERID,
         
         },
       };
