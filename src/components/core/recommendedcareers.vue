@@ -131,7 +131,7 @@
                   <v-flex xs6 >
                     <div class="white--text ml-4 pb-3">
                       <v-icon class="jobicon" color="white">mdi-calendar</v-icon
-                      >Start Date: <span v-if="item.POSTINGSTARTDATE"> {{ item.POSTINGSTARTDATE.substring(0, 10) }}</span>
+                      >Start Date: <span v-if="item.POSTINGSTARTDATE"> {{ item.POSTINGSTARTDATE }}</span>
                       <span v-else>Not Available</span>
                     </div>
                   </v-flex>
@@ -140,7 +140,7 @@
                       <v-icon class="jobicon" color="white"
                         >mdi-calendar</v-icon
                       >
-                      End Date:<span v-if="item.POSTINGENDDATE"> {{ item.POSTINGENDDATE.substring(0, 10) }}</span>
+                      End Date:<span v-if="item.POSTINGENDDATE"> {{ item.POSTINGENDDATE }}</span>
                        <span v-else>Not Available</span>
                     </div>
                   </v-flex>
@@ -192,6 +192,7 @@
 import { addTokenToPayload, getAlumniId } from "@/utils/utils";
 import viewjob from "@/components/core/viewjobDialog.vue";
 import pagination from "@/components/material/CommonPagination.vue";
+import moment from "moment"
 export default {
   components: {
     CoreAppBar: () => import("@/components/core/AppBar"),
@@ -277,6 +278,10 @@ export default {
              this.getjobs=dat
              console.log(this.getjobs)
               console.log("hiieelo"+this.getjobs.length);
+                for (var i = 0; i < this.getjobs[page].length; i++) {
+              this.getjobs[page][i].POSTINGENDDATE = moment.unix(parseInt( this.getjobs[page][i].POSTINGENDDATE/1000)).format("LL")
+                  this.getjobs[page][i].POSTINGSTARTDATE = moment.unix(parseInt( this.getjobs[page][i].POSTINGSTARTDATE/1000)).format("LL")
+            }
               // if(this.getjobs.length<offset)
               // {
                   this.recentData=this.getjobs[page]

@@ -44,7 +44,7 @@ import SearchAlumni from "@/views/SearchAlumni";
 export default {
   data: () => ({
     items: [
-      { title: "Change Password", to: "/profile/changepassword" },
+      { title: "Change Password", to: "/admin/changepassword" },
       { title: "View Dashboard", to: "/admin/dashboard" },
     ],
     search: "",

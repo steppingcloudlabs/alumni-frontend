@@ -137,7 +137,7 @@
                     <v-icon class="jobicon" color="black" 
                       >mdi-calendar</v-icon
                     >
-                   Start Date {{ item.POSTINGSTARTDATE.substring(0,10) }}
+                   Start: {{item.POSTINGSTARTDATE}}
                   </div>
                 </v-flex>
                 <v-flex xs5 >
@@ -145,7 +145,7 @@
                     <v-icon class="jobicon" color="black" 
                       >mdi-calendar</v-icon
                     >
-                    End Date:{{ item.POSTINGENDDATE.substring(0,10) }}
+                    End: {{item.POSTINGENDDATE}}
                   </div>
                 </v-flex>
               
@@ -208,6 +208,7 @@
 import viewjob from "@/components/core/viewjobDialog.vue";
 import tabularView from "@/components/core/tabularView.vue";
 import pagination from "@/components/material/CommonPagination.vue"
+import moment from "moment"
 
 export default {
   components: {
@@ -302,6 +303,10 @@ export default {
              this.getjobs=dat
              console.log(this.getjobs)
               console.log("hiieelo"+this.getjobs.length);
+               for (var i = 0; i < this.getjobs[page].length; i++) {
+              this.getjobs[page][i].POSTINGENDDATE = moment.unix(parseInt( this.getjobs[page][i].POSTINGENDDATE/1000)).format("LL")
+                  this.getjobs[page][i].POSTINGSTARTDATE = moment.unix(parseInt( this.getjobs[page][i].POSTINGSTARTDATE/1000)).format("LL")
+            }
               // if(this.getjobs.length<offset)
               // {
                   this.recentData=this.getjobs[page]
@@ -322,6 +327,10 @@ export default {
       console.log(this.getjobs.length);
       this.$store.dispatch("userModule/getSearchJob", { payload: { limit:limit,offset:offset,skill:this.search.SKILL,country:this.search.country } }).then((response) => {
         if (response.status == 200) {
+            for (var i = 0; i < this.getjobs[0].length; i++) {
+              this.getjobs[0][i].POSTINGENDDATE = moment.unix(parseInt( this.getjobs[0][i].POSTINGENDDATE/1000)).format("LL")
+                  this.getjobs[0][i].POSTINGSTARTDATE = moment.unix(parseInt( this.getjobs[0][i].POSTINGSTARTDATE/1000)).format("LL")
+            }
           this.recentData=this.getjobs[0]
           this.showLoader = false;
           this.pagination=response.data.pagination 

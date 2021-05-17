@@ -255,7 +255,7 @@ export default {
       dialog: false,
       headers: [
         {
-          text: "EmailId",
+          text: "Email Id",
           align: "left",
           sortable: false,
           value: "EMAIL",
