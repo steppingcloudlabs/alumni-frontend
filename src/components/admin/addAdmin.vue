@@ -87,6 +87,14 @@ export default {
         this.$store.commit("adminModule/setAdminList", data);
       },
     },
+      recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentAdmin"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentAdmin", data);
+      }
+    },
    
   },
   beforeMount() {
@@ -96,6 +104,7 @@ export default {
     this.getAdmin(10, 0);
   },
   destroyed() {
+
       this.$store.commit("adminModule/setAdminList", []);
     this.$store.commit("closeProgressBar", {});
   },
@@ -240,7 +249,7 @@ export default {
   },
   data() {
     return {
-      recentData:[],
+     
       pagination: {
         LIMIT: 2,
         OFFSET: 0,

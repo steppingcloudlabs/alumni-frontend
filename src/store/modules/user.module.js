@@ -242,7 +242,7 @@ export default {
                         commit('setData', response.data.result[0])
                         if(response.data.result[0].USERTYPE=="admin")
                         {
-                            sessionStorage.setItem("UserId", response.data.result[0].USERNAME)
+                            sessionStorage.setItem("UserId", response.data.result[0].EMAIL)
                             sessionStorage.setItem("AccessToken", response.data.token)
                             var type = md5(response.data.result[0].USERTYPE).toString()
                             sessionStorage.setItem("userType", response.data.result[0].USERTYPE)

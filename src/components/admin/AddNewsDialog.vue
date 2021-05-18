@@ -196,32 +196,26 @@ export default {
         },
       };
       this.$store.dispatch("adminModule/addNews", data).then((response) => {
-        if (data.payload.ID == undefined) {
+        
           this.$store.commit(
             "adminModule/addNewsToList",
             response.data.result
           );
-
+        //  this.$emit("update",data)
           this.$store.commit("showSnackbar", {
             message: "News Added successfully",
             color: "success",
             heading: "Success",
             duration: 3000,
           });
-        } else {
-          //   this.$store.commit(
-          //   "adminModule/updateNewsToList",
-          //   JSON.parse(JSON.stringify(newData))
-          // );
-          this.$store.commit("showSnackbar", {
-            message: "News updated successfully",
-            color: "success",
-            heading: "Success",
-            duration: 3000,
-          });
+       
+          // this.$store.commit("showSnackbar", {
+          //   message: "News updated successfully",
+          //   color: "success",
+          //   heading: "Success",
+          //   duration: 3000,
+          // });
           // this.$store.dispatch("adminModule/getAllNews", { payload: {} });
-        }
-
         this.$store.commit("closeProgressBar", {});
       }).catch((error) => {
         this.$store.commit("closeProgressBar", {});

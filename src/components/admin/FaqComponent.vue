@@ -159,18 +159,26 @@ export default {
         return this.$store.getters["adminModule/getFaqList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setFaqList", this.data);
+        this.$store.commit("adminModule/setFaqList", data);
       }
-    }
+    },
+      recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentFAQ"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentFAQ", data);
+      }
+    },
   },
   data() {
     return {
-       recentData:[],
+      
       model: {},
       pagination: {
         LIMIT: 10,
         OFFSET: 0,
-        TOTALPAGES:0
+        TOTALPAGES:1
       },
       showMore: false,
       empty: false,

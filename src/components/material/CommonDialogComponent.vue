@@ -3,7 +3,7 @@
     <v-flex>
       <AlumniDialog></AlumniDialog>
       <EventDialog></EventDialog>
-      <NewsDialog></NewsDialog>
+     
       <UploadDocument></UploadDocument>
       <Faq></Faq>
       <DeleteDialog></DeleteDialog>
@@ -15,7 +15,7 @@
 <script>
 import AlumniDialog from "@/components/admin/AddAlumniDialog";
 import EventDialog from "@/components/admin/AddEventDialog";
-import NewsDialog from "@/components/admin/AddNewsDialog";
+
 import UploadDocument from "@/components/admin/UploadDocumentDialog";
 import Faq from "@/components/admin/uploadFaq";
 import DeleteDialog from "@/components/material/DeleteDialog";
@@ -25,7 +25,7 @@ export default {
   components: {
     AlumniDialog,
     EventDialog,
-    NewsDialog,
+   
     UploadDocument,
     Faq,
     DeleteDialog,

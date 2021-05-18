@@ -161,7 +161,7 @@ const router = new Router({
     {
       path: 'changepassword',
       // Relative to /src/views
-      component: () => import(/* webpackChunkName: "changepassword" */ './components/admin/updatePassword.vue')
+      component: () => import(/* webpackChunkName: "changepassword" */ './components/admin/updatePasswordAdmin.vue')
     },
     {
     path: 'Add',

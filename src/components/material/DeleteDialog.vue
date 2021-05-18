@@ -68,6 +68,15 @@ export default {
               heading: "Success"
             });
           }
+          else
+          {
+              this.$store.commit("showSnackbar", {
+              color: "Error",
+              duration: 3000,
+              message: response.data.result,
+              heading: "Error"
+            });
+          }
           this.$store.commit("closeProgressBar", {});
         })
         .catch(error => {

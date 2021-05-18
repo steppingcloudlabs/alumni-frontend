@@ -108,12 +108,14 @@ export default {
         this.$store.commit("userModule/setTest", data);
       }
     },
-     userData() {
-      return this.$store.getters["userModule/getUserData"]
-        ? this.$store.getters["userModule/getUserData"]
-            .PERSONAL_EMAIL_ID
-        : null;
+    userData:
+    {
+      get() {
+      return this.$store.getters["adminModule/getSavedUserObjectId"]
+       
     },
+    },
+    
     passwordConfirmationRule() {
       return () =>
         this.password === this.Cnfpassword || "Password must match";
@@ -124,14 +126,16 @@ export default {
  
   methods: {
     reset()
-    {
+    {  
+      console.log(this.userData)
        this.$refs.passwordChange.reset();
     },
     
     savePassword() {
+     
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
-        this.$store.dispatch("userModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData}}).then(response=>{
+        this.$store.dispatch("adminModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData,USERTYPE:"admin"}}).then(response=>{
           if(response.data.status==200)
           {
             this.$store.commit("closeProgressBar",{})

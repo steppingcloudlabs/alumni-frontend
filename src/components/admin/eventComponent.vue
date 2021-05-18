@@ -57,7 +57,7 @@ export default {
         return this.$store.getters["adminModule/getEventList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setEventList", this.data);
+        this.$store.commit("adminModule/setEventList",data);
       }
     },
     showEvent: {
@@ -66,6 +66,14 @@ export default {
       },
       set(data) {
         this.$store.commit("adminModule/setShowEvent", data);
+      }
+    },
+    recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentEvents"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentEvents", data);
       }
     },
     eventListLength() {
@@ -85,7 +93,7 @@ export default {
   },
   data() {
     return {
-       recentData:[],
+     
       pagination: {
         LIMIT: 3,
         OFFSET: 0,

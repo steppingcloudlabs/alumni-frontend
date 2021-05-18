@@ -183,7 +183,7 @@ export default {
         this.$store.commit("adminModule/showEventsProgress", {});
         this.$store.commit(
           "adminModule/addEventToList",
-          JSON.parse(JSON.stringify(response.data.result[0]))
+          JSON.parse(JSON.stringify(response.data.result))
         );
         this.$store.commit("showSnackbar", {
           message: "Event added successfully",

@@ -109,12 +109,20 @@ export default {
   },
   mounted() {},
   computed: {
+      recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentAlumni"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentAlumni", data);
+      }
+    },
     getAlumniList: {
       get() {
         return this.$store.getters["adminModule/getAlumniList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setAlumniList", this.data);
+        this.$store.commit("adminModule/setAlumniList", data);
       },
     },
     getStatusList: {
@@ -122,8 +130,16 @@ export default {
         return this.$store.getters["adminModule/getStatusList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setStatusList", this.data);
+        this.$store.commit("adminModule/setStatusList", data);
       },
+    },
+      recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentAlumni"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentAlumni", data);
+      }
     },
   },
   beforeMount() {
@@ -133,7 +149,9 @@ export default {
     this.getAlumni(10, 0);
   },
   destroyed() {
-    this.$store.commit("adminModule/setAlumniList", []);
+    this.$store.commit("adminModule/setAlumniListEmpty")
+   
+    this.recentData=[]
     this.$store.commit("closeProgressBar", {});
   },
   methods: {
@@ -276,9 +294,9 @@ export default {
           .toISOString()
           .substr(0, 10);
       }
-      if (data.date_of_relieving) {
-        alumniData.date_of_relieving = moment
-          .unix(data.date_of_relieving / 1000)
+      if (data.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD && data.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD!="Invalid date") {
+        alumniData.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD = moment
+          .unix(data.LAST_WORKING_DAY_AS_PER_NOTICE_PERIOD / 1000)
           .toISOString()
           .substr(0, 10);
       }
@@ -315,7 +333,7 @@ export default {
   },
   data() {
     return {
-      recentData:[],
+     
       pagination: {
         LIMIT: 2,
         OFFSET: 0,

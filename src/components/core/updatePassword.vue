@@ -131,7 +131,7 @@ export default {
     savePassword() {
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
-        this.$store.dispatch("userModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData}}).then(response=>{
+        this.$store.dispatch("userModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData,USERTYPE:"user"}}).then(response=>{
           if(response.data.status==200)
           {
             this.$store.commit("closeProgressBar",{})

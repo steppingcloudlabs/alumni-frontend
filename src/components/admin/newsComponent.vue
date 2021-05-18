@@ -58,15 +58,18 @@
     >
       <span class="subtitle-1 mr-5 ml-5">No News to Show</span>
     </div>
+     <NewsDialog ></NewsDialog>
   </div>
 </template>
 
 <script>
 import pagination from "@/components/material/CommonPagination.vue";
+import NewsDialog from "@/components/admin/AddNewsDialog";
 import moment from "moment";
 export default {
   components: {
     pagination,
+    NewsDialog,
   },
   computed: {
     getNewsList: {
@@ -74,8 +77,17 @@ export default {
         return this.$store.getters["adminModule/getNewsList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setNewsList", this.data);
+        this.$store.commit("adminModule/setNewsList", data);
       },
+    },
+
+    recentData: {
+      get() {
+        return this.$store.getters["adminModule/getrecentNews"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setrecentNews", data);
+      }
     },
     newsListLength() {
       return this.$store.getters["adminModule/getNewsList"].length;
@@ -106,7 +118,6 @@ export default {
 
   data() {
     return {
-      recentData:[],
       pagination: {
         LIMIT: 3,
         OFFSET: 0,
@@ -123,6 +134,8 @@ export default {
     };
   },
   methods: {
+
+    
     pageClicked(data) {
       let lim = (data - 1) * 3;
         if(this.getNewsList.length<=lim)
@@ -216,6 +229,7 @@ export default {
       );
     },
     showDeleteDialog(data) {
+
       this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: "deleteSelectedNews",

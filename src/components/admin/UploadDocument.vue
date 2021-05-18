@@ -45,7 +45,7 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:item.action="{}">
+      <template v-slot:item.action="{item}">
         <v-icon small class="mr-2" color="#1A265C" @click="openDialog(item)"
           >fas fa-upload</v-icon
         >
@@ -93,7 +93,7 @@ export default {
         return this.$store.getters["adminModule/getAlumniList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setAlumniList", this.data);
+        this.$store.commit("adminModule/setAlumniList", data);
       },
     },
   },
@@ -216,7 +216,8 @@ export default {
     },
   },
   destroyed() {
-    this.$store.commit("adminModule/setAlumniList", []);
+    //this.$store.commit("adminModule/setAlumniList", []);
+     this.$store.commit("adminModule/setAlumniListEmpty")
   },
   data() {
     return {

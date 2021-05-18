@@ -69,9 +69,38 @@ export default {
         },
         showFaqDialog: false,
         showDocumentDialog: false,
+        userObjectId: undefined,
+        recentEvents:[],
+        recentNews:[],
+        recentAlumni:[],
+        recentAdmin:[],
+        recentFAQ:[]
     },
     mutations: {
        
+        setrecentEvents:(state,data)=>
+        {
+           state.recentEvents=data
+        },
+        setrecentNews:(state,data)=>
+        {
+           state.recentNews=data
+        },
+        setrecentAdmin:(state,data)=>
+        {
+           state.recentAdmin=data
+        },
+        setrecentAlumni:(state,data)=>
+        {
+           state.recentAlumni=data
+        },
+        setrecentFAQ:(state,data)=>
+        {
+           state.recentFAQ=data
+        },
+       
+
+
         setStatusList:(state,data)=>
         {
            state.statusList=data
@@ -161,6 +190,11 @@ export default {
             state.alumniList= JSON.parse(JSON.stringify(state.alumniList))
 
         },
+        setAlumniListEmpty: (state) => {
+            
+            state.alumniList=[]
+
+        },
 
         appendAlumniList: (state, data) => {
             var index = state.alumniList.findIndex(i => i.ID === data.ID);
@@ -170,11 +204,20 @@ export default {
                 state.alumniList=JSON.parse(JSON.stringify(state.alumniList))
                 
               }
+
+              var index1 = state.recentAlumni.findIndex(i => i.ID === data.ID);
+              if(index1>-1)
+                {
+                  state.recentAlumni[index1]=data
+                  state.recentAlumni=JSON.parse(JSON.stringify(state.recentAlumni))
+                  
+                }
            
         },
 
         addNewAlumniToList: (state, data) => {
             state.alumniList.unshift(data)
+            state.recentAlumni.unshift(data)
 
         },
 
@@ -194,12 +237,21 @@ export default {
                 state.adminList=JSON.parse(JSON.stringify(state.adminList))
                 
               }
+
+              var index1 = state.recentAdmin.findIndex(i => i.EMAIL === data.EMAIL);
+            if(index1>-1)
+              {
+                state.recentAdmin[index1]=data
+                state.recentAdmin=JSON.parse(JSON.stringify(state.recentAdmin))
+                
+              } 
            
         },
 
         addNewAdminToList: (state, data) => {
             state.adminList.unshift(data)
             state.adminList=JSON.parse(JSON.stringify(state.adminList))
+            state.recentAdmin.unshift(data)
 
         },
 
@@ -280,6 +332,17 @@ export default {
               {
                 state.newsList.unshift(data)
               }
+              var index1 = state.recentNews.findIndex(i => i.ID === data.ID);
+            if(index1>-1)
+              {
+                state.recentNews[index1]=data
+                state.recentNews=JSON.parse(JSON.stringify(state.recentNews))
+                
+              }
+              else
+              {
+                state.recentNews.unshift(data)
+              }
             
         },
 
@@ -302,6 +365,11 @@ export default {
             let index = state.newsList.indexOf(data)
             if (index > -1) {
                 state.newsList.splice(index, 1)
+
+            }
+            let index1 = state.recentNews.indexOf(data)
+            if (index1 > -1) {
+                state.recentNews.splice(index1, 1)
 
             }
             console.log(state.newsList)
@@ -338,7 +406,18 @@ export default {
                   {
                     state.EventList.unshift(data)
                   }
-                
+            
+                  var index1 = state.recentEvents.findIndex(i => i.ID === data.ID);
+                  if(index1>-1)
+                    {
+                      state.recentEvents[index1]=data
+                      state.recentEvents=JSON.parse(JSON.stringify(state.recentEvents))
+                      
+                    }
+                    else
+                    {
+                      state.recentEvents.unshift(data)
+                    }     
             },
            
         
@@ -365,13 +444,24 @@ export default {
                 state.EventList.splice(index, 1)
 
             }
-            console.log(state.EventList)
+           
+            let index1 = state.recentEvents.indexOf(data)
+            if (index1 > -1) {
+                state.recentEvents.splice(index1, 1)
+
+            }
+            
         },
 
         deleteSelectedAlumni: (state, data) => {
             let index = state.alumniList.indexOf(data)
             if (index > -1) {
                 state.alumniList.splice(index, 1)
+
+            }
+            let index1 = state.recentAlumni.indexOf(data)
+            if (index1> -1) {
+                state.recentAlumni.splice(index, 1)
 
             }
 
@@ -383,6 +473,12 @@ export default {
             let index = state.adminList.indexOf(data)
             if (index > -1) {
                 state.adminList.splice(index, 1)
+
+            }
+
+            let index1 = state.recentAdmin.indexOf(data)
+            if (index1 > -1) {
+                state.recentAdmin.splice(index1, 1)
 
             }
 
@@ -404,6 +500,19 @@ export default {
                   {
                     state.FaqList.unshift(data)
                   }
+
+                  var index1 = state.recentFAQ.findIndex(i => i.ID === data.ID);
+            
+                  if(index1>-1)
+                    {
+                      state.recentFAQ[index1]=data
+                      state.recentFAQ=JSON.parse(JSON.stringify(state.recentFAQ))
+                      
+                    }
+                    else
+                    {
+                      state.recentFAQ.unshift(data)
+                    }      
                 
             },
            
@@ -413,6 +522,12 @@ export default {
             let index = state.FaqList.indexOf(data)
             if (index > -1) {
                 state.FaqList.splice(index, 1)
+
+            }
+
+            let index1 = state.recentFAQ.indexOf(data)
+            if (index1 > -1) {
+                state.recentFAQ.splice(index, 1)
 
             }
 
@@ -460,11 +575,36 @@ export default {
             state.showEventsProgress = false;
         },
 
+        savedUserObjectId: (state, data) => {
+            state.userObjectId = data
+        }
 
 
 
     },
     getters: {
+        
+        getrecentEvents: (state) => {
+            return state.recentEvents
+        },
+        getrecentNews: (state) => {
+            return state.recentNews
+        },
+        getrecentAdmin: (state) => {
+            return state.recentAdmin
+        },
+        getrecentAlumni: (state) => {
+            return state.recentAlumni
+        },
+        getrecentFAQ: (state) => {
+            return state.recentFAQ
+        },
+
+
+
+        getSavedUserObjectId: (state) => {
+            return state.userObjectId
+        },
         getStatusList:(state)=>
         {
           return state.statusList
@@ -1879,7 +2019,31 @@ export default {
 
             })
         },
+        
+        changePassword: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url:baseurl()+ '/auth/reset',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization':"Bearer " +tok.token
+                    },
+                    data: data
+                }).then((response) => {
+                    resolve(response)
+                    console.log(response)
+                }).catch((error) => {
+                    reject(error)
+                })
 
+            })
+        },
 
         startUpload: ({
             state,

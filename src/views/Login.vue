@@ -121,8 +121,8 @@ export default {
             ) {
               this.$router.push({ path: "/admin/dashboard" });
               this.$store.commit(
-                "userModule/savedUserObjectId",
-                response.result[0].USERNAME
+                "adminModule/savedUserObjectId",
+                response.result[0].EMAIL
               );
               this.$store.commit("closeProgressBar", {});
             } else if (
