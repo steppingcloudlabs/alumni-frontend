@@ -211,7 +211,7 @@ export default {
             message: error,
             heading: "Error",
           });
-        });;
+        });
     },
   },
 };

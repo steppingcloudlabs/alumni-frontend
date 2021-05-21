@@ -29,9 +29,18 @@ export default {
         FaqList:[],
         EventList:[],
         alumniList:[],
-        renderNews: {}
+        renderNews: {},
+        tourDialog:false
     },
     mutations: {
+
+        setTourDialog: (state, data) => {
+            state.tourDialog = data;
+        },
+        
+        closeTourDialog:(state)=>{
+            state.tourDialog=false
+           },
 
         setRenderNews: (state, data) => {
             state.renderNews = data;
@@ -158,7 +167,10 @@ export default {
 
     },
     getters: {
-
+        
+        getTourDialog: (state) =>  {
+            return state.tourDialog
+        },
         getRenderNews: (state) =>  {
             return state.renderNews
         },
@@ -247,6 +259,7 @@ export default {
                             var type = md5(response.data.result[0].USERTYPE).toString()
                             sessionStorage.setItem("userType", response.data.result[0].USERTYPE)
                             sessionStorage.setItem("Type", type)
+                          
                            // sessionStorage.setItem("ObjectId", response.data.result[0].ID)
                         }
                         else{

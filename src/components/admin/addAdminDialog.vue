@@ -8,7 +8,7 @@
         </v-toolbar>
 
         <v-card-text>
-          <v-container>
+          <v-form ref="admin">
             <v-row>
              
                <v-col cols="12" md="12">
@@ -16,6 +16,7 @@
                   v-model="alumni.USERID"
                   shaped
                   outlined
+                  :rules="fieldRules"
                   label="User ID"
                 ></v-text-field>
               </v-col>
@@ -24,6 +25,7 @@
                 <v-text-field
                   v-model="alumni.FIRSTNAME"
                   shaped
+                    :rules="fieldRules"
                   outlined
                   label="First Name"
                 ></v-text-field>
@@ -33,6 +35,7 @@
                   v-model="alumni.LASTNAME"
                   shaped
                   outlined
+                    :rules="fieldRules"
                   label="Last Name"
                 ></v-text-field>
               </v-col>
@@ -42,13 +45,13 @@
                   shaped
                   outlined
                   v-model="alumni.EMAIL"
-                  d
+                  :rules="emailRules"
                   label="Email"
                 ></v-text-field>
               </v-col>
              
             </v-row>
-          </v-container>
+          </v-form>
         </v-card-text>
 
         <v-card-actions>
@@ -83,6 +86,8 @@ export default {
       this.$store.commit("adminModule/closeAdminDialog");
     },
     saveDialog() {
+         if (this.$refs.admin.validate())
+       {
       let alumniData = JSON.parse(JSON.stringify(this.alumni));
 
       this.$store.commit("adminModule/closeAdminDialog");
@@ -124,6 +129,7 @@ export default {
       
       });
      
+    }
     },
   },
   computed: {
@@ -146,15 +152,16 @@ export default {
   },
   data() {
     return {
+         emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
+      ],
+      fieldRules: [(v) => !!v || "Required field"],
       salutation_personal_information: "",
       menu_resignation: false,
       menu_relieving: false,
       GENDER: "",
-      GENDERs: ["Male", "Female", "Other"],
-      date: new Date().toISOString().substr(0, 10),
-      DATE_OF_RESIGNATION: new Date().toISOString().substr(0, 10),
-      relieving: new Date().toISOString().substr(0, 10),
-      menu2: false,
+     
     };
   },
 };

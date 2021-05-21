@@ -24,6 +24,7 @@
     <AddEmail
       :editEsclationData="selectedEsclation"
       :showEmailDialog="showDialog"
+      :escalationList="escalationList"
       @closeDialog="closeEmailDialog"
       @saveEsclationData="saveEsclationData"
       @updateAssignedManger="getMangerList"
@@ -64,6 +65,14 @@ export default {
     getEmailList() {
       return this.$store.getters["adminModule/getEmailList"];
     },
+    getReload()
+    { 
+      if(this.getReload=true)
+      {
+          this.getMangerList()
+      }
+     
+    }
   },
   computed: {
     getEmailList: {
@@ -71,12 +80,21 @@ export default {
         return this.$store.getters["adminModule/getEmailList"];
       },
       set(data) {
-        this.$store.commit("adminModule/setEmailList", this.data);
+        this.$store.commit("adminModule/setEmailList", data);
+      },
+    },
+    getReload: {
+      get() {
+        return this.$store.getters["adminModule/getreloadEscalation"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setreloadEscalation",data);
       },
     },
   },
   beforeMount() {
     this.getMangerList();
+    this.getAdminList();
   },
   methods: {
     closeEmailDialog() {
@@ -89,23 +107,35 @@ export default {
       this.showDialog = true;
       this.selectedEsclation = data;
     },
-    showDeleteDialog(index) {
+  async  showDeleteDialog(index) {
       let data = {
         payload: {
           EMAIL: index.EMAIL,
         },
       };
-      this.$store.commit("showDeleteDialog", {
+   const action= await this.$store.commit("showDeleteDialog", {
         objectToDelete: data,
         commitToCall: undefined,
         deleteActionToDispatch: "removeEscalationManager",
       });
-      let ind = this.escalationManagerList.findIndex(
-        (i) => i.EMAIL === index.EMAIL
-      );
-      this.escalationManagerList.splice(ind, 1);
+     
+       
+     
+   
+    },
+    getAdminList()
+    {
+      this.$store
+          .dispatch("adminModule/getAllAdmin", {payload:{limit:20,offset:0}})
+          .then(response => {
+            for (let i = 0; i < response.data.result.length; i++) {
+            this.escalationList[i] = response.data.result[i].EMAIL;
+          }
+            
+          });
     },
     getMangerList() {
+       
       this.$store.dispatch("adminModule/getMangerList", {}).then((response) => {
         if (response && response.data && response.data.result) {
           for (let i = 0; i < response.data.result.length; i++) {

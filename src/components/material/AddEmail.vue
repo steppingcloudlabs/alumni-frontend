@@ -8,22 +8,22 @@
           </v-card-title>
           <v-card-text class="py-0">
             <v-col cols="12" class="pb-0">
-              <!-- <v-select
+              <v-select
                 :items="escalationList"
                 item-value="_id"
                 item-text="email"
-                v-model="selectedItem"
+                v-model="editEsclationData.EMAIL"
                 label="Select Email"
                 outlined
                 @change="checks"
                 clearable
-              ></v-select> -->
-                <v-text-field
+              ></v-select>
+                <!-- <v-text-field
                           v-model="editEsclationData.EMAIL"
                           label="Email"
                           shaped
                           outlined 
-                        ></v-text-field>
+                        ></v-text-field> -->
             </v-col>
              <v-col cols="12" class="pb-0">
                             <v-autocomplete
@@ -57,7 +57,7 @@ export default {
       tempName: "",
       tempEmail: "",
       selectedItem: undefined,
-      escalationList: [],
+      //escalationList: [],
       level:["1","2","3"],
       selectedLevel:"Select",
       email:""
@@ -69,11 +69,14 @@ export default {
     },
     showEmailDialog: {
       type: Boolean
+    },
+    escalationList: {
+      type: Array,
+      default()
+      {
+        return[]
+      }
     }
-    // escalationList: {
-    //   type: Array,
-    //   default: []
-    // }
   },
   watch: {
     // showEmailDialog() {
@@ -84,7 +87,12 @@ export default {
     //   //       this.escalationList = response.result;
     //   //     });
     //   // }
-    // }
+    },
+  
+  beforeMount()
+  {
+     console.log("hello")
+      
   },
   methods: {
     closeDialog() {

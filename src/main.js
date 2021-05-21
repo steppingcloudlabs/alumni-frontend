@@ -4,8 +4,10 @@ import router from './router'
 import store from './store/store'
 import vuetify from './plugins/vuetify';
 import Vuelidate from 'vuelidate'
-import VueResizeText from 'vue-resize-text';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueTour from 'vue-tour'
+require('vue-tour/dist/vue-tour.css')
+
 import {gmapApi} from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
@@ -16,9 +18,12 @@ Vue.use(VueGoogleMaps, {
 });
  
 
+
+Vue.use(VueTour)
+
 Vue.use(Vuelidate)
 
-Vue.use(VueResizeText)
+
 
 
 Vue.config.productionTip = false

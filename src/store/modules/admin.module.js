@@ -9,6 +9,7 @@ import {
 export default {
     namespaced: true,
     state: {
+        reloadEsclation:false,
         showBulkAlumni:false,
         showBulkDocument:false,
         showDrawer:false,
@@ -77,7 +78,13 @@ export default {
         recentFAQ:[]
     },
     mutations: {
-       
+        
+        setreloadEscalation:(state,data)=>
+        {
+           state.reloadEsclation=data
+        },
+
+
         setrecentEvents:(state,data)=>
         {
            state.recentEvents=data
@@ -583,7 +590,10 @@ export default {
 
     },
     getters: {
-        
+         getreloadEscalation:(state)=>
+         {
+            return state.reloadEsclation
+         } ,
         getrecentEvents: (state) => {
             return state.recentEvents
         },
@@ -1706,6 +1716,7 @@ export default {
                             root: true
                         })
                     } else {
+                        commit('setreloadEscalation',true)
                         resolve(response)
                         console.log(response)
                     }

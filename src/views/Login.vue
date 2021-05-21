@@ -119,7 +119,15 @@ export default {
                 response.result[0].USERTYPE == "admin") ||
               response.result[0].USERTYPE == "hr"
             ) {
-              this.$router.push({ path: "/admin/dashboard" });
+            
+                if(response.result[0].LASTLOGIN=='')
+              {
+                      this.$router.push({ path: "/admin/changepassword" });
+              }
+              else
+              {
+                  this.$router.push({ path: "/admin/dashboard" });
+              }
               this.$store.commit(
                 "adminModule/savedUserObjectId",
                 response.result[0].EMAIL
@@ -131,6 +139,11 @@ export default {
               response.result != "Incorrect Username"
             ) {
               this.$router.push({ path: "/profile/dashboard" });
+            
+                if(response.result[0].LASTLOGIN=="")
+              {
+                     this.$store.commit("userModule/setTourDialog",true)
+              }
               this.$store.commit(
                 "userModule/savedUserObjectId",
                 response.result[0].USER_ID

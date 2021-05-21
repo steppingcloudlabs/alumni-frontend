@@ -5,6 +5,7 @@
     <SnackbarComponent></SnackbarComponent>
     <CommonDialogComponent></CommonDialogComponent>
     <ProgressbarComponent></ProgressbarComponent>
+    <v-tour name="myTour" :steps="steps"></v-tour>
   </v-app>
 </template>
 
@@ -25,7 +26,58 @@ export default {
     ProgressbarComponent
   },
   data: () => {
-    return {};
+    return {
+       steps: [
+        {
+          // I prefer using data attributes, but you can use
+          // classes, ids, or whatever else you want!
+          // (So long as document.querySelector() likes it.)
+          target: '[data-tour-step="1"]',
+          content: `You can update your profile by clicking user porfile under this icon.`
+        },
+        {
+          target: '[data-tour-step="2"]',
+          // You can even use HTML!
+          content: `You can download your documents under this option!`,
+           params: {
+            // You can control the position of the tour popup easily.
+            placement: 'right'
+          }
+        },
+        {
+          target: '[data-tour-step="3"]',
+          content: `You can find current openings here!.`,
+          params: {
+            // You can control the position of the tour popup easily.
+            placement: 'right'
+          }
+        },
+          {
+          target: '[data-tour-step="4"]',
+          content: `Find all the employees on world map`,
+          params: {
+            // You can control the position of the tour popup easily.
+            placement: 'right'
+          }
+        },
+         {
+          target: '[data-tour-step="5"]',
+          content: `Have queries. No worries You can raise ticket to HR`,
+          params: {
+            // You can control the position of the tour popup easily.
+            placement: 'right'
+          }
+        },
+         {
+          target: '[data-tour-step="6"]',
+          content: `Access all frequently asked question here.`,
+          params: {
+            // You can control the position of the tour popup easily.
+            placement: 'right'
+          }
+        }
+      ]
+    };
   },
   mounted() {
     // this.$store.dispatch("authenticate");

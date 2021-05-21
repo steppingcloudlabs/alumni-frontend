@@ -58,6 +58,10 @@ export default {
       progress: true,
     };
   },
+  mounted()
+  {
+     
+  },
   beforeMount() {
      this.$store.commit("showProgressBar", {});
     this.getAlumniData();

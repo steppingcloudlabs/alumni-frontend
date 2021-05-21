@@ -50,6 +50,7 @@
         :key="i"
         :to="link.to"
         active-class="primary white--text"
+        :data-tour-step="link.step"
       >
         <v-list-item-action>
           <v-icon>{{ link.icon }}</v-icon>
@@ -91,6 +92,7 @@ export default {
         to: "/profile/dashboard",
         icon: "mdi-view-dashboard",
         text: "Dashboard",
+       
       },
       // {
       //   to: "/profile/user-profile",
@@ -102,26 +104,31 @@ export default {
         to: "/profile/document",
         icon: "mdi-clipboard",
         text: "My Documents",
+         step:'2'
       },
       {
         to: "/profile/careers",
         icon: "mdi-chart-bubble",
         text: "Careers",
+         step:'3'
       },
       {
         to: "/profile/maps",
         icon: "mdi-map-marker",
         text: "Maps",
+        step:'4'
       },
       {
         to: "/profile/query",
         icon: "mdi-wechat",
         text: "Ask HR",
+         step:'5'
       },
       {
         to: "/profile/faq",
         icon: "mdi-comment-question-outline",
         text: "FAQs",
+        step:'6'
        
       }
     ],

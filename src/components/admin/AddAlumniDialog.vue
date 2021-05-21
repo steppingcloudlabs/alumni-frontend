@@ -8,7 +8,7 @@
         </v-toolbar>
 
         <v-card-text>
-          <v-container>
+          <v-form ref="alumni">
             <v-row>
               <v-col cols="12">
                 <v-text-field
@@ -16,6 +16,7 @@
                   outlined
                   v-model="alumni.USER_ID"
                   label="Employee Id"
+                  :rules="fieldRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
@@ -72,6 +73,7 @@
                   v-model="alumni.FIRST_NAME_PERSONAL_INFORMATION"
                   shaped
                   outlined
+                   :rules="fieldRules"
                   label="First Name"
                 ></v-text-field>
               </v-col>
@@ -80,6 +82,7 @@
                   v-model="alumni.LAST_NAME_PERSONAL_INFORMATION"
                   shaped
                   outlined
+                   :rules="fieldRules"
                   label="Last Name"
                 ></v-text-field>
               </v-col>
@@ -88,6 +91,7 @@
                   v-model="alumni.MANAGER_JOB_INFORMATION"
                   shaped
                   outlined
+                   :rules="fieldRules"
                   label="Manager"
                 ></v-text-field>
               </v-col>
@@ -104,6 +108,7 @@
                   v-model="alumni.PHONE_NUMBER_PHONE_INFORMATION"
                   shaped
                   outlined
+                   :rules="fieldRules"
                   label="Mobile No"
                 ></v-text-field>
               </v-col>
@@ -112,7 +117,7 @@
                   shaped
                   outlined
                   v-model="alumni.PERSONAL_EMAIL_ID"
-                  d
+                  :rules="emailRules"
                   label="Email"
                 ></v-text-field>
               </v-col>
@@ -186,6 +191,7 @@
                   v-model="alumni.CITY_ADDRESSES"
                   label=" City"
                   prepend-icon="mdi-city"
+                   :rules="fieldRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
@@ -193,11 +199,12 @@
                   shaped
                   outlined
                   v-model="alumni.STATE"
+                   :rules="fieldRules"
                   label="State"
                 ></v-text-field>
               </v-col>
             </v-row>
-          </v-container>
+          </v-form>
         </v-card-text>
 
         <v-card-actions>
@@ -232,6 +239,8 @@ export default {
       this.$store.commit("adminModule/closeAlumniDialog");
     },
     saveDialog() {
+       if (this.$refs.alumni.validate())
+       {
       let alumniData = JSON.parse(JSON.stringify(this.alumni));
 
       this.$store.commit("adminModule/closeAlumniDialog");
@@ -311,15 +320,16 @@ export default {
             duration: 3000,
           });
         }
-        // } else if (response.data.result == "User Id already exists") {
-        //   this.$store.commit("showSnackbar", {
-        //     message: "Alumni Already Exist",
-        //     color: "Warning",
-        //     heading: "Warning",
-        //     duration: 3000,
-        //   });
-        // }
-      });
+      }) .catch((error) => {
+        this.$store.commit("closeProgressBar", {});
+          console.log(error); //Exepection error....
+          this.$store.commit("showSnackbar", {
+            color: "red",
+            duration: 1000,
+            message: error,
+            heading: "Error",
+          });
+        });
       // }
       // } else {
       //   this.$store.dispatch("userModule/updateData", data).then((response) => {
@@ -338,6 +348,7 @@ export default {
       //     }
       //   });
       // }
+    }
     },
   },
   computed: {
@@ -360,6 +371,12 @@ export default {
   },
   data() {
     return {
+       emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
+      ],
+
+      fieldRules: [(v) => !!v || "Required field"],
       salutation_personal_information: "",
       menu_resignation: false,
       menu_relieving: false,

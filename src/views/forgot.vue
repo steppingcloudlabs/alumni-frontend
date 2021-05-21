@@ -72,16 +72,16 @@ export default {
           .then(response => {
             if (
               response.data.status == 200 &&
-              response.data.result == "Reset Token sent to your email"
+              response.data.result == "tokensent"
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
                 color: "green",
-                duration: 1000,
+                duration: 4000,
                 message: "Reset link send to your registered Email",
                 heading: "Success"
               });
-              this.$router.push({ path: "/resetpassword" });
+              this.$router.push({ path: "/login" });
             } else if (
               response.data.status == 400 &&
               response.data.result == "user not found"

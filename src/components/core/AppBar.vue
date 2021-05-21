@@ -9,12 +9,14 @@
           <SearchAlumni />
         </v-flex>
       </v-layout>
+     
+   
       <v-row align="right" class="mx-0">
         <v-col cols="12" sm="8">
         </v-col>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon class="account" v-bind="attrs" v-on="on" >
+            <v-btn data-tour-step="1" icon class="account" v-bind="attrs" v-on="on" >
               <v-icon  color="black">mdi-account</v-icon>
             </v-btn>
           </template>
