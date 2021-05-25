@@ -25,13 +25,13 @@
        
         <template v-slot:item.action="{ item }">
           <!-- <v-icon small class="mr-2" @click="viewAlumniDialog(item)">mdi-eye</v-icon> -->
-          <v-icon
+          <!-- <v-icon
             small
             class="mr-2"
             color="#1A265C"
             @click="editAdminDialog(item)"
             >edit</v-icon
-          >
+          > -->
           <v-icon
             small
             class="mr-2"

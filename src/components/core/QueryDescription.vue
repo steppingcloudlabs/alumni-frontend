@@ -64,7 +64,9 @@
                          
                         </v-menu>
                       </div>
+                    
                     </template>
+                      <div v-if="reply" style="text-align:center;font-size:12px">We will get back to you soon</div>
                     <!-- <v-text-field
                       v-model="messageForm.content"
                       label="type_a_message"
@@ -202,6 +204,7 @@ export default {
     return {
       addComment: "",
       commentRules: [(v) => !!v || "Comment is required"],
+      reply:false
      
     };
   },
@@ -234,6 +237,7 @@ export default {
  //this.getAllMessages();
   },
   destroyed() {
+    this.reply=false
     //this.messages = [];
   },
   methods: {
@@ -330,6 +334,7 @@ export default {
       this.$emit("updateStatus", this.selectedQueryItem);
     },
     updateMessage() {
+      this.reply=false
        if (this.$refs.comments.validate())
        {
 
@@ -358,6 +363,7 @@ export default {
         .dispatch("userModule/postQueryMessage", message)
         .then((response) => {
           if (response.status == 200) {
+            vm.reply=true
             vm.messages.push(newmsg);
             this.$emit("newMessageAdded", {
               objIndex: this.objIndex,

@@ -35,8 +35,8 @@ export default {
         })
         .then((response) => {
           if (response.data.result.length > 0) {
-            this.chartdata.datasets[0].data[0]=response.data.result[2].COUNT
-            this.chartdata.datasets[0].data[1]=response.data.result[1].COUNT
+            this.chartdata.datasets[0].data[0]=response.data.result[1].COUNT
+            this.chartdata.datasets[0].data[1]=response.data.result[0].COUNT
             this.$data._chart.update()
           } 
         });

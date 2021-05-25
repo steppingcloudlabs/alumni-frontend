@@ -13,23 +13,25 @@
               v-if="avatar.profile"
               class="img"
               :src="avatar.profile"
-              style="border-radius: 50%; border: 3px solid white; width: 120px"
+              style="border-radius: 50%; border: 3px solid white;  width: 200px;
+                    max-height:150px;"
             />
             <img
               v-else
               class="img"
               src="@/assets/avatar/download.jpg"
-              style="border-radius: 50%; border: 3px solid white; width: 120px"
+              style="border-radius: 50%; border: 3px solid white;  width: 200px;
+                    max-height:150px;"
             />
           </p>
-          <v-file-input
+          <!-- <v-file-input
             :rules="rules"
             accept="image/png, image/jpeg, image/bmp"
            
             prepend-icon="mdi-camera"
             label="Pick an avatar"
             @change="getBase64"
-          ></v-file-input>
+          ></v-file-input> -->
         </v-card-text>
 
         <v-card-actions>

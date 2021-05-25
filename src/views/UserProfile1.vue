@@ -4,32 +4,33 @@
       <v-card class="pt-5">
         <v-layout row wrap ma-0>
           <v-flex xs12 sm6 md6 lg6 xl6>
-            <div>
-              <p class="text-center">
-                <img
-                  v-if="user.PROFILEIMAGE"
-                  class="img"
-                  :src="user.PROFILEIMAGE"
+             
+            <div style="text-align:center" class="card">
+            
+                <v-img
+                  
+                  class="img card-img"
+                  :src="user.PROFILEIMAGE?user.PROFILEIMAGE:'@/assets/avatar/download.jpg'"
                   style="
                     border-radius: 50%;
                     border: 3px solid white;
                     width: 200px;
+                    max-height:200px;
+                    margin:auto
                   "
-                  @click="openAvatarDialog()"
-                />
-                <img
-                  v-else
-                  class="img"
-                  src="@/assets/avatar/download.jpg"
-                  style="
-                    border-radius: 50%;
-                    border: 3px solid white;
-                    width: 200px;
-                  "
-                  @click="openAvatarDialog()"
-                />
-              </p>
+                  
+                >
+                  <div class="card-img-overlay">
+                <v-btn class="primary" @click="openInput">Upload</v-btn>
+                <v-file-input  id="file" accept="image/png, image/jpeg, image/bmp" @change="openAvatarDialog" style="display: none"></v-file-input>
+
+                  </div>  
+                </v-img>
+               
+              
+                
             </div>
+              
             <div style="text-align: center">
               <v-layout row wrap>
                 <v-flex xs12>
@@ -397,6 +398,7 @@ export default {
   },
   data() {
     return {
+      overlay: false,
       select: "",
       showskill: true,
       office: true,
@@ -481,6 +483,11 @@ export default {
   },
 
   methods: {
+    openInput()
+    {
+     var elem=document.getElementById("file")
+     elem.click()
+    },
     saveProfileLink(data) {
       let datam = {
         payload: {
@@ -654,12 +661,25 @@ export default {
       this.$store.commit("userModule/showContactDialog", contactData);
     },
 
-    openAvatarDialog() {
-      let AvatarData = {
-        profile: this.user.PROFILEIMAGE,
-        userid: this.user.employeeId,
+    openAvatarDialog(file) {
+      var vm=this
+      console.log(file)
+       var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result);
+        var str = reader.result.substring(reader.result.indexOf(",") + 1);
+        var profile = reader.result;
+         let AvatarData = {
+        profile: profile,
+        userid: vm.user.employeeId,
       };
-      this.$store.commit("userModule/showAvatarDialog", AvatarData);
+     vm.$store.commit("userModule/showAvatarDialog", AvatarData);
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+     
     },
 
     showskillinput() {
@@ -692,6 +712,23 @@ export default {
 
 
 <style scoped>
+.card-img-overlay {
+  display: none;
+  transition: all 0.5s;
+}
+.card-img-overlay button {
+  margin-top: 10vh !important;
+  
+}
+.card:hover .card-img-overlay {
+  display: block;
+  
+}
+.card:hover .card-img-overlay
+{
+  background-color: rgba(0,0,0,0.5) !important;
+  min-height: 200px;
+}
 .row {
   margin-left: 30px;
   margin-right: initial;
