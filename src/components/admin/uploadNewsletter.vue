@@ -13,7 +13,7 @@
       width="80px"
     >
       <v-icon large color="white" class="mt-5 mb-5 ml-5">
-       {{icon}}
+     mdi-newspaper
       </v-icon>
     </v-sheet>
    
@@ -22,21 +22,15 @@
       <v-flex xs8>
            <v-card-text class="pt-0" style="height:100px">
       <div class="title font-weight-light mb-2 mt-2 ml-5">
-       {{titleHead}}
+       Newsletter
       </div>
-      <div class="subheading font-weight-light grey--text" v-if="getList.length">
-        <p
-        block
-        text
-        @click="download"
-        class="link"
-      >
-       Report_{{getList[0].ID}}
-        </p>
+      <div class="subheading font-weight-light blue--text"  v-if="getNewsletter">
+           <p @click="download" style="cursor: pointer" >Download NewsLetter</p>
       </div>
-      <div class="subheading font-weight-light grey--text ml-5" v-else>
-       No Report Available
+       <div class="subheading font-weight-light grey--text" v-else>
+           <p>No NewsLetter Available</p>
       </div>
+     
       
     </v-card-text>
       </v-flex>
@@ -44,8 +38,9 @@
           <v-card-text style="text-align:right;color:white">
               <v-divider class="my-2"></v-divider>
              
-                <v-btn v-if="getList.length" color="#172151"  class="text-capitalize white--text" @click="complete">Previous Logs</v-btn>
-                 <v-btn v-else disabled color="#172151"  class="text-capitalize white--text" >No Logs</v-btn>
+                 <v-btn  color="#27293D" @click="openInput" style="color:white" v-if="!getNewsletter">Upload</v-btn>
+                   <v-btn  color="#27293D" @click="openInput" style="color:white" v-else>Update</v-btn>
+                  <v-file-input  id="file" @change="openAvatarDialog" style="display: none"></v-file-input>
                 <!-- <v-icon
                     class="mr-2"
                     small
@@ -65,26 +60,7 @@
 
   export default {
     data: () => ({
-      labels: [
-        '12am',
-        '3am',
-        '6am',
-        '9am',
-        '12pm',
-        '3pm',
-        '6pm',
-        '9pm',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
-      ],
+     
     }),
 
    props: {
@@ -106,26 +82,48 @@
     default:[]
     }
   }, 
-  // computed:{
-  //     getStatusList: {
-  //     get() {
-  //       return this.$store.getters["adminModule/getStatusList"];
-  //     },
-  //     set(data) {
-  //       this.$store.commit("adminModule/setStatusList", this.data);
-  //     },
-  //   },
+  computed:{
+      getNewsletter: {
+      get() {
+        return this.$store.getters["adminModule/getNewsletter"];
+      },
+      set(data) {
+        this.$store.commit("adminModule/setNewsletter",data);
+      },
+    },
  
-  // },
+  },
   methods:{
       download()
       {
-          this.$emit("download",this.getList)
+          const downloadLink = document.createElement("a");
+                    const fileName = "newsletter.pdf";
+
+                    downloadLink.href = this.getNewsletter;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
       },
-      complete()
-      {
-        this.$emit("download","nodata")
-      }
+       openInput()
+    {
+     var elem=document.getElementById("file")
+     elem.click()
+    },
+       openAvatarDialog(file) {
+      var vm=this
+      console.log(file)
+       var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result);
+        
+        this.getNewsletter=reader.result
+   
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+     
+    },
   } 
   }
 </script>

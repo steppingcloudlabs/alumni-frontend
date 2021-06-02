@@ -9,6 +9,7 @@ import {
 export default {
     namespaced: true,
     state: {
+        newsletter:"",
         reloadEsclation:false,
         showBulkAlumni:false,
         showBulkDocument:false,
@@ -78,7 +79,10 @@ export default {
         recentFAQ:[]
     },
     mutations: {
-        
+        setNewsletter:(state,data)=>
+        {
+           state.newsletter=data
+        },
         setreloadEscalation:(state,data)=>
         {
            state.reloadEsclation=data
@@ -590,6 +594,10 @@ export default {
 
     },
     getters: {
+        getNewsletter:(state)=>
+        {
+               return state.newsletter
+        },
          getreloadEscalation:(state)=>
          {
             return state.reloadEsclation
@@ -2203,7 +2211,247 @@ export default {
                 })
 
             })
-        }
+        },
+
+        //Reporting API
+
+        loginCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/logincount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        signUpCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/signupcount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        documentDownloadCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/documentdownloadcount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        documentUploadCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/documentuploadcount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        openTicketCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/ticketopencount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+        closeTicketCount: ({
+            state,
+            commit
+        }, dat) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+               
+                axios({
+                    method:'GET',
+                    url:baseurl()+'/admin/reports/ticketclosecount',
+                    // url:data.preSignedUrl,
+                    headers:
+                    {
+                        "Authorization":"Bearer " + tok.token,
+                       
+                    },
+                   
+                    data:dat
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else  if (response && response.data.status && response.data.status == 200) {
+                        // commit('setData', response.data.result)
+                       // commit('setStatusList', response.data.result)
+                        resolve(response)
+
+                        console.log(response)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+
+            })
+        },
+
+        
 
 
     }

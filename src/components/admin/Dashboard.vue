@@ -1,6 +1,7 @@
 <template>
   <v-layout row wrap class="ml-5 mr-5" style="margin-top: 100px !important">
-    <v-flex xs6 class="mt-3 mb-3">
+   
+    <v-flex xs4 class="mt-7 mb-3 pr-2">
       <viewCard
         :titleHead="titleHead[0]"
         :lastStatus="lastStatus[0]"
@@ -9,7 +10,7 @@
         @download="download"
       ></viewCard>
     </v-flex>
-    <v-flex xs6 class="mt-3 mb-3">
+    <v-flex xs4 class="mt-7 mb-3 pr-2">
       <viewCard
         :titleHead="titleHead[1]"
         :lastStatus="lastStatus[1]"
@@ -18,7 +19,24 @@
         @download="download"
       ></viewCard>
     </v-flex>
+     <v-flex xs4 class="mt-7 mb-3">
+      <newsletter></newsletter>
+    </v-flex>
 
+    <v-flex xs12>
+       <linechart></linechart>
+    </v-flex>
+     <v-flex xs8>
+      <graph></graph>
+    </v-flex>
+     <v-flex xs4>
+      <v-card class="pl-5 pr-5 pt-5" color="#27293D">
+                <h4 class="card-category">Status</h4>
+                <h2 class="card-title">User</h2>
+          <donut class="pb-2" style="height:250px" ></donut>
+      </v-card>
+    </v-flex>
+    
     <!-- <v-flex xs12>
         <v-data-table
           :headers="headers"
@@ -86,15 +104,7 @@
          
         </p>
       </v-flex> -->
-    <v-flex xs8>
-      <graph></graph>
-    </v-flex>
-    <v-flex xs4>
-      <v-card class="pl-5 pr-5">
-          <p class="display-1 font-weight-thin pt-2" style="text-align:center">User Status</p>
-          <donut></donut>
-      </v-card>
-    </v-flex>
+   
   </v-layout>
 </template>
     
@@ -108,15 +118,19 @@ import BulkAlumni from "@/components/admin/AddAlumniBulkDialog.vue";
 import viewCard from "@/components/admin/dasboardCards.vue";
 import moment from "moment";
 import donut from "@/components/admin/donutChartDash.vue";
+import linechart from "@/components/admin/linechart.vue";
+import newsletter from "@/components/admin/uploadNewsletter.vue"
 
 export default {
   components: {
+    linechart,
     graph,
     AddAlumni,
     pagination,
     BulkAlumni,
     viewCard,
     donut,
+    newsletter
   },
   watch: {
     dialog() {
@@ -291,6 +305,7 @@ export default {
   },
   data() {
     return {
+    
       getDocument:[],
       pagination: {
         LIMIT: 2,

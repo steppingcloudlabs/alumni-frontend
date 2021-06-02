@@ -22,20 +22,20 @@
             </li> -->
             <li>
               <a
-                :class="$route.path == '/signup' ? 'active' : ''"
+                :class="$route.path == '/signup' ? 'activee' : ''"
                 v-if="$route.path == '/'"
                 @click="navtosignup"
               >SignUp</a>
             </li>
             <li>
               <a
-                :class="$route.path == '/login' ? 'active' : ''"
+                :class="$route.path == '/login' ? 'activee' : ''"
                 v-if="$route.path == '/'"
                 @click="navtologin"
               >Login</a>
             </li>
             <li>
-              <a :class="$route.path == '/' ? 'active' : ''" @click="navtoHome">Home</a>
+              <a :class="$route.path == '/' ? 'activee' : ''" @click="navtoHome">Home</a>
             </li>
           </ul>
         </div>
@@ -184,7 +184,7 @@ li a:hover {
   color: white !important;
   /* font-weight: 600; */
 }
-.active {
+.activee {
   /* background-color:  rgb(241,135,16); */
   color:#E4BA18 !important;
   font-weight: 600;
