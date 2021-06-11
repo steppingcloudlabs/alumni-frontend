@@ -7,6 +7,9 @@ import Vuelidate from 'vuelidate'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueTour from 'vue-tour'
 require('vue-tour/dist/vue-tour.css')
+import MarqueeText from 'vue-marquee-text-component'
+ 
+Vue.component('marquee-text', MarqueeText)
 
 import {gmapApi} from 'vue2-google-maps'
 

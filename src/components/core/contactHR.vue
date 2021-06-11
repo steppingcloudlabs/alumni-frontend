@@ -6,7 +6,9 @@
           <v-toolbar-title class="ml-5">Contact Us</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
+        <marquee-text :repeat="1"  class="pt-4 pl-9" style="font-size:12px;color:red">Check for FAQs before raising tickets.<a @click="faqsroutes">Click here to go to Faqs</a></marquee-text>
         <v-card-text class="mt-3">
+          
           <v-form ref="contact" lazy-validation>
             <v-row>
               <v-col cols="12">
@@ -106,6 +108,10 @@ export default {
     }
   },
   methods: {
+    faqsroutes()
+    {
+          this.$router.push("faq")
+    },
     closeDialog() {
       this.$refs.contact.reset()
       this.$emit("closeAskHrDialog");

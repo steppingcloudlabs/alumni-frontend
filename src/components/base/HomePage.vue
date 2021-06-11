@@ -12,9 +12,7 @@
     <v-row class="rowValue">
       <features></features>
     </v-row>
-    <v-row class="rowValue">
-      <newsletter />
-    </v-row>
+    
     <v-row class="rowValue">
       <footter />
     </v-row>
@@ -34,7 +32,7 @@
 
 <script>
 import updatedcarousel from "@/components/updatedDesign/updatedCarsol.vue";
-import newsletter from "@/components/updatedDesign/Newslettersubscription.vue";
+
 import footter from "@/components/updatedDesign/footer.vue";
 import features from "@/components/updatedDesign/featues.vue";
 import featureCard from "@/components/updatedDesign/featureCard.vue";
@@ -50,7 +48,7 @@ export default {
    
    
     updatedcarousel,
-    newsletter,
+  
     features,
     footter,
     featureCard

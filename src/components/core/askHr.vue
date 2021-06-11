@@ -18,6 +18,7 @@ export default {
     QueryWindowWrapper,
  // UserFAQList
   }
+  
 };
 </script>
 <style scoped >

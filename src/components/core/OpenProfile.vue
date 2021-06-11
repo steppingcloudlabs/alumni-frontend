@@ -1,8 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap style="margin-left:0px">
     <v-flex xs12>
       <v-card class="pt-5" style="margin-top:20px!important">
-        <v-layout row wrap ma-0>
+        <v-layout row wrap style="margin-left:0px">
           <v-flex xs12>
             <div>
               <p class="text-center">
@@ -13,6 +13,7 @@
                     border-radius: 50%;
                     border: 3px solid white;
                     width: 200px;
+                    height:200px
                   "
                 />
                  <img v-else
@@ -22,6 +23,7 @@
                     border-radius: 50%;
                     border: 3px solid white;
                     width: 200px;
+                    height:200px
                   "
                 />
               </p>
@@ -56,7 +58,7 @@
                 </p>
 
                 <p>Till {{ user.lastworking }}</p>
-                <p>
+                <p v-if="linkedInlinkProfileLink">
                   <v-icon
                     color="blue"
                     @click="openlinkedInlinkProfile"

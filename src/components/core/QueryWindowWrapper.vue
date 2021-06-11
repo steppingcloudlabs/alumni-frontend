@@ -40,7 +40,7 @@
           float
           right
           bottom
-          color="blue"
+          color="#1A265C"
           class="mb-5"
         >
           <v-icon>mdi-wechat</v-icon>
@@ -90,6 +90,7 @@ export default {
     },
   },
   beforeMount() {
+    this.$store.commit("showProgressBar",{})
     this.getQueryList();
   
     
@@ -151,6 +152,7 @@ export default {
       this.$store
         .dispatch("userModule/getAllUserQueries", data)
         .then((response) => {
+          this.$store.commit("closeProgressBar")
           this.queryList = response.result;
         });
     },

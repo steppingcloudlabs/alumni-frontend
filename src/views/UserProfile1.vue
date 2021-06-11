@@ -730,7 +730,7 @@ export default {
   min-height: 200px;
 }
 .row {
-  margin-left: 30px;
+  margin-left: 0px;
   margin-right: initial;
 }
 .button:active {

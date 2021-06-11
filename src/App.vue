@@ -16,6 +16,7 @@ import Home from "./views/Home";
 import SnackbarComponent from "@/components/material/Snackbar";
 import CommonDialogComponent from "@/components/material/CommonDialogComponent";
 import ProgressbarComponent from "@/components/material/Progress";
+
 AOS.init();
 export default {
   name: "App",

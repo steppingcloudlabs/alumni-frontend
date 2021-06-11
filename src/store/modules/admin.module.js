@@ -725,7 +725,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/news/create',
+                    url:'/admin/action/news/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -761,7 +761,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ "/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url: "/admin/action/news/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -802,7 +802,7 @@ export default {
         //     return new Promise((resolve, reject) => {
         //         axios({
         //             method: 'POST',
-        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allnews',
+        //             url: 'https://api.steppingcloud.com/admin/action/allnews',
         //             headers: {
         //                 'Content-Type': 'application/json',
         //             },
@@ -845,7 +845,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/news/delete',
+                    url:'/admin/action/news/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -885,7 +885,7 @@ export default {
                 console.log("event data", data)
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/event/create',
+                    url: '/admin/action/event/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -919,7 +919,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
+                    url:"/admin/action/event/get?LIMIT="+data.payload.limit+"&OFFSET="+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -956,7 +956,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/documents/create/jobs/trigger',
+                    url: '/admin/action/documents/create/jobs/trigger',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -995,7 +995,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ '/admin/action/documents/create/jobs/get',
+                    url: '/admin/action/documents/create/jobs/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1033,7 +1033,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ '/admin/action/documents/create/jobs/logs?jobid='+data,
+                    url: '/admin/action/documents/create/jobs/logs?jobid='+data,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1069,7 +1069,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ '/admin/reports/user/registered',
+                    url: '/admin/reports/user/registered',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1104,7 +1104,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/askhr/ticket/update',
+                    url:'/admin/action/askhr/ticket/update',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1141,7 +1141,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/event/delete',
+                    url: '/admin/action/event/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -1186,7 +1186,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/user/delete',
+                    url: '/admin/action/user/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -1225,7 +1225,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/user/create',
+                    url: '/admin/action/user/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1259,7 +1259,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/user/create',
+                    url:'/admin/action/user/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1291,7 +1291,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/user/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
+                    url:'/admin/action/user/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1327,7 +1327,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/admin/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
+                    url:'/admin/action/admin/get?LIMIT='+data.payload.limit+'&OFFSET='+data.payload.offset,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1363,7 +1363,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/admin/create',
+                    url: '/admin/action/admin/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1402,7 +1402,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/admin/delete',
+                    url: '/admin/action/admin/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + token.token
@@ -1439,7 +1439,7 @@ export default {
         //     return new Promise((resolve, reject) => {
         //         axios({
         //             method: 'POST',
-        //             url:baseurl()+ 'https://api.steppingcloud.com/admin/action/allalumni',
+        //             url: 'https://api.steppingcloud.com/admin/action/allalumni',
         //             headers: {
         //                 'Content-Type': 'application/json',
         //             },
@@ -1477,7 +1477,7 @@ export default {
                 }
                 axios({
                     method: 'GET',
-                    url:baseurl()+ "/admin/action/faq/get" + limitURL,
+                    url: "/admin/action/faq/get" + limitURL,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1511,7 +1511,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/faq/create',
+                    url:'/admin/action/faq/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1549,7 +1549,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/faq/delete',
+                    url:'/admin/action/faq/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1588,7 +1588,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/documents/create',
+                    url: '/admin/action/documents/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1647,7 +1647,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ '/admin/action/askhr/manager/get',
+                    url: '/admin/action/askhr/manager/get',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1679,7 +1679,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/askhr/manager/create',
+                    url: '/admin/action/askhr/manager/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1710,7 +1710,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/askhr/manager/delete',
+                    url: '/admin/action/askhr/manager/delete',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1742,7 +1742,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+ '/admin/action/askhr/manager/profile/get?EMAIL='+data.payload.USERID,
+                    url: '/admin/action/askhr/manager/profile/get?EMAIL='+data.payload.USERID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1771,7 +1771,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
+                    url:'/admin/action/askhr/ticket/message/get?TICKETID='+data.payload.TICKETID,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1800,7 +1800,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/admin/action/askhr/ticket/message/create',
+                    url: '/admin/action/askhr/ticket/message/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + data.token
@@ -1830,7 +1830,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/search/masterdata?LIMIT=&OFFSET=0&QUERY='+data,
+                    url:'/admin/action/search/masterdata?LIMIT=&OFFSET=0&QUERY='+data,
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -1866,7 +1866,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/user/create/_bulk',
+                    url:'/admin/action/user/create/_bulk',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -1903,7 +1903,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/documents/create/sftp/count',
+                    url:'/admin/action/documents/create/sftp/count',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -1939,7 +1939,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/documents/create/sftp/trigger',
+                    url:'/admin/action/documents/create/sftp/trigger',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -1975,7 +1975,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/documents/create/sftp/status',
+                    url:'/admin/action/documents/create/sftp/status',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -2011,7 +2011,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/sftp/credentials/create',
+                    url:'/admin/action/sftp/credentials/create',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -2048,7 +2048,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+ '/auth/reset',
+                    url: '/auth/reset',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization':"Bearer " +tok.token
@@ -2073,7 +2073,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/documents/create/_bulk/getuploadid?filename='+data.fileName+'&filetype='+data.fileType,
+                    url:'/admin/action/documents/create/_bulk/getuploadid?filename='+data.fileName+'&filetype='+data.fileType,
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -2109,7 +2109,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'GET',
-                    url:baseurl()+'/admin/action/documents/create/_bulk/getuploadurl?filename='+data.fileName+'&partnumber='+data.partNumber+'&uploadid='+data.uploadId+'&type='+data.type,
+                    url:'/admin/action/documents/create/_bulk/getuploadurl?filename='+data.fileName+'&partnumber='+data.partNumber+'&uploadid='+data.uploadId+'&type='+data.type,
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -2145,7 +2145,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url:baseurl()+'/admin/action/documents/create/_bulk/complete',
+                    url:'/admin/action/documents/create/_bulk/complete',
                     headers: {
                        
                         "Authorization":"Bearer " + tok.token,
@@ -2183,7 +2183,7 @@ export default {
                
                 axios({
                     method:'PUT',
-                    url:baseurl()+'/admin/action/documents/create/_bulk/uploadsignedurl',
+                    url:'/admin/action/documents/create/_bulk/uploadsignedurl',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2225,7 +2225,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/logincount',
+                    url:'/admin/reports/logincount',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2265,7 +2265,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/signupcount',
+                    url:'/admin/reports/signupcount',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2304,7 +2304,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/documentdownloadcount',
+                    url:'/admin/reports/documentdownloadcount',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2343,7 +2343,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/documentuploadcount',
+                    url:'/admin/reports/documentuploadcount',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2382,7 +2382,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/ticketopencount',
+                    url:'/admin/reports/ticketopencount',
                     // url:data.preSignedUrl,
                     headers:
                     {
@@ -2421,7 +2421,7 @@ export default {
                
                 axios({
                     method:'GET',
-                    url:baseurl()+'/admin/reports/ticketclosecount',
+                    url:'/admin/reports/ticketclosecount',
                     // url:data.preSignedUrl,
                     headers:
                     {
