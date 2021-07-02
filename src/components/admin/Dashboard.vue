@@ -30,7 +30,7 @@
       <graph></graph>
     </v-flex>
      <v-flex xs4>
-      <v-card class="pl-5 pr-5 pt-5" color="#27293D">
+      <v-card class="pl-5 pr-5 pt-5" color="primary">
                 <h4 class="card-category">Status</h4>
                 <h2 class="card-title">User</h2>
           <donut class="pb-2" style="height:250px" ></donut>

@@ -1,6 +1,6 @@
  <<template>
 
- <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition">
+ <v-dialog v-model="viewJob" fullscreen hide-overlay transition="dialog-bottom-transition" style="margin-top:0vh !important">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="closeDialog">
@@ -21,7 +21,7 @@
         class="mx-0"
       >
       <v-col cols="12" sm="2"> 
-        <div class="grey--text ml-4"><v-icon color="blue" v-if="viewJobData.LOCATION">mdi-map-marker</v-icon> {{viewJobData.COUNTRY}}</div>
+        <div class="grey--text ml-4"><v-icon color="primary" v-if="viewJobData.LOCATION">mdi-map-marker</v-icon> {{viewJobData.COUNTRY}}</div>
       </v-col>
        <v-col cols="12" sm="2">
         <div class="grey--text ml-4">Posting ID:{{viewJobData.JOBPOSTINGID}}</div>
@@ -33,15 +33,15 @@
       <v-row>
          <v-col cols="12"
         sm="3">
-        <div class="grey--text ml-4"> <v-icon color="blue" v-if="viewJobData.POSTINGENDDATE">mdi-calendar</v-icon> End Date: {{viewJobData.POSTINGENDDATE}}</div>
+        <div class="grey--text ml-4"> <v-icon color="primary" v-if="viewJobData.POSTINGENDDATE">mdi-calendar</v-icon> End Date: {{viewJobData.POSTINGENDDATE}}</div>
       </v-col>
        <v-col cols="12" sm="3">
-        <div class="grey--text ml-4"> <v-icon color="blue" v-if="viewJobData.POSTINGSTARTDATE">mdi-calendar</v-icon>Start Date: {{viewJobData.POSTINGSTARTDATE}}</div>
+        <div class="grey--text ml-4"> <v-icon color="primary" v-if="viewJobData.POSTINGSTARTDATE">mdi-calendar</v-icon>Start Date: {{viewJobData.POSTINGSTARTDATE}}</div>
       </v-col>
       </v-row>
 
       <div class="my-4 subtitle-1 black--text">
-        <v-icon color="blue" v-if="viewJobData.DEPARTMENT">mdi-domain</v-icon>{{viewJobData.DEPARTMENT}}
+        <v-icon color="primary" v-if="viewJobData.DEPARTMENT">mdi-domain</v-icon>{{viewJobData.DEPARTMENT}}
       </div>
       <div v-html="viewJobData.JOBDESCRIPTION"></div>
     </v-card-text>
@@ -52,7 +52,7 @@
     <v-card-actions>
       <v-btn
       @click="openJob"
-        color="deep-purple accent-4"
+        color="accent"
         text
        
       >
@@ -95,7 +95,7 @@ export default {
 };
 </script>
 <style>
-.v-dialog--fullscreen {
+.v-dialog.v-dialog--fullscreen {
   margin-top: 0vh !important;
 }
 </style>

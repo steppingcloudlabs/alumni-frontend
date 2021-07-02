@@ -8,11 +8,11 @@
       <v-flex xs4>
            <v-sheet
       class="v-sheet--offset ml-5"
-      color="#27293D"
+      color="primary"
       elevation="12"
       width="80px"
     >
-      <v-icon large color="white" class="mt-5 mb-5 ml-5">
+      <v-icon large color="secondary" class="mt-5 mb-5 ml-5">
        {{icon}}
       </v-icon>
     </v-sheet>
@@ -41,11 +41,11 @@
     </v-card-text>
       </v-flex>
       <v-flex xs12 >
-          <v-card-text style="text-align:right;color:white">
+          <v-card-text text-color="secondary" style="text-align:right;color:white">
               <v-divider class="my-2"></v-divider>
              
-                <v-btn v-if="getList.length" color="#172151"  class="text-capitalize white--text" @click="complete">Previous Logs</v-btn>
-                 <v-btn v-else disabled color="#172151"  class="text-capitalize white--text" >No Logs</v-btn>
+                <v-btn v-if="getList.length" color="primary"  class="text-capitalize white--text" @click="complete">Previous Logs</v-btn>
+                 <v-btn v-else disabled color="primary"  class="text-capitalize white--text" >No Logs</v-btn>
                 <!-- <v-icon
                     class="mr-2"
                     small

@@ -46,20 +46,19 @@
               outlined
               v-on:
               @click="login"
-              style="background: rgb(0, 0, 0, 0); color: white"
+              color="secondary"
+              style="background: rgb(0, 0, 0, 0); "
               >Login</v-btn
             >
-          </v-card-actions>
+          </v-card-actions >
           <v-card-text class="text-center">
-            <router-link to="/forgotpassword" style="color: #66fcf1"
+            <router-link to="/forgotpassword" style="color:#E4BA18"  
               >Forgot Password</router-link
             >
           </v-card-text>
-          <v-card-text style="color: white" class="text-center pt-0 mb-5">
+          <v-card-text  style="color: white" class="text-center pt-0 mb-5">
             Not Registered?
-            <router-link to="/signup" style="color: #66fcf1"
-              >SignUp</router-link
-            >
+            <router-link to="/signup" style="color:#E4BA18">SignUp</router-link>
           </v-card-text>
         </v-card>
       </v-col>
@@ -105,6 +104,7 @@ export default {
   },
   methods: {
     login() {
+      
       if (this.$refs.login.validate()) {
         this.$store.commit("showProgressBar", {});
         this.$store
@@ -155,7 +155,7 @@ export default {
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "red",
+                color: "error",
                 duration: 3000,
                 message: response.result,
                 heading: "Error",
@@ -163,7 +163,7 @@ export default {
             } else {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "red",
+                color: "error",
                 duration: 3000,
                 message: response.result,
                 heading: "Error",
@@ -176,7 +176,7 @@ export default {
           });
       } else {
         this.$store.commit("showSnackbar", {
-          color: "red",
+          color: "error",
           duration: 1000,
           message: "Correct Errors",
           heading: "Error",

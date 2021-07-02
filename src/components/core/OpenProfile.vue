@@ -34,8 +34,9 @@
                 style="line-height: 1px; margin-left: 0px !important"
               >
                 <p
+                class="info"
                   style="
-                    color: black;
+                   
                     font-family: 'Raleway', sans-serif;
                     font-weight: bolder;
                   "
@@ -60,7 +61,7 @@
                 <p>Till {{ user.lastworking }}</p>
                 <p v-if="linkedInlinkProfileLink">
                   <v-icon
-                    color="blue"
+                    color="primary"
                     @click="openlinkedInlinkProfile"
                     class="mr-1"
                     >mdi-linkedin</v-icon

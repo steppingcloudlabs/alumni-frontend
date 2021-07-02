@@ -15,13 +15,14 @@
       style="background: white; border-bottom: none"
     >
       <template v-slot:top>
-        <v-toolbar style="background-color: #1A265C;color:white">
+        <v-toolbar color="primary" style="color:white">
           <v-toolbar-title style="color: white"
             >Upload Pending Documents</v-toolbar-title
           >
           <v-spacer></v-spacer>
              <v-btn
-                color="primary"
+                color="secondary"
+                outlined
                 light
                 class="mb-3 mr-4 newAlumni"
                 @click="openAddBulkDocumentDialog"
@@ -35,7 +36,7 @@
             single-line
             hide-details
             @keyup.enter.native="findData(search)"
-            background-color="white"
+            background-color="secondary"
             @input="findData(search)"
             
           ></v-text-field>
@@ -46,7 +47,7 @@
       </template>
 
       <template v-slot:item.action="{item}">
-        <v-icon small class="mr-2" color="#1A265C" @click="openDialog(item)"
+        <v-icon small class="mr-2" color="primary" @click="openDialog(item)"
           >fas fa-upload</v-icon
         >
       </template>
@@ -57,7 +58,7 @@
       @closeDocumentDialog="closeDocumentDialog"
     />
 
-    <p class="text-center text-white mt-5" style="background-color:#1A265C" >
+    <p class="text-center text-white mt-5 primary"  >
      <pagination
         :next="next"
         :prev="prev"

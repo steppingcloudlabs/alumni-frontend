@@ -1,7 +1,7 @@
 <template>
   <v-card outlined  style="border-radius: 0px;">
     <p class="text-end mr-5 text-white">
-      <v-btn left class="mt-3 ml-3" color="blue" dark @click="openAddFaqDialog">
+      <v-btn left class="mt-3 ml-3" color="primary" dark @click="openAddFaqDialog">
         <i class="fas fa-plus-circle mr-2"></i> Add FAQ
       </v-btn>
     </p>

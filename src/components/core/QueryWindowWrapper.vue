@@ -40,7 +40,7 @@
           float
           right
           bottom
-          color="#1A265C"
+          color="primary"
           class="mb-5"
         >
           <v-icon>mdi-wechat</v-icon>

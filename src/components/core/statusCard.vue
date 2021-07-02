@@ -1,7 +1,7 @@
 <template>
   <div class="status">
     <v-card-title class="dashboard_header mt-3" style=" text-align:center">Document Status</v-card-title>
-    <v-divider class="mr-5 mb-5" style="background:rgb(241, 135, 16);"></v-divider>
+    <v-divider class="mr-5 mb-5" color="accent"></v-divider>
     <v-row class="alert mt-3">
       <v-alert
         min-width="100%"

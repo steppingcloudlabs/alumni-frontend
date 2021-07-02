@@ -2,7 +2,7 @@
   <v-card class="pa-0 mx-5">
     <v-row class="ma-0">
       <v-col cols="12" class="pa-0">
-        <v-toolbar color="#5097DD" class="white--text">
+        <v-toolbar color="primary" class="white--text">
           <v-toolbar-title class="headline mb-2" style="font-family: Raleway"
             >News</v-toolbar-title
           >

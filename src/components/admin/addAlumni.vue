@@ -13,12 +13,13 @@
         light
       >
         <template v-slot:top>
-          <v-toolbar style="background-color: #1a265c; color: white">
+          <v-toolbar color="primary" style=" color: white">
             <v-toolbar-title class="d-none d-sm-flex"
               >Recent Resigned Employee</v-toolbar-title
             >
             <v-btn
-              color="primary"
+              color="secondary"
+              outlined
               light
               class="mb-2 newAlumni"
               @click="openAddAlumniDialog"
@@ -26,7 +27,8 @@
             >
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-btn
-              color="primary"
+              color="secondary"
+              outlined
               light
               class="mb-2 newAlumni"
               @click="openAddBulkAlumniDialog"
@@ -38,7 +40,7 @@
               v-model="search"
               append-icon="search"
               label="Search"
-              color="white"
+              color="secondary"
               background-color="white"
               single-line
               hide-details
@@ -59,20 +61,20 @@
           <v-icon
             small
             class="mr-2"
-            color="#1A265C"
+            color="primary"
             @click="editAlumniDialog(item)"
             >edit</v-icon
           >
           <v-icon
             small
             class="mr-2"
-            color="#1A265C"
+            color="primary"
             @click="showDeleteDialog(item)"
             >delete</v-icon
           >
         </template>
       </v-data-table>
-      <p class="text-center text-white" style="background-color: #1a265c">
+      <p class="text-center text-white primary" >
         <pagination
           :next="next"
           :prev="prev"

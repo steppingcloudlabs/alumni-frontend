@@ -124,7 +124,7 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="blue darken-1" text @click="closeDialog">Close</v-btn>
+          <v-btn color="primary darken-1" text @click="closeDialog">Close</v-btn>
           <!-- <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn> -->
         </v-card-actions>
       </v-card>
@@ -177,7 +177,7 @@ export default {
           if (response.data.status == 200) {
             this.salaryupload = false;
             this.$store.commit("showSnackbar", {
-              color: "green",
+              color: "sucess",
               duration: 3000,
               message: "File uploaded succesfully",
               heading: "Success",
@@ -187,7 +187,7 @@ export default {
         .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
-            color: "red",
+            color: "success",
             duration: 1000,
             message: error,
             heading: "Error",
@@ -219,7 +219,7 @@ export default {
         .then((response) => {
           if (response.data.status == 200) {
             this.$store.commit("showSnackbar", {
-              color: "green",
+              color: "success",
               duration: 3000,
               message: "File uploaded succesfully",
               heading: "Success",
@@ -229,7 +229,7 @@ export default {
         .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
-            color: "red",
+            color: "error",
             duration: 1000,
             message: error,
             heading: "Error",

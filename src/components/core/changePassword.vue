@@ -86,10 +86,25 @@ export default {
   methods: {
    
     savePassword() {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
        if (this.password != this.Cnfpassword) {
         this.$store.commit("closeProgressBar", {});
         this.$store.commit("showSnackbar", {
-          color: "red",
+          color: "error",
           duration: 1000,
           message: "Password Doesn't Match",
           heading: "Error"

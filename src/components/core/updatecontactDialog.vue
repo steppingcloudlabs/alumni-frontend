@@ -65,7 +65,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
+          <v-btn color="primary" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -120,6 +120,21 @@ export default {
       this.$store.commit("userModule/closeContactDialog");
     },
     saveDialog() {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
       if (this.$refs.contact.validate()) {
         let contactData = JSON.parse(JSON.stringify(this.contact));
         this.$store.commit("userModule/closeContactDialog");
@@ -147,7 +162,7 @@ export default {
             this.$store.commit("userModule/setUpdateContactData", updatedData);
             this.$store.commit("showSnackbar", {
               message: "Contact Updated successfully",
-              color: "success",
+              color: success,
               heading: "Success",
               duration: 3000,
             });
@@ -155,7 +170,7 @@ export default {
         });
       } else {
         this.$store.commit("showSnackbar", {
-          color: "red",
+          color: error,
           duration: 1000,
           message: "Correct Errors",
           heading: "Error",

@@ -31,7 +31,7 @@
                         <td v-if="item.LOCATION">{{item.LOCATION}} </td>
                         <td v-else>Not Defined </td>
 
-                         <td v-if="item.POSTINGENDDATE">{{item.POSTINGENDDATE.substring(0,10)}} </td>
+                         <td v-if="item.POSTINGENDDATE">{{item.POSTINGENDDATE}} </td>
                         <td v-else>Not Available </td>
                         </tr>
                 </tbody>

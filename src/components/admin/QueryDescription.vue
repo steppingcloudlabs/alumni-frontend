@@ -16,7 +16,7 @@
             </span>
                     <span>{{ selectedQueryItem.TITLE }}</span>
                      <v-spacer></v-spacer>
-                  <v-btn color="#1A265C" v-if="!selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Mark as Resolved</v-btn>
+                  <v-btn color="primary" v-if="!selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Mark as Resolved</v-btn>
                   </v-card-title>
                
                   <v-divider class="my-0" />

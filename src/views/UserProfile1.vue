@@ -327,7 +327,7 @@
                   class="body-1 py-1"
                   style="margin-top: 2px !important"
                 >
-                  <v-icon class="mt-1" color="blue">mdi-cellphone</v-icon>
+                  <v-icon class="mt-1" color="primary">mdi-cellphone</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs11>
@@ -344,7 +344,7 @@
                   class="body-1 py-1"
                   style="margin-top: 2px !important"
                 >
-                  <v-icon color="blue">mdi-email</v-icon>
+                  <v-icon color="primary">mdi-email</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs11>
@@ -361,7 +361,7 @@
                   class="body-1 py-1"
                   style="margin-top: 2px !important"
                 >
-                  <v-icon color="blue">mdi-home</v-icon>
+                  <v-icon color="primary">mdi-home</v-icon>
                 </v-card-text>
               </v-flex>
               <v-flex xs11>
@@ -489,6 +489,21 @@ export default {
      elem.click()
     },
     saveProfileLink(data) {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
       let datam = {
         payload: {
           USERID: this.user.employeeId,
@@ -499,7 +514,7 @@ export default {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
             message: "Profile link updated successfully",
-            color: "success",
+            color: success,
             heading: "Success",
             duration: 3000,
           });
@@ -516,6 +531,7 @@ export default {
       console.log(this.filteredArray);
     },
     deleteskill(data, i) {
+      
       let tempskill = JSON.parse(JSON.stringify(this.userskills));
 
       tempskill.splice(i, 1);

@@ -9,7 +9,7 @@
         :loading="isLoading"
         solo
         rounded
-        color="blue"
+        color="primary"
         label="Search Alumni"
         item-text="FIRST_NAME_PERSONAL_INFORMATION"
         item-value="FIRST_NAME_PERSONAL_INFORMATION"
@@ -17,7 +17,7 @@
       >
         <template v-slot:item="data">
           <template>
-            <v-list-item-avatar color="indigo">
+            <v-list-item-avatar color="accent">
               <!-- <img :src="data.item.avatar" /> -->
               <span class="white--text headline">{{
                 data.item.FIRST_NAME_PERSONAL_INFORMATION.substring(0, 1) +

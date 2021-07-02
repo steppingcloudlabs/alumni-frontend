@@ -80,11 +80,11 @@
           <v-row class>
             <v-card-text style="color:white" class="text-center">
               <v-icon style="color:white; margin-right:5px">person</v-icon>Already have account?
-              <router-link to="/login" style="color:#66FCF1">Login</router-link>
+              <router-link color="accent" to="/login" >Login</router-link>
             </v-card-text>
             <v-card-text style="color:white" class="text-center pt-0 mb-5">
               <v-icon style="color:white; margin-right:5px">mdi-help-circle-outline</v-icon>Need Help?
-              <a style="color:#66FCF1" @click="dialog=true">Contact Us</a>
+              <a color="accent" @click="dialog=true">Contact Us</a>
             </v-card-text>
           </v-row>
         </v-card>
@@ -152,10 +152,11 @@ export default {
   
 
     signup() {
+      
       if (this.password != this.Cnfpassword) {
         this.$store.commit("closeProgressBar", {});
         this.$store.commit("showSnackbar", {
-          color: "red",
+          color: "error",
           duration: 1000,
           message: "Password Doesn't Match",
           heading: "Error"
@@ -182,7 +183,7 @@ export default {
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "red",
+                color: "error",
                 duration: 1000,
                 message: "Employee Id doesnot Exist.",
                 heading: "Error"
@@ -190,7 +191,7 @@ export default {
             } else if (response.error == "email is already in use") {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "red",
+                color: "error",
                 duration: 1000,
                 message: "email is already in use",
                 heading: "Error"
@@ -203,7 +204,7 @@ export default {
           });
       } else {
         this.$store.commit("showSnackbar", {
-          color: "red",
+          color: "error",
           duration: 1000,
           message: "Correct Errors",
           heading: "Error"

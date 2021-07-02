@@ -5,7 +5,7 @@
     >
     <v-divider
       class="mr-5 mb-2"
-      style="background: rgb(241, 135, 16)"
+      color="accent"
     ></v-divider>
     <div v-if="showeventBar == true">
       <v-layout style="margin-top: 25%">
@@ -13,7 +13,7 @@
         <v-flex xs5>
           <v-progress-circular
             class="text--center"
-            color="orange"
+            color="accent"
             indeterminate
             size="44"
           ></v-progress-circular>
@@ -30,7 +30,7 @@
         <v-flex xs5>
           <v-progress-circular
             class="text--center"
-            color="orange"
+            color="accent"
             indeterminate
             size="44"
           ></v-progress-circular>
@@ -48,7 +48,7 @@
               <div style="width:100%">
                 <v-card-title
                   class="headline"
-                  style="color: #1a265c"
+                  color="primary"
                   v-text="item.TITLE"
                 ></v-card-title>
                 <v-card-text v-text="item.DATE"></v-card-text>
@@ -59,7 +59,7 @@
                                       justify="end"
                                       class="mb-2"
                                     >
-                                     <v-btn text color="#F18810" @click="enrollEvent" >Enroll</v-btn>
+                                     <v-btn text color="accent" @click="enrollEvent" >Enroll</v-btn>
                                 </v-row>
                 
                 </v-card-actions>
@@ -83,7 +83,7 @@
         <v-flex xs5>
           <v-progress-circular
             class="text--center"
-            color="orange"
+            color="accent"
             indeterminate
             size="44"
           ></v-progress-circular>

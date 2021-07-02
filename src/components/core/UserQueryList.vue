@@ -2,7 +2,7 @@
   <v-layout row wrap class="ma-0 pa-0">
     <v-flex xs12>
       <v-card class="mx-auto mb-3" flat tile min-height="250px"  >
-      <v-toolbar fixed color="#1A265C" >
+      <v-toolbar fixed color="primary" >
           <v-toolbar-title class="ml-5" >
             <!-- <span class="mr-5">
               <i class="fas fa-arrow-left" style="cursor:pointer" @click="backToList"></i>
@@ -25,8 +25,8 @@
                <v-list-item-icon v-if="item.RESOLVED">
                             <v-chip
                       
-                      color="green"
-                      text-color="white" >
+                      color="success"
+                      text-color="secondary" >
                       <v-avatar left>
                         <v-icon>mdi-checkbox-marked-circle</v-icon>
                       </v-avatar>
@@ -37,8 +37,8 @@
                             <v-chip
                           
                      
-                      color="red"
-                      text-color="white"
+                      color="error"
+                      text-color="secondary"
                       label >
                       <v-avatar left>
                         <v-icon>mdi-information</v-icon>

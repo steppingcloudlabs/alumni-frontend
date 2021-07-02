@@ -60,7 +60,7 @@
 
             <v-flex class="searchFlex" xs12 sm3 md3 lg3 xl3 style="margin-top: 0%; margin-left: 5%">
               <v-btn
-                color="blue"
+                color="primary"
                 style="color: White"
                 large
                 type="text"
@@ -77,11 +77,11 @@
     <v-card-title style="color: black">Current Openings 
       <v-spacer></v-spacer>
        <v-icon  v-if="!changeview" id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
-        <v-icon v-else  color="#1A265C" id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
+        <v-icon v-else  color="#primary" id="tableView" class="mr-5" style="float:right" @click="tableView">mdi-table</v-icon>
        <v-icon v-if="!filter"   class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
-        <v-icon v-else  color="#1A265C" class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
+        <v-icon v-else  color="#primary" class="ml-5" style="float:right;" @click="jobData(10,0,0)">mdi-filter-remove</v-icon>
       </v-card-title>
-    <v-divider style="background: rgb(241, 135, 16)"></v-divider>
+    <v-divider color="accent"></v-divider>
     <div class="text-center" v-if="showLoader">
       <v-overlay>
           <v-progress-circular
@@ -107,15 +107,15 @@
             <v-card 
               class="jobcard"
               :elevation="hover ? 24 : 1"
-              
+               
               style="margin-top:15px !important;margin-left:4%;width:90%;box-shadow:15px 15px 40px -10px !important;background-color:white;transition: all 0.5s ease-in"
             
             >
             <!-- <v-img height="300px" src="@/assets/opportunities_bg.jpg" style="opacity:30%" class="img_transparent"> -->
            <v-layout row wrap>
-            <v-flex xs3 style="background-color:#1A265C;">
+            <v-flex xs3 class="primary">
             <div class="white--text pt-5 pb-5 pl-5 pr-5 mt-5" style="text-align:center" >
-                    <v-icon  x-large class="jobicon" color="white" 
+                    <v-icon  x-large class="jobicon" color="secondary" 
                       >mdi-map-marker</v-icon
                     >
                     <p v-if="item.LOCATION">{{ item.LOCATION }}</p>
@@ -123,18 +123,18 @@
                   </div>
             </v-flex>
             <v-flex xs9>
-            <v-card-title v-if="item.JOBTITLE" class="jobtitle" style="color:black;font-size:15px">
+            <v-card-title v-if="item.JOBTITLE" class="jobtitle" text-color="secondary" style="font-size:15px">
               
               {{
                 item.JOBTITLE
               }}</v-card-title>
-              <v-card-title v-else class="jobtitle" style="color:black;font-size:15px">
+              <v-card-title v-else class="jobtitle" text-color="info"  style="font-size:15px">
                Software Developer
              </v-card-title>
               <v-layout row wrap>
               <v-flex xs12 >
                   <div class="black--text pl-2 pb-3">
-                    <v-icon class="jobicon" color="black" 
+                    <v-icon class="jobicon" color="info" 
                       >mdi-calendar</v-icon
                     >
                    Start: {{item.POSTINGSTARTDATE}}
@@ -142,7 +142,7 @@
                 </v-flex>
                 <v-flex xs5 >
                   <div class="black--text pl-2">
-                    <v-icon class="jobicon" color="black" 
+                    <v-icon class="jobicon" color="info" 
                       >mdi-calendar</v-icon
                     >
                     End: {{item.POSTINGENDDATE}}
@@ -150,7 +150,7 @@
                 </v-flex>
               
                 <v-flex xs6 style="text-align:end;margin-right:2px;padding-bottom:20px" >
-                 <v-btn color="#E4BA18" class="text-capitalize"  @click="openJob(item)"
+                 <v-btn color="accent" class="text-capitalize"  @click="openJob(item)"
                       >View More</v-btn>
                 </v-flex>
               </v-layout>

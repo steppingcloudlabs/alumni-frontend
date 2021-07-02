@@ -8,7 +8,7 @@
     <v-layout row wrap mt-0 ml-5 mr-5 v-if="show">
       <v-flex xs12 sm6 md6 lg4 pa-3 mt-0 v-for="(item, i) in cards" :key="i">
         <v-card class="mx-auto" max-width="350" min-height="380px">
-          <v-toolbar dark color="#1A265C">
+          <v-toolbar tile dark color="secondary" style="color:#1DB0ED">
             <v-toolbar-title>{{ item.title }}</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
@@ -51,13 +51,13 @@
           </v-card-text>
           <v-card-text class="text--primary" v-else>
             <div>
-              <v-icon color="orange">mdi-exclamation</v-icon>Your Document is
+              <v-icon color="accent">mdi-exclamation</v-icon>Your Document is
               Pending from Company.It will be available shortly
             </div>
           </v-card-text>
 
           <v-card-actions v-if="status[i] == 'Available' && i != 2">
-            <v-btn color="orange" small text @click="download(item.code)"
+            <v-btn color="accent" small text @click="download(item.code)"
               >Download</v-btn
             >
           </v-card-actions>
@@ -71,14 +71,14 @@
           >
             <v-btn
               v-if="status[5] == 'Available'"
-              color="orange"
+              color="accent"
               small
               text
               @click="download('firstmonthsalary')"
               >Salary1</v-btn
             >
             <v-btn
-              color="orange"
+              color="accent"
               small
               v-if="status[6] == 'Available'"
               text
@@ -86,7 +86,7 @@
               >Salary2</v-btn
             >
             <v-btn
-              color="orange"
+              color="accent"
               small
               v-if="status[i] == 'Available'"
               text
@@ -267,6 +267,21 @@ export default {
 
   methods: {
     download(data) {
+      let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
       this.$store.commit("showProgressBar",{})
       let body = {
         payload: {
@@ -283,7 +298,7 @@ export default {
           if (response.data.status == 200) {
               this.$store.commit("closeProgressBar",{})
             this.$store.commit("showSnackbar", {
-              color: "green",
+              color: success,
               duration: 3000,
               message: "File downloaded succesfully",
               heading: "Success",
@@ -293,7 +308,7 @@ export default {
         .catch((error) => {
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
-            color: "red",
+            color: error,
             duration: 1000,
             message: error,
             heading: "Error",

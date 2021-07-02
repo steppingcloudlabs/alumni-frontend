@@ -5,7 +5,7 @@
         <v-toolbar class="mb-5">
           <v-toolbar-title class="ml-5">Upload Alumni List </v-toolbar-title>
           <div class="flex-grow-1"></div>
-          <v-btn class="text-capitalize white--text" color="#1A265C" @click="downloadTemplate">Download Template</v-btn>
+          <v-btn class="text-capitalize white--text" color="primary" @click="downloadTemplate">Download Template</v-btn>
         </v-toolbar>
 
         <v-card-text>
@@ -52,7 +52,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
+          <v-btn color="primary darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -169,7 +169,7 @@ export default {
             });
           } else {
             this.$store.commit("showSnackbar", {
-              color: "red",
+              color: "error",
               duration: 1000,
               message: "Correct Errors",
               heading: "Error",

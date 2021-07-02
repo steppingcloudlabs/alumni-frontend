@@ -30,8 +30,8 @@
                <v-list-item-icon v-if="item.RESOLVED">
                             <v-chip
                       
-                      color="green"
-                      text-color="white" >
+                      color="success"
+                      text-color="secondary" >
                       <v-avatar left>
                         <v-icon>mdi-checkbox-marked-circle</v-icon>
                       </v-avatar>
@@ -42,8 +42,8 @@
                             <v-chip
                           
                      
-                      color="red"
-                      text-color="white"
+                      color="error"
+                      text-color="secondary"
                       label >
                       <v-avatar left>
                         <v-icon>mdi-information</v-icon>

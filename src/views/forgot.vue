@@ -2,9 +2,9 @@
   <v-container class="fill-height login" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <v-card class="elevation-12" color="#282828" dark style="background: rgb(0, 0, 0, .5);">
+        <v-card class="elevation-12" color="info" dark style="background: rgb(0, 0, 0, .5);">
           <v-toolbar style="background: rgb(0, 0, 0, .5)">
-            <v-toolbar-title class="text-center" style="color:white">Forgot Password</v-toolbar-title>
+            <v-toolbar-title class="text-center" color="secondary" >Forgot Password</v-toolbar-title>
             <div class="flex-grow-1"></div>
           </v-toolbar>
           <v-card-text>
@@ -26,7 +26,8 @@
                   block
                   center
                   outlined
-                  style="background: rgb(0, 0, 0, 0);color:white"
+                  color="secondary"
+                  style="background: rgb(0, 0, 0, 0);"
                   @click="resetPassword"
                 >Reset Password</v-btn>
               </v-flex>
@@ -35,8 +36,8 @@
               </v-flex>
               <v-flex xs12>
                 <v-card-text class="text-center pt-0">
-                  <router-link to="/login" style="color:#66FCF1">
-                    <v-icon style="color:white" class="mr-1">person</v-icon>Login
+                  <router-link to="/login" color="accent">
+                    <v-icon color="secondary" class="mr-1">person</v-icon>Login
                   </router-link>
                 </v-card-text>
               </v-flex>
@@ -60,6 +61,21 @@ export default {
   },
   methods: {
     resetPassword() {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
       if (this.$refs.forgot.validate()) {
         this.$store.commit("showProgressBar", {});
         let data = {
@@ -76,7 +92,7 @@ export default {
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "green",
+                color: success,
                 duration: 4000,
                 message: "Reset link send to your registered Email",
                 heading: "Success"
@@ -88,7 +104,7 @@ export default {
             ) {
               this.$store.commit("closeProgressBar", {});
               this.$store.commit("showSnackbar", {
-                color: "error",
+                color: error,
                 duration: 1000,
                 message: "Invalid Email ID.Try again",
                 heading: "Error"

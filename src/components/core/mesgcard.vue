@@ -39,9 +39,9 @@
             <span class="title font-weight-light" style="margin-top:-25px;">Testing Heading</span>
           </v-card-title> -->
 
-              <v-card-text  style="color: white">
+              <v-card-text  style="color:white" >
                 {{ message }}
-                <p class="mr-5" style="text-align: right; color: #e4ba18">
+                <p class="mr-5 " style="text-align: right;color:#E4BA18">
                   (Tausifur Rahman)
                 </p>
               </v-card-text>

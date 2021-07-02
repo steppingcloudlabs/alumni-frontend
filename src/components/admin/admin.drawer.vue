@@ -19,7 +19,7 @@
     </template> -->
 
     <v-list-item two-line>
-      <v-list-item-avatar color="white">
+      <v-list-item-avatar color="secondary">
         <img src="@/assets/avatar/download.jpg" />
         >
       </v-list-item-avatar>

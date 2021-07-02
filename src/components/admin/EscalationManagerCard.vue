@@ -18,7 +18,7 @@
             <v-icon color="error">mdi-delete</v-icon>
           </v-btn>
           <v-btn fab small text @click="addManagerDialog(escalationManager)">
-            <v-icon color="#1A265C">edit</v-icon>
+            <v-icon color="primary">edit</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -28,7 +28,7 @@
           <v-card-text style="color: black; height: 110px; line-height: 80px">No manager added</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="text-center white--text" color="#1A265C" @click="addManagerDialog({})">Add Manager</v-btn>
+            <v-btn class="text-center white--text" color="primary" @click="addManagerDialog({})">Add Manager</v-btn>
           </v-card-actions>
         </div>
       </v-card>

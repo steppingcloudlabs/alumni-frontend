@@ -7,17 +7,17 @@
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title style="color:#1A265C" class="pt-0">{{recentData[i].TITLE}}</v-card-title>
+          <v-card-title text-color="primary" style="color:#1A265C" class="pt-0">{{recentData[i].TITLE}}</v-card-title>
           <v-card-text style="font-size:15px">{{recentData[i].CONTENT}}</v-card-text>
         </v-flex>
         <v-flex xs12>
           <v-card-actions>
             <v-flex xs10></v-flex>
             <v-flex xs1>
-              <v-icon color="#1A265C" @click="showDeleteDialog(recentData[i])">mdi-delete</v-icon>
+              <v-icon color="primary" @click="showDeleteDialog(recentData[i])">mdi-delete</v-icon>
             </v-flex>
             <v-flex xs1>
-              <v-icon color="#1A265C" @click="showEventDialog(i)">edit</v-icon>
+              <v-icon color="primary" @click="showEventDialog(i)">edit</v-icon>
             </v-flex>
           </v-card-actions>
         </v-flex>
@@ -157,7 +157,7 @@ export default {
            vm.$store.commit("closeProgressBar", {});
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
-            color: "red",
+            color: "error",
             duration: 1000,
             message: error,
             heading: "Error",

@@ -1,6 +1,6 @@
 <template>
   <div class="ml-5 mr-5">
-    <v-toolbar color="#1A265C">
+    <v-toolbar color="primary">
       <v-tabs v-model="tab" fixed-tabs dark icons-and-text>
         <v-tabs-slider></v-tabs-slider>
 

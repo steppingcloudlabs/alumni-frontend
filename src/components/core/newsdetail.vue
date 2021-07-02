@@ -1,6 +1,6 @@
 <template>
   <div class="desktop-5" >
-    <div class="rectangle-9-two" style="background-color:white">
+    <div class="rectangle-9-two secondary" >
     <p class="titlenews" style="text-align:center">{{ getRenderNews.TITLE }}</p>
     <p class="date">{{ getRenderNews.DATE }}</p>
     <!-- <p class="titlenews" style="text-align:center">SuccessFactors announces XYZ ABC </p>

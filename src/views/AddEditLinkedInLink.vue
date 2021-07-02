@@ -9,7 +9,7 @@
           <a class="pa-2" @click="showlinkedInlinkInput = true">Add LINKEDIN Profile Link</a>
         </span>
         <span v-else >
-          <v-icon class="LINKEDIN-edit-wrapper" color="blue" @click="openlinkedInlinkProfile">mdi-linkedin</v-icon
+          <v-icon class="LINKEDIN-edit-wrapper" color="primary" @click="openlinkedInlinkProfile">mdi-linkedin</v-icon
           >
           <v-icon
             @click="showlinkedInlinkInput = true"

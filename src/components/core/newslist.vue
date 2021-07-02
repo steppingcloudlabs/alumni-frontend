@@ -165,6 +165,8 @@ border-radius: 0%;
 .newsimg{
     box-shadow: 0 4px 4px 0 black;
     width: 70px;
+    min-width:70px;
+    max-width:70px;
     height: 60px;
 }
 
@@ -178,8 +180,9 @@ border-radius: 0%;
    
   }
   .newsimg{
-      width:150px;
+      min-width:150px;
       height:100px!important;
+      max-width: 150px;
   }
 
   .mainimg{

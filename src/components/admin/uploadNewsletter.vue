@@ -8,11 +8,11 @@
       <v-flex xs4>
            <v-sheet
       class="v-sheet--offset ml-5"
-      color="#27293D"
+      color="primary"
       elevation="12"
       width="80px"
     >
-      <v-icon large color="white" class="mt-5 mb-5 ml-5">
+      <v-icon large color="secondary" class="mt-5 mb-5 ml-5">
      mdi-newspaper
       </v-icon>
     </v-sheet>
@@ -35,11 +35,11 @@
     </v-card-text>
       </v-flex>
       <v-flex xs12 >
-          <v-card-text style="text-align:right;color:white">
+          <v-card-text text-color="secondary" style="text-align:right;">
               <v-divider class="my-2"></v-divider>
              
-                 <v-btn  color="#27293D" @click="openInput" style="color:white" v-if="!getNewsletter">Upload</v-btn>
-                   <v-btn  color="#27293D" @click="openInput" style="color:white" v-else>Update</v-btn>
+                 <v-btn  color="primary" @click="openInput" style="color:white" v-if="!getNewsletter">Upload</v-btn>
+                   <v-btn  color="primary" @click="openInput" style="color:white" v-else>Update</v-btn>
                   <v-file-input  id="file" @change="openAvatarDialog" style="display: none"></v-file-input>
                 <!-- <v-icon
                     class="mr-2"

@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-dialog v-model="showNews" persistent max-width="600px">
         <v-card>
-          <v-toolbar class="mb-5">
+          <v-toolbar class="mb-5 primary">
             <v-toolbar-title class="ml-5">Add News</v-toolbar-title>
             <div class="flex-grow-1"></div>
           </v-toolbar>
@@ -109,7 +109,7 @@
             <v-btn color="error darken-1" text @click="closeDialog"
               >Close</v-btn
             >
-            <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
+            <v-btn color="primary darken-1" text @click="saveDialog">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

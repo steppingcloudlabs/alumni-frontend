@@ -2,7 +2,7 @@
   <v-layout row wrap >
     <v-dialog v-model="showAlumni" width="600px">
       <v-card>
-        <v-toolbar class="mb-5">
+        <v-toolbar class="mb-5 primary">
           <v-toolbar-title class="ml-5">Add Alumni</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
@@ -210,7 +210,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveDialog">Save</v-btn>
+          <v-btn color="primary darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -324,7 +324,7 @@ export default {
         this.$store.commit("closeProgressBar", {});
           console.log(error); //Exepection error....
           this.$store.commit("showSnackbar", {
-            color: "red",
+            color: "error",
             duration: 1000,
             message: error,
             heading: "Error",

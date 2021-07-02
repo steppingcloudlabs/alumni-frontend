@@ -6,7 +6,7 @@
     >
     
       <v-card>
-        <v-card-title class="headline  lighten-2" style="background:#272E50;color:white">
+        <v-card-title class="headline primary lighten-2" style="color:white">
          Welcome to AlumX
         </v-card-title>
 

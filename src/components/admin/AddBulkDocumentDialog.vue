@@ -40,7 +40,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="saveDialog">Upload</v-btn>
+          <v-btn color="primary darken-1" text @click="saveDialog">Upload</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

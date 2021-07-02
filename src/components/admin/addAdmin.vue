@@ -35,13 +35,13 @@
           <v-icon
             small
             class="mr-2"
-            color="#1A265C"
+            color="primary"
             @click="showDeleteDialog(item)"
             >delete</v-icon
           >
         </template>
       </v-data-table>
-      <p class="text-center text-white" style="background-color: #1a265c">
+      <p class="text-center text-white primary" >
         <pagination
           :next="next"
           :prev="prev"

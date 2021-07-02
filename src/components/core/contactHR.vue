@@ -2,8 +2,8 @@
   <v-layout row wrap>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
-        <v-toolbar>
-          <v-toolbar-title class="ml-5">Contact Us</v-toolbar-title>
+        <v-toolbar color="primary">
+          <v-toolbar-title text-color="secondary" class="ml-5">Contact Us</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
         <marquee-text :repeat="1"  class="pt-4 pl-9" style="font-size:12px;color:red">Check for FAQs before raising tickets.<a @click="faqsroutes">Click here to go to Faqs</a></marquee-text>
@@ -52,7 +52,7 @@
         <v-card-actions>
           <div class="flex-grow-1"></div>
           <v-btn color="error darken-1" text @click="closeDialog">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="sendDialog">Send</v-btn>
+          <v-btn color="primary darken-1" text @click="sendDialog">Send</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -130,6 +130,22 @@ export default {
       });
     },
     sendDialog() {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
+      
       if (this.$refs.contact.validate())
       {
      

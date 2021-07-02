@@ -1,11 +1,12 @@
 <template>
   <div class="ml-5 mr-5">
-    <v-toolbar color="#1A265C" flat>
+    <v-toolbar color="primary" flat>
       <v-btn
         class="button ml-2 mt-2"
         fab
         dark
-        color="primary"
+        outlined
+        color="secondary"
         :disabled="varProgress"
         @click="showDialog"
       >
@@ -15,7 +16,7 @@
           :size="30"
           :width="4"
           indeterminate
-          color="white"
+          color="secondary"
         ></v-progress-circular>
 
         <span v-else>

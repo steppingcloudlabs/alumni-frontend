@@ -6,7 +6,7 @@
         <v-flex xs5>
           <v-progress-circular
             class="text--center"
-            color="orange"
+            color="accent"
             indeterminate
             size="44"
           ></v-progress-circular>
@@ -115,7 +115,7 @@
                 src="@/assets/opportunities_bg.jpg"
                 class="img_transparent pa-5"
               >
-                <v-overlay absolute color="#2A3151">
+                <v-overlay absolute color="primary">
                   <v-card-title
                     class="jobtitle"
                     style="color: white; align: center; padding-top: 25px"
@@ -130,13 +130,13 @@
 
                   <v-flex xs6 >
                     <div class="white--text ml-4 pb-3">
-                      <v-icon class="jobicon" color="white">mdi-calendar</v-icon
+                      <v-icon class="jobicon" color="secondary">mdi-calendar</v-icon
                       >Start Date: <span v-if="item.POSTINGSTARTDATE"> {{ item.POSTINGSTARTDATE }}</span>
                       <span v-else>Not Available</span>
                     </div>
                   </v-flex>
                   <v-flex xs6 >
-                    <div class="white--text ml-4 pb-3" color="white">
+                    <div class="white--text ml-4 pb-3" color="secondary">
                       <v-icon class="jobicon" color="white"
                         >mdi-calendar</v-icon
                       >
@@ -146,7 +146,7 @@
                   </v-flex>
                   <v-flex xs6 >
                     <div class="white--text ml-4 ">
-                      <v-icon class="jobicon" color="white"
+                      <v-icon class="jobicon" color="secondary"
                         >mdi-map-marker</v-icon><span v-if="item.LOCATION">{{ item.LOCATION }}</span>
                          <span v-else>Not Available</span>
                     </div>
@@ -174,7 +174,7 @@
         <viewjob />
       </v-layout>
       <div v-else class="subtitle-1 mt-5">
-        <p class=" text-center">
+        <p class=" text-center secondary">
           No Jobs Available
           <v-img
             style="margin-right: auto; margin-left: auto"

@@ -22,8 +22,8 @@
                 class="text-capitalize"
                 @click="escalation"
               > Escalate</v-btn> -->
-                    <v-btn color="#1A265C" v-if="selectedQueryItem.ESCLATION" class="mt-2 white--text text-capitalize mr-2" @click="escalation">Escalate</v-btn>     
-                  <v-btn color="#1A265C" v-if="selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Reject Solution</v-btn>     
+                    <v-btn color="primary" v-if="selectedQueryItem.ESCLATION" class="mt-2 white--text text-capitalize mr-2" @click="escalation">Escalate</v-btn>     
+                  <v-btn color="primary" v-if="selectedQueryItem.RESOLVED" class="mt-2 white--text text-capitalize" @click="resolved">Reject Solution</v-btn>     
                   </v-card-title>
                
                   <v-divider class="my-0" />

@@ -19,7 +19,7 @@
           <v-img height="200px" v-else src="@/assets/news.png"></v-img>
         </v-flex>
         <v-flex xs8>
-          <v-card-title style="color:#1A265C" class="pt-0">{{ item.TITLE }}</v-card-title>
+          <v-card-title text-color="primary"  class="pt-0">{{ item.TITLE }}</v-card-title>
           <v-card-text style="font-size: 15px">{{
             item.CONTENT
           }}</v-card-text>

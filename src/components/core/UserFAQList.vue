@@ -2,8 +2,8 @@
   <v-layout row wrap>
     <v-flex xs12>
       <v-card class="mx-auto" flat tile style="margin-top:25px!important">
-        <v-toolbar color="#1A265C" class="mb-5">
-          <v-toolbar-title class="ml-5 white--text" >FAQs</v-toolbar-title>
+        <v-toolbar color="primary" class="mb-5">
+          <v-toolbar-title  class="ml-5 white--text" >FAQs</v-toolbar-title>
           <div class="flex-grow-1"></div>
         </v-toolbar>
         <v-row justify="center" v-if="getFaqList.length" color="primary">

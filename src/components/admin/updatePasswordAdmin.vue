@@ -140,7 +140,7 @@ export default {
           {
             this.$store.commit("closeProgressBar",{})
               this.$store.commit("showSnackbar", {
-          color: "green",
+          color: "success",
           duration: 1000,
           message: "Password Updated Sucessfully",
           heading: "Success"
@@ -150,7 +150,7 @@ export default {
           {
              this.$store.commit("closeProgressBar",{})
               this.$store.commit("showSnackbar", {
-          color: "red",
+          color: "error",
           duration: 1000,
           message: response.data.result,
           heading: "Error"

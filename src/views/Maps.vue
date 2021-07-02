@@ -55,7 +55,7 @@ export default {
         return this.$store.getters["userModule/getAlumniList"];
       },
       set(data) {
-        this.$store.commit("userModule/setAlumniList", this.data);
+        this.$store.commit("userModule/setAlumniList",data);
       },
     },
   },
@@ -174,11 +174,11 @@ export default {
 
     initMap() {
        this.$gmapApiPromiseLazy().then(() => {
-      var uluru = { lat: -25.344, lng: 131.036 };
+      var uluru = { lat:20.5937, lng: 78.9629 };
       // The map, centered at Uluru
 
       this.map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 2,
+        zoom: 4,
         center: uluru,
         styles: [
           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -319,11 +319,11 @@ export default {
                   infowindow.open(vm.map, vm.marker[i]);
                 });
                 if (i == vm.getAlumniList.length - 1) {
-                  var markerCluster = new MarkerClusterer(vm.map, vm.marker, {
-                    maxZoom: 10,
-                    imagePath:
-                      "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-                  });
+                  // var markerCluster = new MarkerClusterer(vm.map, vm.marker, {
+                  //   maxZoom: 10,
+                  //   imagePath:
+                  //     "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                  // });
                 }
               } else {
                 alert(

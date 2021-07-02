@@ -5,7 +5,7 @@
         <v-col cols="12" sm="8" md="5" style="margin-top:8%">
           <v-card class="elevation-12" style="background: rgb(0, 0, 0, .5); ">
             <v-toolbar flat outlined style="background: rgb(0, 0, 0, .5)">
-              <v-toolbar-title class="text-center" style="color:white">Change Password</v-toolbar-title>
+              <v-toolbar-title class="text-center" text-color="secondary" >Change Password</v-toolbar-title>
               <div class="flex-grow-1"></div>
             </v-toolbar>
             <v-card-text>
@@ -129,6 +129,21 @@ export default {
     },
     
     savePassword() {
+       let success
+      let error
+      let warning
+      if(this.$vuetify.theme.dark)
+      {
+        success=this.$vuetify.theme.themes.dark.success
+        error=this.$vuetify.theme.themes.dark.error;
+        warning=this.$vuetify.theme.themes.dark.warning
+      }
+      else
+      {
+        success=this.$vuetify.theme.themes.light.success
+        error=this.$vuetify.theme.themes.light.error;
+        warning=this.$vuetify.theme.themes.light.warning
+      }
       if (this.$refs.passwordChange.validate()) {
         this.$store.commit("showProgressBar", {});
         this.$store.dispatch("userModule/changePassword",{payload:{NEWPASSWORD:this.password,OLDPASSWORD:this.oldpassword,EMAIL:this.userData,USERTYPE:"user"}}).then(response=>{
@@ -136,7 +151,7 @@ export default {
           {
             this.$store.commit("closeProgressBar",{})
               this.$store.commit("showSnackbar", {
-          color: "green",
+          color: success,
           duration: 1000,
           message: "Password Updated Sucessfully",
           heading: "Success"
@@ -146,7 +161,7 @@ export default {
           {
              this.$store.commit("closeProgressBar",{})
               this.$store.commit("showSnackbar", {
-          color: "red",
+          color: error,
           duration: 1000,
           message: response.data.result,
           heading: "Error"
