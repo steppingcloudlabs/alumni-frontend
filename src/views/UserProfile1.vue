@@ -489,21 +489,7 @@ export default {
      elem.click()
     },
     saveProfileLink(data) {
-       let success
-      let error
-      let warning
-      if(this.$vuetify.theme.dark)
-      {
-        success=this.$vuetify.theme.themes.dark.success
-        error=this.$vuetify.theme.themes.dark.error;
-        warning=this.$vuetify.theme.themes.dark.warning
-      }
-      else
-      {
-        success=this.$vuetify.theme.themes.light.success
-        error=this.$vuetify.theme.themes.light.error;
-        warning=this.$vuetify.theme.themes.light.warning
-      }
+     
       let datam = {
         payload: {
           USERID: this.user.employeeId,
@@ -514,7 +500,7 @@ export default {
         if (response.data.status == 200) {
           this.$store.commit("showSnackbar", {
             message: "Profile link updated successfully",
-            color: success,
+            color: "success",
             heading: "Success",
             duration: 3000,
           });
