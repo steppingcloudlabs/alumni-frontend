@@ -15,19 +15,10 @@
       :key="i"
     >
       <v-card
-        style="
-          font-size: 20px;
-          border-radius: 6px;
-          box-shadow: 15px 15px 40px -10px #d3d3d3;
-          margin-top: 5px;
-          background-color: white;
-          text-align: center;
-          min-height:190px;
-        
-        "
+        :style="cardStyle"
       >
-        <v-card-title style="background-color:#1A265C">
-          <v-icon large left color="white"> {{ card.icon }}</v-icon>
+        <v-card-title :style="cardheadStyle">
+          <v-icon large left color="secondary"> {{ card.icon }}</v-icon>
           <br />
           <span class="title font-weight-light" style="color:white">{{ card.text}}</span>
         </v-card-title>
@@ -40,7 +31,7 @@
       <v-btn
         x-large
         tile
-        color="#E4BA18"
+        color="accent"
         style="margin-top: 10px; color:#1A265C"
         class="text-capitalize"
         @click="navtologin"
@@ -64,6 +55,29 @@ export default {
         { icon: "mdi-account-search", text: "Search Alumni Directory" ,body:"The alumni directory allows ex-employees to connect easily with other talents of your network. Both network members and external recruiters can submit job offers to the community."},
       ],
     };
+  },
+  computed:
+  {
+      cardheadStyle() {
+      
+          return {
+        
+            background: this.$vuetify.theme.themes.light.primary
+     
+          }
+       },
+       cardStyle()
+       {
+         return{
+          fontSize: '20px',
+          borderRadius: '6px',
+          boxShadow: '15px 15px 40px -10px #d3d3d3',
+          marginTop: '5px',
+          backgroundColor: this.$vuetify.theme.themes.light.secondary,
+          textAlign: 'center',
+          minHeight:'190px',
+         }
+       }
   },
   methods: {
     navtologin() {

@@ -9,7 +9,7 @@
     mobile-break-point="991"
     persistent
     width="260"
-    style="margin-top:60px;background-image: linear-gradient(to top, rgba(226, 198, 92, 0.7), rgba(26, 38, 92, 0.7));"
+    :style="drawerStyle"
    
     
   >
@@ -151,6 +151,13 @@ export default {
   },
 
   computed: {
+    drawerStyle() {
+      return {
+        backgroundImage: 'linear-gradient(to bottom,'+ this.$vuetify.theme.themes.light.primary+','+this.$vuetify.theme.themes.light.accent+')',
+        marginTop: '60px',
+        
+      }
+    },
     userData() {
       return this.$store.getters["userModule/getUserData"]
         ? this.$store.getters["userModule/getUserData"]

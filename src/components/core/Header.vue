@@ -9,6 +9,7 @@
       align-center
       class="header-wrapper"
       :class="hasScrolled ? '' :'header-transparent'"
+      :style="headerStyle"
       
     >
       <v-flex xs3>
@@ -88,7 +89,20 @@ export default {
         return true
       }
    
-    }
+    },
+     headerStyle() {
+       if(this.handleScroll)
+       {
+          return {
+        
+        backgroundImage: 'linear-gradient(to left,'+ this.$vuetify.theme.themes.light.primary+','+this.$vuetify.theme.themes.light.accent+')',
+        
+      }
+       }
+     
+     
+    },
+
   },
   created() {
     window.addEventListener('scroll', this.handleScroll);
@@ -130,7 +144,7 @@ export default {
   top: 0;
   width: 100%;
   z-index: 1009;
-  background-image: linear-gradient(to left, rgba(26, 38, 92, 0.7), rgba(226, 198, 92, 0.7));
+  
   padding-top: 2px;
   min-height: 50px;
 }

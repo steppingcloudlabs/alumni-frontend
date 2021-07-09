@@ -82,6 +82,18 @@ export default {
   },
   mounted() {
     // this.$store.dispatch("authenticate");
+  },
+  beforeMount()
+  {
+    this.$store.dispatch('userModule/getColorTheme',{}).then((response)=>
+    {
+      if(response.status=="200")
+      {
+         Object.keys(response.result).forEach(i => {
+        this.$vuetify.theme.themes.light[i]=response.result[i];
+      });
+      }
+    })
   }
 };
 </script>

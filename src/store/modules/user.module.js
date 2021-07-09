@@ -1067,6 +1067,37 @@ export default {
                     reject(error)
                 })
             })
+        },
+
+        getColorTheme: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+"/user/setting/theme/getcolor",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        
+                    },
+                  
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response.data)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
         }
     }
 }

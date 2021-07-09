@@ -9,6 +9,7 @@ import {
 export default {
     namespaced: true,
     state: {
+        themeDialog:false,
         newsletter:"",
         reloadEsclation:false,
         showBulkAlumni:false,
@@ -588,12 +589,19 @@ export default {
 
         savedUserObjectId: (state, data) => {
             state.userObjectId = data
+        },
+
+        setShowTheme:(state,data)=>
+        {
+          state.themeDialog=data
         }
-
-
 
     },
     getters: {
+        getshowThemeDialog:(state)=>
+        {
+           return state.themeDialog
+        },
         getNewsletter:(state)=>
         {
                return state.newsletter
@@ -725,7 +733,7 @@ export default {
             return new Promise((resolve, reject) => {
                 axios({
                     method: 'POST',
-                    url: baseurl()+'/admin/action/news/create',
+                    url:'/admin/action/news/create',
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization":"Bearer " + tok.token
@@ -2450,6 +2458,67 @@ export default {
 
             })
         },
+        getColorTheme: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+"/admin/action/theme/getcolor",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                  
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response.data)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+
+        updateColorTheme: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'POST',
+                    url: baseurl()+"/admin/action/theme/updatecolor",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization":"Bearer " + tok.token
+                    },
+                    data:data
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response.data)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        }
 
         
 

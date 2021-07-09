@@ -2,7 +2,7 @@
   <v-footer
     light
     width="100%"
-    style="background-image: linear-gradient( to top,rgba(26, 38, 92, 0.7),rgba(226, 198, 92, 0.7));"
+    :style="appbarStyle"
   >
     <v-card
       flat
@@ -79,5 +79,18 @@ export default {
       { text: "     011 4132 6689", icon: "mdi-phone" },
     ],
   }),
+  computed:
+  {
+    appbarStyle() {
+      
+          return {
+        
+        backgroundImage: 'linear-gradient(to top,'+ this.$vuetify.theme.themes.light.primary+','+this.$vuetify.theme.themes.light.accent+')',
+       
+       }
+     
+     
+    },
+  }
 };
 </script>

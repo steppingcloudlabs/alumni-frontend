@@ -8,13 +8,15 @@
     floating
     mobile-break-point="991"
     persistent
-    style="margin-top: 60px;background-image: linear-gradient(to top, rgba(226, 198, 92, 0.7), rgba(26, 38, 92, 0.7));"
+    :style="drawerStyle"
+    
     width="260"
   >
     <!-- <template v-slot:img="attrs">
       <v-img
         v-bind="attrs"
         gradient="to top, rgba(226, 198, 92, .7), rgba(26, 38, 92, .7)"
+        style="margin-top: 60px;background-image: linear-gradient(to top, rgba(226, 198, 92, 0.7), rgba(26, 38, 92, 0.7));"
       />
     </template> -->
 
@@ -115,6 +117,13 @@ export default {
     ],
   }),
   computed: {
+     drawerStyle() {
+      return {
+        backgroundImage: 'linear-gradient(to bottom,'+ this.$vuetify.theme.themes.light.primary+','+this.$vuetify.theme.themes.light.accent+')',
+        marginTop: '60px',
+        
+      }
+    },
     showDrawer: {
       set(data) {
         this.$store.commit("adminModule/setshowDrawer", data);

@@ -1,5 +1,5 @@
 <template>
-     <v-card type="chart" color="#27293D" class="pa-5 mb-7" dark>
+     <v-card type="chart" color="primary" class="pa-5 mb-7" dark>
         
             <div class="row">
               <div class="col-sm-4">

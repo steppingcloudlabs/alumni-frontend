@@ -13,7 +13,7 @@
       width="80px"
     >
       <v-icon large color="secondary" class="mt-5 mb-5 ml-5">
-     mdi-newspaper
+     mdi-palette
       </v-icon>
     </v-sheet>
    
@@ -22,13 +22,7 @@
       <v-flex xs8>
            <v-card-text class="pt-0" style="height:100px">
       <div class="title font-weight-light mb-2 mt-2 ml-5">
-       Newsletter
-      </div>
-      <div class="subheading font-weight-light blue--text"  v-if="getNewsletter">
-           <p @click="download" style="cursor: pointer" >Download NewsLetter</p>
-      </div>
-       <div class="subheading font-weight-light grey--text" v-else>
-           <p>No NewsLetter Available</p>
+       Theme Settings
       </div>
      
       
@@ -38,9 +32,8 @@
           <v-card-text text-color="secondary" style="text-align:right;">
               <v-divider class="my-2"></v-divider>
              
-                 <v-btn  color="primary" @click="openInput" style="color:white" v-if="!getNewsletter">Upload</v-btn>
-                   <v-btn  color="primary" @click="openInput" style="color:white" v-else>Update</v-btn>
-                  <v-file-input  id="file" @change="openAvatarDialog" style="display: none"></v-file-input>
+                 <v-btn  color="primary" @click="openInput" style="color:white" >Change Theme Settings</v-btn>
+                  
                 <!-- <v-icon
                     class="mr-2"
                     small
@@ -52,78 +45,42 @@
       </v-flex>
   </v-layout>
    
-   
+   <themepicker></themepicker>
   </v-card>
 </template>
 
 <script>
-
+  import themepicker from "@/components/admin/themePicker.vue"
   export default {
     data: () => ({
      
     }),
-
-   props: {
-   titleHead: {
-      type: String,
-      default: undefined,
-    },
-    lastStatus: {
-      type: String,
-      default: "Not Uploaded Yet",
-    },
-    icon:{
-      type:String,
-      default: undefined
-    },
-    getList:
-    {
-    type:Array,
-    default:[]
-    }
-  }, 
+   components:
+   {
+      themepicker
+   },
+   
   computed:{
-      getNewsletter: {
+      showTheme: {
       get() {
-        return this.$store.getters["adminModule/getNewsletter"];
+        return this.$store.getters["adminModule/getshowThemeDialog"];
       },
       set(data) {
-        this.$store.commit("adminModule/setNewsletter",data);
+        this.$store.commit("adminModule/setShowTheme", data);
       },
     },
  
   },
   methods:{
-      download()
-      {
-          const downloadLink = document.createElement("a");
-                    const fileName = "newsletter.pdf";
-
-                    downloadLink.href = this.getNewsletter;
-                    downloadLink.download = fileName;
-                    downloadLink.click();
-      },
+     
        openInput()
     {
-     var elem=document.getElementById("file")
-     elem.click()
+     this.showTheme=true
     },
-       openAvatarDialog(file) {
-      var vm=this
-      console.log(file)
-       var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        console.log(reader.result);
-        
-        this.getNewsletter=reader.result
-   
-      };
-      reader.onerror = function (error) {
-        console.log("Error: ", error);
-      };
+       
+    
      
-    },
+    
   } 
   }
 </script>
