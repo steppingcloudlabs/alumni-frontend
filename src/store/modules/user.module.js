@@ -30,10 +30,18 @@ export default {
         EventList:[],
         alumniList:[],
         renderNews: {},
-        tourDialog:false
+        tourDialog:false,
+        dynamicImage:[],
+        logo:"undefined"
     },
     mutations: {
-
+         
+        setDynamicImage: (state, data) => {
+            state.dynamicImage = data;
+        },
+        setLogo: (state, data) => {
+            state.logo = data;
+        },
         setTourDialog: (state, data) => {
             state.tourDialog = data;
         },
@@ -167,7 +175,13 @@ export default {
 
     },
     getters: {
-        
+        getDynamicImage: (state) =>  {
+            return state.dynamicImage
+        },
+        getLogo: (state) =>  {
+            return state.logo
+        },
+
         getTourDialog: (state) =>  {
             return state.tourDialog
         },
@@ -1098,6 +1112,37 @@ export default {
                     reject(error)
                 })
             })
-        }
+        },
+        getDynamicImage: ({
+            state,
+            commit
+        }, data) => {
+            let tok=[]
+            addTokenToPayload(tok)
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'GET',
+                    url: baseurl()+"/user/setting/theme/getDynamicImage?query="+data,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        
+                    },
+                  
+                }).then((response) => {
+                    if (response && response.data && response.data.status == "400" && response.data.result == "Token expired, Please Login Again") {
+                        deleteExpiredToken()
+                        navigateToHome()
+                        commit('showSessionExpiredError', {}, {
+                            root: true
+                        })
+                    } else {
+                    resolve(response.data)
+                    }
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+
     }
 }

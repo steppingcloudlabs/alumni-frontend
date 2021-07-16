@@ -5,9 +5,29 @@
         <v-toolbar class="mb-5 primary">
           <v-toolbar-title class="ml-5 white--text " >Change Theme</v-toolbar-title>
           <div class="flex-grow-1"></div>
+          <template v-slot:extension>
+                <v-tabs
+                v-model="tab"
+                grow
+                color="secondary"
+                 light
+                >
+                <v-tabs-slider color="secondary"></v-tabs-slider>
+
+                <v-tab
+                    v-for="item in items"
+                    :key="item"
+                     
+                >
+                    {{ item }}
+                </v-tab>
+                </v-tabs>
+            </template>
         </v-toolbar>
-        
-        <v-card-text>
+        <v-tabs-items v-model="tab">
+            <v-tab-item >
+                <v-card>
+                <v-card-text>
            <v-row justify="center" align="center">
 			<v-col md="4" class="shrink" >
                 Primary
@@ -72,6 +92,16 @@
           <v-btn color="error darken-1" text @click="closeDialog">Close</v-btn>
           <v-btn color="primary darken-1" text @click="saveDialog">Save</v-btn>
         </v-card-actions>
+                </v-card>
+     
+            </v-tab-item>
+            <v-tab-item >
+              <Dynamicimage></Dynamicimage>
+            </v-tab-item>
+            <v-tab-item >
+              <Dynamicimage></Dynamicimage>
+            </v-tab-item>
+    </v-tabs-items>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -80,10 +110,12 @@
 <script>
 import moment from "moment";
 import colorpick from "@/components/admin/colorpicker.vue"
+import Dynamicimage from "./dynamicImage.vue"
 export default {
     components:
     {
-      colorpick
+      colorpick,
+      Dynamicimage
     },
   computed: {
     
@@ -98,7 +130,9 @@ export default {
   },
   data() {
     return {
-        color:'#1976D2FF',
+        tab: null,
+        items: ['Color', 'Images', 'Director'],
+        
       titleRules: [(v) => !!v || "Title is required"],
       bodyRules: [(v) => !!v || "Body is required"],
       date: new Date().toISOString().substr(0, 10),
@@ -158,7 +192,7 @@ export default {
                                 color: "error",
                                 duration: 1000,
                                 message: response.result,
-                                heading: "Success"
+                                heading: "error"
                                 })
            }
 
@@ -168,7 +202,7 @@ export default {
                                 color: "error",
                                 duration: 1000,
                                 message: error,
-                                heading: "Success"
+                                heading: "error"
                                 })
        })
       },
@@ -206,7 +240,7 @@ export default {
                                 color: "error",
                                 duration: 1000,
                                 message: response.result,
-                                heading: "Success"
+                                heading: "error"
                                 })
            }
 
@@ -216,7 +250,7 @@ export default {
                                 color: "error",
                                 duration: 1000,
                                 message: error,
-                                heading: "Success"
+                                heading: "error"
                                 })
        })
      

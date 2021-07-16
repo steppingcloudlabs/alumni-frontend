@@ -13,7 +13,7 @@
       
     >
       <v-flex xs3>
-        <img src="@/assets/alumx-logo-1.png"  class="mb-2 logo" />
+        <img :src="getLogo!='undefined'?getLogo:'@/assets/alumx-logo-1.png'"  class="mb-2 logo" />
       </v-flex>
       <v-flex xs9 class="text-right">
         <div class="menu-wrapper">
@@ -57,6 +57,7 @@ export default {
   },
   data() {
     return {
+      
       scrollValue:0,
       eligible:true,
       companyData: data,
@@ -76,7 +77,16 @@ export default {
       ]
     };
   },
+ 
   computed:{
+    getLogo: {
+      get() {
+        return this.$store.getters["userModule/getLogo"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setLogo", data);
+      },
+    },
  
     hasScrolled()
     {
@@ -102,12 +112,16 @@ export default {
      
      
     },
+     
+    
 
   },
+   
   created() {
     window.addEventListener('scroll', this.handleScroll);
-
+     this.getLogo()
     console.log(this.$route);
+    
   },
   destroyed()
   {
@@ -115,11 +129,16 @@ export default {
   },
   
   methods: {
+    async getLogo()
+    {
+     let x = await this.$store.dispatch("userModule/getDynamicImage", "LOGO");
+     this.getLogo=x.result.url;
+    },
     handleScroll()
     {
       
      this.scrollValue=window.pageYOffset
-     
+  
     },
     navtologin() {
       this.$router.push({ path: "/login" });

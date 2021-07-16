@@ -80,10 +80,21 @@ export default {
       ]
     };
   },
+   computed: {
+    
+    getDynamicImage: {
+      get() {
+        return this.$store.getters["userModule/getDynamicImage"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setDynamicImage", data);
+      },
+    },
+  },
   mounted() {
     // this.$store.dispatch("authenticate");
   },
-  beforeMount()
+  beforeCreate()
   {
     this.$store.dispatch('userModule/getColorTheme',{}).then((response)=>
     {
@@ -94,7 +105,27 @@ export default {
       });
       }
     })
+
+    this.getImages()
+   
+  },
+  methods:{
+    async getImages()
+    {
+      let final=[]
+      let query=["LOGO","LANDINGIMAGE1","LANDINGIMAGE2","LANDINGIMAGE3","LANDINGIMAGE4"]
+      for(let i=0;i<query.length;i++)
+      {
+        let x = await this.$store.dispatch("userModule/getDynamicImage", query[i]);
+        final.push(x.result)
+      }
+      let resolvedArray = await Promise.all(final);
+      console.log(resolvedArray)
+      this.getDynamicImage=resolvedArray
+    }
   }
+  
+  
 };
 </script>
 

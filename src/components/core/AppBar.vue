@@ -3,7 +3,7 @@
     <v-toolbar :style="appbarStyle"
     >
       <v-icon class="drawericon" large @click="getDrawer">mdi-menu</v-icon>
-      <img src="@/assets/alumx-logo-1.png" class="mb-5 ml-5 logo" />
+      <img :src="getLogo!='undefined'?getLogo:'@/assets/alumx-logo-1.png'" class="mb-5 ml-5 logo" />
       <v-layout row wrap align-center>
         <v-flex xs12>
           <SearchAlumni />
@@ -104,6 +104,14 @@ export default {
       },
       get() {
         return this.$store.getters["userModule/getshowDrawer"];
+      },
+    },
+     getLogo: {
+      get() {
+        return this.$store.getters["userModule/getLogo"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setLogo", data);
       },
     },
   },

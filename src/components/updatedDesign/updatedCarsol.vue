@@ -7,7 +7,7 @@
     show-arrows-on-hover
     cycle
   >
-    <v-carousel-item v-for="(slide, i) in items" :key="i" :src="items[i].src">
+    <v-carousel-item v-for="(slide, i) in getDynamicImage" :key="i" :src="getDynamicImage[i].url">
       <!-- <v-overlay :absolute="true" color="black"> -->
       <v-row class="fill-height" align="center" justify="center"> </v-row>
       <!-- </v-overlay> -->
@@ -16,29 +16,80 @@
 </template>
 <script>
 export default {
+  computed:
+  {
+     getDynamicImage: {
+      get() {
+        return this.$store.getters["userModule/getDynamicImage"];
+      },
+      set(data) {
+        this.$store.commit("userModule/setDynamicImage", data);
+      },
+    },
+    // items()
+    // {
+    //   return [
+    //     {
+    //       src: this.getDynamicImage[1]["url"],
+    //       text: "test",
+    //     },
+    //     {
+    //       src: this.getDynamicImage[2]["url"],
+    //     },
+    //     {
+    //       src: this.getDynamicImage[3]["url"],
+    //     },
+    //     {
+    //       src: this.getDynamicImage[4]["url"],
+    //     },  
+    //   ]
+    //   }
+    
+  },
   data() {
     return {
-      items: [
-        {
-          src: require("@/assets/assets/landingA.jpg"),
-          text: "test",
-        },
-        {
-          src: require("@/assets/assets/landingI.jpg"),
-        },
-        {
-          src: require("@/assets/assets/landingG.jpg"),
-        },
-        {
-          src: require("@/assets/assets/landingH.jpg"),
-        },
-        // {
-        //   src: require("@/assets/shutterstock/landing1.jpg"),
-        // src: require("@/assets/compresspng/landingF-min.png"),
-        // }
-      ],
+      // items: [
+      //   {
+      //     src: "http://localhost:8000/user/setting/theme/getDynamicImage?query=LANDINGIMAGE1",
+         
+      //   },
+      //   {
+      //     src: "http://localhost:8000/user/setting/theme/getDynamicImage?query=LANDINGIMAGE1",
+      //   },
+      //   {
+      //     src: "http://localhost:8000/user/setting/theme/getDynamicImage?query=LANDINGIMAGE1",
+      //   },
+      //   {
+      //     src: "http://localhost:8000/user/setting/theme/getDynamicImage?query=LANDINGIMAGE1",
+      //   },  
+      //   // {
+      //   //   src: require("@/assets/shutterstock/landing1.jpg"),
+      //   // src: require("@/assets/compresspng/landingF-min.png"),
+      //   // }
+      // ],
     };
   },
+  beforeMount()
+  {
+     this.getImages()
+  },
+  methods:
+  {
+    async getImages()
+    {
+      let final=[]
+      let query=["LANDINGIMAGE1","LANDINGIMAGE2","LANDINGIMAGE3","LANDINGIMAGE4"]
+      for(let i=0;i<query.length;i++)
+      {
+        let x = await this.$store.dispatch("userModule/getDynamicImage", query[i]);
+        final.push(x.result)
+      }
+      let resolvedArray = await Promise.all(final);
+      console.log(resolvedArray)
+      this.getDynamicImage=resolvedArray
+    }
+  }
+  
 };
 </script>
 <style >
